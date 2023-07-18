@@ -1,0 +1,100 @@
+---
+date: 2022-10-17
+lesson: PrePro2
+thema: Piping / Joins
+index: 3
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# Prepro 2: Übung B
+
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Benötigte Packages
+library(dplyr)
+library(readr)
+```
+
+## Aufgabe 1
+
+Gegeben sind die Daten von drei Sensoren ([sensor1.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602226), [sensor2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602229), [sensor3.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602228)). Lade die Datensätze runter und lese sie ein.
+
+```{r}
+sensor1 <- read_delim("datasets/prepro/sensor1.csv",";")
+sensor2 <- read_delim("datasets/prepro/sensor2.csv",";")
+sensor3 <- read_delim("datasets/prepro/sensor3.csv",";")
+```
+
+## Aufgabe 2
+
+Erstelle aus den 3 Dataframes eine einzige Dataframe, die aussieht wie unten dargestellt. Nutze dafür zwei joins aus `dplyr` um 3 `data.frames` miteinander zu verbinden. Bereinige im Anschluss die Spaltennamen ([wie geht das?](https://www.statology.org/how-to-rename-data-frame-columns-in-r/)).
+
+```{r}
+sensor1_2 <- full_join(sensor1, sensor2, "Datetime")
+
+sensor1_2 <- rename(sensor1_2, sensor1 = Temp.x, sensor2 = Temp.y)
+
+sensor_all <- full_join(sensor1_2, sensor3, by = "Datetime")
+
+sensor_all <- rename(sensor_all, sensor3 = Temp)
+
+
+```
+
+```{r}
+#| echo: false
+#| output: true
+
+knitr::kable(head(sensor_all))
+```
+
+## Aufgabe 3
+
+Importiere die Datei [sensor_fail.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602230) in `R`.
+
+```{r}
+sensor_fail <- read_delim("datasets/prepro/sensor_fail.csv", delim = ";")
+```
+
+`sensor_fail.csv` hat eine Variabel `SensorStatus`: `1` bedeutet der Sensor misst, `0` bedeutet der Sensor misst nicht. Fälschlicherweise wurde auch dann der Messwert `Temp = 0` erfasst, wenn `Sensorstatus = 0`. Richtig wäre hier `NA` (not available). Korrigiere den Datensatz entsprechend.
+
+```{r}
+#| echo: false
+knitr::kable(sensor_fail)
+```
+
+```{r}
+# mit base-R: 
+sensor_fail$Temp_correct[sensor_fail$SensorStatus == 0] <- NA
+
+# das gleiche mit dplyr:
+sensor_fail <- sensor_fail |>
+  mutate(Temp_correct = ifelse(SensorStatus == 0, NA, Temp))
+
+```
+
+## Aufgabe 4
+
+Warum spielt das es eine Rolle, ob `0` oder `NA` erfasst wird? Berechne die Mittlere der Temperatur / Feuchtigkeit nach der Korrektur. 
+
+```{r}
+
+# Mittelwerte der falschen Sensordaten: 0 fliesst in die Berechnung 
+# ein und verfälscht den Mittelwert
+mean(sensor_fail$Temp)
+
+# Mittelwerte der korrigierten Sensordaten: mit na.rm = TRUE werden 
+# NA-Werte aus der Berechnung entfernt. 
+mean(sensor_fail$Temp_correct, na.rm = TRUE)
+```
+

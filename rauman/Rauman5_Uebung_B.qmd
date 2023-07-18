@@ -1,0 +1,168 @@
+---
+date: 2022-12-12
+lesson: RaumAn5
+thema: Multi-Criteria Evaluation (MCE)
+index: 1
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true  
+---
+
+# Rauman 5: Übung B
+
+In der letzten Übung (Übung A) haben wir die potentielle Standorte für Windkraftanalgen hinsichtlich vierer Distanzkriterien bewertet. In dieser Übung (Übung B) schliessen wir die Multikriterien-Evaluation ab, in dem wir:
+
+1. Folgende Kriterien mitberücksichtigen: Windgeschwindigkeit, Vereisungshäufigkeit und Hangneigung
+2. Die *Ausschlusskriterien* vom Resultat ausschliessen
+
+Für Punkt 1 müssen wir zusätzliche Daten einlesen, die im Rasterformat daherkommen. Punkt 2 beruht im Wesentlichen auf Daten, die wir bereits verwendet haben.
+
+```{r}
+#| echo: false
+#| output: false
+tempr <- tempfile(fileext = ".R")
+knitr::purl("rauman/Rauman5_Uebung_A.qmd",output = tempr)
+source(tempr)
+```
+
+<!--
+3. Je höher die Windgeschwindigkeit ist
+4. Je geringer die Vereisungshäufigkeit ist
+5. Je geringer die Hangneigung ist
+-->
+
+## Aufgabe 1: Rasterdaten einlesen
+
+Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns folgender *wind250m.tif* zur Verfügung (siehe @tbl-mce-data). Lade den Datensatz herunter und mit der Funktion `rast()` in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen. 
+
+```{r}
+wind250m <- rast("datasets/rauman/wind250m.tif")
+```
+
+```{r}
+#| fig-cap: Datensatz 'wind250m' zur Windgeschwindigkeit in m pro Sekunde
+
+tm_shape(wind250m) + 
+  tm_raster(style = "cont") 
+```
+
+## Aufgabe 2: Wind bewerten
+
+Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in @tbl-bewerungstabelle-other festgehalten sind.
+
+
+```{r}
+#| layout-ncol: 2
+
+#### reclassify wind
+
+wind_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,  20, 0.0,
+   20,  30, 0.2,
+   30,  40, 0.4,
+   40,  50, 0.6,
+   50,  60, 0.8,
+   60, Inf, 1.0
+) 
+
+wind_klassen <- as.matrix(wind_klassen)
+
+wind_classify <- classify(wind250m, wind_klassen)
+```
+
+## Aufgabe 3: Slope berechnen und Bewerten
+
+Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell *dhm250m.tif* herunter (siehe @tbl-mce-data) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
+
+Bewerten Sie die Hangneigung danach gemäss Tabelle @tbl-bewerungstabelle-other. 
+
+```{r}
+dhm250m <- rast("datasets/rauman/dhm250m.tif")
+
+neigung <- terrain(dhm250m, v="slope", unit="degrees")
+
+#### reclassify slope
+neigung_klassen <- tribble(
+  ~von, ~bis, ~zu,
+    0,   4, 1.0,
+    4,   8, 0.8,
+    8,  12, 0.6,
+   12,  16, 0.4,
+   16,  20, 0.2,
+   20,  90, 0.0
+) 
+
+neigung_klassen <- as.matrix(neigung_klassen)
+
+neigung_classify <- classify(neigung, neigung_klassen)
+```
+
+<div class="mce-table">
+
+```{r}
+#| label: tbl-bewerungstabelle-other
+#| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
+#| echo: false
+library(kableExtra)
+
+cbind(wind_klassen, neigung_klassen) |>
+  kbl() |>
+  kable_classic( )  |>
+  add_header_above(c("Windgeschwindigkeit" = 3, "Hangneigung" = 3))
+```
+
+</div>
+
+## Aufgabe 4: Raster Overlay {#sec-raster-overlay2}
+
+Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.
+
+```{r}
+#| fig-cap: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete
+#| label: fig-overlay3
+
+overlay_prelim_3 <- (strassen_classify + schutzgebiete_classify + wind_classify + neigung_classify)/4
+
+tm_shape(overlay_prelim_3) + 
+  tm_raster(palette = "-Spectral", breaks = seq(0,1,0.2), style = "cont", title = "Eignung") +
+  tm_layout(frame = FALSE)
+```
+
+## Aufgabe 5: Ausschlusskriterien 
+
+Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. (Zwar werden Schutzgebiete in unserer Analyse bereits berücksichtigt, aber nicht kategorisch vom Resultat ausgeschlossen.)
+
+```{r}
+#| echo: true
+schutzgebiete <- read_sf(gpkg_path, "Nationale_Schutzgebiete")  |> st_transform(2056)
+siedlungsgebiet <- read_sf(gpkg_path, "Bewohnte_Flaeche")  |> st_transform(2056)
+wald <- read_sf(gpkg_path, "Waldgebiete")  |> st_transform(2056)
+seen <- read_sf(gpkg_path, "Seeflaechen")  |> st_transform(2056)
+kt_schwyz <- read_sf(gpkg_path, "Untersuchungsgebiet_Schwyz")  |> st_transform(2056)
+
+```
+
+
+Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion `mask()` verwenden (siehe @sec-rauman5-mask). Doch diesmal möchten wir nicht die Flächen *ausserhalb* der Polygone mit `NA` ersetzen, sondern die Flächen *innerhalb* der Polygone. Deshalb verwenden wir `mask()` mit dem Argument `inverse = TRUE`.
+
+Versuche mit `mask()`, den oben erwähnten Vektordatensätze sowie der Option `inverse = TRUE` die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.
+```{r}
+overlay_prelim_4 <- overlay_prelim_3 |>
+  mask(schutzgebiete, inverse = TRUE) |>
+  mask(siedlungsgebiet, inverse = TRUE) |>
+  mask(wald, inverse = TRUE) |>
+  mask(seen, inverse = TRUE) |>
+  mask(kt_schwyz)
+
+tmap_mode("view")
+
+tm_shape(overlay_prelim_4) +
+  tm_raster(palette = "-Spectral", breaks = seq(0,1,0.2), style = "cont",alpha = 0.6) +
+  tm_basemap("Esri.WorldImagery")
+```

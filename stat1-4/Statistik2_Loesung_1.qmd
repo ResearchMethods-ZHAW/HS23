@@ -1,0 +1,192 @@
+---
+date: 2022-11-01
+lesson: Stat2
+thema: Einführung in lineare Modelle
+index: 4
+format:
+  html:
+    code-tools:
+      source: true
+---
+
+# Stat2: Lösung 2.1
+
+-   Download dieses Lösungsscript via "\</\>Code" (oben rechts)
+-   [Lösungstext als Download](Statistik_Loesung_2.1.pdf)
+
+## Daten einlesen und exlporieren
+
+```{r}
+
+SAR <- read.delim("datasets/statistik/SAR.csv", sep = ";") # Daten einlesen
+head(SAR) # Daten anschauen
+str(SAR) # Datenformat überprüfen
+```
+
+```{r}
+
+summary(SAR) # Überblick verschaffen
+```
+
+```{r}
+
+boxplot(SAR$area) # Boxplot der Flächengrösse
+```
+
+-\> Erklärende Variable extrem rechtsschief.
+
+```{r}
+
+boxplot(SAR$richness) # Boxplot der Artenzahl
+```
+
+-\> Auch abhängige Variable extrem rechtsschief.
+
+```{r}
+
+plot(richness~area, data = SAR) # Daten plotten
+```
+
+-\> Zusammenhang sieht nicht linear aus.
+
+**Fazit Datenexploration**: Sowohl die abhängige als auch die unabhängige Variable sind extrem rechtsschief verteilt und ihr Zusammenhang sieht nicht linear aus. Die Voraussetzungen für ein lineares Modell sehen also schlecht aus. Um diese Vermutung zu überprüfen, wird im Folgenden ein Lineares Modell mit anschliessender Modelldiagnostik gerechnet.
+
+## Einfaches lineares Modell mit Modelldiagnostik
+
+```{r}
+
+lm.1 <- lm(richness~area, data = SAR) # lm erstellen
+summary(lm.1) # lm anschauen
+```
+
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen?
+
+```{r}
+
+# Modell und Daten plotten
+plot(SAR$area, SAR$richness, xlab = "Area [m²]", ylab = "Species richness") # Daten plotten
+abline(lm.1, col = "red") # Modell plotten
+```
+
+-\> Eine Gerade scheint ein schlechtes Modell zu sein für die Daten.
+
+```{r}
+
+# Modelldiagnostik
+par(mfrow = c(2, 2)) # 4-Plot-panel
+plot(lm.1) 
+```
+
+-\> Auch Modelldiagnostikplots sehen schlecht aus.
+
+**Fazit lm**: Wie erwartet sind die Modellvoraussetzungen nicht gut erfüllt: Das geplottete Modell verläuft teils auffällig "neben den Daten", im Residuals vs. Fittet Plot zeigen die Residuen Trichter- und Bananenform und der Q-Q-Plot zeigt starke Abweichung der Residuen von Normalverteilung. Da drängt sich Datentransformation auf. Als nächstes wird darum Log10-Transformation ausprobiert.
+
+## Lösung A: log-Transformation der abhängigen Variablen
+
+```{r}
+
+# Daten vor und nach log10-Transformation vergleichen
+par(mfrow=c(2,2))
+boxplot(SAR$richness)
+boxplot(log10(SAR$richness))
+hist(SAR$richness)
+hist(log10(SAR$richness))
+```
+
+-\> Tansformation zeigt den gewünschten Effekt.
+
+```{r}
+
+# lm rechnen mit log10 transformierter abhängigen Variable
+SAR$log_richness <- log10(SAR$richness)
+lm.2 <- lm(log_richness~area, data = SAR)
+summary(lm.2)
+```
+
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen??
+
+```{r}
+
+# Modelldiagnostik
+par(mfrow = c(2, 2))
+plot(lm.2)
+```
+
+-\> Modelldiagnostikplots sehen noch schlechter aus als mit untransformierten Daten!
+
+**Fazit Lösung A:** log-Transformation der abhängigen Variablen hat das Modell nicht verbessert. Im Gegebteil... Als nächstes wird darum eine zusätzlichge Log10-Transformation der Abhängigen Variablen ausprobiert.
+
+## Lösung B: log-Transformation beider Variablen
+
+```{r}
+
+# Daten vor und nach log10-Transformation vergleichen
+par(mfrow=c(2,2))
+boxplot(SAR$area)
+boxplot(log10(SAR$area))
+hist(SAR$area)
+hist(log10(SAR$area))
+```
+
+-\> Tansformation zeigt den gewünschten Effekt.
+
+```{r}
+
+# lm rechnen mit log10-Transformation beider VAriablen
+SAR$log_area <- log10(SAR$area)
+lm.3 <- lm(log_richness~log_area, data = SAR)
+summary(lm.3)
+```
+
+-\> Zwar hochsignifikant, aber stimmen die Voraussetzungen??
+
+```{r}
+
+# Modelldiagnostik
+par(mfrow = c(2, 2))
+plot(lm.3)
+```
+
+-\> Das sieht jetzt vergleichsweise sehr gut aus! (Bis auf ein paar Aussreisser)
+
+```{r}
+
+# Modell und Daten plotten
+plot(SAR$log_area, SAR$log_richness, xlab = "log10(Area [m²])", ylab = "log10(Species richness)") # Daten plotten
+abline(lm.3, col = "red") # Modell plotten
+```
+
+-\> Das Modell bildet die Daten gut ab.
+
+**Fazit Lösung B:** Ein lineares Modell mit log-Transformation der unabhängigen und der abhängigen Variablen scheint die Daten am besten abzubilden. Abschliessend sollen nun die drei Modelle in einem Plot dargestellt werden.
+
+## Darstellung der drei Modelle
+
+```{r}
+
+# Input-Vektor mit x-Werten für die Modelle erstellen, der die Bandbreite der Daten abdeckt
+xv <- seq(min(SAR$area), max(SAR$area), 0.1)
+
+
+plot(SAR$area, SAR$richness)# Daten plotten
+abline(lm.1, col="red") # Modell 1 (untransformiert) zu Plot hinzufügen
+
+# Modell 2 (Anhängige Variable log10-transformiert) 
+# Modellvoraussagen berechnen
+logyvlm2 <- predict(lm.2, list(area = xv)) 
+# Modellvoraussagen rücktransformieren
+yvlm2 <- 10^logyvlm2 # 10^ ist Umkekrfunktion von Log10
+# Zu Plot hinzufügen
+lines(xv, yvlm2, col = "blue") # Modell 2 auf untransformierte Fläche plotten
+
+
+# Modell 2 (beide Variablen log10-transformiert) 
+# Modellvoraussagen berechnen
+log10xv <- log10(xv) # Tansformierter Input-Vektor erstellen
+logyvlm3 <- predict(lm.3, list(log_area = log10xv ))
+# Modellvoraussagen rücktransformieren 
+yvlm3 <- 10^logyvlm3 # 10^ ist Umkekrfunktion von Log10
+lines(xv, yvlm3, col = "green") # Modell 2 auf untransformierte Fläche plotten
+```
+
+\--\> Auch hier lässt sich bestätigen dass Modell lm2 (blau) die Daten am schlechtesten und Modell lm3 (grün) die Daten am besten abbildet.

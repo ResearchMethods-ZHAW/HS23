@@ -1,0 +1,308 @@
+---
+date: 2022-11-07
+lesson: Stat3
+thema: Lineare Modelle II
+index: 1
+format:
+  html:
+    code-tools:
+      source: true
+---
+
+# Stat3: Demo
+
+-   Download dieses Demoscript via "\</\>Code" (oben rechts)
+-   Datensatz [ipomopsis.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604493)
+-   Datensatz [loyn.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604496)
+
+## ANCOVA
+
+Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. ("Fruit") in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")
+
+```{r}
+# Daten einlesen und anschauen
+
+compensation <- read.delim("datasets/statistik/ipomopsis.csv", sep = ",", stringsAsFactors = T)
+head(compensation)
+summary(compensation)
+
+# Pflanzengrösse ("Root") vs. Fruchtproduktion ("Fruit") 
+plot(Fruit~Root, data = compensation)
+```
+
+-> Je grösser die Pflanze, desto grösser ihre Fruchtproduktion.
+
+```{r}
+# Beweidung ("Grazing") vs. Fruchtroduktion ("Fruit)
+boxplot(Fruit~Grazing, data = compensation)
+```
+
+-> In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?
+
+```{r}
+# Plotten der vollständigen Daten/Information
+library(tidyverse)
+ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
+  geom_point() + 
+  theme_classic()
+```
+
+-> Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.
+
+```{r}
+#Lineare Modelle definieren und anschauen
+
+aoc.1 <- lm(Fruit~Root * Grazing, data = compensation) # Volles Modell mit Interaktion
+summary.aov(aoc.1)
+
+aoc.2 <- lm(Fruit~Grazing + Root, data = compensation) # Finales Modell ohne die (nicht signifikante Interaktion)
+summary.aov(aoc.2) # ANOVA-Tabelle
+summary(aoc.2) # Parameter-Tabelle
+
+# Residualplots anschauen
+par(mfrow = c(2, 2))
+plot(aoc.2)
+
+```
+
+-> Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrund der grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".
+
+## Polynomische Regression
+
+```{r}
+# Daten generieren und Modelle rechnen
+pred <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14, 25, 39, 38, 28, 24) # "pred" sei unsere unabhängige Variable
+resp <- c(12, 15, 10, 7, 2, 10, 12, 11, 13, 10, 9, 2, 4, 7, 13) # "resp" sei unsere abhängige Variable
+
+plot(pred, resp) # So sehen die Daten aus
+
+# Modelle definieren
+lm.1 <- lm(resp ~ pred) # Einfaches lineares Modell
+lm.quad <- lm(resp ~ pred + I(pred^2)) # lineares Modell mit quadratischem Term
+
+summary(lm.1) # Modell anschauen
+
+
+```
+
+-> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
+
+```{r}
+summary(lm.quad) # Modell anschauen
+```
+
+-> signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)
+
+```{r}
+# Modelle plotten
+
+par(mfrow = c(1, 2))
+
+# 1. lineares Modell
+plot(resp~pred, main = "Lineares Modell")
+abline(lm.1, col = "blue")
+
+# 2. quadratisches Modell
+plot(resp~pred, main = "Quadratisches  Modell")
+xv <- seq(0, 40, 0.1) # Input für Modellvoraussage via predict ()
+yv2 <- predict(lm.quad, list(pred = xv))
+lines(xv, yv2, col = "red")
+
+```
+
+```{r}
+# Residualplots
+par(mfrow = c(2, 2))
+plot(lm.1, main = "Lineares Modell")
+plot(lm.quad, main = "Quadratisches  Modell")
+```
+
+### Simulation Overfitting
+
+```{r}
+# Beispieldaten mit 6 Datenpunkten
+test <- data.frame("x" = c(1, 2, 3, 4, 5, 6), "y" = c(34, 21, 70, 47, 23, 45))
+
+par(mfrow=c(1,1))
+plot(y~x, data = test)
+
+```
+
+```{r}
+# Zunehmend komplizierte Modelle (je komplizierter desto overfitteter) definieren
+lm.0 <- lm(y~1, data = test)
+lm.1 <- lm(y~x, data = test)
+lm.2 <- lm(y~x+ I(x^2), data = test)
+lm.3 <- lm(y~x+ I(x^2) + I(x^3), data = test)
+lm.4 <- lm(y~x+ I(x^2) + I(x^3) + I(x^4), data = test)
+lm.5 <- lm(y~x+ I(x^2) + I(x^3) + I(x^4) + I(x^5), data = test)
+
+# Summaries rechnen 
+smy.0 <- summary(lm.0)
+smy.1 <- summary(lm.1)
+smy.2 <- summary(lm.2)
+smy.3 <- summary(lm.3)
+smy.4 <- summary(lm.4)
+smy.5 <- summary(lm.5)
+
+# R2 vergleichen
+
+smy.0$r.squared
+smy.1$r.squared
+smy.2$r.squared
+smy.3$r.squared
+smy.4$r.squared
+smy.5$r.squared
+smy.5$adj.r.squared
+
+```
+
+-> R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)
+
+```{r}
+# Modelle plotten
+xv <- seq(from = 0, to = 10, by = 0.1)
+plot(y~x, cex = 2, col = "black", lwd = 3, data = test)
+yv <- predict(lm.1, list(x = xv))
+lines(xv, yv, col = "red", lwd = 3)
+text(x = c(1,70), "lm.1", col = "red" )
+yv <- predict(lm.2, list(x = xv))
+lines(xv, yv, col = "blue", lwd = 3)
+text(x = c(1,65), "lm.2", col = "blue" )
+yv<-predict(lm.3, list(x = xv))
+lines(xv, yv, col = "green", lwd =3)
+text(x = c(1,60), "lm.3", col = "green" )
+yv <- predict(lm.4, list(x = xv))
+lines(xv, yv, col = "orange", lwd = 3)
+text(x = c(1,55), "lm.4", col = "orange" )
+yv <- predict(lm.5, list(x = xv))
+lines(xv, yv, col = "violet", lwd = 3)
+text(x = c(1,50), "lm.5", col = "violet" )
+
+```
+
+-> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 Parametern zu fitten??
+
+## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
+
+```{r}
+# Daten laden und anschauen
+loyn <- read.delim("datasets/statistik/loyn.csv", sep = ",")
+summary(loyn)
+```
+
+### Korrelation zwischen den Prädiktoren
+
+```{r}
+# Wir setzen die Schwelle bei |0.7| 
+
+cor <- cor(loyn[, 3:8]) # Korrelationen rechnen details siehe: "?cor"
+
+# Korrelationen Visualisieren (google: "correlation plot r"...)
+if(!require(corrplot)){install.packages("corrplot")}
+library(corrplot)
+
+corrplot.mixed(cor, lower = 'ellipse', upper = "number", order = 'AOE')
+```
+
+-> Keine Korrelation ist \>\|0.7\| . Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
+
+```{r}
+# Volles Modell definieren
+
+names(loyn)
+lm.1 <- lm (ABUND ~ YR.ISOL +AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
+if(!require(car)){install.packages("car")} 
+library(car)
+
+par(mfrow=c(2,2))
+plot(lm.1)
+```
+
+-> Plot sieht zwar ok aus, aber mit 6 Prädiktoren ist das Modell wohl "overfitted"
+
+```{r}
+vif(lm.1)
+```
+
+### Modellvereinfachung
+
+Schrittweise die am wenigsten signifkanten Terme entfernen:
+
+```{r}
+lm.1 <- lm (ABUND ~ YR.ISOL + AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
+summary(lm.1)
+
+lm.2 <- update(lm.1,~.-AREA) # Prädiktor mit grösstem p-Wert entfernen
+anova(lm.1, lm.2) # Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)
+summary(lm.2) # Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen
+
+# Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell
+lm.3 <- update(lm.2,~.-DIST) 
+anova(lm.2, lm.3)
+summary(lm.3)
+
+lm.4 <- update(lm.3,~.-YR.ISOL)
+anova(lm.3, lm.4)
+summary(lm.4)
+
+lm.5 <- update(lm.4,~.-LDIST)
+anova(lm.4, lm.5)
+summary(lm.5)
+
+lm.6 <- update(lm.5,~.-ALT)
+anova(lm.5, lm.6)
+summary(lm.6)
+
+par(mfrow = c(2, 2))
+plot(lm.6)
+```
+
+-> das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.
+
+### Hierarchical partitioning
+
+Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
+
+```{r}
+
+if(!require(hier.part)){install.packages("hier.part")}
+library(hier.part)
+loyn.preds <-with(loyn, data.frame(YR.ISOL, AREA,  DIST, LDIST, GRAZE, ALT))
+
+par(mfrow = c(1, 1))
+hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
+```
+
+-> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
+
+### Partial regressions
+
+```{r}
+
+avPlots(lm.1, ask = F)
+```
+
+## Multimodel inference
+
+```{r}
+if(!require(MuMIn)){install.packages("MuMIn")}
+library(MuMIn)
+
+global.model <-  lm (ABUND ~ YR.ISOL + AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
+
+options(na.action = "na.fail")
+
+allmodels <- dredge(global.model)
+allmodels
+
+# Variable importance
+sw(allmodels)
+
+```
+-> Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor
+
+```{r}
+avgmodel <- model.avg(allmodels, subset = TRUE)
+summary(avgmodel)
+```
