@@ -1,14 +1,8 @@
-
-
 ## Abstract
 
 Im Kurs Research Methods verwenden wir seit einigen Jahren RMarkdown um die R Unterlagen für die Studenten bereit zu stellen. 
 
 Seit HS2020 arbeiten wir mit Quarto, der Nachfolger von Rmarkdown. Am besten Nils und Dominik machen mit euch eine kleine Einführung dazu. Die Slides sind hier zu finden: <https://researchmethods-zhaw.github.io/Intro-for-Authors/>
-
-
-
-
 
 ## Anleitung 1: Software Aufsetzen
 
@@ -57,15 +51,12 @@ Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository gekl
 Um das Github repo als standart "upstream" zu setzen muss man im Terminal nachstehenden Befehl eingeben. Danach RStudio neu starten und das entsprechende Projekt laden. Nun sollte im "Git" fenster der "Push" button nicht mehr inaktiv sein.
 
     git branch -u origin/main
-    
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
-
 
 ### Qmd erstellen
 
 Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Falls ihr aber ein neues .Qmd File erstellen möchtet, müsst ihr einen Unterordner in einem der Ordner erstellen. 
-
 
 ### Qmd editieren
 
@@ -83,7 +74,6 @@ oder
 quarto.com preview
 ```
 
-
 ### Änderungen veröffentlichen
 
 Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) müsst ihr diese via git auf das Repository "pushen". Vorher aber müsst ihr die Änderungen `stage`-en und `commit`-en. Ich empfehle, dass ihr zumindest zu beginn mit dem RStudio "Git" Fenster arbeitet.
@@ -93,9 +83,18 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 -   `pull`: Klick auf den Button "Pull" (im Terminal mit `git pull`)
 -   `push`: Click auf den button "Push" (im Terminal mit `git push`)
 
+## Submodules hinzufügen
+
+***(Nur für Geo-Team)***
+
+Um die Datensätze, welche in einem privaten Repo names `datasets` abgelegt ist, muss dieses als Submodul zu diesem Repo hinzugefügt werden.
+
+- Navigiere zum Root Ordner des Repo
+- `git submodule add https://github.com/ResearchMethods-ZHAW/datasets datasets`
+- `git add datasets`
+- `git commit -m "Added datasets as a submodule"`
 
 ## FAQ
-
 
 ### Was tun bei folgendem Fehler `ERROR: SyntaxError: Unexpected token < in JSON at position 2`
 
@@ -113,7 +112,6 @@ Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-de
 ```sh
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
-
 
 ## Todo's
 
