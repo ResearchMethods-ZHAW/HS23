@@ -222,7 +222,7 @@ strftime(datum, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
 Einfacher sind an dieser Stelle aber die Functions aus lubridate:
 
 ```{r}
-library(lubridate)
+library("lubridate")
 
 month(datum)                             # extrahiert den Monat als Zahl
 month(datum, label = TRUE, abbr = TRUE)  # extrahiert den Monat mit Namen (abgekürzt)

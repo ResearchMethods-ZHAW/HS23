@@ -21,9 +21,9 @@ Für die kommende Übung arbeiten wir mit nachstehendem Datensatz: [gruental.gpk
 #| echo: true
 #| code-fold: false
 
-library(dplyr)
-library(sf)
-library(ggplot2)
+library("dplyr")
+library("sf")
+library("ggplot2")
 ```
 
 ```{r}

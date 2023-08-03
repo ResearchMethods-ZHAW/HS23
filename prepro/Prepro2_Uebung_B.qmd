@@ -21,8 +21,8 @@ knitr:
 #| code-fold: false
 
 # Benötigte Packages
-library(dplyr)
-library(readr)
+library("dplyr")
+library("readr")
 ```
 
 ## Aufgabe 1

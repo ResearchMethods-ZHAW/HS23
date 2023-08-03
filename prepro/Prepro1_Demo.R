@@ -103,7 +103,7 @@ strftime(datum, format = "%m") # extrahiert den Monat als Zahl
 strftime(datum, format = "%b") # extrahiert den Monat mit Namen (abgekürzt)
 strftime(datum, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
 
-library(lubridate)
+library("lubridate")
 
 month(datum)                             # extrahiert den Monat als Zahl
 month(datum, label = TRUE, abbr = TRUE)  # extrahiert den Monat mit Namen (abgekürzt)

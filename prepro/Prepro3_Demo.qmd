@@ -19,11 +19,11 @@ Wir können Euch nicht sämtliche Möglichkeiten von tidyverse zeigen. Wir fokus
 Wir benötigen dazu folgende Packages:
 
 ```{r}
-library(dplyr)
-library(tidyr)
-library(lubridate)
-library(readr)
-library(ggplot2)
+library("dplyr")
+library("tidyr")
+library("lubridate")
+library("readr")
+library("ggplot2")
 ```
 
 ## Split-Apply-Combine

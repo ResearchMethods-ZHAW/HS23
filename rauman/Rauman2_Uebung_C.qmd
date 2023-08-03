@@ -22,9 +22,9 @@ In dieser optionalen Übung wollen wir die G-Function für Luftqualitäts-Messst
 ```{r}
 #| code-fold: false
 
-library(sf)
-library(dplyr)
-library(ggplot2)
+library("sf")
+library("dplyr")
+library("ggplot2")
 
 rotmilan <- read_sf("datasets/rauman/rotmilan.gpkg")
 

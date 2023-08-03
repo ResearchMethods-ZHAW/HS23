@@ -24,10 +24,10 @@ In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen
 #|   Die Vektordaten sind alle als Layers im File [windkraft_geodata.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=663498)
 #|   abgespeichert. Die Rasterdaten stehen als Geotiff zur Verfügung ([dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=694260) und [wind250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=602297))
 #| label: tbl-mce-data
-library(sf)
-library(dplyr) 
-library(purrr)
-library(terra)
+library("sf")
+library("dplyr") 
+library("purrr")
+library("terra")
 
 path <- "datasets/rauman/"
 
@@ -72,11 +72,11 @@ Diese Eignungsbewertung setzen wir in den folgenden Aufgaben in R um. Starten Si
 #| echo: true
 #| code-fold: false
 
-library(sf)
-library(terra)
-library(dplyr)
-library(tmap)
-library(ggplot2)
+library("sf")
+library("terra")
+library("dplyr")
+library("tmap")
+library("ggplot2")
 ```
 
 ## Aufgabe 1: Vektor Daten laden und anzeigen

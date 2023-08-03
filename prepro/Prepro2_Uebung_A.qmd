@@ -19,11 +19,11 @@ knitr:
 #| echo: true
 #| code-fold: false
 
-library(dplyr)
-library(readr)
-library(lubridate)
+library("dplyr")
+library("readr")
+library("lubridate")
 
-# Alternativ kannst du alle tidyverse packages mit library(tidyverse) laden
+# Alternativ kannst du alle tidyverse packages mit library("tidyverse") laden
 ```
 
 ## Aufgabe 1

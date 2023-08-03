@@ -23,9 +23,9 @@ Dazu verwenden wir nach wie vor `ggplot2`, aber mit einigen Tricks.
 #| echo: true
 #| code-fold: false
 
-library(dplyr)
-library(tidyr)
-library(ggplot2)
+library("dplyr")
+library("tidyr")
+library("ggplot2")
 ```
 
 ## Aufgabe 1: Parallel coordinate plots

@@ -27,9 +27,9 @@ Importiere als erstes den Datensatz [tagi_data_kanton.csv](https://moodle.zhaw.c
 #| echo: true
 #| code-fold: false
 
-library(dplyr)
-library(ggplot2)
-library(readr)
+library("dplyr")
+library("ggplot2")
+library("readr")
 
 kanton <- read_csv("datasets/infovis/tagi_data_kantone.csv") 
 ```

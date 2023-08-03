@@ -49,7 +49,7 @@ install.packages("ggplot2")
 
 Um ein `package` in R verwenden zu können, gibt es zwei Möglichkeiten:
 
--   entweder man lädt es zu Beginn der R-session mittles `library(dplyr)` (ohne Anführungs- und Schlusszeichen).
+-   entweder man lädt es zu Beginn der R-session mittles `library("dplyr")` (ohne Anführungs- und Schlusszeichen).
 -   oder man ruft eine `function` mit vorangestelltem Packetname sowie zwei Doppelpunkten auf. `dplyr::filter()` ruft die Funktion `filter()` des Packets `dplyr` auf.
 
 Letztere Notation ist vor allem dann sinnvoll, wenn sich zwei unterschiedliche Funktionen mit dem gleichen namen in verschiedenen pacakges existieren. `filter()` existiert als Funktion einersits im package `dplyr` sowie in `stats`. Dieses Phänomen nennt man "masking".
@@ -60,8 +60,8 @@ Zu Beginn laden wir die nötigen Pakete :
 #| echo: true
 #| code-fold: false
 
-library(readr)                 # ← OHNE Anführungs-/Schlusszeichen
-library(lubridate)
+library("readr")                 # ← OHNE Anführungs-/Schlusszeichen
+library("lubridate")
 ```
 
 

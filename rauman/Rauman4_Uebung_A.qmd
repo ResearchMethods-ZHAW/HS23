@@ -25,9 +25,9 @@ Lade dazu die benötigten Libraries und Datensätze in deine Session. Exploriere
 #| echo: true
 #| code-fold: false
 
-library(dplyr)
-library(sf)
-library(ggplot2)
+library("dplyr")
+library("sf")
+library("ggplot2")
 
 wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
 baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
@@ -122,7 +122,7 @@ Bevor wir die Frage aber beantworten können, müssen wir den Vektordatensatz in
 #| echo: true
 
 # Um mit Raster arbeiten zu können brauchen wir das Package "terra"
-library(terra)
+library("terra")
 
 # Um ein Vektor Datensatz zu vektorieren, brauchen wir ein Template.
 # Für das Template nutzen wir "wiesen" und setzen eine Zellgrösse (resolution)

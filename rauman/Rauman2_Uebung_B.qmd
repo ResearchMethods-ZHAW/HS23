@@ -25,11 +25,11 @@ In dieser Übung geht es darum, zwei verschiedene Interpolationsverfahren in R u
 ```{r}
 #| echo: true
 #| code-fold: false
-library(sf)
-library(dplyr)
-library(ggplot2)
+library("sf")
+library("dplyr")
+library("ggplot2")
 
-library(gstat) # <- ggf. installieren!
+library("gstat") # <- ggf. installieren!
 ```
 
 Weiter benötigt ihr die nachstehenden Datensätze:
@@ -50,8 +50,8 @@ Wir nehmen Euch damit etwas Komplexität weg und liefern Euch ein pfannenfertige
 #| echo: true
 #| code-fold: false
 my_idw <- function(groundtruth,column,cellsize, nmax = Inf, maxdist = Inf, idp = 2, extent = NULL){
-  library(gstat)
-  library(sf)
+  library("gstat")
+  library("sf")
   
   if(is.null(extent)){
     extent <- groundtruth
@@ -111,8 +111,8 @@ Tips:
 #| fig.cap: Stickstoffdioxid (NO2) in μg/m3, Interpoliert über die ganze Schweiz mit
 #|   der Inverse Distance Weighted Methode. Die verschiedenen Plots zeigen die Veränderung
 #|   der Interpolation bei steigendem IDP-Wert
-library(purrr)
-library(tidyr)
+library("purrr")
+library("tidyr")
 
 plots <- lapply(1:4, function(idp){
   idw <- my_idw(groundtruth = luftqualitaet,column = "value",cellsize = 1000, nmax = Inf,maxdist = Inf,idp = idp,extent = schweiz)

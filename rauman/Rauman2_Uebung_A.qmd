@@ -28,12 +28,12 @@ Als erstes wollen wir für die Datensätze `luftqualitaet` und `rotmilan` Dichte
 #| echo: true
 #| code-fold: false
 
-library(sf)
-library(dplyr)
-library(ggplot2)
+library("sf")
+library("dplyr")
+library("ggplot2")
 
-library(spatstat.geom)    # <- ggf. installieren!
-library(spatstat.explore) # <- ggf. installieren!
+library("spatstat.geom")    # <- ggf. installieren!
+library("spatstat.explore") # <- ggf. installieren!
 ```
 
 ```{r}
@@ -70,8 +70,8 @@ Wir ermutigen alle, die dafür Kapazität haben, unsere Function eingehend zu st
 #| echo: true
 #| code-fold: false
 my_kde <- function(points, cellsize, bandwith, extent = NULL){
-  library(spatstat.geom)    # um sf in ppp zu konvertieren
-  library(spatstat.explore) # um die Dichte zu berechnen
+  library("spatstat.geom")    # um sf in ppp zu konvertieren
+  library("spatstat.explore") # um die Dichte zu berechnen
   
   points_ppp <- as.ppp(points) # konvertiert sf > ppp
 

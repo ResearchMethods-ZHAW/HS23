@@ -23,9 +23,9 @@ Das Geopackage beinhaltet 3 Layers (siehe `st_layers(zweitwohnung_kanton)`). In 
 ```{r}
 #| echo: true
 #| code-fold: false
-library(dplyr)
-library(ggplot2)
-library(sf)
+library("dplyr")
+library("ggplot2")
+library("sf")
 
 zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "kanton")
 ```
@@ -261,7 +261,7 @@ Erstellt aus dem erarbeiten Workflow eine *function* um Morans I auf der Basis v
 
 ```{r}
 morans_i <- function(sf_object,col) {
-  library(sf)
+  library("sf")
   # Zähler 1 ####################################
   n <- nrow(sf_object)
   zaehler1 <- n
@@ -348,7 +348,7 @@ p2
 #| out-width: 100%
 #| column: page
 
-library(cowplot)
+library("cowplot")
 
 (p  + labs(fill = "Ja (in %)")) |>
 get_legend() |>

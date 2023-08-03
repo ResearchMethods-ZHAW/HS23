@@ -13,9 +13,9 @@ knitr:
 
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-library(scales)
+library("ggplot2")
+library("dplyr")
+library("scales")
 
 # create some data about age and height of people
 people <- data.frame(

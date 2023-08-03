@@ -22,7 +22,7 @@ Gegeben sei ein Datensatz "[sensors_combined.csv](https://moodle.zhaw.ch/mod/res
 Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as.POSIXct` (lies mit `?strftime()` nochmal nach wie du das spezfische Format (die "Schablone") festlegen kannst.
 
 ```{r}
-library(readr)
+library("readr")
 
 sensors_combined <- read_csv("datasets/prepro/sensors_combined.csv")
 
@@ -40,7 +40,7 @@ Tipp:
 - In beiden Fällen musst du die Spalten weder mit Anführungs- und Schlusszeichen noch mit dem `$`-Zeichen versehen.
 
 ```{r}
-library(tidyr)
+library("tidyr")
 
 # Variante 1 (Spalten abwählen)
 sensors_long <- pivot_longer(sensors_combined, -Datetime) 
@@ -58,7 +58,7 @@ Der Output sieht folgendermassen aus:
 ```{r}
 #| output: true
 
-library(dplyr)
+library("dplyr")
 
 sensors_long |>
   group_by(name) |>
@@ -70,7 +70,7 @@ sensors_long |>
 Erstelle für `sensors_long` eine neue *convenience* Variabel `month` welche den Monat beinhaltet (Tipp: verwende dazu die Funktion `month` aus `lubridate`). Gruppiere nun nach `month` *und* Sensor und berechne die mittlere Temperatur. 
 
 ```{r}
-library(lubridate)
+library("lubridate")
 
 sensors_long |>
   mutate(month = month(Datetime)) |>

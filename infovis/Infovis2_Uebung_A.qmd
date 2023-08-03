@@ -21,11 +21,11 @@ Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https:/
 #| echo: true
 #| code-fold: false
 
-library(readr)
-library(dplyr)
-library(lubridate)
-library(tidyr)
-library(ggplot2)
+library("readr")
+library("dplyr")
+library("lubridate")
+library("tidyr")
+library("ggplot2")
 ```
 
 ```{r}

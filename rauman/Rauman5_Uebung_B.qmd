@@ -109,7 +109,7 @@ neigung_classify <- classify(neigung, neigung_klassen)
 #| label: tbl-bewerungstabelle-other
 #| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s), Vereisungshäufigkeit (Tage/Jahr) und Hangneigung (Grad)
 #| echo: false
-library(kableExtra)
+library("kableExtra")
 
 cbind(wind_klassen, neigung_klassen) |>
   kbl() |>

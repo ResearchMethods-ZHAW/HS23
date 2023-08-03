@@ -26,7 +26,7 @@ Datensatz: [dhm250m.tif](https://moodle.zhaw.ch/mod/resource/view.php?id=701345)
 ```{r}
 #| code-fold: false
 
-library(terra)
+library("terra")
 ```
 
 Importieren Sie Ihr Raster mit der Funktion `rast`
@@ -58,7 +58,7 @@ Aus diesem Grund werden wir ein neues Plot-Framework einführen, das auf Karten 
 ```{r}
 #| code-fold: false
 
-library(tmap)
+library("tmap")
 ```
 
 Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` verbunden sind. Jede Ebene hat zwei Komponenten:

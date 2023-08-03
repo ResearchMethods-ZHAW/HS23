@@ -23,9 +23,9 @@ Für die kommenden Übungen könnt ihr folgende Packages installieren bzw. laden
 #| echo: true
 #| code-fold: false
 
-library(sf)
-library(dplyr)
-library(ggplot2)
+library("sf")
+library("dplyr")
+library("ggplot2")
 ```
 
 ## Aufgabe 1: Vektor Daten runterladen und importieren
