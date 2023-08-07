@@ -34,7 +34,6 @@ Beschreibt zudem folgendes:
 
 Ein Skript soll in R eigentlich immer nach dem selbem Schema aufgebaut sein.
 Dieses Schema beinhaltet (nach dem bereits erwähnten Kopf des Skripts) 4 Kapitel: 
-```
 
 1. Datenimport
 2. Datenvorverarbeitung
