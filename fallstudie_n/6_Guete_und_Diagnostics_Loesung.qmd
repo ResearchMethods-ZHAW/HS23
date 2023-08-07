@@ -37,7 +37,6 @@ ipak(packages)
 - Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
 
 ```{r}
-#| tidy: true
 #| fig.keep: none
 
 

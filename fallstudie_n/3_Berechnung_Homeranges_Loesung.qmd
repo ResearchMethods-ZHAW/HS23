@@ -130,7 +130,6 @@ legend.position="none"
 Code um die Homerange auf der Landeskarte 1:25000 zu plotten. Transparenz kann mit alpha angepasst werden
 
 ```{r}
-#| tidy: true
 pk25_wpz <- brick("fallstudie_n/data/pk25_wpz.tif")
 
 xy_p <- st_as_sf(xy)

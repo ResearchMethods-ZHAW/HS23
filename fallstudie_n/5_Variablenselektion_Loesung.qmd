@@ -113,7 +113,6 @@ Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablens
 **Als abhängige Variable verwenden wir in der ersten Phase die Präsenz/Absenz der Rehe in den Kreisen**
 
 ```{r}
-#| tidy: true
 #| eval: false
 
 # Die erklärende Variable in m1 ist die erste Variable der korrelierenden Beziehung

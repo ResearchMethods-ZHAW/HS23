@@ -9,7 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r}
-#| tidy: true
 #| results: hide
 
 
@@ -28,7 +27,6 @@ ipak(packages)
 ```
 
 ```{r}
-#| tidy: true
 #| fig.keep: none
 
 
@@ -71,7 +69,6 @@ ggplot(DF_mod_day, aes(nmb)) + geom_histogram()
 - Hinsichtlich der Nutzungsintensität müssen wir die Formel erweitern:
 
 ```{r}
-#| tidy: true
 #| fig.keep: none
 
 
@@ -104,7 +101,6 @@ summary(avgmodel)
 - unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
 ```{r}
-#| tidy: true
 
 
 f_count <- nmb ~
@@ -159,7 +155,6 @@ check_collinearity(m_day_count)
 - AUC funktioniert nicht bei nicht-binären abhängigen Variablen, daher müssen wir eine andere Möglichkeit finden um den Goodness-of-fit der Modelle abzuschätzen:
 
 ```{r}
-#| tidy: true
 
 
 # Zitat B.Bokler 2013: "GLMMs are still part of the statistical frontier, and not all of the answers about how to use them are known (even by experts)"
@@ -170,7 +165,6 @@ r2(m_day_count)
 - Plots der vorhergesagten relativen Nutzungsintensität funktionieren nach dem selben Prinzip das wir bereits kennen:
 
 ```{r}
-#| tidy: true
 #| fig.width: 5.0
 #| fig.height: 3.0
 
