@@ -61,7 +61,7 @@ Bereitet euer Skript also nach dieser Struktur vor. Nutzt für den Text, welcher
 #| tidy: true
 
 
-library(tidyverse)
+library("readr")
 ```
 
 ## Daten laden
