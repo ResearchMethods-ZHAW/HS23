@@ -67,25 +67,23 @@ library("readr")
 Herunterladen der Daten der [Feldaufnahmen](https://moodle.zhaw.ch/mod/folder/view.php?id=578940) von Moodle (Aufgabe3_Feldaufnahmen_alle_Gruppen.zip), Einlesen, Sichtung der Datensätze und der Datentypen.
 
 ```{r}
-#| tidy: true
+df_team1 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebungen_Waldstruktur.csv", delim = ";")
 #| eval: false
 
-df_team1 <- read_delim("fallstudie_n/data/Felderhebungen_Waldstruktur.csv", delim = ";")
+df_team2 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebung_11102022_gr3.csv", delim = ";")
 
-df_team2 <- read_delim("fallstudie_n/data/Felderhebung_11102022_gr3.csv", delim = ";")
+df_team3 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv", delim = ";")
 
-df_team3 <- read_delim("fallstudie_n/data/Felderhebung_Waldstruktur_TEAM3_pink_Gruppe 7.csv", delim = ";")
+df_team4 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebungen_Team4_Blau_221011.csv",delim = ";")
 
-df_team4 <- read_delim("fallstudie_n/data/Felderhebungen_Team4_Blau_221011.csv",delim = ";")
+df_team5 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Felderhebung TEAM 5.csv", delim = ";")
 
-df_team5 <- read_delim("fallstudie_n/data/Felderhebung TEAM 5.csv", delim = ";")
-
-df_team6 <- read_delim("fallstudie_n/data/Team6_Felderhebung.csv", delim = ";")
+df_team6 <- read_delim("datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/Team6_Felderhebung.csv", delim = ";")
 
 # hier können die Probekreise mit den Angaben zur Anzahl Rehlokalisationen und der 
 # LIDAR-basierten Ableitung der Waldstruktur eingelesen werden
 
-df_reh <- read_delim("fallstudie_n/data/Aufgabe3_Reh_Waldstruktur_221013.csv", delim = ";")
+df_reh <- read_delim("datasets/fallstudie_n/Aufgabe3_Reh_Waldstruktur_221013.csv", delim = ";")
 str(df_reh)
 
 # Die eingelesenen Datensätze anschauen und versuchen zu einem Gesamtdatensatz  
@@ -202,5 +200,5 @@ Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen geg
 ggplot(df_with_LIDAR, aes(DG_us, DG_Strauchschicht, color = team)) + geom_point() + 
   stat_smooth(method = "lm")
 
-write_delim(df_with_LIDAR, "fallstudie_n/data/df_with_lidar.csv", delim = ";")
+write_delim(df_with_LIDAR, "datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/df_with_lidar.csv", delim = ";")
 ```
