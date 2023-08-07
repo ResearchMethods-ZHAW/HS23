@@ -147,7 +147,7 @@ Winterferien_2022_ende <- as.Date("2023-01-08")
 
 # lese die Daten ein 
 # Je nach Bedarf muss der Speicherort sowie der Dateiname angepasst werden
-depo <- read.csv("./data/211_sihlwaldstrasse_2017_2022.csv", sep = ";")
+depo <- read.csv("datasets/fallstudie_s/WPZ/211_sihlwaldstrasse_2017_2022.csv", sep = ";")
 
 # Hinweis zu den Daten:
 # In hourly analysis format, the data at 11:00 am corresponds to the counts saved between 
