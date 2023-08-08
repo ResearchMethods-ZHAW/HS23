@@ -123,18 +123,10 @@ quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 
 ## Todo's
 
-- library(tidyverse) vermeiden
-- Funktion ipak vermeinden, wenn das geht
-- case_when statt verschachtelte ifelse
-- schulferien ersetzen mit: https://data.stadt-zuerich.ch/dataset/ssd_schulferien/download/schulferien.csv (https://opendata.swiss/de/dataset/ferien-und-schulfreie-tage-der-volksschule-der-stadt-zurich-schuljahre-2020-2021-bis-2024-2025/resource/9a085e52-0d7b-4565-b839-5155c2e6a50c)
-- multiple mutate in einem befehl
-- sf, raster, tmap möglichst einheitlich und wenn möglich nach rauman1-5
-- implement submodule datasets
-
 - bring back `mypurl`?
 
 ```
-mypurl <- function(documentation = 0, quiet = TRUE ...){
+mypurl <- function(documentation = 0, quiet = TRUE, ...){
     tmp <- tempfile(fileext = ".R")
     knitr::purl(..., output = tmp, documentation = documentation, quiet = quiet)
 
