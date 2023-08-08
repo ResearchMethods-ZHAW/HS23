@@ -83,12 +83,20 @@ Hinweis: Auf Windows muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.
 
 ### Änderungen veröffentlichen
 
-Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) müsst ihr diese via git auf das Repository "pushen". Vorher aber müsst ihr die Änderungen `stage`-en und `commit`-en. Ich empfehle, dass ihr zumindest zu beginn mit dem RStudio "Git" Fenster arbeitet.
+Hier müssen wir unterscheiden zwischen den Änderungen den Source Files (Qmd) und Änderungen an den Output Files (pdf)
+
+Um die Änderungen an den Source Files zu veröffentlichen müsst ihr diese via git auf das Repository "pushen". Vorher aber müsst ihr die Änderungen `stage`-en und `commit`-en. Ich empfehle, dass ihr zumindest zu beginn mit dem RStudio "Git" Fenster arbeitet.
 
 -   `stage`: Setzen eines Häckchens bei "Staged" (im Terminal mit `git add .`)
 -   `commit`: Klick auf den Button "commit" (im Terminal mit `git commit -m "deine message"`)
 -   `pull`: Klick auf den Button "Pull" (im Terminal mit `git pull`)
 -   `push`: Click auf den button "Push" (im Terminal mit `git push`)
+-   
+
+Um Änderungen an den Output Files zu Veröffentlichen muss (TBD)
+
+
+    quarto publish gh-pages --no-prompt # not tested
 
 ## FAQ
 
