@@ -126,7 +126,7 @@ str(depo)
 
 depo <- depo |>
   mutate(Datum = as.character(Datum)) |>
-    mutate(Datum = as.Date(Datum, format = "%Y%m%d"))
+  mutate(Datum = as.Date(Datum, format = "%Y%m%d"))
   # Schneide das df auf den gewuenschten Zeitraum zu
   # filter(Datum >= depo_start, Datum <=  depo_end) # das Komma hat die gleiche Funktion wie ein &
 
