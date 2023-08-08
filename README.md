@@ -25,9 +25,9 @@ Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
     -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
     -   Show output preview in: Window *(beim kopilieren von Rmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
     -   Show equation an image previews: In a popup
-    -   Evaluate chunks in directory: Document (**\<- wichtig !**)
+    -   Evaluate chunks in directory: Document (**← wichtig !**)
 -   Code \> Tab "Saving"
-    -   Default Text Encoding: UTF-8 (**\<- wichtig !**)
+    -   Default Text Encoding: UTF-8 (**← wichtig !**)
 
 ### Git konfigurieren
 
