@@ -25,9 +25,9 @@ Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
     -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
     -   Show output preview in: Window *(beim kopilieren von Rmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
     -   Show equation an image previews: In a popup
-    -   Evaluate chunks in directory: Document (**\<- wichtig !**)
+    -   Evaluate chunks in directory: Document (**← wichtig !**)
 -   Code \> Tab "Saving"
-    -   Default Text Encoding: UTF-8 (**\<- wichtig !**)
+    -   Default Text Encoding: UTF-8 (**← wichtig !**)
 
 ### Git konfigurieren
 
@@ -42,15 +42,23 @@ Nach der Installation muss git konfiguriert werden. Siehe dazu folgende Kapitel:
 
 ### Repo Klonen
 
-Um die ganzen \*.Rmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS22.git`
+Um die ganzen \*.Qmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS22.git`
 
--   [happygitwithr: New RStudio Project via git clone](https://happygitwithr.com/new-github-first.html#new-rstudio-project-via-git)
+-   [happygitwithr: New RStudio Project via RStudio IDE](https://happygitwithr.com/new-github-first#rstudio-ide)
 
-### "Upstream" setzen
-
-Um das Github repo als standart "upstream" zu setzen muss man im Terminal nachstehenden Befehl eingeben. Danach RStudio neu starten und das entsprechende Projekt laden. Nun sollte im "Git" fenster der "Push" button nicht mehr inaktiv sein.
+Je nach gewählter "Clone"-Methode, muss das Git*Hub* Repo als *upstream* gesetzt werden. Dafür gibt es mehrere Möglichkeiten. Beispielsweise mit dem folgenden Befehl im Terminal
 
     git branch -u origin/main
+
+Nun solltet ihr fast das ganze Repo lokal auf eurem Computer haben und die einzelnen Files bearbeiten können. Es gibt noch eine Ausnahme: Der `datasets` folder. Hierbei handelt es sich um einen einzelnen Ordner mit sämtlichen Datensätzen (csvs, tiffs, txts usw.) welche im Modul gebraucht werden. *Dieser Ordner ist ein separates, verschachteltes Git-Repo*. Dafür gibt es verschiedene Gründe (s.u.). Wichtig ist jetzt, dass der Inhalt diess Ordners noch nicht auf euerem Computer gelandet ist. Dazu braucht es noch folgenden Befehl im Terminal:
+
+    git submodule update --init --recursive
+
+
+*Warum ist `datasets` ein separates Git-Repo?*
+1. Die Datensätze sind häufig ein paar MB gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
+2. Die Datenstäze sind teilweise vertraulich und sollten nicht öffentlich geteilt werden (das entsprechende Repo ist *private*)
+
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
 
@@ -71,7 +79,7 @@ quarto preview
 oder 
 
 ```
-quarto.com preview
+quarto.cmd preview
 ```
 
 ### Änderungen veröffentlichen
@@ -115,18 +123,10 @@ quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 
 ## Todo's
 
-- library(tidyverse) vermeiden
-- Funktion ipak vermeinden, wenn das geht
-- case_when statt verschachtelte ifelse
-- schulferien ersetzen mit: https://data.stadt-zuerich.ch/dataset/ssd_schulferien/download/schulferien.csv (https://opendata.swiss/de/dataset/ferien-und-schulfreie-tage-der-volksschule-der-stadt-zurich-schuljahre-2020-2021-bis-2024-2025/resource/9a085e52-0d7b-4565-b839-5155c2e6a50c)
-- multiple mutate in einem befehl
-- sf, raster, tmap möglichst einheitlich und wenn möglich nach rauman1-5
-- implement submodule datasets
-
 - bring back `mypurl`?
 
 ```
-mypurl <- function(documentation = 0, quiet = TRUE ...){
+mypurl <- function(documentation = 0, quiet = TRUE, ...){
     tmp <- tempfile(fileext = ".R")
     knitr::purl(..., output = tmp, documentation = documentation, quiet = quiet)
 
