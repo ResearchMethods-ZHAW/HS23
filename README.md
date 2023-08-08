@@ -31,9 +31,14 @@ Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
 
 ### Git konfigurieren
 
-*(wer dies bereits gemacht hat, kann diesen Schritt überspringen)*
+Um git benutzen zu können, muss man Benutzernamen und Mailadresse festlegen. Allefalls habt ihr das schon gemacht. Wenn folgende Befehle euren Nutzernamen / Mailadresse anzeigen, könnt ihr diesen Schritt überspringen:
 
-Nach der Installation muss git konfiguriert werden. Siehe dazu folgende Kapitel:
+```sh
+git config --global user.email
+git config --global user.name
+```
+
+Falls nicht, müssen diese Angaben zuerst noch gemacht werden. Siehe dazu folgende Kapitel:
 
 -   [happygitwithr: Introduce yourself to Git](https://happygitwithr.com/hello-git.html)
 -   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/credential-caching.html)
@@ -42,7 +47,7 @@ Nach der Installation muss git konfiguriert werden. Siehe dazu folgende Kapitel:
 
 ### Repo Klonen
 
-Um die ganzen \*.Qmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS22.git`
+Um die ganzen \*.Qmd Files lokal bearbeiten zu können, muss das Repository geklont werden. Mit RStudio ist dies sehr einfach, siehe dazu nachstehende Anleitung. Als Repo-URL folgendes einfügen: `https://github.com/ResearchMethods-ZHAW/HS23.git`
 
 -   [happygitwithr: New RStudio Project via RStudio IDE](https://happygitwithr.com/new-github-first#rstudio-ide)
 
@@ -57,7 +62,7 @@ Nun solltet ihr fast das ganze Repo lokal auf eurem Computer haben und die einze
 
 *Warum ist `datasets` ein separates Git-Repo?*
 1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
-2. Die Datenstäze sind teilweise vertraulich und sollten nicht öffentlich geteilt werden (das entsprechende Repo ist *private*)
+2. Die Datenstäze sind teilweise vertraulich und sollten nicht öffentlich geteilt werden (das entsprechende Repo ist *private*) → dies sollte sich in Zukunft hoffentlich ändern (OER!)
 
 
 ## Anleitung 3: Inhalte Editieren und veröffentlichen
