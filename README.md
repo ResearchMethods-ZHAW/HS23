@@ -56,7 +56,7 @@ Nun solltet ihr fast das ganze Repo lokal auf eurem Computer haben und die einze
 
 
 *Warum ist `datasets` ein separates Git-Repo?*
-1. Die Datensätze sind häufig ein paar MB gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
+1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
 2. Die Datenstäze sind teilweise vertraulich und sollten nicht öffentlich geteilt werden (das entsprechende Repo ist *private*)
 
 
@@ -72,15 +72,9 @@ Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Or
 
 ### Qmd Kompilieren / Vorschau
 
-```
-quarto preview
-```
+Statt auf den Preview button in RStudio zu clicken empfehlen wir, quarto von der Konsole (Terminal) aus zu bedienen. `quarto render` kompiliert das jeweilige File / Projekt in html (oder pdf). Sehr praktisch ist aber `quarto preview`, welches zusätzlich zum rendern erstellt einen "Webserver" zur Verfügung stellt, wo Änderungen an den qmd Files detektiert und live ge-updated werden.
 
-oder 
-
-```
-quarto.cmd preview
-```
+Hinweis: Auf Windows muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2))
 
 ### Änderungen veröffentlichen
 
@@ -90,17 +84,6 @@ Um die Änderungen zu veröffentlichen (für die Studenten sichtbar zu machen) m
 -   `commit`: Klick auf den Button "commit" (im Terminal mit `git commit -m "deine message"`)
 -   `pull`: Klick auf den Button "Pull" (im Terminal mit `git pull`)
 -   `push`: Click auf den button "Push" (im Terminal mit `git push`)
-
-## Submodules hinzufügen
-
-***(Nur für Geo-Team)***
-
-Um die Datensätze, welche in einem privaten Repo names `datasets` abgelegt ist, muss dieses als Submodul zu diesem Repo hinzugefügt werden.
-
-- Navigiere zum Root Ordner des Repo
-- `git submodule add https://github.com/ResearchMethods-ZHAW/datasets datasets`
-- `git add datasets`
-- `git commit -m "Added datasets as a submodule"`
 
 ## FAQ
 
@@ -121,17 +104,4 @@ Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-de
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
 
-## Todo's
 
-- bring back `mypurl`?
-
-```
-mypurl <- function(documentation = 0, quiet = TRUE, ...){
-    tmp <- tempfile(fileext = ".R")
-    knitr::purl(..., output = tmp, documentation = documentation, quiet = quiet)
-
-    readLines(tmp)
-}
-
-mypurl(input = "index.qmd", quiet = TRUE, documentation = 0)
-```
