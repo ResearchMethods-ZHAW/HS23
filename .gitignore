@@ -26,5 +26,6 @@ _book/
 *.gpkg
 
 presenter-mode.css
+Results
 
 # temporarily ignore _book and _freeze
