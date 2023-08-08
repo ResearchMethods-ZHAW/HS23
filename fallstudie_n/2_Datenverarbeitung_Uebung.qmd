@@ -197,8 +197,9 @@ Scatterplot der korrespondondierenden Umweltvariablen aus den Felderhebungen geg
 # 4. VISUALISERUNG #####
 #.#####################################################################################
 
-ggplot(df_with_LIDAR, aes(DG_us, DG_Strauchschicht, color = team)) + geom_point() + 
+ggplot(df_with_LIDAR, aes(DG_us, DG_Strauchschicht, color = team)) + 
+  geom_point() + 
   stat_smooth(method = "lm")
 
-write_delim(df_with_LIDAR, "datasets/fallstudie_n/Aufgabe3_Feldaufnahmen_alle_Gruppen/df_with_lidar.csv", delim = ";")
+write_delim(df_with_LIDAR, "df_with_lidar.csv", delim = ";")
 ```
