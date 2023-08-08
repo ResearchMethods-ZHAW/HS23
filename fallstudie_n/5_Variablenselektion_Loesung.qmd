@@ -36,7 +36,7 @@ ipak(packages)
 Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden.
 
 ```{r}
-DF_mod <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
+DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
                      delim = ";")
 
 DF_mod_day <- DF_mod |>
