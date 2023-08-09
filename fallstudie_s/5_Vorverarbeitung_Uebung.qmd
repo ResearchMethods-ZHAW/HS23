@@ -23,6 +23,28 @@ library(sjPlot)    # Plotten von Modellergebnissen (tab_model)
 library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
 ```
 
+
+
+```{r}
+# Start und Ende ####
+# Untersuchungszeitraum, ich waehle hier das Jahr 2019 bis und mit Sommer 2021
+depo_start <- as.Date("2017-01-01")
+depo_end <- as.Date("2022-7-31")
+
+# Start und Ende Lockdown
+# definieren, wichtig fuer die spaeteren Auswertungen
+lock_1_start_2020 <- as.Date("2020-03-16")
+lock_1_end_2020 <- as.Date("2020-05-11")
+
+lock_2_start_2021 <- as.Date("2020-12-22")
+lock_2_end_2021 <- as.Date("2021-03-01")
+
+# Ebenfalls muessen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden
+# Diese werden bei Wochenweisen Analysen ebenfalls ausgeklammert da sie i.d.R. unvollstaendig sind
+KW_start <- isoweek(depo_start)
+KW_end <- isoweek(depo_end)
+```
+
 ## Aufgabe 1: Zähldaten
 
 Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. 
