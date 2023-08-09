@@ -16,7 +16,7 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 library("lme4")
 library("bbmle")
 library("MuMIn")
-library("tidyverse")
+library("dplyr")
 library("DHARMa")
 library("car")
 library("MASS")

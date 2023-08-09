@@ -22,7 +22,9 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 library("lme4")
 library("bbmle")
 library("MuMIn")
-library("tidyverse")
+library("dplyr")
+library("readr")
+library("ggplot2")
 library("DHARMa")
 library("car")
 library("MASS")
@@ -45,8 +47,7 @@ Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln,
 #| code-fold: false
 
 
-DF_mod_day <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
-                     delim = ";") |>
+DF_mod_day <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", delim = ";") |>
   filter(time_of_day == "day") |>
   mutate(slope_scaled = scale(slope),
          us_scaled = scale(us),
@@ -203,7 +204,7 @@ cowplot::plot_grid()
 
 Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
-- Bestimmen delta AIC nach Coppes et al. 2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.
+- Bestimmen delta AIC nach @coppes2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.
 - Auftrag auf den 21.11.2022: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
 
 

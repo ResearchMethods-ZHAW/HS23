@@ -21,7 +21,9 @@ Einstieg Multivariate Modelle / Habitatselektionsmodell
 
 library("sp")
 library("raster")
-library("tidyverse")
+library("dplyr")
+library("readr")
+library("ggplot2")
 library("PerformanceAnalytics")
 library("pastecs")
 library("car")
