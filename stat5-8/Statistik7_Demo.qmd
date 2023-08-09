@@ -120,7 +120,7 @@ constr / tot # Erklärte Varianz
 
 ### Redundancy analysis (RDA)
 
-Mehr Details zu RDA aus Borcard et al. (Numerical ecology with R)
+Mehr Details zu RDA aus @borcard2011
 
 ```{r}
 # Datensatz Doubs in den workspace laden

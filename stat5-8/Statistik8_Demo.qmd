@@ -57,7 +57,7 @@ plot(KM.cascade, sortg = TRUE)
 
 ## Agglomarative Clusteranalyse
 
-mit Daten und Skripten aus Borcard et al. (2018)
+mit Daten und Skripten aus @borcard2011
 
 ```{r}
 # Daten laden

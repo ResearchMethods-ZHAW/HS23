@@ -30,7 +30,8 @@ library("MASS")
 ```
 
 ## Variablenselektion
-**-> Vorgehen analog Coppes et al.**
+
+→ Vorgehen analog @coppes2017
 
 ## Aufgabe 1
 
