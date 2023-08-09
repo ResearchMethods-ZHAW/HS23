@@ -19,19 +19,20 @@ Neue packages die wir für die Modelle und die Diagnostics brauchen
 #| echo: true
 #| code-fold: false
 
-# neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
-
-ipak <- function(pkg){
-  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if (length(new.pkg)) 
-    install.packages(new.pkg, repos = "http://cran.us.r-project.org", dependencies = TRUE)
-  sapply(pkg, require, character.only = TRUE)
-}
-
-packages <- c("lme4", "bbmle", "MuMIn", "tidyverse", "DHARMa", "car", "MASS", "ROCR", 
-              "sjPlot",  "ggeffects", "sjstats", "cowplot", "magrittr", "gstat")
-
-ipak(packages)
+library("lme4")
+library("bbmle")
+library("MuMIn")
+library("tidyverse")
+library("DHARMa")
+library("car")
+library("MASS")
+library("ROCR")
+library("sjPlot")
+library("ggeffects")
+library("sjstats")
+library("cowplot")
+library("magrittr")
+library("gstat")
 ```
 
 ## Ausgangslage

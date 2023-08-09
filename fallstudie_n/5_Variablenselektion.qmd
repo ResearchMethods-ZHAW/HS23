@@ -18,19 +18,16 @@ knitr:
 #| code-fold: false
 
 
-## Funktion um Packages direkt zu installieren und / oder zu laden
-
-ipak <- function(pkg){
-  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if (length(new.pkg)) 
-    install.packages(new.pkg, dependencies = TRUE)
-  sapply(pkg, require, character.only = TRUE)
-}
-
-packages <- c("sp", "raster", "tidyverse", "PerformanceAnalytics", "pastecs", "lme4", 
-              "bbmle", "MuMIn", "MASS", "magrittr")
-
-ipak(packages)
+library("sp")
+library("raster")
+library("tidyverse")
+library("PerformanceAnalytics")
+library("pastecs")
+library("lme4")
+library("bbmle")
+library("MuMIn")
+library("MASS")
+library("magrittr")
 ```
 
 ## Variablenselektion
