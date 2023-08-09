@@ -6,3 +6,8 @@ table{
     font-size: smaller;
 }
 
+details > summary{
+    color: #00bc8c;
+    /* folgende zeile hat kein effekt */
+    text-transform: capitalize; 
+}

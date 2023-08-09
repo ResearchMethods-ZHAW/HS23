@@ -18,8 +18,8 @@ knitr:
 #| code-fold: false
 
 
-library("sp")
-library("raster")
+library("sf")
+library("terra")
 library("dplyr")
 library("readr")
 library("ggplot2")

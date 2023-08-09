@@ -1,7 +1,7 @@
 ---
 execute:
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -19,8 +19,8 @@ Einstieg Multivariate Modelle / Habitatselektionsmodell
 #| echo: true
 #| code-fold: false
 
-library("sp")
-library("raster")
+library("sf")
+library("terra")
 library("dplyr")
 library("readr")
 library("ggplot2")
