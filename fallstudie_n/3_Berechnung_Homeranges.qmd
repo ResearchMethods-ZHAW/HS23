@@ -81,12 +81,13 @@ Herumschrauben an den Einstellungen von:
 
 **→ Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
+
+Berechnung von `href` nach: @pebsworth2012.
+
 ```{r}
 #| echo: true
 #| code-fold: false
 
-# Berechnung von href nach: Pebsworth et al. (2012) Evaluating home range techniques: 
-# use of Global Positioning System (GPS) collar data from chacma baboons
 
 RE13_xy <- st_coordinates(RE13)
 
