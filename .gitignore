@@ -21,6 +21,7 @@ _book/
 /fallstudien/_R_analysis/
 /fallstudien/**/Results/
 /site_libs/
+purl
 
 *.csv
 *.gpkg

@@ -6,13 +6,6 @@
 now <- Sys.time()
 attr(now, "tzone") <- "Europe/Zurich"
 options(knitr.duplicate.label = "allow")
-
-list.files(path = c("stat1-4", "stat5-8", "statKons"), pattern = "\\.qmd$", recursive = TRUE,full.names = TRUE) |>
-    sapply(\(x){
-        y <- file.path("purl",paste0(tools::file_path_sans_ext(basename(x)),".R"))
-        knitr::purl(x, output = y,documentation = 0L)
-        }) |>
-        invisible()
 ```
 
 Das Modul „Research Methods" vermittelt vertiefte Methodenkompetenzen für praxisorientiertes und angewandtes wissenschaftliches Arbeiten im Fachbereich „Umwelt und Natürliche Ressourcen" auf MSc-Niveau. Die Studierenden erarbeiten sich vertiefte Methodenkompetenzen für die analytische Betrachtung der Zusammenhänge im Gesamtsystem „Umwelt und Natürliche Ressourcen". Die Studierenden erlernen die methodischen Kompetenzen, auf denen die nachfolgenden Module im MSc Programm UNR aufbauen. Das Modul vermittelt einerseits allgemeine, fächerübergreifende methodische Kompetenzen (z.B. Wissenschaftstheorie, computer-gestützte Datenverarbeitung und Statistik).
