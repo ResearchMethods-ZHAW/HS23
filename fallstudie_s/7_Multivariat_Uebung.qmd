@@ -1009,8 +1009,8 @@ Problem: verschiedene Skalen der Variablen (z.B. Temperatur in Grad Celsius, Nie
 - Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:
 
 ```{r eval=FALSE}
-umwelt <- umwelt %>% 
-  mutate(tre200jx_scaled = scale(tre200jx)%>%
+umwelt <- umwelt |> 
+  mutate(tre200jx_scaled = scale(tre200jx)|>
   ...
 ```
 

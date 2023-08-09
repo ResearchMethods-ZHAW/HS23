@@ -478,8 +478,8 @@ Nachdem wir nun wissen, wie sich die Besuchszahlen während der Untersuchungsdau
 - Berechnet die Totale Anzahl pro Wochentag pro Phase. Das brauchen wir nicht weiter für unsere Berechnungen, kann aber später ein nützliches Resultat für den Bericht sein.
 
 ```{r eval=FALSE}
-mean_phase_wd <- depo_d %>% 
-  group_by(...) %>% 
+mean_phase_wd <- depo_d |> 
+  group_by(...) |> 
   ...
 ```
 
@@ -580,8 +580,8 @@ Die Zeitreihen der 5 Phasen unterscheiden sich deutlich voneinander. Totale Summ
 - Ergänzt das mit der prozentualen Richtungsverteilung
 
 ```{r eval=FALSE}
-mean_phase_d <- mean_phase_d %>% 
-  mutate(Proz_IN = round(100/Total*IN, 1)) %>% # berechnen und auf eine Nachkommastelle runden
+mean_phase_d <- mean_phase_d |> 
+  mutate(Proz_IN = round(100/Total*IN, 1)) |> # berechnen und auf eine Nachkommastelle runden
   ...
 ```
 

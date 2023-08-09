@@ -47,8 +47,8 @@ Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln,
 
 
 DF_mod_day <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
-                     delim = ";") %>%
-  filter(time_of_day == "day") %>%
+                     delim = ";") |>
+  filter(time_of_day == "day") |>
   mutate(slope_scaled = scale(slope),
          us_scaled = scale(us),
          os_scaled = scale(os),
@@ -66,7 +66,7 @@ f <- pres_abs ~
   dist_road_only_scaled +
   dist_build_scaled
 
-f <- paste(c(f, "+ (1 | id)"), collapse = " ") %>% as.formula()
+f <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
 
 m_day <- glmer(f, data= DF_mod_day, family = binomial, na.action = "na.fail")
 

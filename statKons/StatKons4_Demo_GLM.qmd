@@ -36,7 +36,7 @@ mytheme <-
 # quasipoisson regression
 ############
 
-cars <- mtcars %>% 
+cars <- mtcars |> 
    mutate(kml = (235.214583/mpg))
 
 glm.poisson <- glm(hp ~ kml, data = cars, family = "poisson")
@@ -61,8 +61,8 @@ ggplot2::ggplot(cars, aes(x = kml, y = hp)) +
 glm.quasi.back <- exp(coef(glm.quasipoisson))
 
 #für ein schönes ergebnis
-glm.quasi.back %>%
-  broom::tidy() %>% 
+glm.quasi.back |>
+  broom::tidy() |> 
   knitr::kable(digits = 3)
 
 #for more infos, also for posthoc tests

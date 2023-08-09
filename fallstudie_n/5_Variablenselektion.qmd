@@ -239,7 +239,7 @@ f <- pres_abs ~
 # inn diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel 
 # daraus gemacht
 
-f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") %>% as.formula()
+f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
 
 # Das Modell mit dieser Formel ausführen
 

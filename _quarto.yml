@@ -25,6 +25,7 @@ execute:
   error: true
   message: false
   warning: false
+  tidy: true
     
 book:
   title: "Research Methods HS22"
@@ -132,28 +133,18 @@ book:
       - fallstudie_s/4_Projektierung.qmd
       - fallstudie_s/5_Vorverarbeitung_Uebung.qmd
       - fallstudie_s/5_Vorverarbeitung_Loesung.qmd
-      - fallstudie_s/6_Deskr_Analysen_Uebung.qmd
-      - fallstudie_s/6_Deskr_Analysen_Loesung.qmd
-      - fallstudie_s/7_Multivariat_Uebung.qmd
-      - fallstudie_s/7_Multivariat_Loesung.qmd
+      # - fallstudie_s/6_Deskr_Analysen_Uebung.qmd
+      # - fallstudie_s/6_Deskr_Analysen_Loesung.qmd
+      # - fallstudie_s/7_Multivariat_Uebung.qmd
+      # - fallstudie_s/7_Multivariat_Loesung.qmd
     - part: "Fallstudie N"
       chapters:
       - fallstudie_n/1_Vorbemerkung.qmd
-      - --
-      - fallstudie_n/2_Datenverarbeitung_Uebung.qmd
-      - fallstudie_n/2_Datenverarbeitung_Loesung.qmd
-      - --
-      - fallstudie_n/3_Berechnung_Homeranges_Uebung.qmd
-      - fallstudie_n/3_Berechnung_Homeranges_Loesung.qmd
-      - --
-      - fallstudie_n/4_Multivariate_Modelle_Uebung.qmd
-      - fallstudie_n/4_Multivariate_Modelle_Loesung.qmd
-      - -- 
-      - fallstudie_n/5_Variablenselektion_Uebung.qmd
-      - fallstudie_n/5_Variablenselektion_Loesung.qmd
-      - --
-      - fallstudie_n/6_Guete_und_Diagnostics_Uebung.qmd
-      - fallstudie_n/6_Guete_und_Diagnostics_Loesung.qmd
+      - fallstudie_n/2_Datenverarbeitung.qmd
+      - fallstudie_n/3_Berechnung_Homeranges.qmd
+      - fallstudie_n/4_Multivariate_Modelle.qmd
+      - fallstudie_n/5_Variablenselektion.qmd
+      - fallstudie_n/6_Guete_und_Diagnostics.qmd
       #- --
       #- fallstudie_n/7_Modelle_mit_Nutzungsintensitaet.qmd
     - part: "Anhang"

@@ -1,7 +1,6 @@
-library(tidyverse)
-# library(ggfortify) # zur Testung der Voraussetzungen
-library(magrittr)
-library(here)
+#lade Packages
+library(ggplot2)
+library(readr)
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
 mytheme <- 
@@ -15,7 +14,7 @@ mytheme <-
     )
 
 #lade die Daten
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.1.csv")
+df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
@@ -28,7 +27,7 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
   # Achtung: Reihenfolge spielt hier eine Rolle!
   stat_boxplot(geom = "errorbar", width = 0.25) +
   geom_boxplot(fill="white", color = "black", size = 1, width = .5) +
-  labs(x = "\nMenü-Inhalt", y = "Anzahl verkaufte Gerichte pro Woche\n") +
+  labs(x = "\nMenu-Inhalt", y = "Anzahl verkaufte Gerichte pro Woche\n") +
   # achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&Cold Gerichten
   mytheme
 
@@ -38,7 +37,7 @@ boxplot(df$tot_sold~df$label_content)
 # definiert das Modell (vgl. Skript Statistik 2)
 model <- aov(tot_sold ~ label_content, data = df)
 
-summary.lm(model)
+summary.lm(model)  
 
 # überprüft die Modelvoraussetzungen
 par(mfrow = c(2,2))
@@ -111,17 +110,14 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
 
 #lade Daten
-df <- read_csv2("data/Datensatz_novanimal_Uebung_Statistik2.3s.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.3.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an
 # Sind Mittelwerte nahe bei Null? Gäbe uns einen weiteren Hinweis auf 
 # eine spezielle Binomial-Verteilung (vgl. Statistik 4)
-df %>% 
-  split(.$article_description) %>% # teilt den Datensatz in 3 verschiedene Datensätze auf
-  # mit map können andere Funktionen auf den Datensatz angewendet werden 
-  # (alternative Funktionen sind aggregate oder apply)
-  purrr::map(~ psych::describe(.$tot_sold)) 
+aggregate(tot_sold ~ article_description, data = df, FUN = function(x) c(mn = mean(x), n = sd(x) ))
+
 
 # visualisiere dir dein Model, was siehst du? 
 # sind möglicherweise gewiesse Voraussetzungen verletzt?
@@ -202,4 +198,4 @@ ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) +
 ggsave("stat1-4/distill-preview.png",
        height = 12,
        width = 20,
-       device = png)
+       device = png)   

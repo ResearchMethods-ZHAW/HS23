@@ -49,7 +49,7 @@ Im Datensatz Rehe eine neue Spalte mit Datum und Zeit in einer Spalte kreieren. 
 #| code-fold: false
 
 
-Rehe <- Rehe %>%
+Rehe <- Rehe |>
   mutate(UTC_DateTime = as.POSIXct(paste(UTC_Date, UTC_Time), 
                                    format = "%Y-%m-%d %H:%M:%S"))
 ```

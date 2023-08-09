@@ -1,0 +1,220 @@
+# Daten generieren als "long table" (2 Kategorien)
+a <- c(20, 19, 25, 10, 8, 15, 13 ,18, 11, 14)
+b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)
+blume <- data.frame(cultivar = c(rep("a", 10), rep("b" , 10)), size = c(a, b))
+
+# Daten anschauen
+par(mfrow=c(1,1))
+boxplot(size~cultivar, xlab = "Sorte", ylab = "Bluetengroesse [cm]", data = blume)
+
+# Klassischer t-Test ausführen
+t.test(size~cultivar, blume, var.equal = TRUE)
+
+# ANOVA ausführen
+aov(size~cultivar, data = blume)
+summary(aov(size~cultivar, data = blume))
+summary.lm(aov(size~cultivar, data = blume))
+
+# Daten generieren mit 3 statt nur 2 Kategorien
+c <- c(30, 19, 31, 23, 18, 25, 26, 24, 17, 20)
+blume2 <- data.frame(cultivar = c(rep("a", 10), rep("b", 10), rep("c", 10)), size = c(a, b, c))
+blume2$cultivar <- as.factor(blume2$cultivar)
+
+summary(blume2)             
+head(blume2)
+
+par(mfrow=c(1,1))
+boxplot(size~cultivar, xlab = "Sorte", ylab = "Blütengrösse [cm]", data = blume2)
+
+aov(size~cultivar, data = blume2)
+summary(aov(size~cultivar, data = blume2))
+summary.lm(aov(size~cultivar, data=blume2))
+
+aov.1 <- aov(size~cultivar, data = blume2)
+summary(aov.1)
+summary.lm(aov.1)
+
+#Berechnung Mittelwerte usw. zur Charakterisierung der Gruppen
+aggregate(size~cultivar, blume2, function(x) c(Mean = mean(x), SD = sd(x), Min = min(x), Max = max(x)))
+
+lm.1 <- lm(size~cultivar, data = blume2)
+summary(lm.1)
+
+#Load library
+if(!require(agricolae)){install.packages("agricolae")}
+library(agricolae)
+
+# Posthoc-Test
+HSD.test(aov.1, "cultivar", group = FALSE, console = TRUE)
+
+
+# ANOVA Mit Iris-Datenset, das in R integriert ist
+aov.2 <- aov(Sepal.Width ~ Species, data = iris)
+
+# Posthoc-Test
+HSD.test(aov.2, "Species", console = TRUE)
+
+# Plot mit labels
+boxplot(Sepal.Width ~ Species, data = iris)
+boxplot(Sepal.Width ~ Species, ylim = c(2, 5), data = iris)
+text(1, 4.8, "a")
+text(2, 4.8, "c")
+text(3, 4.8, "b")
+
+#Load library
+library(ggplot2)
+
+ggplot(iris, aes(Species, Sepal.Width)) + 
+  geom_boxplot(size = 1) +
+  annotate("text", y = 5, x = 1:3, label = c("a", "c", "b"))
+
+#  Shapiro-Wilk Test auf Normalverteilung
+# Pro Kategorie!
+# (H0 = Notmalverteilung)
+shapiro.test(blume2$size[blume2$cultivar == "a"])
+shapiro.test(blume2$size[blume2$cultivar == "b"])
+shapiro.test(blume2$size[blume2$cultivar == "c"])
+?var.test
+
+# F-Test zum Vergleich zweier Varianzen
+# (H0= Gleiche Varianzen)
+var.test(blume2$size[blume2$cultivar == "a"],
+         blume2$size[blume2$cultivar == "b"])
+
+#Load library
+if(!require(car)){install.packages("car")}
+library(car)
+
+# Test auf Homogenität der Varianzen
+leveneTest(blume2$size[blume2$cultivar == "a"],
+           blume2$size[blume2$cultivar == "b"],
+           center=mean)
+
+# Nicht-parametrische Alternative zu t-Test
+wilcox.test(blume2$size[blume2$cultivar == "a"],
+            blume2$size[blume2$cultivar == "b"])
+
+summary(aov(size~cultivar, data = blume2))
+
+kruskal.test(size~cultivar, data = blume2)
+
+#Load library
+if(!require(FSA)){install.packages("FSA")} 
+library(FSA)
+
+#korrigierte p-Werte nach Bejamini-Hochberg
+dunnTest(size~cultivar, method = "bh", data = blume2) 
+
+oneway.test(size~cultivar, var.equal = F, data = blume2)
+
+# Daten generieren
+d <- c(10, 12, 11, 13, 10, 25, 12, 30, 26, 13)
+e <- c(15, 13, 18, 11, 14, 25, 39, 38, 28, 24)
+f <- c(10, 12, 11, 13, 10, 9, 2, 4, 7, 13)
+
+blume3 <- data.frame(cultivar = c(rep("a", 20), rep("b", 20), rep("c", 20)),
+                     house = c(rep(c(rep("yes", 10), rep("no", 10)), 3)),
+                  size = c(a, b, c, d, e, f))
+blume3
+
+boxplot(size~cultivar + house, data = blume3)
+
+summary(aov(size~cultivar + house, data = blume3))
+summary(aov(size~cultivar + house + cultivar:house, data = blume3)) 
+#Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird
+summary(aov(size~cultivar * house, data = blume3)) 
+
+summary.lm(aov(size~cultivar+house, data = blume3))
+
+interaction.plot(blume3$cultivar, blume3$house, blume3$size)
+interaction.plot(blume3$house, blume3$cultivar, blume3$size)
+
+
+anova(lm(blume3$size~blume3$cultivar*blume3$house), lm(blume3$size~blume3$cultivar+blume3$house))
+anova(lm(blume3$size~blume3$house), lm(blume3$size~blume3$cultivar * blume3$house))
+
+#Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot
+
+if(!require(sjPlot)){install.packages("sjPlot")} 
+library(sjPlot)
+if(!require(ggplot2)){install.packages("ggplot2")} 
+library(ggplot2)
+theme_set(theme_classic())
+
+aov <- aov(size ~ cultivar * house, data = blume3)
+plot_model(aov, type = "pred", terms = c("cultivar", "house") )
+
+#Geht auch für 3-fach-Interaktionen
+
+#Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum
+
+Riesch <- read.delim("datasets/statistik/Riesch_et_al_ReMe_Extract.csv", sep=";", stringsAsFactors = TRUE)
+str(Riesch)
+
+aov.deer <- aov(Species.richness ~ Year * Treatment * Plot.type, data = Riesch)
+plot_model(aov.deer, type = "pred", terms = c("Year", "Treatment", "Plot.type"))
+
+
+##Korrelationen und Regressionen
+
+# Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum
+df <- read.delim("datasets/statistik/Nitrogen.csv", sep=";")
+summary(df)
+
+#Plotten der Beziehung
+plot(Species.richness~N.deposition, data = df)
+
+#Load library
+if(!require(car)){install.packages("car")}
+library(car)
+
+#Daten anschauen
+scatterplot(Species.richness~N.deposition, data = df)
+
+#Korrelationen
+cor.test(df$Species.richness, df$N.deposition, method = "pearson")
+cor.test(df$N.deposition, df$Species.richness, method = "pearson")
+cor.test(df$Species.richness, df$N.deposition, method = "spearman")
+cor.test(df$Species.richness, df$N.deposition, method = "kendall") 
+
+#Jetzt als Regression
+lm <- lm(Species.richness~N.deposition, data = df)
+anova(lm) #ANOVA-Tabelle, 1. Möglichkeit
+summary.aov(lm) #ANOVA-Tabelle, 2. Möglichkeit
+summary(lm) #Regressionskoeffizienten
+
+#Signifikantes Ergebnis visualisieren
+plot(Species.richness~N.deposition, data = df)
+abline(lm)
+
+par(mfrow=c(2, 2)) #4 Plots in einem Fenster
+plot(lm(b~a))
+
+#Load library
+if(!require(ggfortify)){install.packages("ggfortify")}
+library(ggfortify)
+
+autoplot(lm(b~a))
+
+# Modellstatistik nicht OK
+g <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14, 25, 39, 38, 28, 24)
+h <- c(12, 15, 10, 7, 8, 10, 12, 11, 13, 10, 25, 12, 30, 26, 13)
+par(mfrow = c(1, 1))
+
+plot(h~g,xlim = c(0, 40), ylim = c(0, 30))
+abline(lm(h~g))
+
+par(mfrow = c(2, 2))
+plot(lm(h~g))
+
+# Modelldiagnostik mit ggplot
+df <- data.frame(g, h)
+ggplot(df, aes(x = g, y = h)) + 
+    # scale_x_continuous(limits = c(0,25)) +
+    # scale_y_continuous(limits = c(0,25)) +
+    geom_point() +
+    geom_smooth( method = "lm", color = "black", size = .5, se = F) + 
+    theme_classic()
+
+par(mfrow=c(2, 2))
+autoplot(lm(h~g))

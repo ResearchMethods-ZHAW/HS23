@@ -50,8 +50,8 @@ class(DF_mod$time_of_day)
 
 table(DF_mod$id)
 
-DF_mod %>% 
-  group_by(id) %>% 
+DF_mod |> 
+  group_by(id) |> 
   summarize(anzahl = n())
 
 length(unique(DF_mod$id))
@@ -62,10 +62,10 @@ length(unique(DF_mod$id))
 Unterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit 
 
 ```{r}
-DF_mod_night <- DF_mod %>%
+DF_mod_night <- DF_mod |>
   filter(time_of_day == "night")
 
-DF_mod_day <- DF_mod %>%
+DF_mod_day <- DF_mod |>
   filter(time_of_day == "day")
 
 # Kontrolle
@@ -89,9 +89,9 @@ par(mfrow=c(3,3), mar=c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
 # innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
 
 for (i in 6:12) {                           
-  dp  <-  DF_mod_day %>% filter(pres_abs == 1) %>% pull(i)
+  dp  <-  DF_mod_day |> filter(pres_abs == 1) |> pull(i)
   dp <- density(dp)
-  da  <-  DF_mod_day %>% filter(pres_abs == 0) %>% pull(i)
+  da  <-  DF_mod_day |> filter(pres_abs == 0) |> pull(i)
   da <- density(da)
   plot(0,0, type="l", xlim=range(c(dp$x,da$x)), ylim=range(dp$y,da$y), 
        xlab=names(DF_mod_day[i]), ylab="Density")
