@@ -152,6 +152,7 @@ book:
       - fallstudie_n/6_Guete_und_Diagnostics.qmd
       #- --
       #- fallstudie_n/7_Modelle_mit_Nutzungsintensitaet.qmd
-    - part: "Anhang"
-      chapters:
-      - References.qmd
+    - part: "References.qmd"
+      # remove the following lines as soon as https://github.com/quarto-dev/quarto-cli/issues/6474 is resolved
+      chapters: 
+        - "References.qmd"

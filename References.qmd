@@ -1,5 +1,4 @@
 # Literaturverzeichnis
 
-
 ::: {#refs}
 :::
