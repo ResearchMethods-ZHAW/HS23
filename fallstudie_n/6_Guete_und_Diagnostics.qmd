@@ -1,21 +1,23 @@
 ---
 execute:
-  echo: true
-format:
-  html:
-    code-tools:
-      source: true
+  echo: false   # set to true to show musterlösung
+  output: false # set to true to show musterlösung
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
-## 6. Modellgüte und -diagnostics MM / Habitatselektionsmodell - Lösung
+# 6. Modellgüte und -diagnostics MM / Habitatselektionsmodell
 
-### Libraries laden
+## Libraries laden
 
 Neue packages die wir für die Modelle und die Diagnostics brauchen
 
 ```{r}
-#| results: hide
-
+#| echo: true
+#| code-fold: false
 
 # neue Packages: DHARMa, car, MASS, ROCR, sjPlot, sjstats, ggeffects, cowplot, gstat
 
@@ -32,17 +34,19 @@ packages <- c("lme4", "bbmle", "MuMIn", "tidyverse", "DHARMa", "car", "MASS", "R
 ipak(packages)
 ```
 
-### Ausgangslage
+## Ausgangslage
 
-- Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung
+- Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung 
+
+Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln, 
 
 ```{r}
-#| fig.keep: none
+#| echo: true
+#| code-fold: false
 
 
-#| results: hide
 DF_mod_day <- read_delim("fallstudie_n/data/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", 
-                         delim = ";") %>%
+                     delim = ";") %>%
   filter(time_of_day == "day") %>%
   mutate(slope_scaled = scale(slope),
          us_scaled = scale(us),
@@ -74,26 +78,29 @@ summary(avgmodel)
 - Die Modellresultate aus dem avgmodel sind grundätzlich die finalen Resultate die bereits interpretiert werden könnten. Allerdings funktionieren die Diagnosetests und die Darstellung der Resultate mit diesem gemittelten Modell nicht sehr gut, weshalb wir einen re-fit mit glmer machen müssen (an den Resultaten ändert sich dadurch nichts) 
 
 ```{r}
+#| echo: true
+#| code-fold: false
 
-# hier noch zum Vergleich, dass die Resulate sich nur marginal verändern 
 
+# hier zum Vergleich, dass die Resulate sich nur marginal verändern 
+
+summary(avgmodel)
 summary(m_day)
-
-# https://stats.stackexchange.com/questions/153611/interpreting-random-effect-variance-in-glmer
-
-# 95% range of the roe deer effects is approximately: -0.97 - 0.97
 ```
 
-### Aufgabe 1
+## Aufgabe 1
 
-Berechung der AUC (area under the receiver operating characteristic curve)**= Mass der Modellgüte**
+Berechung der AUC (area under the receiver operating characteristic curve) **= Mass der Modellgüte**
 
 Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf) 
 
 ```{r}
+#| output: false
 
 prob <- predict(m_day,type=c("response"))   
 pred <- prediction(prob, DF_mod_day$pres_abs)    
+
+?prediction
 
 # AUC
 
@@ -101,7 +108,7 @@ auc <- performance(pred, measure = "auc")@y.values[[1]]
 auc
 ```
 
-### Aufgabe 2
+## Aufgabe 2
 
 Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 
@@ -109,6 +116,8 @@ Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 - unbedingt die Vignette des DHARMa-Package konsultieren: [Link](https://cran.r-project.org/web/packages/DHARMa/vignettes/DHARMa.html)
 
 ```{r}
+#| eval: false
+#| output: false
 
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und 
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt 
@@ -154,15 +163,52 @@ car::vif(m_day)
 mean(car::vif(m_day))
 ```
 
-### Aufgabe 4 
+## Aufgabe 3
+
+Graphische Darstellung der Modellresultate
+
+```{r}
+#| eval: false
+#| output: false
+
+# graphische Darstellung der gesamten Modellresultate
+
+plot_model(m_day, transform = NULL, show.values = TRUE, value.offset = .3)
+
+# Plotten der vorhergesagten Wahrscheinlichkeit, dass ein Kreis besetzt ist, in 
+# Abhängigkeit der erklärenden Variable basierend auf den Modellresultaten.
+
+plot_model(m_day,type = "pred", terms = "us_scaled [all]")
+
+# Problem: skalierte Variablen lassen sich nicht so ohne weiteres plotten, hier ein quick-
+# and-dirty hack um das Problem zu umgehen. Die Einstellungen müssen für jede Variable 
+# geändert werden
+
+p <- plot_model(m_day,type = "pred", terms = "us_scaled [all]") 
+
+labels <- round(seq(floor(min(DF_mod_day$us)), ceiling(max(DF_mod_day$us)), 
+                    length.out = 8),2)
+
+p <- p + scale_x_continuous(breaks=c(-1,0,1,2,3,4,5,6), labels=c(labels))
+
+p
+
+# Funktion um viele Plots auf einem zusammenbringen: cowplot-package (hat auch sonst 
+# gute Funktionen für schöne Layouts für Grafiken)
+
+cowplot::plot_grid()
+```
+
+## Aufgabe 4
 
 Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
-- **Bestimmen delta AIC nach Coppes et al. 2017 -> Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.**
-- **Auftrag auf den 22.11.2021: Jede Gruppe kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)**
+- Bestimmen delta AIC nach Coppes et al. 2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.
+- Auftrag auf den 21.11.2022: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
+
+
 
 ```{r}
-
 m_os <- glmer(pres_abs ~
   dist_build_scaled +
   dist_road_only_scaled +
