@@ -31,7 +31,6 @@ library("sjPlot")
 library("ggeffects")
 library("sjstats")
 library("cowplot")
-library("magrittr")
 library("gstat")
 ```
 
