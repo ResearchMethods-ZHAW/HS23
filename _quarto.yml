@@ -25,7 +25,12 @@ execute:
   error: true
   message: false
   warning: false
-  tidy: true
+
+
+knitr:
+  opts_chunk: 
+    collapse: true
+    tidy: true
     
 book:
   title: "Research Methods HS22"
