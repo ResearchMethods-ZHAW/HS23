@@ -93,7 +93,7 @@ $H_1$: Es gibt Unterschiede in den Verkaufszahlen zwischen Basis- und Interventi
 df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv")
 
 # überprüft die Voraussetzungen für einen t-Test
-ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
+ggplot(df, aes(x = condit, y= tot_sold)) + # achtung 0 Punkt fehlt
     geom_boxplot(fill = "white", color = "black", size = 1) + 
     labs(x="\nBedingungen", y="Durchschnittlich verkaufte Gerichte pro Woche\n") + 
     mytheme
@@ -132,7 +132,7 @@ In den Basiswochen werden mehr Gerichte pro Woche verkauft als in den Interventi
 #| out.width: 80%
 
 # zeigt die Ergebnisse mit einer Abbildung
-p <- ggplot2::ggplot(df, aes(x = condit, y= tot_sold)) + 
+p <- ggplot(df, aes(x = condit, y= tot_sold)) + 
   # erzeugt sogenannte Whiskers mit Strichen, achtung reihenfloge zählt hier
   stat_boxplot(geom ='errorbar', width = .25) + 
   geom_boxplot(fill = "white", color = "black", size = 1) +
