@@ -16,6 +16,7 @@ knitr:
 Im Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
 
 ```{r}
+#| eval: false
 
 ipak <- function(pkg){
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
