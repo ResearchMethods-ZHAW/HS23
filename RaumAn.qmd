@@ -6,6 +6,8 @@ listing:
     categories: false
     fields: [title, date, lesson, thema]
     field-links: [title]
+    sort-ui: false
+    filter-ui: false
     sort: 
         - "date"
         - "index"
