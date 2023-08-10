@@ -34,7 +34,7 @@ knitr:
     tidy: true
     
 book:
-  title: "Research Methods HS22"
+  title: "Research Methods HS23"
   sidebar: 
     logo: images/zhaw_sw_neg.png
     collapse-level: 1
