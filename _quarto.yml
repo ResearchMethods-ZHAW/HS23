@@ -40,10 +40,15 @@ book:
     collapse-level: 1
     style: floating
   reader-mode: true    
+  # globbing would be cool. Wait for
+  # https://github.com/quarto-dev/quarto-cli/issues/2120 or
+  # https://github.com/quarto-dev/quarto-cli/issues/1917 to be resolved 
+
   chapters:
     - index.qmd
     - part: PrePro.qmd
       chapters:
+      - prepro/Prepro1_Vorbereitung.qmd
       - prepro/Prepro1_Demo.qmd
       - prepro/Prepro1_Uebung.qmd
       - --
@@ -55,6 +60,7 @@ book:
       - prepro/Prepro3_Uebung.qmd
     - part: InfoVis.qmd
       chapters:
+      - infovis/Infovis1_Vorbereitung.qmd
       - infovis/Infovis1_Demo.qmd
       - infovis/Infovis1_Script_eda.qmd
       - infovis/Infovis1_Uebung.qmd
@@ -115,6 +121,7 @@ book:
       - statKons/StatKons4_Demo_GLM.qmd
     - part: RaumAn.qmd
       chapters:
+      - rauman/Rauman1_Vorbereitung.qmd
       - rauman/Rauman1_Uebung_A.qmd
       - rauman/Rauman1_Uebung_B.qmd
       - --

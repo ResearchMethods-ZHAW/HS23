@@ -1,0 +1,29 @@
+
+
+---
+date: 2022-10-11
+lesson: RaumAn1
+thema: Vorbereitung
+index: 0
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+
+## Vorbereitung {#sec-rauman-vorbereitung}
+
+Im Rahmen von Rauman 1 - 5 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
+
+```{r}
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+}
+
+packages <- c("sf", "dplyr", "ggplot2", "spatstat.geom", "spatstat.explore", 
+"gstat", "tidyr", "terra", "tmap")
+
+ipak(packages)
+
+```

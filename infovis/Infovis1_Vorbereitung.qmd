@@ -1,0 +1,29 @@
+
+
+---
+date: 2022-10-11
+lesson: InfoVis1
+thema: Vorbereitung
+index: 0
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+
+## Vorbereitung {#sec-infovis-vorbereitung}
+
+Im Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
+
+```{r}
+
+ipak <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+}
+
+packages <- c("dplyr", "ggplot", "lubridate", "readr", "scales", "tidyr")
+
+ipak(packages)
+
+```
