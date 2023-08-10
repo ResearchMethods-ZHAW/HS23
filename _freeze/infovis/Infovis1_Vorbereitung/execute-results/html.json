@@ -1,0 +1,14 @@
+{
+  "hash": "c362d05d304c7c20c77b759226dad925",
+  "result": {
+    "markdown": "---\ndate: 2022-10-11\nlesson: InfoVis1\nthema: Vorbereitung\nindex: 0\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n\n## Vorbereitung {#sec-infovis-vorbereitung}\n\nIm Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n\nipak <- function(pkg){\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}\n}\n\npackages <- c(\"dplyr\", \"ggplot\", \"lubridate\", \"readr\", \"scales\", \"tidyr\")\n\nipak(packages)\n```\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
