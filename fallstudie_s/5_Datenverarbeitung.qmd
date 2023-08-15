@@ -475,8 +475,9 @@ depo_m <- depo |>
 
 ```{r echo=TRUE}
 depo_m <- depo_m |> 
-  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
+  mutate(
+    Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und
+    Ym = lubridate::ym(Ym)) # formatiere als Datum
 ```
 
 - Wiederholt diesen Schritt, diesmal aber mit der Gruppierung "Tageszeit" neben "Jahr" und "Monat" und speichert das Resultat unter "depo_m_daytime
@@ -489,8 +490,9 @@ depo_m_daytime <- depo |>
 # sortiere das df aufsteigend (nur das es sicher stimmt)
 
 depo_m_daytime <- depo_m_daytime |> 
-  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
+  mutate(
+    Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und
+    Ym = lubridate::ym(Ym)) # formatiere als Datum
 ```
 
 
