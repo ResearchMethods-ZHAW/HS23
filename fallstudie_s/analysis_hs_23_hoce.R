@@ -324,8 +324,9 @@ depo_m <- depo |>
   summarise(Total = sum(Total)) 
 
 depo_m <- depo_m |> 
-mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
+  mutate(
+    Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und
+    Ym = lubridate::ym(Ym)) # formatiere als Datum
 
 
 # Gruppiere die Werte nach Monat und TAGESZEIT
@@ -334,8 +335,9 @@ depo_m_daytime <- depo |>
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
 depo_m_daytime <- depo_m_daytime |> 
-  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
+  mutate(
+    Ym = paste(Jahr, Monat), # und mache eine neue Spalte, in der Jahr und
+    Ym = lubridate::ym(Ym)) # formatiere als Datum
 
 #.################################################################################################
 # 3. DESKRIPTIVE ANALYSE UND VISUALISIERUNG #####
@@ -607,6 +609,11 @@ sum(umwelt$Ferien)
 # Im GLMM wird das Jahr als random factor definiert. Dazu muss es als
 # Faktor vorliegen. Monat und KW koennen die Besuchszahlen auch erklaeren.
 # auch sie muessen faktoren sein
+
+
+# DAS SOLLTE EIG SCHON GEMACHT SEIN VON WEITER OBEN. PRÜFE DAS
+
+
 umwelt <- umwelt |> 
   mutate(Jahr = as.factor(Jahr)) |> 
   mutate(KW = as.factor(KW)) |>
@@ -1231,6 +1238,16 @@ sum(umwelt_h$Ferien)
 # Im GLMM wird das Jahr als random factor definiert. Dazu muss es als
 # Faktor vorliegen. Monat und KW koennen die Besuchszahlen auch erklaeren.
 # auch sie muessen faktoren sein
+
+
+
+
+
+# DAS SOLLTE EIG SCHON GEMACHT SEIN VON WEITER OBEN. PRÜFE DAS
+
+
+
+
 umwelt_h <- umwelt_h |> 
   mutate(Jahr = as.factor(Jahr)) |> 
   mutate(KW = as.factor(KW)) |>
