@@ -1,4 +1,19 @@
-# KW40: Einleitung
+---
+date: 2023-10-02
+lesson: Einführung
+thema: Kennenlernen Untersunungsgebiet und Thema
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: false
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# BiEcS1 - Einführung
 
 ## Hintergrund
 
@@ -32,7 +47,7 @@ Unsere Analysen in diesem Modul helfen dem Management, ein besseres Verständnis
 
 ## Ziel
 
-In dieser Fallstudie zeigen wir, welche Einflüsse die Covid19-Pandemie im Frühjahr 2020 auf die täglichen Besuchszahlen im Wildnispark Zürich hatte. Dabei setzen wir den Fokus auf die Dämmerung und die Nacht, den in diesen Zeiten sind Wildtiere besonders sensibel gegenüber Störungen.
+In dieser Fallstudie zeigen wir, welche Einflüsse die Covid19-Pandemie im Frühjahr 2020 auf die täglichen Besuchszahlen im Wildnispark Zürich hatte. Dabei setzen wir den Fokus auf die Dämmerung und die Nacht, den in diesen Zeiten sind Wildtiere (u.a. Rehe) besonders sensibel gegenüber Störungen.
 
 In unsere Analysen ziehen wir auch weitere erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.
 
