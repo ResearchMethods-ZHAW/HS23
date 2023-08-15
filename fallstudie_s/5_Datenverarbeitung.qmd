@@ -448,7 +448,7 @@ head(depo_d)
 ```{r}
 # nun gruppieren wir nicht nur nach Tag sondern auch noch nach Tageszeit
 depo_daytime <- depo |> 
-  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Stunde) |> 
+  group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Tageszeit) |> 
   summarise(Total = sum(Fuss_IN + Fuss_OUT), 
             Fuss_IN = sum(Fuss_IN),
             Fuss_OUT = sum(Fuss_OUT)) 
@@ -514,6 +514,6 @@ Z.B. sind folgende Befehle und Plots wichtig:
 
 __Hinweis:__ Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine "analysierenden" Plots erstellt.
 
-__--> Erklärt dem Plenum am 23.10.2021 was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __
+__--> Erklärt dem Plenum nächste Woche was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __
 
 Nachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.
