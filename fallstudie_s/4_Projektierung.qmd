@@ -1,9 +1,19 @@
-# KW 42: Projektierung
+---
+date: 2023-10-16
+lesson: Projektierung
+thema: Projekt Fallstudie erstellen
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
 
-
-# Arbeiten mit Projekten
-
-__Hinweis: Bitte bearbeitet dieses Skript am 18.10.2022 erst nach der Einführung [Multivariate Analyse: Abschlussbericht].__ 
+# BiEcS4 - Projektierung
 
 ## Vorbereitung
 

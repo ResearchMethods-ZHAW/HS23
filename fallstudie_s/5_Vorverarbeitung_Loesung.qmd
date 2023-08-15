@@ -1,6 +1,19 @@
+---
+date: 2023-10-17
+lesson: Datenvorverarbeitung
+thema: Daten so aufbereiten, dass Analysen durchgeführt werden können
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
 
-
-# KW 42+43: Lösung Datenvorverarbeitung
+# BiEcS5 - Datenverarbeitung
 
 
 

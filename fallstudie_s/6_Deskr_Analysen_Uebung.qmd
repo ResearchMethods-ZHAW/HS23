@@ -1,4 +1,19 @@
-# KW 43+44: Übung Deskriptiv
+---
+date: 2023-10-24
+lesson: Deskriptive Analysen
+thema: Explorativ / Beschreibend
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# BiEcS6 - Deskriptive Analysen
 
 ```{r include=FALSE, echo = FALSE}
 # Benoetigte Bibliotheken ####

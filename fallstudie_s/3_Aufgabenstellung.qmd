@@ -1,4 +1,19 @@
-# KW 42: Aufgabenstellung WPZ
+---
+date: 2023-10-16
+lesson: Aufgabenstellung
+thema: Abschlussbericht Fallstudie
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# BiEcS3 - Aufgabenstellung WPZ
 
 
 # Multivariate Analyse: Abschlussbericht
