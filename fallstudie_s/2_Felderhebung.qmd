@@ -1,4 +1,19 @@
-# KW 40 - KW 42: Felderhebung
+---
+date: 2023-10-03
+lesson: Besuchermonitoring
+thema: Felderhebungen Grüental
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: false
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# Felderhebung
 
 ## Einführung und Installation
 
@@ -17,7 +32,7 @@ Es gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Au
 
 Die Geräte werden innerhalb der unten eingezeichneten Elipsen platziert. Damit soll überprüft werden, wie stark frequentiert die Waldränder der ökologisch aufgewerteten Seeparzelle sind.
 
-![](images/Perimeter_Felderhebung.png){width=50%}
+![](images/Perimeter_Felderhebung.png){width=100%}
 
 Datenschutz ist ein wichtiges Thema. Die Besuchenden werden über den Zweck der Kameras informiert, die Daten nach der Bearbeitung wieder gelöscht und nicht weitergegeben.
 
@@ -39,6 +54,22 @@ _Da die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, a
 
 - Skizziert eure Ideen mittels Stift und Papier.
  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Aufgabe 2: Darstellung in R
 
