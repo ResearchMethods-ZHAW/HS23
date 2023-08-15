@@ -183,8 +183,7 @@ Frage: Was bedeuten die __|__ (zu erstellen mit AltGr + 7)? Welches ist das if A
 
 5. Phase Covid (Code untenstehend). Wir definieren sechs Phasen: 
 
-  - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1 (pre)
-  - 1 Jahr vor Corona (normal)
+  - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1
   - Lockdown 1
   - zwischen den Lockdowns
   - Lockdown 2

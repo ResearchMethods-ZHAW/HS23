@@ -16,8 +16,8 @@ knitr:
 # BiEcS5 - Datenverarbeitung
 
 
-
 ```{r include=FALSE, echo=FALSE}
+
 # Benoetigte Bibliotheken ####
 library(tidyverse) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
@@ -63,37 +63,95 @@ KW_end <- isoweek(depo_end)
 
 schulferien <- read_delim("datasets/fallstudie_s/ferien.csv", ",")
 
-
-
 ```
 
-# Aufgabe 1: Zähldaten
+
+## Aufgabe 1: Zähldaten
+
+### 1a)
+
+Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden. 
+
+Lädt die Daten zuerst von Moodle herunter.
+
+Hinweise: 
+
+- Siehe [Einführung] für den Standort der __Zähler 211 und 502__. 
+
+- Die Daten sind auf Moodle unter _ReMe HS22 MSc ENR / Fallstudie Biodiversity & Ecosystems / S_Daten_ abgelegt.
+1. Zähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2022.csv, 502_sihluferweg_2016_2022.csv)
+2. Meteodaten (order_105742_data.txt)
+
+
+Die Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.
+
+- Lest die Zählaten ein, speichert ihn unter der Variable __depo__ und sichtet den Datensatz (z.B. str(), head(), view() usw.).
+
+
+```{r echo = TRUE, eval: false}
+# Speicherort sowie Dateiname anpassen
+depo <- read_delim("./HIER RELATIVEN DATEIPFAD EINGEBEN", "HIER SEPERATOR EINGEBEN") 
+```
+
+__Hinweis:__ Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.
 
 ```{r}
 # lese die Daten ein 
-# Je nach Bedarf muss der Speicherort sowie der Dateiname angepasst werden
 depo <- read_delim("datasets/fallstudie_s/WPZ/211_sihlwaldstrasse_2017_2022.csv", ";")
 
-# Hinweis zu den Daten:
-# In hourly analysis format, the data at 11:00 am corresponds to the counts saved between 
-# 11:00 am and 12:00 am.
-
-# Anpassen der Datentypen und erstes Sichten
+# erstes Sichten und anpassen der Datentypen 
 str(depo)
+```
 
+
+### 1b) 
+
+- Nun muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = "HIER DATUMSFORMAT")?
+
+```{r eval=FALSE}
+depo <- depo |>
+  mutate(
+    Datetime = as.POSIXct(DatumUhrzeit, format = "HIER STEHT DAS DATUMSFORMAT", tz = "CET"),
+    # nun schreiben wir uns das Datum in eine seperate Spalte
+    Datum = as.Date(Datetime)
+    ) 
+```
+
+```{r}
 depo <- depo |>
   mutate(
     Datetime = as.POSIXct(DatumUhrzeit, format = "%d.%m.%Y %H:%M", tz = "CET"),
     Datum = as.Date(Datetime)
-    ) #|> 
-  # Schneide das df auf den gewuenschten Zeitraum zu
-  # filter(Datetime >= depo_start, Datum <=  depo_end) # das Komma hat die gleiche Funktion wie ein &
+    ) 
+```
 
+### 1c) 
+
+Ihr könnt selbst wählen, ob ihr Fussgänger:innen oder Fahrräder untersuchen wollt (je nachdem ob sie in eurem Datensatz vorhanden sind).
+
+- Entfernt die überflüssigen Spalten aus dem Datensatz. Ich schlage vor, dass ihr dafür den Befehl dplyr::select() verwendet.
+
+
+```{r}
 # In dieser Auswertung werden nur Personen zu Fuss betrachtet!
 # it select werden spalten ausgewaehlt oder eben fallengelassen
 depo <- depo |> 
   dplyr::select(-c(Velo_IN, Velo_OUT, Zeit, DatumUhrzeit))
+```
 
+
+### 1d) 
+
+- Berechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist (wiederum mit piping). 
+
+Tipp: Wenn man R sagt: "addiere mir Spalte x mit Spalte y", dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: "speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens __Total__", dann hat man die Aufgabe bereits gelöst. Arbeitet mit __mutate()__).
+
+__Hinweis:__ Ihr habt das auch schon in Kapitel [Einführung und Installation] gemacht.
+
+- Entfernt nun alle NA-Werte mit __na.omit()__.
+
+
+```{r}
 # Berechnen des Totals, da dieses in den Daten nicht vorhanden ist
 depo <- depo|>
   mutate(Total = Fuss_IN + Fuss_OUT)
@@ -102,22 +160,54 @@ depo <- depo|>
 depo <- na.omit(depo)
 ```
 
-# Aufgabe 2: Meteodaten
+
+
+
+
+
+
+
+## Aufgabe 2: Meteodaten
+
+### 2a) 
+
+- Lest die Meteodaten ein und speichert sie unter __meteo__.
 
 ```{r}
 # Einlesen
 meteo <- read_delim("datasets/fallstudie_s/WPZ/order_105742_data.txt", ";")
+```
 
-# Datentypen setzen
-# Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewaldelt werden aus dem dann
-# das eigentliche Datum herausgelesen werden kann
+### 2b) 
+
+- Auch hier müssen die Datentypen manuell gesetzt werden. 
+
+Tipp: Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code.
+
+```{r echo = TRUE}
 meteo <- mutate(meteo, time = as.Date(as.character(time), "%Y%m%d"))
+```
 
+__Hinweis__ Was ist eigentlich Niederschlag: https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
+
+- Werden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.
+
+- Nun schneiden wir den Datensatz auf die Untersuchungsdauer zu.
+
+- Dann müssen auch hier alle nicht verfügbare Werte (NA's) herausgefiltert werden.
+
+- Prüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden (sum(is.na(df$Variable))). Stimmen alle Datentypen?
+
+
+```{r}
 # Die eigentlichen Messwerte sind alle nummerisch
 meteo <- meteo|>
-  mutate(tre200jx = as.numeric(tre200jx))|>
-  mutate(rre150j0 = as.numeric(rre150j0))|>
-  mutate(sremaxdv = as.numeric(sremaxdv)) |> 
+  mutate(
+    tre200nx  = as.numeric(tre200nx ),
+    tre200jx  = as.numeric(tre200jx ),
+    rre150n0  = as.numeric(rre150n0 ),
+    rre150j0 = as.numeric(rre150j0),
+    sremaxdv = as.numeric(sremaxdv)) |> 
   filter(time >= depo_start, time <=  depo_end) # schneide dann auf Untersuchungsdauer
 
 # Was ist eigentlich Niederschlag:
@@ -130,35 +220,60 @@ str(meteo)
 sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 ```
 
-# Aufgabe 3: Datenvorverarbeitung (Mutationen)
+
+## Aufgabe 3: Datenvorverarbeitung (Mutationen)
+
+### 3a) 
+
+Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
+
+1. Wochentag; der Befehl dazu ist __wday()__
+2. Werktag oder Wochenende als Faktor. Der Code dazu könnte so aussehen:
+
+```{r eval=FALSE}
+  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
+  mutate(Wochenende = as.factor(Wochenende)) |>
+```
+
+je als Faktor: 
+3. Kalenderwoche: __isoweek()__
+4. Monat: __month()__
+5. Jahr: __year()__
 
 ```{r}
-#.################################################################################################
-# 2. VORBEREITUNG DER DATEN #####
-#.################################################################################################
-
-# 2.1 Convinience Variablen ####
-# fuege dem Dataframe (df) die Wochentage hinzu
 depo <- depo |> 
+  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
   mutate(Wochentag = wday(Datetime, week_start = 1)) |> 
   # Werktag oder Wochenende hinzufuegen
   mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
-  # Kalenderwoche hinzufuegen
-  mutate(KW = isoweek(Datetime))|>
+  mutate(Wochenende = as.factor(Wochenende)) |> 
+  #Kalenderwoche hinzufuegen
+  mutate(KW= isoweek(Datetime))|>
+  mutate(KW = factor(KW)) |> 
   # monat und Jahr
   mutate(Monat = month(Datetime)) |> 
   mutate(Jahr = year(Datetime))
+```
 
-#Lockdown 
-# Hinweis: ich mache das nachgelagert, da ich die Erfahrung hatte, dass zu viele 
-# Operationen in einem Schritt auch schon mal durcheinander erzeugen koennen.
-# Hinweis II: Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown)
-# in eine Spalte --> long ist schoener als wide
+
+Ich mache den folgenden Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.
+
+5. Phase Covid (Code untenstehend). Wir definieren 5 Phasen: 
+
+  - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1
+  - Lockdown 1
+  - zwischen den Lockdowns
+  - Lockdown 2
+  - Ende 2. Lockdown bis Ende Untersuchungsperiode
+
+- Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte --> long-format ist schöner (und praktischer für das plotten) als wide-format.
+
+```{r echo=TRUE}
 depo <- depo |>
   mutate(Phase = case_when(
     Datetime < lock_1_start ~ "Pre",
     Datetime >= lock_1_start & Datetime <= lock_1_end ~ "Lockdown_1",
-    Datetime > lock_1_end & Datetime < lock_2_start ~ "Normal",
+    Datetime > lock_1_end & Datetime < lock_2_start ~ "inter",
     Datetime >= lock_2_start & Datetime <= lock_2_end ~ "Lockdown_2",
     Datetime > lock_2_end ~ "Post"
   ))
@@ -166,35 +281,62 @@ depo <- depo |>
 # hat das gepklappt?!
 unique(depo$Phase)
 
-# aendere die Datentypen
 depo <- depo |> 
-  mutate(Wochenende = as.factor(Wochenende)) |> 
-  mutate(KW = factor(KW)) |> 
   # mit factor() koennen die levels direkt einfach selbst definiert werden.
   # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem 
   # mix-up mit anderen packages
-  mutate(Phase = factor(Phase))
+  mutate(Phase = base::factor(Phase, levels = c("Pre", "Lockdown_1", "Inter", "Lockdown_2", "Post")))
 
 str(depo)
-  
+
+```
+
+### 3b)
+
+- Nun soll noch die volle Stunde als Integer im Datensatz stehen. Macht das mit dem Befehl __hour()__
+
+```{r}
 # Fuer einige Auswertungen muss auf die Stunden als nummerischer Wert zurueckgegriffen werden
 depo$Stunde <- hour(depo$Datetime)
-
-# ersetze 0 Uhr mit 24 Uhr (damit wir besser rechnen können)
-# depo$Stunde[depo$Stunde == 0] <- 24
-unique(depo$Stunde)
+# hour gibt uns den integer
 typeof(depo$Stunde)
+```
 
-# Die Daten wurden kalibriert. Wir runden sie fuer unserer Analysen auf Ganzzahlen
+### 3c) 
+
+Die Daten wurden durch den WPZ kalibriert (Kommastellen). 
+
+- Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen). 
+
+- Definiert sie sicherheitshalber als Integer
+
+- Macht das für IN, OUT und Total.
+
+```{r}
 depo$Total <- round(depo$Total, digits = 0)
 depo$Fuss_IN <- round(depo$Fuss_IN, digits = 0)
 depo$Fuss_OUT <- round(depo$Fuss_OUT, digits = 0)
+```
 
-# 2.2 Tageszeit hinzufuegen ####
 
+### 3d) Tageszeit
+
+Wir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie geht, liefere ich euch hier den Code dazu.
+
+Die wichtigsten Punkte:
+
+- Die Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package "suncalc" berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.
+- Die Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert. 
+
+- Untenstehenden Code könnt ihr einfach kopieren.
+
+```{r}
 # Einteilung Standort Zuerich
 Latitude <- 47.38598
 Longitude <- 8.50806
+
+# Start und das Ende der Sommerzeit:
+# https://www.schulferien.org/schweiz/zeit/zeitumstellung/
 
 
 # Welche Zeitzone haben wir eigentlich?
@@ -221,30 +363,35 @@ lumidata <-
     lat = Latitude,
     lon = Longitude,
     tz = "CET")  |>
-    as_tibble()
+  as_tibble()
 
-
-```
-
-
-```{r}
 # jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw. 
 # diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:
 depo <- depo |>
   left_join(lumidata, by = c(Datum = "date"))
 
-# im naechsten Schritt weise ich den Stunden die Tageszeiten Morgen, Tag, Abend und Nacht zu.
-# diese Zuweisung basiert auf der Einteilung gem. suncalc und eigener Definition.
+
+
+
+
+
+
+
+####
 depo <- depo|>
   mutate(Tageszeit = case_when(
     Datetime >= nightEnd & Datetime <= goldenHourEnd ~ "Morgen",
     Datetime > goldenHourEnd & Datetime < goldenHour ~ "Tag",
     Datetime >= goldenHour & Datetime <= night       ~ "Abend",
-    .default = "Nacht"
-  )) |>
-  mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"),ordered = TRUE))
+    .default = "Nacht")) |>
+    mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"),ordered = TRUE))
 
-# # behalte die relevanten Var
+
+
+
+
+
+# behalte die relevanten Var
 depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
 
 #Plotte zum pruefn ob das funktioniert hat
@@ -252,16 +399,35 @@ ggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde))+
   geom_jitter()+
   scale_color_manual(values = mycolors)
 
+sum(is.na(depo))
 
+# bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht. 
+# Diese loesche ich einfach:
+depo <- na.omit(depo)
+# hat das funktioniert?
+sum(is.na(depo))
 ```
 
 
-# Aufgabe 4: Aggregierung der Stundendaten
+## Aufgabe 4: Aggregierung der Stundendaten
+
+### 4a) 
+
+Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen können. 
+
+- Die Stundendaten müssen zu ganzen Tagen aggregiert werden. Macht das wiederum einer Pipe. Bezieht folgende Gruppierungen (__group_by()__) mit ein: __Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase__. Summiert die Zählmengen separat (Total, IN, OUT) auf und speichert das Resultat unter __depo_d__.
+
+Tipp: Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in das neue df übernommen und müssen nicht nochmals hinzugefügt werden
+
+```{r eval=FALSE}
+depo_d <- depo |> 
+  group_by(VARIABLE1, VARIABLE2, ...) |>   # Gruppieren nach den Variablen
+  summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte
+            Fuss_IN = sum(Fuss_IN),
+            ...
+```
 
 ```{r}
-# 2.4 Aggregierung der Stundendaten zu ganzen Tagen ####
-# Zur Berechnung von Kennwerten ist es hilfreich, wenn neben den Stundendaten auch auf Ganztagesdaten
-# zurueckgegriffen werden kann
 # hier werden also pro Nutzergruppe und Richtung die Stundenwerte pro Tag aufsummiert
 depo_d <- depo |> 
   group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase) |> 
@@ -272,24 +438,45 @@ depo_d <- depo |>
 # das neue df uebernommen und muessen nicht nochmals hinzugefuegt werden
 # pruefe das df
 head(depo_d)
+```
 
+
+- Erstellt nun einen Datensatz depo_daytime, in welchem ihr obrigen Schritt wiederholt aber zusätzlich noch die Gruppierung "Tageszeit" nutzt.
+
+```{r}
 # nun gruppieren wir nicht nur nach Tag sondern auch noch nach Tageszeit
 depo_daytime <- depo |> 
   group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Stunde) |> 
   summarise(Total = sum(Fuss_IN + Fuss_OUT), 
             Fuss_IN = sum(Fuss_IN),
             Fuss_OUT = sum(Fuss_OUT)) 
+```
+
+### 4b)
+
+- Aggregiere die Stundenwerte nach dem Monat (Gruppierungen __Monat, Jahr__) und speichert das neue df unter depo_m.
+
+Tipp: Braucht wiederum __group_by()__ und __summarise()__. Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr.
 
 
-# Gruppiere die Werte nach Monat
+```{r}
 depo_m <- depo |> 
   group_by(Jahr, Monat) |> 
   summarise(Total = sum(Total)) 
+```
 
+
+- Fügt den neu erstellten df eine Spalte mit Jahr + Monat hinzu. Hier der fertige Code dazu:
+
+```{r echo=TRUE}
 depo_m <- depo_m |> 
   mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
+```
 
+- Wiederholt diesen Schritt, diesmal aber mit der Gruppierung "Tageszeit" neben "Jahr" und "Monat" und speichert das Resultat unter "depo_m_daytime
+
+```{r}
 # Gruppiere die Werte nach Monat und TAGESZEIT
 depo_m_daytime <- depo |> 
   group_by(Jahr, Monat, Stunde) |> 
@@ -301,3 +488,22 @@ depo_m_daytime <- depo_m_daytime |>
   mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
 ```
 
+### 4c)
+
+Macht euch mit den Daten vertraut. Plottet sie, seht euch die df's an, versteht, was sie repräsentieren.
+
+Z.B. sind folgende Befehle und Plots wichtig:
+
+- str()
+- summarize()
+- head()
+
+- Scatterplot, x = Datum, y = Anzahl pro Zeiteinheit
+- Histrogram
+- usw.
+
+__Hinweis:__ Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine "analysierenden" Plots erstellt.
+
+__--> Erklärt dem Plenum am 23.10.2021 was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __
+
+Nachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.

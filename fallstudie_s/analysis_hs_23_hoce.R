@@ -36,18 +36,20 @@ load(file = "fallstudie_s/results/my_work_space.RData")
 # - scripts
 
 # Benoetigte Bibliotheken ####
-library(tidyverse) # Data wrangling und piping
-library(lubridate) # Arbeiten mit Datumsformaten
-library(suncalc)   # berechne Tageszeiten abhaengig vom Sonnenstand
-library(ggpubr)    # to arrange multiple plots in one graph
-library(PerformanceAnalytics) # Plotte Korrelationsmatrix
-library(MuMIn)     # Multi-Model Inference
-library(AICcmodavg)# Modellaverageing
-library(fitdistrplus)# Prueft die Verteilung in Daten
-library(lme4)      # Multivariate Modelle
-library(blmeco)    # Bayesian data analysis using linear models
-library(sjPlot)    # Plotten von Modellergebnissen (tab_model)
-library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
+library("readr")     # read data into r
+library("ggplot2")   # plot nice graphs
+library("dplyr")     # select data
+library("lubridate") # Arbeiten mit Datumsformaten
+library("suncalc")   # berechne Tageszeiten abhaengig vom Sonnenstand
+library("ggpubr")    # to arrange multiple plots in one graph
+library("PerformanceAnalytics") # Plotte Korrelationsmatrix
+library("MuMIn")     # Multi-Model Inference
+library("AICcmodavg")# Modellaverageing
+library("fitdistrplus")# Prueft die Verteilung in Daten
+library("lme4")      # Multivariate Modelle
+library("blmeco")    # Bayesian data analysis using linear models
+library("sjPlot")    # Plotten von Modellergebnissen (tab_model)
+library("lattice")   # einfaches plotten von Zusammenhängen zwischen Variablen
 
 
 
@@ -62,11 +64,11 @@ depo_end <- as.Date("2022-7-31")
 
 # Start und Ende Lockdown
 # definieren, wichtig fuer die spaeteren Auswertungen
-lock_1_start_2020 <- as.Date("2020-03-16")
-lock_1_end_2020 <- as.Date("2020-05-11")
+lock_1_start <- as.Date("2020-03-16")
+lock_1_end <- as.Date("2020-05-11")
 
-lock_2_start_2021 <- as.Date("2020-12-22")
-lock_2_end_2021 <- as.Date("2021-03-01")
+lock_2_start <- as.Date("2020-12-22")
+lock_2_end <- as.Date("2021-03-01")
 
 # Ebenfalls muessen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden
 # Diese werden bei Wochenweisen Analysen ebenfalls ausgeklammert da sie i.d.R. unvollstaendig sind
@@ -77,62 +79,9 @@ KW_end <- isoweek(depo_end)
 # je nach Untersuchungsdauer muessen hier weitere oder andere Ferienzeiten ergaenzt werden
 # (https://www.schulferien.org/schweiz/ferien/2020/)
 
-Winterferien_2016_start <- as.Date("2017-01-01") 
-Winterferien_2016_ende <- as.Date("2017-01-08")
+# Rule of thumb: Sobald man viele (>5) Objekte mit sehr ähnlichen Namen erstellt, sollte man besser mit Listen oder DataFrames arbeiten
+schulferien <- read_delim("datasets/fallstudie_s/ferien.csv", ",")
 
-Fruehlingsferien_2017_start <- as.Date("2017-04-15") 
-Fruehlingsferien_2017_ende <- as.Date("2017-04-30") 
-Sommerferien_2017_start <- as.Date("2017-07-15") 
-Sommerferien_2017_ende <- as.Date("2017-08-20") 
-Herbstferien_2017_start <- as.Date("2017-10-07") 
-Herbstferien_2017_ende <- as.Date("2017-10-22") 
-Winterferien_2017_start <- as.Date("2017-12-23") 
-Winterferien_2017_ende <- as.Date("2018-01-07") 
-
-Fruehlingsferien_2018_start <- as.Date("2018-04-21") 
-Fruehlingsferien_2018_ende <- as.Date("2018-05-06") 
-Sommerferien_2018_start <- as.Date("2018-07-14") 
-Sommerferien_2018_ende <- as.Date("2018-08-19") 
-Herbstferien_2018_start <- as.Date("2018-10-06") 
-Herbstferien_2018_ende <- as.Date("2018-10-21") 
-Winterferien_2018_start <- as.Date("2018-12-22") 
-Winterferien_2018_ende <- as.Date("2019-01-06") 
-
-Fruehlingsferien_2019_start <- as.Date("2019-04-20") 
-Fruehlingsferien_2019_ende <- as.Date("2019-05-05") 
-Sommerferien_2019_start <- as.Date("2019-07-13") 
-Sommerferien_2019_ende <- as.Date("2019-08-18") 
-Herbstferien_2019_start <- as.Date("2019-10-05") 
-Herbstferien_2019_ende <- as.Date("2019-10-20") 
-Winterferien_2019_start <- as.Date("2019-12-21") 
-Winterferien_2019_ende <- as.Date("2020-01-05")
-
-Fruehlingsferien_2020_start <- as.Date("2020-04-11")
-Fruehlingsferien_2020_ende <- as.Date("2020-04-26")
-Sommerferien_2020_start <- as.Date("2020-07-11")
-Sommerferien_2020_ende <- as.Date("2020-08-16")
-Herbstferien_2020_start <- as.Date("2020-10-03")
-Herbstferien_2020_ende <- as.Date("2020-10-18")
-Winterferien_2020_start <- as.Date("2020-12-19")
-Winterferien_2020_ende <- as.Date("2021-01-03")
-
-Fruehlingsferien_2021_start <- as.Date("2021-04-24")
-Fruehlingsferien_2021_ende <- as.Date("2021-05-09")
-Sommerferien_2021_start <- as.Date("2021-07-17")
-Sommerferien_2021_ende <- as.Date("2021-08-22")
-Herbstferien_2021_start <- as.Date("2021-10-09")
-Herbstferien_2021_ende <- as.Date("2021-10-24")
-Winterferien_2021_start <- as.Date("2021-12-18")
-Winterferien_2021_ende <- as.Date("2022-01-02")
-
-Fruehlingsferien_2022_start <- as.Date("2022-04-16")
-Fruehlingsferien_2022_ende <- as.Date("2022-05-01")
-Sommerferien_2022_start <- as.Date("2022-07-16")
-Sommerferien_2022_ende <- as.Date("2022-08-21")
-Herbstferien_2022_start <- as.Date("2022-10-08")
-Herbstferien_2022_ende <- as.Date("2022-10-23")
-Winterferien_2022_start <- as.Date("2022-12-24")
-Winterferien_2022_ende <- as.Date("2023-01-08")
 
 #.################################################################################################
 # 1. DATENIMPORT #####
@@ -146,58 +95,59 @@ Winterferien_2022_ende <- as.Date("2023-01-08")
 
 # lese die Daten ein 
 # Je nach Bedarf muss der Speicherort sowie der Dateiname angepasst werden
-depo <- read.csv("./data/211_sihlwaldstrasse_2017_2022.csv", sep = ";")
+depo <- read_delim("datasets/fallstudie_s/WPZ/211_sihlwaldstrasse_2017_2022.csv", ";")
 
 # Hinweis zu den Daten:
 # In hourly analysis format, the data at 11:00 am corresponds to the counts saved between 
 # 11:00 am and 12:00 am.
 
-# Anpassen der Datentypen und erstes Sichten
+# erstes Sichten und Anpassen der Datentypen 
 str(depo)
 
 depo <- depo |>
-  mutate(Datum = as.character(Datum)) |>
-    mutate(Datum = as.Date(Datum, format = "%Y%m%d"))
-  # Schneide das df auf den gewuenschten Zeitraum zu
-  # filter(Datum >= depo_start, Datum <=  depo_end) # das Komma hat die gleiche Funktion wie ein &
+  mutate(
+    Datetime = as.POSIXct(DatumUhrzeit, format = "%d.%m.%Y %H:%M", tz = "CET"),
+    Datum = as.Date(Datetime)
+  ) 
 
 # In dieser Auswertung werden nur Personen zu Fuss betrachtet!
-# it select werden spalten ausgewaehlt oder eben fallengelassen
-depo <- depo |> dplyr::select(-c(Velo_IN, Velo_OUT))
-
-# Berechnen des Totals, da dieses in den Daten nicht vorhanden ist
-depo <- depo|>
+depo <- depo |> 
+  # mit select werden spalten ausgewaehlt oder eben fallengelassen 
+  # (velos interessieren uns in dieser Auswertung nicht und Zeit soll in R immer zusammen mit Datum gespeichert werden)
+  dplyr::select(-c(Velo_IN, Velo_OUT, Zeit, DatumUhrzeit))|>
+  # Berechnen des Totals, da dieses in den Daten nicht vorhanden ist
   mutate(Total = Fuss_IN + Fuss_OUT)
 
 # Entferne die NA's in dem df.
 depo <- na.omit(depo)
 
+
+
 # 1.2 Meteodaten ####
 # Einlesen
-meteo <- read.csv("./data/order_105742_data.txt", sep = ";")
+meteo <- read_delim("datasets/fallstudie_s/WPZ/order_105742_data.txt", ";")
 
 # Datentypen setzen
 # Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewaldelt werden aus dem dann
 # das eigentliche Datum herausgelesen werden kann
-meteo <- transform(meteo, time = as.Date(as.character(time), "%Y%m%d"))
+meteo <- mutate(meteo, time = as.Date(as.character(time), "%Y%m%d"))
 
 # Die eigentlichen Messwerte sind alle nummerisch
 meteo <- meteo|>
-  mutate(tre200jx = as.numeric(tre200jx))|>
-  mutate(rre150j0 = as.numeric(rre150j0))|>
-  mutate(sremaxdv = as.numeric(sremaxdv)) |> 
+  mutate(
+    tre200nx  = as.numeric(tre200nx ),
+    tre200jx  = as.numeric(tre200jx ),
+    rre150n0  = as.numeric(rre150n0 ),
+    rre150j0 = as.numeric(rre150j0),
+    sremaxdv = as.numeric(sremaxdv)) |> 
   filter(time >= depo_start, time <=  depo_end) # schneide dann auf Untersuchungsdauer
 
 # Was ist eigentlich Niederschlag:
 # https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
 
 # Filtere Werte mit NA
-meteo <- meteo |>
-  filter(!is.na(stn)) |>
-  filter(!is.na(time))|>
-  filter(!is.na(tre200jx))|>
-  filter(!is.na(rre150j0))|>
-  filter(!is.na(sremaxdv))
+meteo <- na.omit(meteo)
+
 # Pruefe ob alles funktioniert hat
 str(meteo)
 sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
@@ -207,23 +157,19 @@ sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 #.################################################################################################
 
 # 2.1 Convenience Variablen ####
-# fuege dem Dataframe (df) die Wochentage hinzu
+
 depo <- depo |> 
-  mutate(Wochentag = weekdays(Datum)) |> 
-  # R sortiert die Levels aplhabetisch. Da das in unserem Fall aber sehr unpraktisch ist,
-  # muessen die Levels manuell manuell bestimmt werden
-  mutate(Wochentag = base::factor(Wochentag, 
-                            levels = c("Montag", "Dienstag", "Mittwoch", 
-                                       "Donnerstag", "Freitag", "Samstag", "Sonntag"))) |> 
+  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
+  mutate(Wochentag = wday(Datetime, week_start = 1)) |> 
   # Werktag oder Wochenende hinzufuegen
-  mutate(Wochenende = if_else(Wochentag == "Montag" | Wochentag == "Dienstag" | 
-                           Wochentag == "Mittwoch" | Wochentag == "Donnerstag" | 
-                           Wochentag == "Freitag", "Werktag", "Wochenende"))|>
+  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
+  mutate(Wochenende = as.factor(Wochenende)) |> 
   #Kalenderwoche hinzufuegen
-  mutate(KW= isoweek(Datum))|>
+  mutate(KW= isoweek(Datetime))|>
+  mutate(KW = factor(KW)) |> 
   # monat und Jahr
-  mutate(Monat = month(Datum)) |> 
-  mutate(Jahr = year(Datum))
+  mutate(Monat = month(Datetime)) |> 
+  mutate(Jahr = year(Datetime))
 
 #Lockdown 
 # Hinweis: ich mache das nachgelagert, da ich die Erfahrung hatte, dass zu viele 
@@ -231,16 +177,13 @@ depo <- depo |>
 # Hinweis II: Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown)
 # in eine Spalte --> long ist schoener als wide
 depo <- depo |>
-  mutate(Phase = if_else(Datum >= lock_1_start_2020 & Datum <= lock_1_end_2020,
-                         "Lockdown_1",
-                         if_else(Datum >= lock_2_start_2021 & Datum <= lock_2_end_2021,
-                                 "Lockdown_2",
-                                 if_else(Datum>= (lock_1_start_2020 - years(1)) & Datum < lock_1_start_2020,
-                                         "Normal", 
-                                         ifelse(Datum>lock_1_end_2020 & Datum <lock_2_start_2021,
-                                                "Inter",
-                                              if_else(Datum > lock_2_end_2021,
-                                                  "Post", "Pre"))))))
+  mutate(Phase = case_when(
+    Datetime < lock_1_start ~ "Pre",
+    Datetime >= lock_1_start & Datetime <= lock_1_end ~ "Lockdown_1",
+    Datetime > lock_1_end & Datetime < lock_2_start ~ "inter",
+    Datetime >= lock_2_start & Datetime <= lock_2_end ~ "Lockdown_2",
+    Datetime > lock_2_end ~ "Post"
+  ))
 
 # hat das gepklappt?!
 unique(depo$Phase)
@@ -249,26 +192,17 @@ unique(depo$Phase)
 KW_lock_1_start <- isoweek(min(depo$Datum[depo$Phase == "Lockdown_1"]))
 KW_lock_1_ende <- isoweek(max(depo$Datum[depo$Phase == "Lockdown_1"]))
 
-
-# aendere die Datentypen
-depo$KW_num <- depo$KW
-
 depo <- depo |> 
-  mutate(Wochenende = as.factor(Wochenende)) |> 
-  mutate(KW = factor(KW)) |> 
   # mit factor() koennen die levels direkt einfach selbst definiert werden.
   # wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem 
   # mix-up mit anderen packages
-  mutate(Phase = base::factor(Phase, levels = c("Pre", "Normal", "Lockdown_1", "Inter", "Lockdown_2", "Post")))
+  mutate(Phase = base::factor(Phase, levels = c("Pre", "Lockdown_1", "Inter", "Lockdown_2", "Post")))
 
 str(depo)
-  
-# Fuer einige Auswertungen muss auf die Stunden als nummerischer Wert zurueckgegriffen werden
-depo$Stunde <- as.numeric(format(as.POSIXct(depo$Zeit,format="%H:%M:%S"),"%H"))
 
-# ersetze 0 Uhr mit 24 Uhr (damit wir besser rechnen können)
-depo$Stunde[depo$Stunde == 0] <- 24
-unique(depo$Stunde)
+# Fuer einige Auswertungen muss auf die Stunden als nummerischer Wert zurueckgegriffen werden
+depo$Stunde <- hour(depo$Datetime)
+# hour gibt uns den integer
 typeof(depo$Stunde)
 
 # Die Daten wurden kalibriert. Wir runden sie fuer unserer Analysen auf Ganzzahlen
@@ -282,22 +216,9 @@ depo$Fuss_OUT <- round(depo$Fuss_OUT, digits = 0)
 Latitude <- 47.38598
 Longitude <- 8.50806
 
-# Zur Berechnung der Tageslaege muessen wir zuerst den Start und das Ende der Sommer-
-# zeit definieren
+# Start und das Ende der Sommerzeit:
 # https://www.schulferien.org/schweiz/zeit/zeitumstellung/
 
-So_start_2017 <- as.Date("2017-03-26") 
-So_end_2017 <- as.Date("2017-10-29") 
-So_start_2018 <- as.Date("2018-03-25") 
-So_end_2018 <- as.Date("2018-10-28") 
-So_start_2019 <- as.Date("2019-03-31") 
-So_end_2019 <- as.Date("2019-10-27") 
-So_start_2020 <- as.Date("2020-03-29")
-So_end_2020 <- as.Date("2020-10-25")
-So_start_2021 <- as.Date("2021-03-28")
-So_end_2021 <- as.Date("2021-10-31")
-So_start_2022 <- as.Date("2022-03-27")
-So_end_2022 <- as.Date("2022-10-30")
 
 # Welche Zeitzone haben wir eigentlich?
 # Switzerland uses Central European Time (CET) during the winter as standard time, 
@@ -322,81 +243,51 @@ lumidata <-
     keep = c("nightEnd", "goldenHourEnd", "goldenHour", "night"),
     lat = Latitude,
     lon = Longitude,
-    tz = "CET")
-
-lumidata <- lumidata |> 
-  mutate(Jahreszeit = ifelse(date >= So_start_2017 & date <=  So_end_2017 |
-                               date >= So_start_2018 & date <=  So_end_2018 |
-                               date >= So_start_2019 & date <=  So_end_2019 |
-                               date >= So_start_2020 & date <= So_end_2020 |
-                               date >= So_start_2021 & date <= So_end_2021 |
-                               date >= So_start_2022 & date <= So_end_2022, 
-                               "Sommerzeit", "Winterzeit"))
-
-# CH ist im Im Sommer CET + 1. 
-# Darum auf alle relevanten Spalten eine Stunde addieren
-# hinweis: ich verzichte hier auf ifelse, da es einfacher und nachvollziehbarer scheint,
-# hier mit einem filter die betreffenden Spalten zu waehlen
-lumidata_So <- lumidata |> 
-  filter(Jahreszeit=="Sommerzeit") |> 
-  mutate(nightEnd = nightEnd + hours(1),
-         goldenHourEnd =  goldenHourEnd + hours(1),
-         goldenHour = goldenHour + hours(1),
-         night = night + hours(1))
-
-lumidata_Wi <- lumidata |> 
-  filter(Jahreszeit=="Winterzeit") 
-# verbinde sommer- und winterzeit wieder
-lumidata <- rbind(lumidata_So, lumidata_Wi) |> 
-  arrange(date)
-
-# change data type
-lumidata$date <- as.Date(lumidata$date, format= "%Y-%m-%d")
-
-# drop unnecessary cols
-lumidata <- lumidata |> dplyr::select(-lat, -lon)
+    tz = "CET")  |>
+  as_tibble()
 
 # jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw. 
 # diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:
-depo <- left_join(depo,lumidata, by = c("Datum" ="date"))
-
-# aendere alle Zeit- und Datumsangaben so, dass sie gleich sind und miteinander verrechnet werden können.
-depo <- depo |> 
-  mutate(datetime = paste(Datum, Zeit)) |> 
-  mutate(datetime = as.POSIXct(datetime, format = "%Y-%m-%d  %H:%M:%S"))|> 
-  mutate(nightEnd = as.POSIXct(nightEnd)) |> 
-  mutate(goldenHourEnd = as.POSIXct(goldenHourEnd)) |> 
-  mutate(goldenHourEnd = goldenHourEnd + hours(1)) |> 
-  mutate(goldenHour = as.POSIXct(goldenHour)) |> 
-  mutate(goldenHour = goldenHour - hours(1)) |> 
-  mutate(night = as.POSIXct(night))
+depo <- depo |>
+  left_join(lumidata, by = c(Datum = "date"))
 
 # im naechsten Schritt weise ich den Stunden die Tageszeiten Morgen, Tag, Abend und Nacht zu.
 # diese Zuweisung basiert auf der Einteilung gem. suncalc und eigener Definition.
 depo <- depo|>
-  mutate(Tageszeit = if_else(datetime >= nightEnd & datetime <= goldenHourEnd, "Morgen",
-                             ifelse(datetime > goldenHourEnd & datetime < goldenHour, "Tag",
-                                    ifelse(datetime >= goldenHour & datetime <= night,
-                                           "Abend",
-                                           "Nacht")))) |>
-  mutate(Tageszeit = factor(Tageszeit, levels = c(
-    "Morgen", "Tag", "Abend", "Nacht")))
+  mutate(Tageszeit = case_when(
+    Datetime >= nightEnd & Datetime <= goldenHourEnd ~ "Morgen",
+    Datetime > goldenHourEnd & Datetime < goldenHour ~ "Tag",
+    Datetime >= goldenHour & Datetime <= night       ~ "Abend",
+    .default = "Nacht")) |>
+    mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"),ordered = TRUE))
 
-# # behalte die relevanten Var
-# depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
-# behalte night end and golden hour, to plot in heatmap
-# und schreibe die Stunde heraus:
-depo$nightEnd <-as.numeric(format(as.POSIXct(depo$nightEnd,format="%H:%M:%S"),"%H"))
-depo$goldenHour <-as.numeric(format(as.POSIXct(depo$goldenHour,format="%H:%M:%S"),"%H"))
-# diese beiden Spalten brauchen wir nicht mehr
-depo <- depo |> dplyr::select(-goldenHourEnd, -night)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# behalte die relevanten Var
+depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
 
 #Plotte zum pruefn ob das funktioniert hat
-p <- ggplot(depo, aes(y = Datum, color = Tageszeit, x = Stunde))+
+ggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde))+
   geom_jitter()+
-  scale_color_manual(values=mycolors)
-
-plotly::ggplotly(p)
+  scale_color_manual(values = mycolors)
 
 sum(is.na(depo))
 
@@ -474,25 +365,20 @@ depo_daytime <- depo |>
 depo_m <- depo |> 
   group_by(Jahr, Monat) |> 
   summarise(Total = sum(Total)) 
-# sortiere das df aufsteigend (nur das es sicher stimmt)
-depo_m <- as.data.frame(depo_m)
-depo_m[
-  with(depo_m, order(Jahr, Monat)),]
+
 depo_m <- depo_m |> 
-  mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym= lubridate::ym(Ym)) # formatiere als Datum
+mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
+  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
 
 # Gruppiere die Werte nach Monat und TAGESZEIT
 depo_m_daytime <- depo |> 
-  group_by(Jahr, Monat, Tageszeit) |> 
+  group_by(Jahr, Monat, Stunde) |> 
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
-depo_m_daytime <- as.data.frame(depo_m_daytime)
-depo_m_daytime[
-  with(depo_m_daytime, order(Jahr, Monat)),]
+
 depo_m_daytime <- depo_m_daytime |> 
   mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
-  mutate(Ym= lubridate::ym(Ym)) # formatiere als Datum
+  mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
 
 #.################################################################################################
 # 3. DESKRIPTIVE ANALYSE UND VISUALISIERUNG #####
@@ -1595,7 +1481,7 @@ cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 # BEGINNE AM TAG, MACHE DANN NACHT. IN DER NACHT ANDERE WETTERVAR ALS AM TAG
 
 
-
+# nehme monat anstatt kw im modelle auf
 
 
 
