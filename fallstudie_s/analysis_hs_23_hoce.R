@@ -24,7 +24,6 @@ load(file = "fallstudie_s/results/my_work_space.RData")
 # Saemtliche verwendeten Zaehdaten sind Eigentum des Wildnispark Zuerich und duerfen nur im Rahmen 
 # des Moduls verwendet werden. Sie sind vertraulich zu behandeln.
 # Die Meteodaten sind Eigentum von MeteoSchweiz.
-
 # Verwendete Meteodaten
 # Lufttemperatur 2 m UEber Boden; Tagmaximum (6 UTC blis 18 UTC), tre200jx [°C ]
 # Niederschlag; Halbtagessumme 6 UTC - 18 UTC, rre150j0 [mm]
@@ -1588,6 +1587,28 @@ cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 
 
 # 4.4 Berechne verschiedene Modelle ####
+
+
+
+
+# BERECHNE FÜR JEDE TAGESZEIT EIN EIGENES MODELL
+# BEGINNE AM TAG, MACHE DANN NACHT. IN DER NACHT ANDERE WETTERVAR ALS AM TAG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Berechne ein negativ binomiales Modell
 # gemäss AICc die zweitbeste Verteilung
