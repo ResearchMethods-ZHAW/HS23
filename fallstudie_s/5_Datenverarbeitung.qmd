@@ -243,16 +243,18 @@ je als Faktor:
 ```{r}
 depo <- depo |> 
   # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
-  mutate(Wochentag = wday(Datetime, week_start = 1)) |> 
+  mutate(
+    Wochentag = wday(Datetime, week_start = 1),
+    Wochentag = factor(Wochentag), 
   # Werktag oder Wochenende hinzufuegen
-  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
-  mutate(Wochenende = as.factor(Wochenende)) |> 
+    Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag"),
+    Wochenende = as.factor(Wochenende), 
   #Kalenderwoche hinzufuegen
-  mutate(KW= isoweek(Datetime))|>
-  mutate(KW = factor(KW)) |> 
+    KW= isoweek(Datetime),
+    KW = factor(KW), 
   # monat und Jahr
-  mutate(Monat = month(Datetime)) |> 
-  mutate(Jahr = year(Datetime))
+    Monat = month(Datetime), 
+    Jahr = year(Datetime))
 ```
 
 
@@ -479,7 +481,7 @@ depo_m <- depo_m |>
 ```{r}
 # Gruppiere die Werte nach Monat und TAGESZEIT
 depo_m_daytime <- depo |> 
-  group_by(Jahr, Monat, Stunde) |> 
+  group_by(Jahr, Monat, Tageszeit) |> 
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
 
