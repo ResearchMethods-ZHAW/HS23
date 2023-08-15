@@ -55,22 +55,6 @@ _Da die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, a
 - Skizziert eure Ideen mittels Stift und Papier.
  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### Aufgabe 2: Darstellung in R
 
 R bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bitte den bereitgestellten Datensatz zur Hand und visualisiert eure Ideen mit R. 
@@ -85,9 +69,10 @@ knitr::opts_chunk$set(error = FALSE)
 ```{r}
 ### Bibliothek laden
 
-# zuerst muss sie installiert sein:
-# install.packages("tidyverse")
-library(tidyverse) # Arbeiten mit Datumsformaten
+# zuerst muss sie installiert sein. folgende Zeile müsst ihr nur das erste Mal ausführen
+# install.packages("readr")
+# WENN installiert, DANN laden
+library("readr") # einlesen von csv mit read_delim
 
 ### Datensatz einlesen
 
@@ -95,7 +80,7 @@ library(tidyverse) # Arbeiten mit Datumsformaten
 depo <- read_delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv", sep = ";")
 
 ### Datum und Uhrzeit
-# das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum:
+# das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum mit as.POSIXct aus base R
 depo$DatumUhrzeit <- as.POSIXct(depo$DatumUhrzeit, format = "%d.%m.%Y %H:%M")
 ```
 
