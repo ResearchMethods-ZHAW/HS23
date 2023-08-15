@@ -4,9 +4,9 @@ lesson: Besuchermonitoring
 thema: Felderhebungen Grüental
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
   output: false
-code-fold: false
+code-fold: true
 code-summary: "Musterlösung"
 knitr:
   opts_chunk: 
@@ -61,11 +61,6 @@ R bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bi
 
 Untenstehend sind einige Ideen zur Umsetzung.
 
-```{r include=FALSE}
-knitr::opts_chunk$set(error = FALSE)
-```
-
-
 ```{r}
 ### Bibliothek laden
 
@@ -77,14 +72,14 @@ library("readr") # einlesen von csv mit read_delim
 ### Datensatz einlesen
 
 # dabei speichere ich ihn gleich unter der Variable "depo" ab.
-depo <- read_delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv", sep = ";")
+depo <- read_delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv")
 
 ### Datum und Uhrzeit
 # das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum mit as.POSIXct aus base R
 depo$DatumUhrzeit <- as.POSIXct(depo$DatumUhrzeit, format = "%d.%m.%Y %H:%M")
 ```
 
-```{r results="hide"}
+```{r}
 ### Kennzahlen
 
 #zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:
@@ -103,7 +98,7 @@ depo$Total = depo$Fuss_IN + depo$Fuss_OUT + depo$Velo_IN + depo$Velo_OUT
 sum(depo$Total)
 ```
 
-```{r results="hide"}
+```{r}
 # Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R
 plot(x = depo$DatumUhrzeit, y = depo$Total,
      pch = 21,  # Form
@@ -111,7 +106,7 @@ plot(x = depo$DatumUhrzeit, y = depo$Total,
      bg="blue") # Füllung
 ```
 
-```{r results="hide"}
+```{r}
 # Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)
 slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT") 
