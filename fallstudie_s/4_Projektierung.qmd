@@ -139,63 +139,12 @@ Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist defi
 Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume (je nach dem müsst ihr das anpassen) müssen daher bekannt sein. Zur Definition der Ferien kann z.B. folgend vorgegangen werden:
 
 ```{r warning=FALSE, results="hide"}
+
 # (https://www.schulferien.org/schweiz/ferien/2020/)
-Winterferien_2016_start <- as.Date("2017-01-01") 
-Winterferien_2016_ende <- as.Date("2017-01-08")
 
-Fruehlingsferien_2017_start <- as.Date("2017-04-15") 
-Fruehlingsferien_2017_ende <- as.Date("2017-04-30") 
-Sommerferien_2017_start <- as.Date("2017-07-15") 
-Sommerferien_2017_ende <- as.Date("2017-08-20") 
-Herbstferien_2017_start <- as.Date("2017-10-07") 
-Herbstferien_2017_ende <- as.Date("2017-10-22") 
-Winterferien_2017_start <- as.Date("2017-12-23") 
-Winterferien_2017_ende <- as.Date("2018-01-07") 
 
-Fruehlingsferien_2018_start <- as.Date("2018-04-21") 
-Fruehlingsferien_2018_ende <- as.Date("2018-05-06") 
-Sommerferien_2018_start <- as.Date("2018-07-14") 
-Sommerferien_2018_ende <- as.Date("2018-08-19") 
-Herbstferien_2018_start <- as.Date("2018-10-06") 
-Herbstferien_2018_ende <- as.Date("2018-10-21") 
-Winterferien_2018_start <- as.Date("2018-12-22") 
-Winterferien_2018_ende <- as.Date("2019-01-06") 
+schulferien <- read_delim("datasets/fallstudie_s/ferien.csv", ",")
 
-Fruehlingsferien_2019_start <- as.Date("2019-04-20") 
-Fruehlingsferien_2019_ende <- as.Date("2019-05-05") 
-Sommerferien_2019_start <- as.Date("2019-07-13") 
-Sommerferien_2019_ende <- as.Date("2019-08-18") 
-Herbstferien_2019_start <- as.Date("2019-10-05") 
-Herbstferien_2019_ende <- as.Date("2019-10-20") 
-Winterferien_2019_start <- as.Date("2019-12-21") 
-Winterferien_2019_ende <- as.Date("2020-01-05")
-
-Fruehlingsferien_2020_start <- as.Date("2020-04-11")
-Fruehlingsferien_2020_ende <- as.Date("2020-04-26")
-Sommerferien_2020_start <- as.Date("2020-07-11")
-Sommerferien_2020_ende <- as.Date("2020-08-16")
-Herbstferien_2020_start <- as.Date("2020-10-03")
-Herbstferien_2020_ende <- as.Date("2020-10-18")
-Winterferien_2020_start <- as.Date("2020-12-19")
-Winterferien_2020_ende <- as.Date("2021-01-03")
-
-Fruehlingsferien_2021_start <- as.Date("2021-04-24")
-Fruehlingsferien_2021_ende <- as.Date("2021-05-09")
-Sommerferien_2021_start <- as.Date("2021-07-17")
-Sommerferien_2021_ende <- as.Date("2021-08-22")
-Herbstferien_2021_start <- as.Date("2021-10-09")
-Herbstferien_2021_ende <- as.Date("2021-10-24")
-Winterferien_2021_start <- as.Date("2021-12-18")
-Winterferien_2021_ende <- as.Date("2022-01-02")
-
-Fruehlingsferien_2022_start <- as.Date("2022-04-16")
-Fruehlingsferien_2022_ende <- as.Date("2022-05-01")
-Sommerferien_2022_start <- as.Date("2022-07-16")
-Sommerferien_2022_ende <- as.Date("2022-08-21")
-Herbstferien_2022_start <- as.Date("2022-10-08")
-Herbstferien_2022_ende <- as.Date("2022-10-23")
-Winterferien_2022_start <- as.Date("2022-12-24")
-Winterferien_2022_ende <- as.Date("2023-01-08")
 ```
 
 __Nun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann beginnen.__
