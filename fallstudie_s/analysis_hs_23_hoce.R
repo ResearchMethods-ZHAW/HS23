@@ -121,7 +121,7 @@ depo <- depo |>
 # Entferne die NA's in dem df.
 depo <- na.omit(depo)
 
-
+#.################################################################################################
 
 # 1.2 Meteodaten ####
 # Einlesen
@@ -160,16 +160,19 @@ sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 
 depo <- depo |> 
   # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
-  mutate(Wochentag = wday(Datetime, week_start = 1)) |> 
+  mutate(
+    Wochentag = wday(Datetime, week_start = 1),
+    Wochentag = factor(Wochentag), 
   # Werktag oder Wochenende hinzufuegen
-  mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
-  mutate(Wochenende = as.factor(Wochenende)) |> 
+    Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag"),
+    Wochenende = as.factor(Wochenende), 
   #Kalenderwoche hinzufuegen
-  mutate(KW= isoweek(Datetime))|>
-  mutate(KW = factor(KW)) |> 
+    KW= isoweek(Datetime),
+    KW = factor(KW), 
   # monat und Jahr
-  mutate(Monat = month(Datetime)) |> 
-  mutate(Jahr = year(Datetime))
+    Monat = month(Datetime), 
+    Jahr = year(Datetime),
+    Jahr = factor(Jahr))
 
 #Lockdown 
 # Hinweis: ich mache das nachgelagert, da ich die Erfahrung hatte, dass zu viele 
@@ -180,7 +183,7 @@ depo <- depo |>
   mutate(Phase = case_when(
     Datetime < lock_1_start ~ "Pre",
     Datetime >= lock_1_start & Datetime <= lock_1_end ~ "Lockdown_1",
-    Datetime > lock_1_end & Datetime < lock_2_start ~ "inter",
+    Datetime > lock_1_end & Datetime < lock_2_start ~ "Inter",
     Datetime >= lock_2_start & Datetime <= lock_2_end ~ "Lockdown_2",
     Datetime > lock_2_end ~ "Post"
   ))
@@ -269,18 +272,6 @@ depo <- depo|>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # behalte die relevanten Var
 depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
 
@@ -296,47 +287,6 @@ sum(is.na(depo))
 depo <- na.omit(depo)
 # hat das funktioniert?
 sum(is.na(depo))
-
-# # 2.3 Pruefen auf Ausreisser (OPTIONAL) ####
-# # Grundsaetzlich ist es schwierig Ausreisser in einem df zu finden. Gerade die Extremwerte 
-# # koennen entweder falsche Werte, oder aber die wichtigsten Werte im ganzen df sein.
-# # Ausreisser koennen in einem ersten Schritt optisch relativ einfach gefunden werden.
-# # Dazu werden die Zaehlmengen auf der y-Achse und die einzelne Datenpunkte auf der x-Achse
-# # geplottet. Wenn einzelne Werte nun die umliegenden bei weiten ueberragen, sollten diese
-# # genauer angeschaut werden. Sind sie an einem Wochenende? Ist die Tageszeit realisitsch?
-# # Wie mit Ausreissern umgegangen wird, muss von Fall zu Fall individuell entschieden werden.
-# 
-# # Verteilung mittels Histogram pruefen
-# hist(depo$Total[!depo$Total==0] , breaks = 100) 
-# # hier schliesse ich die Nuller aus der Visualisierung aus
-# 
-# # Verteilung mittels Scatterplot pruefen
-# plot(x=depo$Datum, y=depo$Total)
-# # Dem Scatterplot kann nun eine horizontale Linie hinzugefuegt werden, die bei 95 % der
-# # Werte liegt. Berchnet wird die Linie mittels dem 95 % Quartil
-# qts <- quantile(depo$Total,probs=c(0,.95))
-# abline(h=qts[2], col="red")
-# 
-# # Werte ueber 95 % auflisten
-# # Nun koennen diese optisch identifizierten Werte aufgelistet werden. Jeder einzele Wert
-# # sollte nun auf die Plausibilitaet geprueft werden. Dies sowohl bei Total als auch in
-# # den einzelnen Richtungen (IN, OUT)
-# (
-#   Ausreisser <- depo |>
-#     filter(Total > qts[2])|> 
-#     arrange(desc(Total))
-# )
-# 
-# # Werte ausschliessen; Aufgrund manueller Inspektion
-# # Die Werte, welche als Ausreisser identifiziert wurden, werden nun aufgrund der Zeilennummer 
-# # ausgeschlossen. Das muss individuell angepasst werden.
-# # depo <- depo[-c(Zeilennummer),] # ersetze "Zeilennummer" mit Zahlen, Kommagetrennt
-# 
-# # Da der WPZ die Daten aber bereits bereinigte, koennen wir uns diesen Schritt eigentlich sparen... ;)
-# 
-# # pruefe das df
-# str(depo)
-# head(depo)
 
 
 # 2.4 Aggregierung der Stundendaten zu ganzen Tagen ####
@@ -360,6 +310,13 @@ depo_daytime <- depo |>
             Fuss_IN = sum(Fuss_IN),
             Fuss_OUT = sum(Fuss_OUT)) 
 
+# mean besser Vergleichbar, da Zeitreihen unterschiedlich lange
+mean_phase_d <- depo_daytime |> 
+  group_by(Phase, Tageszeit) |> 
+  summarise(Total = mean(Total),
+            IN = mean(Fuss_IN),
+            OUT = mean(Fuss_OUT))
+
 
 # Gruppiere die Werte nach Monat
 depo_m <- depo |> 
@@ -370,12 +327,12 @@ depo_m <- depo_m |>
 mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
 
+
 # Gruppiere die Werte nach Monat und TAGESZEIT
 depo_m_daytime <- depo |> 
-  group_by(Jahr, Monat, Stunde) |> 
+  group_by(Jahr, Monat, Tageszeit) |> 
   summarise(Total = sum(Total)) 
 # sortiere das df aufsteigend (nur das es sicher stimmt)
-
 depo_m_daytime <- depo_m_daytime |> 
   mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
@@ -385,17 +342,8 @@ depo_m_daytime <- depo_m_daytime |>
 #.################################################################################################
 
 # 3.1 Verlauf der Besuchszahlen / m ####
-# Monatliche Summen am Standort
 
-# wann beginnt die Datenreihe schon wieder?
-start_ym <- first(depo_m$Ym)
-# und wann ist die fertig?
-end_ym <- last(depo_m$Ym)
-
-# generiere sequenz für achsenbeschriftung
-mybreaks = as.Date(seq(start_ym, end_ym, '6 months'))
-mybreaks
-
+# Monatliche Summen am Standort als Verlauf
 # Plotte
 ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird
   #zeichne Lockdown 1
@@ -405,46 +353,31 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1))+ # group = 1 braucht R, dass
   #zeichne Lockdown 2
   geom_rect(mapping = aes(xmin = ym("2020-12"), xmax = ym("2021-3"), 
                           ymin = 0, ymax = max(Total+(Total/100*10))), 
-            fill = "lightskyblue", alpha = 0.2, colour = NA)+
-  geom_line(alpha = 0.6, size = 1.5)+
-  scale_x_continuous(breaks = mybreaks)+  
+            fill = "darkolivegreen2", alpha = 0.2, colour = NA)+
+  geom_line(alpha = 0.6, size = 1)+
+  scale_x_date(date_labels = "%b%y", date_breaks = "6 months")+ 
   labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
-  theme_linedraw(base_size = 15)+
+  theme_classic(base_size = 15)+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 
 ggsave("Entwicklung_Zaehlstelle.png", width=20, height=10, units="cm", dpi=1000, 
        path = "fallstudie_s/results/") 
 
-
-
-
-
-#############################
-#   scale_x_date(date_labels = "%b%y", date_breaks = "6 months")+ 
-# kann man noch einbauen
-############################
-
-
-
-
-
-# mit TAGESZEIT
-ggplot(depo_m_daytime, mapping = aes(Ym, Total, group = Tageszeit, color = Tageszeit))+
-  #zeichne Lockdown 1
-  geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
-                          ymin = 0, ymax = max(Total+(Total/100*10))),
-            fill = "lightskyblue", alpha = 0.2, colour = NA)+
-  #zeichne Lockdown 2
-  geom_rect(mapping = aes(xmin = ym("2020-12"), xmax = ym("2021-3"),
-                          ymin = 0, ymax = max(Total+(Total/100*10))),
-            fill = "lightskyblue", alpha = 0.2, colour = NA)+
-  geom_line(alpha = 0.8, size = 1.5)+
-  labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
-  scale_color_manual(values = mycolors)+
-  scale_x_continuous(breaks = mybreaks)+  
-    # scale_y_continuous(trans="log10")+
-  theme_linedraw(base_size = 15)+
+# Monatliche Summen am Standort aübereinander gelagert
+ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr))+
+  geom_line(size = 2)+
+  geom_point()+
+  scale_colour_viridis_d()+
+  scale_linetype_manual(values = c(rep("solid", 3),  "twodash", "twodash", "solid"))+
+  scale_x_continuous(breaks = c(seq(0, 12, by = 1)))+
+  labs(title= "", y="Fussgänger:innen pro Monat", x = "Monat")+
+  theme_classic(base_size = 15)+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+
+
+#.################################################################################################
+
 
 # mache einen prozentuellen areaplot
 ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) + 
@@ -457,124 +390,91 @@ ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
 ggsave("Proz_Entwicklung_Zaehlstelle.png", width=20, height=10, units="cm", dpi=1000, 
        path = "fallstudie_s/results/")  
 
-
-# lineplot nur Dunkel und FACET
-ggplot(subset(depo_m_daytime, !(Tageszeit %in% "Tag")), 
-       mapping = aes(Monat, Total, group = Tageszeit, color = Tageszeit))+
-  geom_line(alpha = 0.8, size = 1.5)+
-  labs(title= "", y="Fussgänger:innen pro Monat", x = "Monat")+
-  scale_color_manual(values = mycolors)+
-  facet_grid(rows = vars(Jahr), scales = "free_x")+
-  scale_x_continuous(breaks = c(1:12))+
-  # scale_y_continuous(trans="log10")+
-  theme_linedraw(base_size = 15)+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-
-# # lineplot nur DUNKEL
-# ggplot(subset(depo_m_daytime, !(Tageszeit %in% "Tag")), mapping = aes(Ym, Total, group = Tageszeit, color = Tageszeit))+
-#   #zeichne Lockdown 1
-#   geom_rect(mapping = aes(xmin = ym("2020-3"), xmax = ym("2020-5"),
-#                           ymin = 0, ymax = max(Total+(Total/100*10))),
-#             fill = "lightskyblue", alpha = 0.2, colour = NA)+
-#   #zeichne Lockdown 2
-#   geom_rect(mapping = aes(xmin = ym("2020-12"), xmax = ym("2021-3"), 
-#                           ymin = 0, ymax = max(Total+(Total/100*10))), 
-#             fill = "lightskyblue", alpha = 0.2, colour = NA)+
-#   geom_line(alpha = 0.4, size = 1.5)+
-#   geom_smooth(method = "lm", se = F, lwd = 2)+
-#   # scale_x_discrete(breaks = c("2019 1", "2019 7","2019 1","2020 1","2020 7","2021 1","2021 7"),
-#   #                  labels = c("2019 1", "2019 7","2019 1","2020 1","2020 7","2021 1","2021 7"))+
-#   labs(title= "", y="Fussgänger:innen pro Monat", x = "Jahr")+
-#   scale_color_manual(values = mycolors)+
-#   # scale_y_continuous(trans="log10")+
-#   theme_linedraw(base_size = 15)+
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
-
-
-# ctree ####
-# berechne Regression für die Besuchszahlen in den Tageszeiten
-summary(lm(Total~Jahr + Tageszeit, data = depo))
-
-# berechne ctree
-library(partykit)
-
-ct <- ctree(Total ~ Jahr + Phase + Tageszeit + Stunde, 
-            data = depo, maxdepth = 5)
-
-# we can inspect the results via a print method
-ct
-st <- as.simpleparty(ct)
-
-# https://stackoverflow.com/questions/13751962/how-to-plot-a-large-ctree-to-avoid-overlapping-nodes
-# ?plot.party
-
-# WICHTIG: um ueberlappungen zu vermeiden, plotte Bild, oeffne im separaten Fenster, amche Screenshot und speichere unter ctrees.png ab.
-
-plot(st, gp = gpar(fontsize = 10),
-     inner_panel=node_inner,
-     ep_args = list(justmin = 5),
-     ip_args=list(
-       abbreviate = FALSE,
-       id = FALSE))
-
-## KW SUBSET
-# Berechne veränderung gegenüber Lockdown immer nur mit denselben KW
-depo_KW_lock <- depo %>% 
-  filter(KW_num>=KW_lock_1_start & KW_num <= KW_lock_1_ende)
-
-ct <- ctree(Total ~ Jahr + KW + Phase + Tageszeit + Stunde, 
-           data = depo_KW_lock, maxdepth = 4)
-
-ct
-st <- as.simpleparty(ct)
-
-plot(st, gp = gpar(fontsize = 10),
-     inner_panel=node_inner,
-     ep_args = list(justmin = 5),
-     ip_args=list(
-       abbreviate = FALSE,
-       id = FALSE))
-
-# wenn man nur die KW während des lockdown 1 (12-20) miteinander vergleicht, zeigt sich, dass die phase
-# im ctree nur am tag relevant ist. am morgen, abend und nacht ist die phase mit 4 ebenen
-# nicht relevant. erst mit 5 ebenen ist siw während der dunkelheit auf der untersten ebene relevant.
-
-# calendar heat chart ####
-
-# to comapre, get day of the year instead date
-depo$day_of_y <- yday(depo$Datum)
-
-library(viridis)
-
-# ggplot(depo, aes(day_of_y, Stunde, fill=Total, color = Total))+
-#   geom_tile(size=0.6)
-#   scale_fill_viridis(name="Passagen",option ="C")+
-#   scale_color_viridis(name="Passagen",option ="C")+
-#   facet_grid(rows = vars(Jahr), scales = "free", space = "free")+
-#   scale_y_continuous(trans = "reverse", breaks = unique(depo$Stunde)) +
-#   theme_minimal(base_size = 15) +
-#   labs(title= "", x="Datum", y="Uhrzeit [h]")+
-#   theme(axis.text.x = element_blank(),
-#         axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)))
+# # ctree ####
+# # berechne Regression für die Besuchszahlen in den Tageszeiten
+# summary(lm(Total~Jahr + Tageszeit, data = depo))
+# 
+# # berechne ctree
+# library(partykit)
+# 
+# ct <- ctree(Total ~ Jahr + Phase + Tageszeit + Stunde, 
+#             data = depo, maxdepth = 5)
+# 
+# # we can inspect the results via a print method
+# ct
+# st <- as.simpleparty(ct)
+# 
+# # https://stackoverflow.com/questions/13751962/how-to-plot-a-large-ctree-to-avoid-overlapping-nodes
+# # ?plot.party
+# 
+# # WICHTIG: um ueberlappungen zu vermeiden, plotte Bild, oeffne im separaten Fenster, amche Screenshot und speichere unter ctrees.png ab.
+# 
+# plot(st, gp = gpar(fontsize = 10),
+#      inner_panel=node_inner,
+#      ep_args = list(justmin = 5),
+#      ip_args=list(
+#        abbreviate = FALSE,
+#        id = FALSE))
+# 
+# ## KW SUBSET
+# # Berechne veränderung gegenüber Lockdown immer nur mit denselben KW
+# depo_KW_lock <- depo %>% 
+#   filter(KW_num>=KW_lock_1_start & KW_num <= KW_lock_1_ende)
+# 
+# ct <- ctree(Total ~ Jahr + KW + Phase + Tageszeit + Stunde, 
+#            data = depo_KW_lock, maxdepth = 4)
+# 
+# ct
+# st <- as.simpleparty(ct)
+# 
+# plot(st, gp = gpar(fontsize = 10),
+#      inner_panel=node_inner,
+#      ep_args = list(justmin = 5),
+#      ip_args=list(
+#        abbreviate = FALSE,
+#        id = FALSE))
+# 
+# # wenn man nur die KW während des lockdown 1 (12-20) miteinander vergleicht, zeigt sich, dass die phase
+# # im ctree nur am tag relevant ist. am morgen, abend und nacht ist die phase mit 4 ebenen
+# # nicht relevant. erst mit 5 ebenen ist siw während der dunkelheit auf der untersten ebene relevant.
+# 
+# # calendar heat chart ####
+# 
+# # to comapre, get day of the year instead date
+# depo$day_of_y <- yday(depo$Datum)
+# 
+# library(viridis)
+# 
+# # ggplot(depo, aes(day_of_y, Stunde, fill=Total, color = Total))+
+# #   geom_tile(size=0.6)
+# #   scale_fill_viridis(name="Passagen",option ="C")+
+# #   scale_color_viridis(name="Passagen",option ="C")+
+# #   facet_grid(rows = vars(Jahr), scales = "free", space = "free")+
+# #   scale_y_continuous(trans = "reverse", breaks = unique(depo$Stunde)) +
+# #   theme_minimal(base_size = 15) +
+# #   labs(title= "", x="Datum", y="Uhrzeit [h]")+
+# #   theme(axis.text.x = element_blank(),
+# #         axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)))
+#   
+# p <-   ggplot(depo)+
+#     geom_tile(aes(day_of_y, Stunde, fill=Total, color = Total), size=0.6)+
+#     geom_line(aes(day_of_y, nightEnd), color = "white")+
+#     geom_line(aes(day_of_y, goldenHour), color = "white")+
+#     scale_fill_viridis(name="Passagen",option ="C")+
+#     scale_color_viridis(name="Passagen",option ="C")+
+#     facet_grid(rows = vars(Jahr), scales = "free", space = "free")+
+#     scale_y_continuous(trans = "reverse", breaks = unique(depo$Stunde)) +
+#     theme_minimal(base_size = 15) +
+#     labs(title= "", x="Datum", y="Uhrzeit [h]")+
+#     theme(axis.text.x = element_blank(),
+#           axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)))
+# p  
+# 
+# # plotly::ggplotly(p)  
+#   
   
-p <-   ggplot(depo)+
-    geom_tile(aes(day_of_y, Stunde, fill=Total, color = Total), size=0.6)+
-    geom_line(aes(day_of_y, nightEnd), color = "white")+
-    geom_line(aes(day_of_y, goldenHour), color = "white")+
-    scale_fill_viridis(name="Passagen",option ="C")+
-    scale_color_viridis(name="Passagen",option ="C")+
-    facet_grid(rows = vars(Jahr), scales = "free", space = "free")+
-    scale_y_continuous(trans = "reverse", breaks = unique(depo$Stunde)) +
-    theme_minimal(base_size = 15) +
-    labs(title= "", x="Datum", y="Uhrzeit [h]")+
-    theme(axis.text.x = element_blank(),
-          axis.title.y = element_text(margin = margin(t = 0, r = 10, b = 0, l = 0)))
-p  
+#.################################################################################################
 
-# plotly::ggplotly(p)  
-  
-  
-  
   
   
   
@@ -589,35 +489,29 @@ mean_phase_wd <- depo_d |>
 
 write.csv(mean_phase_wd, "fallstudie_s/results/mean_phase_wd.csv")
 
+
+
+# MACHE DAS ANDERS MIT DEM FOKUS TAGESZEIT
+
 #plot
 ggplot(data = depo_d)+
-  geom_boxplot(mapping = aes(x= Wochentag, y = Total, fill = Phase))+
+  geom_boxplot(mapping = aes(x= Wochentag, y = Total, fill = Tageszeit))+
   labs(title="", y= "Fussgänger:innen pro Tag")+
   scale_fill_manual(values = c("lightgray", "royalblue", "red4", "orangered", "gold2"))+
   theme_classic(base_size = 15)+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
         legend.title = element_blank())
 
-ggsave("Wochengang_Lockdown.png", width=15, height=15, units="cm", dpi=1000, 
-       path = "fallstudie_s/results/")
 
 
-# Wochengang, unterteilt nach TAGESZEIT
-
-# ggplot(data = depo_daytime)+
-#   geom_boxplot(mapping = aes(x= Wochentag, y = Total, fill = Phase))+
-#   labs(title="", y= "Fussgänger:innen pro Tag")+
-#   scale_fill_manual(values = c("lightgray", "royalblue", "red4", "orangered", "gold2"))+
-#   facet_grid(rows = vars(Tageszeit), scales = "free")+
-#   theme_classic(base_size = 15)+
-#   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1),
-#         legend.title = element_blank())
 
 
-# Statistik: Unterschied WE und WO während Lockdown 1
-t.test(depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Werktag"], 
-       depo_d$Total [depo_d$Phase == "Lockdown_1" & depo_d$Wochenende=="Wochenende"])
-
+# gruppiere nur nach Tageszeit und Phasen für Kennwerte
+total_phase <- depo_daytime |> 
+  group_by(Phase, Tageszeit) |> 
+  summarise(Total = sum(Total),
+            IN = sum(Fuss_IN),
+            OUT = sum(Fuss_OUT))
 
 # 3.3 Tagesgang ####
 # Bei diesen Berechnungen wird jeweils der Mittelwert pro Stunde berechnet. 
@@ -642,28 +536,7 @@ ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochent
 ggsave("Tagesgang.png", width=25, height=25, units="cm", dpi=1000,
        path = "fallstudie_s/results/")
 
-# 3.4 Kennzahlen ####
-total_phase <- depo_daytime |> 
-  # gruppiere nach Phasen inkl. Normal. Diese Levels haben wir bereits definiert
-  group_by(Phase, Tageszeit) |> 
-  summarise(Total = sum(Total),
-            IN = sum(Fuss_IN),
-            OUT = sum(Fuss_OUT))
 
-write.csv(total_phase, "fallstudie_s/results/total_phase.csv")
-
-# mean besser Vergleichbar, da Zeitreihen unterschiedlich lange
-mean_phase_d <- depo_daytime |> 
-  group_by(Phase, Tageszeit) |> 
-  summarise(Total = mean(Total),
-            IN = mean(Fuss_IN),
-            OUT = mean(Fuss_OUT))
-# berechne prozentuale Richtungsverteilung
-mean_phase_d <- mean_phase_d |> 
-  mutate(Proz_IN = round(100/Total*IN, 1)) |> # berechnen und auf eine Nachkommastelle runden
-  mutate(Proz_OUT = round(100/Total*OUT,1))
-
-write.csv(mean_phase_d, "fallstudie_s/results/mean_phase_d.csv")
 
 # plotte die Verteilung der Fussgänger nach Tageszeit abhängig von der Phase
 ggplot(mean_phase_d, mapping = aes(Phase, Total, fill=Tageszeit)) + 
@@ -677,53 +550,20 @@ ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png", width=20, height=15, units="cm"
        path = "fallstudie_s/results/")  
 
 
-# # selektiere absolute Zahlen
-# # behalte rel. Spalten (nur die relativen Prozentangaben)
-# mean_phase_d_abs <- mean_phase_d |> dplyr::select(-c(Total, Proz_IN, Proz_OUT))
-# 
-# # transformiere fuer Plotting
-# mean_phase_d_abs <- pivot_longer(mean_phase_d_abs, cols = c("IN","OUT"), 
-#              names_to = "Gruppe", values_to = "Durchschnitt")
-# 
-# # selektiere relative Zahlen
-# # behalte rel. Spalten (nur die relativen Prozentangaben)
-# mean_phase_d_proz <- mean_phase_d |> dplyr::select(-c(Total:OUT))
-# 
-# # transformiere fuer Plotting
-# mean_phase_d_proz <- pivot_longer(mean_phase_d_proz, cols = c("Proz_IN","Proz_OUT"), 
-#                                   names_to = "Gruppe", values_to = "Durchschnitt")
-# 
-# # Visualisierung abs
-# abs <- ggplot(data = mean_phase_d_abs, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-#   geom_col(position = "dodge", width = 0.8)+
-#   scale_fill_manual(values = c("lightgray","royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-#   scale_x_discrete(labels = c("IN", "OUT"))+
-#   labs(y = "Durchschnitt [mean]", x= "Bewegungsrichtung")+
-#   theme_classic(base_size = 15)+
-#   theme(legend.position = "bottom")
-# 
-# # Visualisierung %
-# proz <- ggplot(data = mean_phase_d_proz, mapping = aes(x = Gruppe, y = Durchschnitt, fill = Phase))+
-#   geom_col(position = "dodge", width = 0.8)+
-#   scale_fill_manual(values = c("lightgray","royalblue", "red4", "orangered", "gold2"), name = "Phase")+
-#   scale_x_discrete(labels = c("IN", "OUT"))+
-#   labs(y = "Durchschnitt [%]", x= "Bewegungsrichtung")+
-#   theme_classic(base_size = 15)+
-#   theme(legend.position = "bottom")
-# 
-# # Arrange und Export Verteilung
-# ggarrange(abs,            # plot 1 aufrufen
-#           proz,            # plot 2 aufrufen
-#           ncol = 2, nrow = 1,    # definieren, wie die plots angeordnet werden
-#           heights = c(1),        # beide sind bleich hoch
-#           widths = c(1,0.95),    # plot 2 ist aufgrund der fehlenden y-achsenbesch. etwas schmaler
-#           labels = c("a) Absolute Verteilung", "b) Relative Verteilung"),
-#           label.x = 0,        # wo stehen die labels
-#           label.y = 1.0,
-#           common.legend = TRUE, legend = "bottom") # wir brauchen nur eine Legende, unten
-# 
-# ggsave("Verteilung.png", width=20, height=15, units="cm", dpi=1000,
-#        path = "fallstudie_s/results/")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #.################################################################################################

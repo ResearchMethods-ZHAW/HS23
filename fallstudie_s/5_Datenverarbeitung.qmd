@@ -454,6 +454,9 @@ depo_daytime <- depo |>
             Fuss_OUT = sum(Fuss_OUT)) 
 ```
 
+- Weiter benötigen wir für für die Berechnung der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), unterteilt nach Tageszeit und Phase __(Gruppierungen Tageszeit, Phase__). Speichert das unter "mean_phase_d".
+
+
 ### 4b)
 
 - Aggregiere die Stundenwerte nach dem Monat (Gruppierungen __Monat, Jahr__) und speichert das neue df unter depo_m.
@@ -489,6 +492,9 @@ depo_m_daytime <- depo_m_daytime |>
   mutate(Ym = paste(Jahr, Monat)) |> # und mache eine neue Spalte, in der Jahr und
   mutate(Ym = lubridate::ym(Ym)) # formatiere als Datum
 ```
+
+
+
 
 ### 4c)
 
