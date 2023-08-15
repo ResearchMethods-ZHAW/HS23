@@ -92,7 +92,7 @@ library(tidyverse) # Arbeiten mit Datumsformaten
 ### Datensatz einlesen
 
 # dabei speichere ich ihn gleich unter der Variable "depo" ab.
-depo <- read.csv("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv", sep = ";")
+depo <- read.delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv", sep = ";")
 
 ### Datum und Uhrzeit
 # das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum:
@@ -119,7 +119,7 @@ sum(depo$Total)
 ```
 
 ```{r results="hide"}
-# Darstellen der Anzahl Passagen pro Stunde und Tag
+# Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R
 plot(x = depo$DatumUhrzeit, y = depo$Total,
      pch = 21,  # Form
      cex = 1.5, # Grösse
@@ -127,46 +127,8 @@ plot(x = depo$DatumUhrzeit, y = depo$Total,
 ```
 
 ```{r results="hide"}
-# Darstellung der verschiedenen Nutzergruppen
+# Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)
 slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT") 
 pie(slieces, labels = lbls)
 ```
-
-### Aufgabe 3: für Fortgeschrittene
-
-Die Anzahl Passagen pro Zählstelle können nicht nur als statische Diagramme dargestellt werden. R ist auch ein GIS! Hier seht ihr, wie mit R interaktive Karten gestaltet werden können.
-
-```{r results="hide"}
-# zuerst berechnen wir mit der Bibliothek tidyverse das Total pro Standort
-total_Standort <- depo |> 
-  group_by(Standort, lon, lat) |> 
-  summarise(Total = sum(Total))
-
-# dann überführen wir den Datensatz in ein räumliches Format 
-# (Hinweis: dafür muss die Bibliothes "sf" installiert sein)
-total_Standort <- sf::st_as_sf(total_Standort, 
-                         coords = c("lon", "lat"),
-                         crs = 2056)
-
-# Transformiere die CH1903 Koordinaten in WGS84
-total_Standort <- sf::st_transform(total_Standort, crs = 4326)
-
-# Plotte nun eine interaktive Karte
-# install.packages("tmap")
-library(tmap)
-
-# setze den Modus auf Interaktiv
-current.mode <- tmap_mode("view") 
-```
-
-```{r}
-# plotte
-tm_basemap(server = c(Topo = "Esri.WorldTopoMap",
-                      Ortho = "Esri.WorldImagery",
-                      OSM = "OpenStreetMap.HOT"))+
-  tm_shape(total_Standort)+
-  tm_bubbles(size = "Total", border.col = "black", col = "red", scale = 5, alpha = 0.5)
-```
-
-Interaktive Karte von zwei ausgewählten Zählstellen im Untersuchungsgebiet mit fiktiven Besuchszahlen.
