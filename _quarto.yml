@@ -49,6 +49,7 @@ book:
     - part: PrePro.qmd
       chapters:
       - prepro/Prepro1_Vorbereitung.qmd
+      - --
       - prepro/Prepro1_Demo.qmd
       - prepro/Prepro1_Uebung.qmd
       - --
@@ -61,6 +62,7 @@ book:
     - part: InfoVis.qmd
       chapters:
       - infovis/Infovis1_Vorbereitung.qmd
+      - --
       - infovis/Infovis1_Demo.qmd
       - infovis/Infovis1_Script_eda.qmd
       - infovis/Infovis1_Uebung.qmd
@@ -121,7 +123,8 @@ book:
       - statKons/StatKons4_Demo_GLM.qmd
     - part: RaumAn.qmd
       chapters:
-      - rauman/Rauman1_Vorbereitung.qmd
+      - rauman/Rauman0_Vorbereitung.qmd
+      - --
       - rauman/Rauman1_Uebung_A.qmd
       - rauman/Rauman1_Uebung_B.qmd
       - --

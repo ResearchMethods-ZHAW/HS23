@@ -15,7 +15,7 @@ knitr:
 
 # Rauman 2: Übung B {#sec-raster-intro}
 
-In @sec-raster-intro1 habt ihr nun eine erste Erfahrung mit Raster Daten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfast werden. 
+In [der letzten Übung](#sec-raster-intro1) habt ihr nun eine erste Erfahrung mit Raster Daten gemacht. Dabei haben wir zuerst einen Vektordatensatz rasterisiert. Häufig arbeiten wir aber mit Geodaten, die bereits im Rasterformat erfast werden. 
 
 ## Aufgabe 1
 

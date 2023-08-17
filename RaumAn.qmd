@@ -19,7 +19,7 @@ listing:
     date-format: iso
 ---
 
-## Teil 1
+<!-- ## Teil 1
 
 Die erste Übung zur Raumanalyse illustriert das einfache Laden und Anzeigen von Geodaten im Vektor- und Raster-Datenformat. Zusätzlich veranschaulicht die Übung den Umgang mit Koordinatensystemen sowie die Vektor-Raster-Konvertierung. Einfach erste Analysen illustrieren den Spatial Join, die Annotieren von Punkten mit Attributen von die Punkte einbettenden Vektordaten. Zum Abschluss thematisiert die Übung die Aggregationsabhängigkeit räumlicher Daten durch die Illustration des Modifiable Areal Unit Problem (MAUP). 
 
@@ -39,4 +39,4 @@ In der Übung 4 lernt ihr einfache räumliche Analyse-Werkezeuge kennen, und zwa
 
 Den krönenden Abschluss des Themenblocks Raumanalyse bildet die Durchführung einer Multi-Kriterien Analyse zur Bestimmung von optimalen Standorten für Windturbinen. Dabei orientieren wir uns an die in der Vorlesung behandelten Vorgaben und setzen die geforderten Kriterien mit Raumdaten um. Für die Vorbereitung der Datensätze kommen nun viele Konzepte und Verfahren wieder zum Zug, die Ihr bisher kennen gelernt habt. Zum Schluss gewichten wir die einzelnen Layer und verschneiden sie zu einer Eignungskarte.
 
-Auf geht’s!
+Auf geht’s! -->

@@ -32,8 +32,8 @@ library("sf")
 library("dplyr")
 library("ggplot2")
 
-library("spatstat.geom")    # <- ggf. installieren!
-library("spatstat.explore") # <- ggf. installieren!
+library("spatstat.geom")    
+library("spatstat.explore")
 ```
 
 ```{r}

@@ -1,6 +1,6 @@
 ---
 date: 2022-11-29
-lesson: RaumAn2
+lesson: RaumAn3
 thema: Räumliche Interpolation
 index: 2
 execute: 
@@ -13,7 +13,8 @@ knitr:
     collapse: true
 ---
 
-# Rauman 2: Übung B
+# Rauman 3
+: Übung B
 
 ```{r}
 #| echo: false
@@ -29,7 +30,7 @@ library("sf")
 library("dplyr")
 library("ggplot2")
 
-library("gstat") # <- ggf. installieren!
+library("gstat") 
 ```
 
 Weiter benötigt ihr die nachstehenden Datensätze:
