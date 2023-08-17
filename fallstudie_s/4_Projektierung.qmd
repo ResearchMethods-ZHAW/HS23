@@ -1,18 +1,27 @@
-# KW 42: Projektierung
+---
+date: 2023-10-16
+lesson: Projektierung
+thema: Projekt Fallstudie erstellen
+index: 2
+execute: 
+  echo: false   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
 
-
-# Arbeiten mit Projekten
-
-__Hinweis: Bitte bearbeitet dieses Skript am 18.10.2022 erst nach der Einführung [Multivariate Analyse: Abschlussbericht].__ 
+# BiEcS4 - Projektierung
 
 ## Vorbereitung
 
 Vor den eigentlichen Auswertungen müssen einige Vorbereitungen unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein Mehrfaches eingespart. 
 
+Wie im Unterricht am Morgen empfehle auch ich mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. --> Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
 
-Ich empfehle generell mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. --> Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
-
-- Erstellt an einem passenden Speicherort ein neues Projekt mit einem treffenden Namen:
+- Erstellt an einem passenden Speicherort (evtl. onedrive für das gemeinsame Arbeiten an einem Projekt) ein neues Projekt mit einem treffenden Namen:
 
 --> File / New Project
 
@@ -20,7 +29,7 @@ Ich empfehle generell mit Projekten zu arbeiten, da diese sehr einfach ausgetaus
 
 __Hinweise:__
 
-Nutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, müssen vor dem Wort # und nach dem Wort #### eingefügt werden.
+Nutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, könnnen vor dem Wort "#" und nach dem Wort "####" eingefügt werden.
 
 ```{r eval=FALSE}
 # Texte, vor denen ein # und nach denen #### stehen, sind Überschriften
@@ -40,17 +49,17 @@ Tipps:
 
 - Alt + - = <- 
 
-- Ctrl + Shift + C = # vor der ausgewaehlten Zeile
+- Ctrl + Shift + C = # vor der ausgewählten Zeile
 
 __Aufbau eines Skripts__
 
 Zuerst immer den __Titel des Projekts__ sowie den __Autor/ die Autorin__ des Skripts nennen. Hier soll auch die __Herkunft der Daten__ ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer Dateneigentümer ist (WPZ und Meteo Schweiz).
 
-Im Skript soll immer die __Ordnerstruktur__ des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __skripts, data, results).
+Im Skript soll immer die __Ordnerstruktur__ des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __scripts, data, results).
 
-Beschreibt zudem folgendes die verwendete __Meteodaten__ (siehe dazu Metadata Meteodaten, --> order_XXX_legend.txt)
+Beschreibt zudem kurz die verwendeten __Meteodaten__ (siehe dazu Metadata Meteodaten, --> order_XXX_legend.txt)
 
-Ein Skript soll in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthällt (nach den bereits erwähnten Definitionen) 4 Kapitel: 
+Ein Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthällt bei uns folgende Kapitel: 
 
 0) Metadaten und Definitionen
 1) Datenimport, 
@@ -79,7 +88,7 @@ Bereitet euer Skript mit diesen Kapitel vor.
 
 ```
 
-In einem Bericht sollen die Abbildung einheitlich sein Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable "mycolors" abrufen kann.
+In einem Bericht ist es schön, wenn die Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable "mycolors" abrufen kann.
 
 ```{r eval=FALSE}
 mycolors <- c("orangered","gold", "mediumvioletred", "darkblue")
@@ -88,33 +97,28 @@ mycolors <- c("orangered","gold", "mediumvioletred", "darkblue")
 
 ## Aufgabe 2: Laden der Bibliotheken
 
-- Geplottet wird mit ggplot, daher wird __tidyverse__ geladen. Diese Bibliothek ergaenzt BASE R in vielerlei Hinsicht uns ist eigentlich fast immer nötig. 
-- Da wir es bei Besucherdaten immer mit einem zeitlichen Bezug zu tun haben, benoetigen wir eine passende Bibliothek. Ich arbeite mit __lubridate__, POSIXct waere natuerlich auch moeglich. 
-- __ggpubr__ brauchen wir für das Darstellen von mehreren verschiedenen Plots in nur einem. - __PerformanceAnalytics__, __MuMIn__, __AICcmodavg__, __fitdistrplus__, __lme4__ und __sjPlot__ werden fuer die spaeteren multivariaten Analysen benoetigt. 
--Die Modellguete werden wir mittels __lattice__, __blmeco__ und __lattice__ pruefen.
-
---> Lädt nun die benoetigten Bibliotheken.
+- Lädt nun die nachfolgenden, benoetigten Bibliotheken.
 
 - Diese müssen zuerst mit _install.packages("NAME")_ installiert werden.
 
 ```{r eval=FALSE}
 # Benoetigte Bibliotheken ####
-library(tidyverse) # Data wrangling und piping
-library(lubridate) # Arbeiten mit Datumsformaten
-library(ggpubr)    # to arrange multiple plots in one graph
-library(PerformanceAnalytics) # Plotte Korrelationsmatrix
-library(MuMIn)     # Multi-Model Inference
-library(AICcmodavg)# Modellaverageing
-library(fitdistrplus)# Prueft die Verteilung in Daten
-library(lme4)      # Multivariate Modelle
-library(blmeco)    # Bayesian data analysis using linear models
-library(sjPlot)    # Plotten von Modellergebnissen (tab_model)
-library(lattice)   # einfaches plotten von Zusammenhängen zwischen Variablen
+library("ggplot2") # Data wrangling und pipeing
+library("lubridate") # Arbeiten mit Datumsformaten
+library("ggpubr")    # to arrange multiple plots in one graph
+library("PerformanceAnalytics") # Plotte Korrelationsmatrix
+library("MuMIn")     # Multi-Model Inference
+library("AICcmodavg")# Modellaverageing
+library("fitdistrplus")# Prueft die Verteilung in Daten
+library("lme4")      # Multivariate Modelle
+library("blmeco")    # Bayesian data analysis using linear models
+library("sjPlot")    # Plotten von Modellergebnissen (tab_model)
+library("lattice")   # einfaches plotten von Zusammenhängen zwischen Variablen
 ```
 
 ## Aufgabe 3: Zeitliche Definitionen
 
-WIr lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag gemäss den vorhandenen Zähldaten.
+Wir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag __gemäss den vorhandenen Zähldaten__.
 
 ```{r}
 depo_start <- as.Date("2017-01-01")
@@ -122,7 +126,7 @@ depo_end <- as.Date("2022-7-31")
 ```
 
 
-Wichtiger Teil unserer Auswertungen ist der Einfluss des Lockdown auf das Besuchsverhalten. 
+Ein Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuchsverhalten. 
 
 -Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:
 
@@ -134,68 +138,12 @@ lock_2_start_2021 <- as.Date("2020-12-22")
 lock_2_end_2021 <- as.Date("2021-03-01")
 ```
 
-Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollstaendig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl __isoweek()__ liefert euch die Kalenderwoche.
+Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl __isoweek()__ liefert euch die Kalenderwoche.
 
-Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume (je nach dem müsst ihr das anpassen) müssen daher bekannt sein. Zur Definition der Ferien kann z.B. folgend vorgegangen werden:
+Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/). Zum Einlesen der Ferien kann z.B. folgend vorgegangen werden:
 
 ```{r warning=FALSE, results="hide"}
-# (https://www.schulferien.org/schweiz/ferien/2020/)
-Winterferien_2016_start <- as.Date("2017-01-01") 
-Winterferien_2016_ende <- as.Date("2017-01-08")
-
-Fruehlingsferien_2017_start <- as.Date("2017-04-15") 
-Fruehlingsferien_2017_ende <- as.Date("2017-04-30") 
-Sommerferien_2017_start <- as.Date("2017-07-15") 
-Sommerferien_2017_ende <- as.Date("2017-08-20") 
-Herbstferien_2017_start <- as.Date("2017-10-07") 
-Herbstferien_2017_ende <- as.Date("2017-10-22") 
-Winterferien_2017_start <- as.Date("2017-12-23") 
-Winterferien_2017_ende <- as.Date("2018-01-07") 
-
-Fruehlingsferien_2018_start <- as.Date("2018-04-21") 
-Fruehlingsferien_2018_ende <- as.Date("2018-05-06") 
-Sommerferien_2018_start <- as.Date("2018-07-14") 
-Sommerferien_2018_ende <- as.Date("2018-08-19") 
-Herbstferien_2018_start <- as.Date("2018-10-06") 
-Herbstferien_2018_ende <- as.Date("2018-10-21") 
-Winterferien_2018_start <- as.Date("2018-12-22") 
-Winterferien_2018_ende <- as.Date("2019-01-06") 
-
-Fruehlingsferien_2019_start <- as.Date("2019-04-20") 
-Fruehlingsferien_2019_ende <- as.Date("2019-05-05") 
-Sommerferien_2019_start <- as.Date("2019-07-13") 
-Sommerferien_2019_ende <- as.Date("2019-08-18") 
-Herbstferien_2019_start <- as.Date("2019-10-05") 
-Herbstferien_2019_ende <- as.Date("2019-10-20") 
-Winterferien_2019_start <- as.Date("2019-12-21") 
-Winterferien_2019_ende <- as.Date("2020-01-05")
-
-Fruehlingsferien_2020_start <- as.Date("2020-04-11")
-Fruehlingsferien_2020_ende <- as.Date("2020-04-26")
-Sommerferien_2020_start <- as.Date("2020-07-11")
-Sommerferien_2020_ende <- as.Date("2020-08-16")
-Herbstferien_2020_start <- as.Date("2020-10-03")
-Herbstferien_2020_ende <- as.Date("2020-10-18")
-Winterferien_2020_start <- as.Date("2020-12-19")
-Winterferien_2020_ende <- as.Date("2021-01-03")
-
-Fruehlingsferien_2021_start <- as.Date("2021-04-24")
-Fruehlingsferien_2021_ende <- as.Date("2021-05-09")
-Sommerferien_2021_start <- as.Date("2021-07-17")
-Sommerferien_2021_ende <- as.Date("2021-08-22")
-Herbstferien_2021_start <- as.Date("2021-10-09")
-Herbstferien_2021_ende <- as.Date("2021-10-24")
-Winterferien_2021_start <- as.Date("2021-12-18")
-Winterferien_2021_ende <- as.Date("2022-01-02")
-
-Fruehlingsferien_2022_start <- as.Date("2022-04-16")
-Fruehlingsferien_2022_ende <- as.Date("2022-05-01")
-Sommerferien_2022_start <- as.Date("2022-07-16")
-Sommerferien_2022_ende <- as.Date("2022-08-21")
-Herbstferien_2022_start <- as.Date("2022-10-08")
-Herbstferien_2022_ende <- as.Date("2022-10-23")
-Winterferien_2022_start <- as.Date("2022-12-24")
-Winterferien_2022_ende <- as.Date("2023-01-08")
+schulferien <- read_delim("datasets/fallstudie_s/ferien.csv", ",")
 ```
 
 __Nun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann beginnen.__

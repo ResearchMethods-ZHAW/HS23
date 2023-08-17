@@ -1,4 +1,19 @@
-# KW 40 - KW 42: Felderhebung
+---
+date: 2023-10-03
+lesson: Besuchermonitoring
+thema: Felderhebungen Grüental
+index: 2
+execute: 
+  echo: true   # set to true to show musterlösung
+  output: false
+code-fold: true
+code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+# BiEcS2 - Monitoring
 
 ## Einführung und Installation
 
@@ -17,14 +32,14 @@ Es gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Au
 
 Die Geräte werden innerhalb der unten eingezeichneten Elipsen platziert. Damit soll überprüft werden, wie stark frequentiert die Waldränder der ökologisch aufgewerteten Seeparzelle sind.
 
-![](images/Perimeter_Felderhebung.png){width=50%}
+![](images/Perimeter_Felderhebung.png){width=100%}
 
 Datenschutz ist ein wichtiges Thema. Die Besuchenden werden über den Zweck der Kameras informiert, die Daten nach der Bearbeitung wieder gelöscht und nicht weitergegeben.
 
 ![](images/Begleitzettel_Kamera.png){width=50%}
 
 ## Auswertung
-__AUFGABE ab dem 17. 10. 2022__
+__AUFGABE ab nächster Woche__
 
 _Nachdem die Kameras für zwei Wochen im Einsatz standen, sichten wir zusammen die Ergebnisse._
 
@@ -46,29 +61,25 @@ R bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bi
 
 Untenstehend sind einige Ideen zur Umsetzung.
 
-```{r include=FALSE}
-knitr::opts_chunk$set(error = FALSE)
-```
-
-
 ```{r}
 ### Bibliothek laden
 
-# zuerst muss sie installiert sein:
-# install.packages("tidyverse")
-library(tidyverse) # Arbeiten mit Datumsformaten
+# zuerst muss sie installiert sein. folgende Zeile müsst ihr nur das erste Mal ausführen
+# install.packages("readr")
+# WENN installiert, DANN laden
+library("readr") # einlesen von csv mit read_delim
 
 ### Datensatz einlesen
 
 # dabei speichere ich ihn gleich unter der Variable "depo" ab.
-depo <- read.csv("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv", sep = ";")
+depo <- read_delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv")
 
 ### Datum und Uhrzeit
-# das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum:
+# das Datum und die Uhrzeit sind in einer Spalte. R liest das als "Buchstaben" ein. Wir definieren es als Datum mit as.POSIXct aus base R
 depo$DatumUhrzeit <- as.POSIXct(depo$DatumUhrzeit, format = "%d.%m.%Y %H:%M")
 ```
 
-```{r results="hide"}
+```{r}
 ### Kennzahlen
 
 #zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:
@@ -87,55 +98,17 @@ depo$Total = depo$Fuss_IN + depo$Fuss_OUT + depo$Velo_IN + depo$Velo_OUT
 sum(depo$Total)
 ```
 
-```{r results="hide"}
-# Darstellen der Anzahl Passagen pro Stunde und Tag
+```{r}
+# Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R
 plot(x = depo$DatumUhrzeit, y = depo$Total,
      pch = 21,  # Form
      cex = 1.5, # Grösse
      bg="blue") # Füllung
 ```
 
-```{r results="hide"}
-# Darstellung der verschiedenen Nutzergruppen
+```{r}
+# Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)
 slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT") 
 pie(slieces, labels = lbls)
 ```
-
-### Aufgabe 3: für Fortgeschrittene
-
-Die Anzahl Passagen pro Zählstelle können nicht nur als statische Diagramme dargestellt werden. R ist auch ein GIS! Hier seht ihr, wie mit R interaktive Karten gestaltet werden können.
-
-```{r results="hide"}
-# zuerst berechnen wir mit der Bibliothek tidyverse das Total pro Standort
-total_Standort <- depo |> 
-  group_by(Standort, lon, lat) |> 
-  summarise(Total = sum(Total))
-
-# dann überführen wir den Datensatz in ein räumliches Format 
-# (Hinweis: dafür muss die Bibliothes "sf" installiert sein)
-total_Standort <- sf::st_as_sf(total_Standort, 
-                         coords = c("lon", "lat"),
-                         crs = 2056)
-
-# Transformiere die CH1903 Koordinaten in WGS84
-total_Standort <- sf::st_transform(total_Standort, crs = 4326)
-
-# Plotte nun eine interaktive Karte
-# install.packages("tmap")
-library(tmap)
-
-# setze den Modus auf Interaktiv
-current.mode <- tmap_mode("view") 
-```
-
-```{r}
-# plotte
-tm_basemap(server = c(Topo = "Esri.WorldTopoMap",
-                      Ortho = "Esri.WorldImagery",
-                      OSM = "OpenStreetMap.HOT"))+
-  tm_shape(total_Standort)+
-  tm_bubbles(size = "Total", border.col = "black", col = "red", scale = 5, alpha = 0.5)
-```
-
-Interaktive Karte von zwei ausgewählten Zählstellen im Untersuchungsgebiet mit fiktiven Besuchszahlen.
