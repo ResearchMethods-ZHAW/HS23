@@ -1,8 +1,8 @@
 ---
 date: 2022-11-29
-lesson: RaumAn2
+lesson: RaumAn3
 thema: G-Funktion
-index: 1
+index: 3
 execute: 
   echo: true   # set to true to show musterlösung
   output: true # set to true to show musterlösung
@@ -13,7 +13,7 @@ knitr:
     collapse: true  
 ---
 
-# Rauman 2: Übung C (Optional)
+# Rauman 3: Übung C (Optional)
 
 In dieser optionalen Übung wollen wir die G-Function für Luftqualitäts-Messstellen und Rotmilan Bewegungen berechnen und vergleichen.
 
