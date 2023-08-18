@@ -34,7 +34,7 @@ knitr:
 # - scripts
 
 # Benoetigte Bibliotheken ####
-library(tidyverse) # Data wrangling und piping
+library(dplyr) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
 library(suncalc)   # berechne Tageszeiten abhaengig vom Sonnenstand
 library(ggpubr)    # to arrange multiple plots in one graph

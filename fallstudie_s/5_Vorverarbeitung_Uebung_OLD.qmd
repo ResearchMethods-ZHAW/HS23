@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 #| include: false
 # Benoetigte Bibliotheken ####
-library(tidyverse) # Data wrangling und piping
+library(dplyr) # Data wrangling und piping
 library(lubridate) # Arbeiten mit Datumsformaten
 library(ggpubr)    # to arrange multiple plots in one graph
 library(PerformanceAnalytics) # Plotte Korrelationsmatrix

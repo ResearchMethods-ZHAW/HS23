@@ -84,7 +84,7 @@ t.test(size~cultivar, blume.long, paired = TRUE)
 ## Base R vs. ggplot2
 
 ```{r}
-library(tidyverse)
+library(ggplot2)
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot()
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()
 ggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size = 1) + theme_classic()+

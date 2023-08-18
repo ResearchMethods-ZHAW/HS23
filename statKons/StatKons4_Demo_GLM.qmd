@@ -16,7 +16,7 @@ format:
 ```{r}
 #| include: true
 
-library(tidyverse)
+library(ggplot2)
 
 mytheme <- 
   theme_classic() + 

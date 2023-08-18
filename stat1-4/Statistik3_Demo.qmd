@@ -41,7 +41,7 @@ boxplot(Fruit~Grazing, data = compensation)
 
 ```{r}
 # Plotten der vollständigen Daten/Information
-library(tidyverse)
+library(ggplot2)
 ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
   geom_point() + 
   theme_classic()

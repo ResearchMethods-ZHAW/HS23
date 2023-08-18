@@ -16,7 +16,7 @@ format:
 ```{r}
 #| include: false
 
-library(tidyverse)
+library(ggplot2)
 if (!require("rosetta")) install.packages("rosetta", repos = "http://cran.us.r-project.org")
 
 mytheme <- 
@@ -111,7 +111,7 @@ rosetta::posthocTGH(cars$hp, cars$cyl, method = "games-howell")
 ```{r}
 #| echo: false
 
-library(tidyverse)
+library(dplyr)
 #1. Wähle zusätzliche Variable aus (wenn nicht in der Aufgabe steht), 
 #was für eine Skala muss die Variable aufweisen?
 
