@@ -27,16 +27,21 @@ library("dplyr")
 library("ggplot2")
 library("sf")
 
-zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", "kanton")
+zweitwohnung_kanton <- read_sf("datasets/rauman/zweitwohnungsinitiative.gpkg", layer = "kanton")
 ```
 
 ```{r}
 #| fig-cap: Was für einen Autokorrelationswert würdest du erwarten? Eher 1 (hohe Autokorrelation, beieinanderliegende Kantone haben ähnliche Werte) oder eher -1 (beieinanderliegende Kantone haben sehr unterschiedliche Werte) oder eher 0 (gar keine Autokorrelation)
+#| label: fig-autokorrelation-kantone
 #| code-fold: false
 
 p <- ggplot(zweitwohnung_kanton) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
-  scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1))  +
+  scale_fill_gradientn("Ja-Anteil",
+    colours = RColorBrewer::brewer.pal(11, "RdYlGn"), 
+    limits = c(0,100),
+    )  +
+  labs(title = "Zweitwohnungsinititiative (2012)", subtitle = "Anteil Ja-Stimmen") +
   theme(legend.position = "bottom")
 
 p
@@ -45,196 +50,168 @@ p
 
 Für die Berechnung von Morans $I$ benutzen wir kein externes Package, sondern erarbeiten uns alles selber, basierend auf der Formel von Moran's $I$: 
 
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
+$$
+\begin{aligned}
+\text{Morans } I &= \frac{\color{cyan}n}{\color{cyan}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{cyan}\sum_{i=1}^n \sum_{j=1}^n w_{ij}} \\
+\\
+&= \frac{\color{cyan}\text{zaehler1}}{\color{cyan}\text{nenner1}}\times\frac{\color{red}\text{zaehler2}}{\color{cyan}\text{nenner2}}
+\end{aligned}
+$$ {#eq-morans-i}
 
-wobei:
+<span style="color:#FF0000">Rot</span> markiert entpricht der Summe der gewichtetn Ähnlichkeitsmatrix aus der Vorlesung. Alles <span style="color:#00FFFF">blaue</span> ist relativ trivial und dient lediglich der Normalisierung auf die Werte -1 bis +1. Die Begriffe `zaehler1`, `nenner1` usw. sind die Variablen, die wir in R für die jeweiligen Berechnungen nutzen werden und dienen lediglich der Orientierung. Zudem gilt: 
 
-- $n$ der Anzahl räumlichen Objekte (hier: Kantone) in unserem Datensatz entspricht
-- $y$ der untersuchten Variabel entspricht (hier: Ja-Anteil in %)
-- $\bar{y}$ dem Mittelwert der untersuchten Variabel entspricht
-- $w_{ij}$ der Gewichtsmatrix entspricht
+- $n$: Anzahl räumlichen Objekte (hier: 26 Kantone)
+- $y$: die untersuchte Variabel (hier: Ja-Anteil in %)
+- $\bar{y}$: Mittelwert der untersuchten Variabel
+- $w_{ij}$: die Gewichtsmatrix
 
-
-Um die Sache zu vereinfachen, verwenden wir folgende variablen in R:
-
-$$I =\frac{\text{zaehler1}}{\text{nenner1}}\times\frac{\text{zaehler2}}{\text{nenner2}}$$
-
-wobei:
-
-\begin{align}
-
-\text{zaehler1} &= n \\
-\text{nenner1} &= \sum_{i=1}^n (y_i - \bar{y})^2 \\
-\text{zaehler2} &= \sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y}) \\
-\text{nenner2} &= \sum_{i=1}^n \sum_{j=1}^n w_{ij}
-
-\end{align}
-
-Diese sieht sehr beeindruckend aus, aber wenn wir die Formel in ihre Einzelbestandteile aufteilen, sehen wir, dass diese in sich gar nicht so komplex sind. Dieses Vorgehen illustriert sehr schön ein generelles Data Science Prinzip. Divide and Conquer - Teile und Herrsche: Teile ein komplexes Problem in kleinere, beherrschbare Unterprobleme. 
 
 ## Aufgabe 1: Morans $I$ für Kantone
 
-### Berechnung von $n$ (`zaehler1`)
 
-$$I = \frac{\color{red}n}{\sum_{i=1}^{\color{orange}n} (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^{\color{orange}n}  w_{ij}}$$
+### Gewichtete Ähnlichkeitsmatrix
 
-Beginnen wir mit der Variabel $n$, bzw. der Variabel `zaehler1` (rot in der obigen Formel). Dies ist lediglich die Anzahl Messwerte in unserem Datensatz, also die Anzahl Kantone. Wir merken uns `n` vor, da wir diese noch mehrmals in der Formel antreffen werden (orange).
+Widmen wir uns dem Kern von Morans $I$, der Berechnung der gewichteten Ähnlichkeitsmatrix.
 
-```{r}
-#| echo: true
-n <- nrow(zweitwohnung_kanton)
-n
+#### Nachbarschaftsmatrix $w_{ij}$
 
-zaehler1 <- n
-```
+$$\text{Morans } I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
-### Abweichung vom Mittelwert (`nenner1`)
-
-$$I = \frac{n}{\color{red}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n} \sum_{j=1}^n w_{ij}{\color{orange}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
-
-Dieses Summenfunktion bedeutet, das wir eine Schlaufe (einen Loop) durchführen sollen. Vom ersten Kanton ($\sum_{\color{red}i=1}^n$) bist zum letzten Kanton ($\sum_{i=1}^{\color{red}n}$) sollen wir: 
-
-*Den Mittleren Ja-Stimmen-Anteil aller Kantone vom Ja-Stimmen-Anteil des jeweiligen Kantons abziehen und das Resultat quadrieren.*
-
-Dafür erstellen wir als erstes die Variabel `y`, sowie ein Vektor der Länge 26 (Anzahl Kantone) um die Resultate zu speichern (hier: `result`)
-
-```{r}
-#| echo: true
-
-y <- zweitwohnung_kanton$ja_in_percent
-
-# Wir erstellen ein Vector der länge 26 (1 pro Kanton) 
-# um die Resultate zu speichern.
-resultat <- double(length = n)
-
-# jetzt können wir den For Loop ausführen
-for (i in 1:n){
-  resultat[i] <- (y[i]-mean(y))^2
-}
-
-resultat
-```
-
-Nach der Durchführung aller Iterationen, haben wir 26 Einzelwerte, die wir Summieren müssen.
-
-```{r}
-#| echo: true
-
-nenner1 <- sum(resultat)
-```
-
-:::{.callout-note collapse="true"}
-## Für aufmerksame
-
-Da R per Default vektorisiert funktioniert, ist der obige For Loop streng genommen nicht nötig, wir verwenden ihn aber für didaktische Zwecke. Alternativ ginge die Berechnung von `nenner1` auch folgendermassen:
+$w$ beschreibt die räumlichen Gewichte der Kantone (den "Schalter" aus der Vorlesung). $w_{ij}$ ist das Gewicht vom Kanton $i$ im Vergleich zum Kanton $j$. Sind Kantone $i$ und $j$ räumlich nah, gilt ein Gewicht von 1, sind sie weit entfernt, gilt ein Gewicht von 0. Dabei ist die Definition von "räumlich nah" nicht festgelegt. Denkbar wären verschiedene Optionen (siehe Vorlesung). Wer werden es mit die Bedigungen *touches* verwenden. Die Funktion `st_touches` prüft zwischen allen Kantonen, ob sie sich berühren. Mit der Option `sparse = TRUE` wird eine 26x26 Kreuzmatrix erstellt, wo jeder Kanton mit jedem anderen verglichen wird. Berühren sie sich, steht in der entsprechenden Stelle der Wert `TRUE`, was in R gleichbedeutend ist wie 1. Berühren sie sich *nicht*, steht der Wert `FALSE`, was gleichbedeutend ist wie 0. 
 
 ```{r}
 #| echo: true
 #| code-fold: false
 
-# Von jedem Wert den Durchschnittswert abziehen:
-dy <- y - mean(y)
+# st_touches berechnet eine Kreuzmatrix aller Objekte
+w_ij <- st_touches(zweitwohnung_kanton, sparse = FALSE)
 
-# Diese Werte müssen wir quadrieren:
-dy_squared <- dy^2
+# Schauen wir uns matrix mal an
+# (aus Platzmangen beschränken wir uns auf die ersten 5 Zeilen und Spalten
+# in RStudio könnt ihr mit View(w_ij) die gesamte Matrix anschauen)
+w_ij[1:5, 1:5]
+
+```
+
+<!-- Seltsamerweise gehen bei der Konvertierung die Matrix-Eigenschaft verloren (spricht: die Aufteilung der 26x26 Werte in Zeilen und Spalten). Diese müssen wir manuell wieder Herstellen. -->
+
+Die erste Zeile entspricht dem ersten Kanton in `zweitwohnung_kanton`, die zweite Zeile dem zweiten Kanton usw. Das gleiche Gilt für die Spalten. Um die Kreuzmatrix besser interpretieren zu können, können wir die Namen aus der Spalte `KANTONSNAME` verwenden, um die Zeilen und Spalten unserer Kreuzmatrix zu benennen.
+
+```{r}
+#| echo: true
+#| code-fold: false
+rownames(w_ij) <- zweitwohnung_kanton$kuerzel
+colnames(w_ij) <- zweitwohnung_kanton$kuerzel
+
+w_ij[1:5, 1:5]
+# Alterantiv: mit View(w_ij)
+```
+
+
+
+
+#### Attributs-Ähnlichkeitsmatrix $c_{ij}$ {#sec-attributs-aehnlichkeitsmatrix}
+
+$$\text{Morans } I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}{\color{red}(y_i - \bar{y})(y_j - \bar{y})}}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+
+
+Um die Attributs-Ähnlichkeit zwischen zwei Kantonen zu bestimmen, subtrahieren wir von jedem Kanton den Mittelwert aller Kantone und multiplizieren die beiden Differenzen. Die Funktion `tcrossprod()` erstellt diese Kreuzmatrix mit den multiplizierten Differenzen.
+
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# speichere die Variable in einem neuen Vektor
+y <- zweitwohnung_kanton$ja_in_percent
+
+y_diff <- y - mean(y) # erstellt ein Vector mit 26 Werten
+c_ij <- tcrossprod(y_diff) # erstellt eine Matrix 26x26
+
+# Zeilen- und Spaltennamen hinzufügen
+rownames(c_ij) <- zweitwohnung_kanton$kuerzel
+colnames(c_ij) <- zweitwohnung_kanton$kuerzel
+
+c_ij[1:5, 1:5]
+
+
+```
+
+#### Berechnung von `zaehler2`
+
+$$\text{Morans } I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+
+
+Der gesamte Term `zaehler2` ist die Summe aus der Multiplikation von `w_ij` und `c_ij`. 
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Matrix multiplikation
+cw_ij <- w_ij * c_ij
+
+# Summe bilden
+zaehler2 <- sum(cw_ij)
+
+zaehler2
+```
+
+
+### Normalisieren
+
+Um das Resultat aus der bisherigen Berechung auf einen Wert von -1 bis +1 zu normalisieren, müssen wir noch folgende Terme berechnen:
+
+$$\text{Morans } I = \frac{\color{cyan}n}{\color{cyan}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{cyan}\sum_{i=1}^n \sum_{j=1}^n w_{ij}} $$
+
+#### Berechnung von $n$ (`zaehler1`)
+
+Der Termin `zaehler1` resp. `n` entspricht der Anzahl Objekte (hier: Kantone) in unserem Datensatz. 
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+
+zaehler1 <- n <- nrow(zweitwohnung_kanton)
+
+zaehler1
+```
+
+#### Abweichung vom Mittelwert (`nenner1`)
+
+Wir haben bereits in der Berechnung der [Attributs-Ähnlichkeit](#sec-attributs-aehnlichkeitsmatrix) die Differenz zum Mittelwert berechnet. Für `nenner1` müssen wir diesen lediglich quadrieren und die Resultate summieren.
+
+$$\text{Morans } I = \frac{n}{\color{cyan}\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
+
+
+```{r}
+#| echo: true
+#| code-fold: false
+
+# Di bereits berechneten Abweichungen müssen wir quadrieren:
+y_diff2 <- y_diff^2
 
 # Und danach die Summe bilden:
-nenner1 <- sum(dy_squared, na.rm = TRUE)
+nenner1 <- sum(y_diff2)
 ```
 
-:::
-
-### Summe der Gewichte (`nenner2`)
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
-
-Im zweiten Term müssen wir jeweils zwei doppelte Summenzeichen auflösen. Der Nenner des zweiten Terms ist etwas einfacher zu verstehen, deshalb beginnen wir mit diesem.
-
-#### Räumliche Gewichtung $w_{ij}$
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n {\color{orange}w_{ij}}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n {\color{red}w_{ij}}}$$
 
 
-$w$ beschreibt die räumlichen Gewichte der Kantone (den "Schalter" aus der Vorlesung). $w_{ij}$ ist das Gewicht vom Kanton $i$ im Vergleich zum Kanton $j$. Sind Kantone $i$ und $j$ räumlich nah, gilt ein Gewicht von 1, sind sie weit entfernt, gilt ein Gewicht von 0. Dabei ist die Definition von "räumlich nah" nicht festgelegt. Denkbar wären zum Beispiel folgende Optionen:
+#### Summe der Gewichte (`nenner2`)
 
-1. Die Kantone müssen sich berühren
-2. Die Kantone müssen innerhalb einer bestimmten Distanz zueinander liegen
+$$\text{Morans } I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\color{cyan}\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
 
-Für beide Optionen gibt es eine implementation im Package `sf`. `st_touches` prüft zwischen allen Kantonen, ob sie sich berühren. Mit der Option `sparse = TRUE` wird eine Kreuzmatrix mit 26 Zeilen und 26 Spalten erstellt, wo jeder Kanton mit jedem anderen verglichen wird. Berühren sie sich, steht in der entsprechenden Stelle der Wert `TRUE`, was in R gleichbedeutend ist wie 1. Berühren sie sich *nicht*, steht der Wert `FALSE`, was gleichbedeutend ist wie 0. Das gleiche gilt für die Funktion `st_is_within_distance()` wobei dort zusätzlich noch der Distanzparameter angegeben werden muss.
+Im Term `nenner2` müssen wir lediglich die Gewichte `w_ij` summieren.
 
 ```{r}
 #| echo: true
-
-# st_touches berechnet eine Kreuzmatrix aller Objekte
-w <- st_touches(zweitwohnung_kanton, sparse = FALSE)
-
-# Schauen wir uns die ersten 5 Reihen und Zeilen an
-w[1:5, 1:5]
-```
-
-In der obigen Matrix ist ersichtlich, dass sich der erste Kanton (erste Zeile) den fünften Kanton (fünfte Spalte) berührt. Um zu überprüfen ob das stimmt, können wir die Namen dieser beiden Kantone aus der Spalte `KANTONSNAME` herauslesen und mit unseren Geografiekentnissen abgleichen:
-
-```{r}
-zweitwohnung_kanton$KANTONSNAME[c(1,5)]
-```
-
-Der erste Kanton ist Zürich, der fünfte Schwyz, das scheint also Sinn zu stimmen. Challenge: Erstelle einen Plot mit allen Kantone, die den Kanton Zürich berühren. Tipp: Nutze dafür `w[1,]`.
-
-```{r}
-beruehrt_1 <- w[1, ]
-
-ggplot(zweitwohnung_kanton[beruehrt_1, ]) +
-  geom_sf(aes(fill = KANTONSNAME)) +
-  labs(title = "Welche Kanton berühren den Kanton Zürich (st_touches)")
-```
-
-
-#### Doppelte Summenzeichen {#sec-doppeltes-summenzeichen}
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{{\color{orange}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{{\color{red}\sum_{i=1}^n \sum_{j=1}^n} w_{ij}}$$
-
-Nun können wir das doppelte Summenzeichen auflösen. Genau wie bei einem einfachen Summenzeichen handelt es sich hier um *For Loop*, diesmal aber um zwei ineinnader verschachtelte *For Loops*. Der äussere *For loop* ($\sum_{i=1}^n$) iteriert von `1` bis `n` mit der Variabel `i`. Der innere *For loop* ($\sum_{j=1}^n$) iteriert von `1` bis `n` mit der Variabel `j`. 
-
-
-```{r}
-#| echo: true
-
-resultat_aussen <- integer(length = n)
-for (i in 1:n){
-  resultat_innen <- integer(length = n)
-  for (j in 1:n){
-    resultat_innen[j] <- w[i, j]
-  }
-  resultat_aussen[i] <- sum(resultat_innen)
-}
-nenner2 <- sum(resultat_aussen)
+#| code-fold: false
+nenner2 <- sum(w_ij)
 
 ```
 
-
-
-
-### Berechnung des Kreuzprodukts (`zaehler2`)
-
-$$I = \frac{n}{\sum_{i=1}^n (y_i - \bar{y})^2} \times \frac{\color{red}\sum_{i=1}^n \sum_{j=1}^n w_{ij}(y_i - \bar{y})(y_j - \bar{y})}{\sum_{i=1}^n \sum_{j=1}^n w_{ij}}$$
-
-Jetzt haben wir das fehlende Puzzelstück für die Berechnung von `zaehler2`. Challenge: Nutze die matrix `w` in dem verschachtelten For Loop aus @sec-doppeltes-summenzeichen
-
-```{r}
-
-resultat_aussen <- double(length = n)
-
-for (i in 1:n){
-  resultat_innen <- double(length = n)
-  for (j in 1:n){
-    resultat_innen[j] <- w[i,j] * (y[i]-mean(y))*(y[j]-mean(y))
-  }
-  resultat_aussen[i] <- sum(resultat_innen)
-}
-
-zaehler2 <- sum(resultat_aussen)
-```
 
 ### Auflösung der Formel
 
@@ -242,17 +219,19 @@ Nun haben wir alle Bestandteile von Morans $I$ Berechnet und müssen diese nur n
 
 ```{r}
 #| echo: true
+#| code-fold: false
 
 MI_kantone <- zaehler1/nenner1 * zaehler2/nenner2
 
 MI_kantone
 ```
 
-Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r round(MI_kantone,2)`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Gemeinde- oder Bezirksebene?
+
+Der Global Morans $I$ für die Abstimmungsdaten beträgt auf Kantonsebene also `r round(MI_kantone,2)`. Wie interpretiert ihr dieses Resultate? Was erwartet ihr für eine Resultat auf Bezirksebene?
 
 ## Aufgabe 2: Morans I für Bezirke berechnen
 
-Nun könnt ihr Morans $I$ auf der Ebene der Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Importiert dazu den Layer `bezirk` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Tipp: wir verwenden das Package `cowplot` um zwei `ggplots` nebeneinander darzustellen. Formuliert nun eine Erwartungshaltung: ist Morans $I$ auf der Ebene Bezirke tiefer oder Höher als auf der Ebene Kantone? 
+Nun könnt ihr Morans $I$ auf der Ebene der Bezirke und untersuchen, ob und wie sich Morans $I$ verändert. Importiert dazu den Layer `bezirk` aus dem Datensatz `zweitwohnungsinitiative.gpkg`. Visualisiert in einem ersten Schritt die Abstimmungsresultate. Formuliert nun eine Erwartungshaltung: ist Morans $I$ auf der Ebene Bezirke tiefer oder Höher als auf der Ebene Kantone? 
 
 :::{.callout-note}
 ## Für Fortgeschrittene 
@@ -261,48 +240,19 @@ Erstellt aus dem erarbeiten Workflow eine *function* um Morans I auf der Basis v
 
 ```{r}
 morans_i <- function(sf_object,col) {
-  library("sf")
-  # Zähler 1 ####################################
-  n <- nrow(sf_object)
-  zaehler1 <- n
-  y <- sf_object[[col]] # <- siehe Kommentar unten
-  ###############################################
-  # Nenner 1 ####################################
-  resultat <- double(length = n)
-  for (i in 1:n){
-    resultat[i] <- (y[i]-mean(y))^2
-  }
-  nenner1 <- sum(resultat)
-  ###############################################
-  # Nenner 2 ####################################
-  w <- st_touches(sf_object,sparse = FALSE)
-  resultat_aussen <- integer(length = n)
-  for (i in 1:n){
-    resultat_innen <- integer(length = n)
-    for (j in 1:n){
-      resultat_innen[j] <- w[i, j]
-    }
-    resultat_aussen[i] <- sum(resultat_innen)
-  }
-  nenner2 <- sum(resultat_aussen)
-  ##############################################
-  # Zähler 2 ###################################
-  resultat_aussen <- double(length = n)
-
-  for (i in 1:n){
-    resultat_innen <- double(length = n)
-    for (j in 1:n){
-      resultat_innen[j] <- w[i,j] * (y[i]-mean(y))*(y[j]-mean(y))
-    }
-    resultat_aussen[i] <- sum(resultat_innen)
-  }
-
-  zaehler2 <- sum(resultat_aussen)
-  ##############################################
-  # Auflösung ##################################
-  MI <- zaehler1/nenner1 * zaehler2/nenner2
-
-  return(MI)
+    library("sf")
+    w_ij <- st_touches(sf_object, sparse = FALSE)
+    y <- sf_object[,col, drop = TRUE]
+    y_diff <- y - mean(y) 
+    c_ij <- tcrossprod(y_diff) 
+    cw_ij <- w_ij * c_ij
+    zaehler2 <- sum(cw_ij)
+    zaehler1 <- n <- nrow(sf_object)
+    y_diff2 <- y_diff^2
+    nenner1 <- sum(y_diff2)
+    nenner2 <- sum(w_ij)
+    morans_i_result <- zaehler1/nenner1 * zaehler2/nenner2
+    return(morans_i_result)
 }
 
 # Kommentar
@@ -331,11 +281,18 @@ MI_bezirke <- morans_i(zweitwohnung_bezirke, "ja_in_percent")
 
 p2 <- ggplot(zweitwohnung_bezirke) +
   geom_sf(aes(fill = ja_in_percent), colour = "white",lwd = 0.2) +
-  scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,1)) +
+  scale_fill_gradientn("Ja Anteil",colours = RColorBrewer::brewer.pal(11, "RdYlGn"), limits = c(0,100)) +
   theme(legend.position = "none") +
-  labs(title = paste("Bezirke: Global Morans I:",round(MI_bezirke,2)))
+  labs(
+    title = paste("Zweitwohnungsinitiative (2012), Ja-Stimmen-Anteil auf Ebene Bezirk"),
+    subtitle = paste("Global Morans I: ",round(MI_bezirke,2))
+    )
 
-p1 <- p + labs(title = paste("Kantone: Global Morans I:",round(MI_kantone,2))) + theme(legend.position = "none")
+p1 <- p + labs(
+    title = paste("Zweitwohnungsinitiative (2012), Ja-Stimmen-Anteil auf Ebene Kanton"),
+    subtitle = paste("Global Morans I: ",round(MI_kantone,2))
+    ) +
+    theme(legend.position = "none")
 
 p1
 
@@ -350,7 +307,9 @@ p2
 
 library("cowplot")
 
-(p  + labs(fill = "Ja (in %)")) |>
+(p  +
+  theme(legend.key.width = unit(2, "cm"), legend.title = element_blank()) 
+  ) |>
 get_legend() |>
 ggdraw()
 
