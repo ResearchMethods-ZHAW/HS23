@@ -141,6 +141,8 @@ book:
       - rauman/Rauman5_Uebung_B.qmd 
     - part: "Fallstudie S"
       chapters:
+      - fallstudie_s/0_Vorbereitung.qmd
+      - --
       - fallstudie_s/1_Einführung.qmd
       - fallstudie_s/2_Besuchermonitoring.qmd
       - --
