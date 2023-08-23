@@ -332,6 +332,8 @@ Die wichtigsten Punkte:
 
 - Untenstehenden Code könnt ihr einfach kopieren.
 
+Hinweis: damit __case_when()__ funktioniert, müsst ihr  dplyr Version als 1.1.1 oder neuer haben.
+
 ```{r}
 # Einteilung Standort Zuerich
 Latitude <- 47.38598
@@ -372,14 +374,6 @@ lumidata <-
 depo <- depo |>
   left_join(lumidata, by = c(Datum = "date"))
 
-
-
-
-
-
-
-
-####
 depo <- depo|>
   mutate(Tageszeit = case_when(
     Datetime >= nightEnd & Datetime <= goldenHourEnd ~ "Morgen",
@@ -387,11 +381,6 @@ depo <- depo|>
     Datetime >= goldenHour & Datetime <= night       ~ "Abend",
     .default = "Nacht")) |>
     mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"),ordered = TRUE))
-
-
-
-
-
 
 # behalte die relevanten Var
 depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
