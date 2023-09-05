@@ -76,7 +76,7 @@ Polar Plots eignen sich unter anderem für Daten, die zyklischer Natur sind, wie
 
 Beide Datensätze müssen noch etwas umgeformt werden, bevor wir sie für einen Radialplot verwenden können. In Aufgabe 2 verwenden wir die Biber-Datensätze, in der nächsten Aufgabe (3) die Passagier-Daten.
 
-Wenn wir die Daten von beiden Bibern verwenden wollen, müssen wir diese noch zusammenfügen:
+Wenn wir die Daten von beiden Bibern verwenden wollen, müssen wir diese noch zusammenfügen.
 
 ```{r}
 beaver1_new <- beaver1 |>
@@ -88,7 +88,7 @@ beaver2_new <- beaver2 |>
 beaver_new <- rbind(beaver1_new, beaver2_new)
 ```
 
-Zudem müssen wir die Zeitangabe noch anpassen: Gemäss der [Datenbeschreibung](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/beavers.html) handelt es sich bei der Zeitangabe um ein sehr programmier-unfreundliches Format. 3:30 wird als "0330" notiert. Wir müssen diese Zeitangabe, noch in ein Dezimalsystem umwandeln:
+Zudem müssen wir die Zeitangabe noch anpassen: Gemäss der [Datenbeschreibung](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/beavers.html) handelt es sich bei der Zeitangabe um ein sehr programmier-unfreundliches Format. 3:30 wird als "0330" notiert. Wir müssen diese Zeitangabe, noch in ein Dezimalsystem umwandeln.
 
 ```{r}
 beaver_new <- beaver_new |>
@@ -135,7 +135,7 @@ AirPassengers2 <- tapply(AirPassengers, list(year = floor(time(AirPassengers)), 
 AirPassengers2
 ```
 
-Aus der `matrix` muss noch ein Dataframe her, zudem müssen wir aus der breiten Tabelle eine lange Tabelle machen:
+Aus der `matrix` muss noch ein Dataframe her, zudem müssen wir aus der breiten Tabelle eine lange Tabelle machen.
 
 ```{r}
 AirPassengers3 <- AirPassengers2 |>

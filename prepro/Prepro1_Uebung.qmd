@@ -43,7 +43,7 @@ R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden au
 #| code-fold: false
 
 install.packages("dplyr")
-install.packages("tidyr") # ← MIT Anführungs-/Schlusszeichen
+install.packages("tidyr")
 install.packages("readr")
 install.packages("lubridate")
 install.packages("ggplot2")
@@ -62,7 +62,7 @@ Zu Beginn laden wir die nötigen Pakete:
 #| echo: true
 #| code-fold: false
 
-library("readr") # ← OHNE Anführungs-/Schlusszeichen
+library("readr")
 library("lubridate")
 ```
 

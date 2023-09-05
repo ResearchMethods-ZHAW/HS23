@@ -21,7 +21,7 @@ In dieser Übung geht es darum, die Grafiken aus dem Blog-post @kovic2014 zu rek
 
 Schau dir die Grafiken in dem Blogpost durch. Freundlicherweise wurden im Blogbeitrag die `ggplot2` Standardeinstellungen benutzt, was die Rekonstruktion relativ einfach macht. Die Links im Text verweisen auf die Originalgrafik, die eingebetteten Plots sind meine eigenen Rekonstruktionen. 
 
-Importiere als erstes den Datensatz [tagi_data_kanton.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602257) (dieser ist auch auf der Blog-Seite verfügbar).
+Importiere als erstes den Datensatz *tagi_data_kanton.csv*.
 
 ```{r}
 #| echo: true
@@ -81,7 +81,7 @@ plot1 +
 
 ## Aufgabe 3
 
-Importiere die Gemeindedaten [tagi_data_gemeinden.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602260).
+Importiere die Gemeindedaten *tagi_data_gemeinden.csv*.
 
 Rekonstrukturiere folgenden Plot aus @kovic2014 mithilfe von ggplot und dem tagi_data_gemeinden.csv Datensatz:
 

@@ -101,6 +101,7 @@ Die Parameter der Funktion sollten relativ klar sein:
 Wenn wir nun mit `my_kde()` die Dichteverteilung berechnen, erhalten wir ein `data.frame` mit X und Y Koordinaten sowie eine Spalte `value` zurück. Nutzt diese drei Spalten mit `geom_raster()` um eure Daten mit `ggplot` zu visualisieren (`aes(x = X, y = Y, fill = value)`. 
 ```{r}
 #| echo: true
+#| output: true
 #| code-fold: false
 
 rotmilan_kde <- my_kde(points = rotmilan, cellsize = 1000, bandwith = 10000, extent = schweiz)

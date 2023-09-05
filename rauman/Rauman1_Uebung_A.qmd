@@ -64,9 +64,9 @@ plot(kantone["KANTONSFLA"])
 
 ## Input: Koodinatensysteme
 
-In der obigen visualierung fällt folgendes auf:
+In der obigen Visualierung fällt folgendes auf:
 
-- die X/Y Achsen weisen zwei ganz unterschiedlichen Zahlenbereiche auf (vergleiche die Achsenbeschriftungen)
+- die X/Y Achsen weisen zwei ganz unterschiedliche Zahlenbereiche auf (vergleiche die Achsenbeschriftungen)
 - der Umriss der Schweiz sieht in den beiden Datensätzen unterschiedlich aus (`kantone` ist gegenüber `gemeinden` gestaucht)
 
 Dies hat natürlich damit zu tun, dass die beiden Datensätze in unterschiedlichen Koordinatensystemen erfasst wurden. Koordinatensysteme werden mit CRS (**C**oordinate **R**eference **S**ystem) abgekürzt. Mit `st_crs()` können die zugewiesenen Koordinatensysteme abgefragt werden.
@@ -84,7 +84,7 @@ Leider sind in unserem Fall keine Koordinatensysteme zugewiesen. Mit etwas Erfah
 
 - `CH1903 LV03`: das alte Koordinatensystem der Schweiz
 - `CH1903+ LV95`: das neue Koordinatensystem der Schweiz
-- `WGS84`: ein häufig genutztes weltumspannendes geodätisches Koordinatensystem, sprich die Koordinaten werden in Länge und Breite angegeben (Lat/Lon).
+- `WGS84`: ein häufig genutztes, weltumspannendes geodätisches Koordinatensystem, sprich die Koordinaten werden in Länge und Breite angegeben (Lat/Lon).
 
 Nun gilt es, anhand der Koordinaten die in der Spalte `geometry` ersichtlich sind, das korrekte Koordinatensystem festzustellen. Wenn man auf [map.geo.admin.ch](https://map.geo.admin.ch) mit der rechten Maustaste einen Ort anwählt, erfährt man die Koordinaten dieses Ortes in verschiedenen Koordinatenbezugssystemen. 
 
@@ -118,6 +118,7 @@ Wenn wir die CRS Information nun abrufen, sehen wir das diese Zuweisung funktion
 
 ```{r}
 #| echo: true
+#| output: true
 #| code-fold: false
 
 # ... abfragen mit st_crs()
@@ -147,6 +148,7 @@ Dieser Code können wir nutzen, um das CRS des Datensatz `gemeinde` zu setzen:
 
 ```{r}
 #| echo: true
+#| output: true
 #| code-fold: false
 
 # Zuweisen mit st_set_crs()...

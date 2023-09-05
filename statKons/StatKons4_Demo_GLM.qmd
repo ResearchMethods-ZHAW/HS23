@@ -17,6 +17,7 @@ format:
 #| include: true
 
 library("ggplot2")
+library("deplyr")
 
 mytheme <-
   theme_classic() +
