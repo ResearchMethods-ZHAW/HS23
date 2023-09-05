@@ -76,7 +76,7 @@ wind_klassen <- as.matrix(wind_klassen)
 wind_classify <- classify(wind250m, wind_klassen)
 ```
 
-## Aufgabe 3: Slope berechnen und Bewerten
+## Aufgabe 3: Slope berechnen und bewerten
 
 Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell *dhm250m.tif* herunter (siehe @tbl-mce-data) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
 

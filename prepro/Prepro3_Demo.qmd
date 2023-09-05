@@ -107,7 +107,7 @@ Diese Übersetzung `R`-> Deutsch unterscheidet sich vor allem darin, dass die Op
 summarise(group_by(wetter, month), temp_mittel = mean(tre200h0))
 #                  \_1_/
 #         \__________2_________/
-# \___________________3_______________________________________/
+# \__________________3_______________________________________/
 
 # wird zu:
 

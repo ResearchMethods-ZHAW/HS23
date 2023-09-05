@@ -144,7 +144,7 @@ plot(schutzgebiete_raster, col = "green")
 plot(schutzgebiete_dist)
 ```
 
-## Aufgabe 3: Distanzkriterien Bewerten {#sec-classify1}
+## Aufgabe 3: Distanzkriterien bewerten {#sec-classify1}
 
 Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Aufgabe folgende Einteilung:
 
@@ -232,7 +232,7 @@ tm_shape(overlay_prelim_1) +
   tm_borders(lwd = 5, col = "black")
 ```
 
-## Aufgabe 5: Mask raster {#sec-rauman5-mask}
+## Aufgabe 5: Mask Raster {#sec-rauman5-mask}
 
 Im letzten Plot fällt auf, dass wir auch eine Bewertung für Gebiete ausserhalb des Untersuchungsgebiets haben. Da wir für diese Gebiete keine Geodaten verwendet haben, sind die Resultate ausserhalb des Untersuchungsgebiets nicht gültig. Deshalb ist es sinnvoll, die Werte ausserhalb des Untersuchungsgebeits zu entfernen. Dafür verwenden wir die Funktion `mask()` zusammen mit dem Vektordatensatz `kt_schwzy`. Diese setzt alle Werte ausserhalb des Polygons zu `NA`:
 

@@ -46,7 +46,7 @@ Schau Dir die importierten Datensätze an.
 Am meisten Informationen zu `sf` Objekten bekommst du, wenn du dir den Datensatz *in der Konsole* anschaust (in dem du den Variabel-Name in der Konsole eintippst). Mit dem RStudio Viewer werden `sf` Objekte nur sehr langsam geladen und die Metadaten werden nicht angezeigt.
 :::
 
-## Aufgabe 2: Daten Visualisieren
+## Aufgabe 2: Daten visualisieren
 
 Eine sehr einfache Möglichkeit, `sf`-Objekte zu visualiseren ist die base-R Funktion `plot()`. Führe die angegebenen R-Befehle aus und studiere die entstehenden Plots. Welche Unterschiede findest Du? Wie erklärst Du diese Unterschiede?
 

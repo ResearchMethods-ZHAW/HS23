@@ -1,5 +1,5 @@
 ---
-title: "InfoVis"
+title: "Informationsvisualisierung"
 listing: 
     type: table
     contents: infovis
