@@ -1,11 +1,11 @@
 ---
-date: 2022-10-11
+date: 2023-10-10
 lesson: PrePro1
 thema: Datentypen
 index: 2
 execute: 
-  echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
+  output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -18,7 +18,8 @@ knitr:
 ```{r}
 #| include: false
 #| purl: false
-knitr::opts_chunk$set(collapse=TRUE)
+
+knitr::opts_chunk$set(collapse = TRUE)
 ```
 
 ## Arbeiten mit RStudio "Project"
@@ -40,8 +41,9 @@ R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden au
 #| eval: false
 #| echo: true
 #| code-fold: false
+
 install.packages("dplyr")
-install.packages("tidyr")      # ← MIT Anführungs-/Schlusszeichen
+install.packages("tidyr") # ← MIT Anführungs-/Schlusszeichen
 install.packages("readr")
 install.packages("lubridate")
 install.packages("ggplot2")
@@ -54,16 +56,15 @@ Um ein `package` in R verwenden zu können, gibt es zwei Möglichkeiten:
 
 Letztere Notation ist vor allem dann sinnvoll, wenn sich zwei unterschiedliche Funktionen mit dem gleichen namen in verschiedenen pacakges existieren. `filter()` existiert als Funktion einersits im package `dplyr` sowie in `stats`. Dieses Phänomen nennt man "masking".
 
-Zu Beginn laden wir die nötigen Pakete :
+Zu Beginn laden wir die nötigen Pakete:
 
 ```{r}
 #| echo: true
 #| code-fold: false
 
-library("readr")                 # ← OHNE Anführungs-/Schlusszeichen
+library("readr") # ← OHNE Anführungs-/Schlusszeichen
 library("lubridate")
 ```
-
 
 :::{.callout-note}
 Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_csv` (mit *underscore*) als alternative zu `read.csv` (mit *Punkt*). Das ist eine persönliche Präferenz[^readr], es ist euch überlassen welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.
@@ -75,24 +76,23 @@ Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_csv` 
 
 Erstelle eine `data.frame` mit nachstehenden Daten.
 
-
 ```{r}
 df <- data.frame(
-  Tierart = c("Fuchs","Bär","Hase","Elch"),
-  Anzahl = c(2,5,1,3),
-  Gewicht = c(4.4, 40.3,1.1,120),
-  Geschlecht = c("m","f","m","m"),
-  Beschreibung = c("Rötlich","Braun, gross", "klein, mit langen Ohren","Lange Beine, Schaufelgeweih")
-  )
+  Tierart = c("Fuchs", "Bär", "Hase", "Elch"),
+  Anzahl = c(2, 5, 1, 3),
+  Gewicht = c(4.4, 40.3, 1.1, 120),
+  Geschlecht = c("m", "f", "m", "m"),
+  Beschreibung = c("Rötlich", "Braun, gross", "klein, mit langen Ohren", "Lange Beine, Schaufelgeweih")
+)
 ```
 
 ```{r}
 #| echo: false
 #| purl: false
 #| output: true
+
 knitr::kable(df)
 ```
-
 
 ## Aufgabe 2
 
@@ -101,7 +101,7 @@ Was für Daten*typen* wurden in der letzten Aufgabe automatisch angenommen? Ermi
 ```{r}
 str(df)
 typeof(df$Anzahl)
-# Anzahl wurde als `double` interpretiert, ist aber eigentlich ein `integer`. 
+# Anzahl wurde als `double` interpretiert, ist aber eigentlich ein `integer`.
 
 df$Anzahl <- as.integer(df$Anzahl)
 ```
@@ -120,21 +120,18 @@ df$Gewichtsklasse[df$Gewicht <= 100 & df$Gewicht > 5] <- "mittel"
 df$Gewichtsklasse[df$Gewicht <= 5] <- "leicht"
 ```
 
-
 Das Resultat:
 
 ```{r}
 #| echo: false
 #| output: true
 
-
 knitr::kable(df)
 ```
 
-
 ## Aufgabe 4
 
-Importiere den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. 
+Importiere den Datensatz *weather.csv* (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. 
 
 :::{.callout-warning}
 Wenn du `read_csv` verwenden möchtest: Diese Funktion erwartet leicht andere inputs als `read.csv`, konsultiere dazu die Hilfe zu `read_csv` (mit `?read_csv`).
@@ -147,7 +144,9 @@ wetter <- read_csv("datasets/prepro/weather.csv")
 ```{r}
 #| purl: false
 #| echo: false
-knitr::kable(head(wetter,10))
+#| output: true
+
+knitr::kable(head(wetter, 10))
 ```
 
 ## Aufgabe 5
@@ -161,22 +160,23 @@ Schau dir die Rückmeldung von `read_csv()`an. Sind die Daten korrekt interpreti
 
 ## Aufgabe 6
 
-Die Spalte `time` ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe [meta.txt](https://moodle.zhaw.ch/mod/resource/view.php?id=602173)). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
+Die Spalte `time` ist eine Datum/Zeitangabe im Format JJJJMMTTHH (siehe *meta.txt*). Damit R dies als Datum-/Zeitangabe erkennt, müssen wir die Spalte in einem R-Format (`POSIXct`) einlesen und dabei R mitteilen, wie sie aktuell formatiert ist. Lies die Spalte mit `as.POSIXct()` ein und spezifiziere sowohl `format` wie auch `tz`.
 
 :::{.callout-tip}
-- Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe [metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602139))
+- Wenn keine Zeitzone festgelegt wird, trifft `as.POSIXct()` eine Annahme (basierend auf `Sys.timezone()`). In unserem Fall handelt es sich aber um Werte in UTC (siehe *metadata.csv*)
 - `as.POSIXct`erwartet `character`: Wenn du eine Fehlermeldung hast die `'origin' must be supplied` (o.ä) heisst, hast du der Funktion vermutlich einen `Numeric` übergeben.
 :::
 
-
 ```{r}
-wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H",tz = "UTC")
+wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
 ```
 
 ```{r}
 #| purl: false
 #| echo: false
-knitr::kable(head(wetter,10),caption = "Die neue Tabelle sollte so aussehen")
+#| output: true
+
+knitr::kable(head(wetter, 10), caption = "Die neue Tabelle sollte so aussehen")
 ```
 
 ## Aufgabe 7
@@ -184,14 +184,16 @@ knitr::kable(head(wetter,10),caption = "Die neue Tabelle sollte so aussehen")
 Erstelle zwei neue Spalten mit Wochentag (Montag, Dienstag, etc) und Kalenderwoche. Verwende dazu die neu erstellte `POSIXct`-Spalte sowie eine geeignete Funktion aus `lubridate`.
 
 ```{r}
-wetter$wochentag <- wday(wetter$time,label = T)
+wetter$wochentag <- wday(wetter$time, label = T)
 wetter$kw <- week(wetter$time)
 ```
 
 ```{r}
 #| purl: false
 #| echo: false
-knitr::kable(head(wetter,10))
+#| output: true
+
+knitr::kable(head(wetter, 10))
 ```
 
 ## Aufgabe 8
@@ -199,12 +201,14 @@ knitr::kable(head(wetter,10))
 Erstelle eine neue Spalte basierend auf die Temperaturwerte mit der Einteilung "kalt" (unter Null Grad) und "warm" (über Null Grad)
 
 ```{r}
-wetter$temp_kat[wetter$tre200h0>0] <- "warm"
-wetter$temp_kat[wetter$tre200h0<=0] <- "kalt"
+wetter$temp_kat[wetter$tre200h0 > 0] <- "warm"
+wetter$temp_kat[wetter$tre200h0 <= 0] <- "kalt"
 ```
 
 ```{r}
 #| purl: false
 #| echo: false
-knitr::kable(head(wetter,10))
+#| output: true
+
+knitr::kable(head(wetter, 10))
 ```

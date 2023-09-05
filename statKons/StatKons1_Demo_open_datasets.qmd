@@ -1,5 +1,5 @@
 ---
-date: 2022-11-14
+date: 2023-11-13
 lesson: StatKons1
 thema: Statistik Grundlagen
 index: 2
@@ -9,7 +9,7 @@ index: 2
 
 ```{r}
 #| echo: false
-library(readr)
+library("readr")
 ```
 
 In diesem Dokument findet ihr verschiedene Wege und Quellen, um an Datensätze zu gelangen.
@@ -41,7 +41,7 @@ Auf [Kaggle](https://www.kaggle.com) findet ihr öffentlich zugängliche Datens�
 
 ```{r}
 # Load packages and data
-data_911 <- read_delim("datasets/statistik/911.csv", delim = ",")
+data_911 <- read_delim("datasets/stat5-8/911.csv", delim = ",")
 str(data_911)
 ```
 
@@ -73,8 +73,8 @@ str(data_911)
 **Download via Github - 2. Möglichkeit**
 
 ```{r}
-# Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt 
-star_wars <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv", locale = readr::locale(encoding = "latin1")) #not working yet 
+# Beachtet dabei, dass ihr die URL zum originalen (raw) Datensatz habt
+star_wars <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-05-14/week7_starwars.csv", locale = readr::locale(encoding = "latin1")) # not working yet
 ```
 
 ## opendata.swiss

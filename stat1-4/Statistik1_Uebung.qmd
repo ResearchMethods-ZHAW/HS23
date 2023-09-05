@@ -1,5 +1,5 @@
 ---
-date: 2022-10-31
+date: 2023-10-30
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 3
@@ -13,7 +13,7 @@ Führt einen Assoziationstest zweier kategorialer Variablen (mit je zwei Ausprä
 
 ## Aufgabe 1.2: t-Test
 
-**T-Test mit [Datensatz_novanimal_Uebung_Statistik1.2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=662330)**
+**T-Test mit Datensatz *Datensatz_novanimal_Uebung_Statistik1.2.csv***
 
 Werden in den Basis- und Interventionswochen unterschiedlich viele Gerichte verkauft?
 

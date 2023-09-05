@@ -4,8 +4,7 @@ x
 
 typeof(x)
 
-y = 7.3
-
+y <- 7.3
 y
 
 z <- 42
@@ -27,7 +26,7 @@ typeof(a)
 is.numeric(a)
 is.integer(a)
 
-vector <- c(10,20,33,42,54,66,77)
+vector <- c(10, 20, 33, 42, 54, 66, 77)
 vector
 vector[5]
 vector[2:4]
@@ -61,7 +60,7 @@ trocken <- FALSE
 sonnig & !trocken
 
 u <- TRUE
-v <- !u 
+v <- !u
 v
 
 s <- as.character(3.14)
@@ -70,13 +69,15 @@ typeof(s)
 
 fname <- "Hans"
 lname <- "Muster"
-paste(fname,lname)
+paste(fname, lname)
 
 fname2 <- "hans"
 fname == fname2
 
-wochentage <- c("Donnerstag","Freitag","Samstag","Sonntag","Montag","Dienstag","Mittwoch",
-                "Donnerstag","Freitag","Samstag","Sonntag", "Montag","Dienstag","Mittwoch")
+wochentage <- c(
+  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch",
+  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch"
+)
 
 typeof(wochentage)
 
@@ -90,14 +91,14 @@ factor(wochentage, levels = c("Montag", "Dienstag", "Mittwoch", "Donnerstag", "F
 datum <- "2017-10-01 13:45:10"
 
 # konvertiert character in POSIXct:
-as.POSIXct(datum) 
+as.POSIXct(datum)
 
 datum <- "01.10.2017 13:45"
 
 # konvertiert character in POSIXct:
-as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
+as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 
-datum <- as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
+datum <- as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 
 strftime(datum, format = "%m") # extrahiert den Monat als Zahl
 strftime(datum, format = "%b") # extrahiert den Monat mit Namen (abgekürzt)
@@ -105,15 +106,17 @@ strftime(datum, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
 
 library("lubridate")
 
-month(datum)                             # extrahiert den Monat als Zahl
-month(datum, label = TRUE, abbr = TRUE)  # extrahiert den Monat mit Namen (abgekürzt)
+month(datum) # extrahiert den Monat als Zahl
+month(datum, label = TRUE, abbr = TRUE) # extrahiert den Monat mit Namen (abgekürzt)
 month(datum, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
 
 df <- data.frame(
-  Stadt = c("Zürich","Genf","Basel","Bern","Lausanne"),
-  Einwohner = c(396027,194565,175131,140634,135629),
-  Ankunft = c("1.1.2017 10:00","1.1.2017 14:00",
-              "1.1.2017 13:00","1.1.2017 18:00","1.1.2017 21:00")
+  Stadt = c("Zürich", "Genf", "Basel", "Bern", "Lausanne"),
+  Einwohner = c(396027, 194565, 175131, 140634, 135629),
+  Ankunft = c(
+    "1.1.2017 10:00", "1.1.2017 14:00",
+    "1.1.2017 13:00", "1.1.2017 18:00", "1.1.2017 21:00"
+  )
 )
 
 str(df)

@@ -1,5 +1,5 @@
 ---
-date: 2022-11-07
+date: 2023-11-06
 lesson: Stat3
 thema: Lineare Modelle II
 index: 3
@@ -20,11 +20,12 @@ Schon vor dem Einlesen kürzt man am besten bereits in Excel die Variablennamen 
 
 ```{r}
 # Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
-ukraine <- read.delim("datasets/statistik/Ukraine_bearbeitet.csv", sep = ",")
+ukraine <- read.delim("datasets/stat1-4/Ukraine_bearbeitet.csv", sep = ",")
 ```
 
 ```{r}
 #| eval: false
+
 ukraine
 ```
 
@@ -37,7 +38,7 @@ dass die abhängige Variable in Spalte 2 sowie die Prediktorvariablen in den Spa
 stehen.
 
 ```{r}
-#Explorative Datenanalyse der abhängigen Variablen
+# Explorative Datenanalyse der abhängigen Variablen
 boxplot(ukraine$Species_richness)
 ```
 
@@ -49,6 +50,7 @@ Normalverteilung zu unterscheiden und wir können uns den Aufwand auch sparen).
 
 ```{r}
 #| eval: false
+
 cor <- cor(ukraine[,3:23])
 cor
 cor[abs(cor)<0.7] <- 0
@@ -73,6 +75,7 @@ für ersteres. Wir rechnen die Korrelation also noch einmal ohne diese drei Spal
 
 ```{r}
 #| eval: false
+
 cor <- cor(ukraine[, c(3:11, 15:23)])
 cor[abs(cor)<0.7] <- 0
 cor
@@ -90,13 +93,14 @@ leistungsfähigen Rechner oder sehr lange Rechenzeit erfordern würde. Wir sollt
 sind, oder ein noch strengeres Kriterium bei r verwenden, etwa 0.6
 
 ```{r}
-cor <- cor(ukraine[,c(3:11, 15:23)])
-cor[abs(cor)<0.6] <- 0
+cor <- cor(ukraine[, c(3:11, 15:23)])
+cor[abs(cor) < 0.6] <- 0
 cor
 ```
 
 ```{r}
 #| include: false
+
 write.table(cor, file = "stat1-4/Correlation.csv", sep = ";", dec = ".", col.names = NA)
 ```
 
@@ -111,7 +115,7 @@ quadratische Terme oder Interaktionsterme zu berücksichtigen).
 
 ```{r}
 global.model <- lm(Species_richness ~ Inclination + Heat_index + Microrelief + Grazing_intensity +
-                    Litter + Stones_and_rocks + Gravel + Fine_soil + pH + CaCO3 + C_org + CN_ratio + Temperature, data = ukraine)
+    Litter + Stones_and_rocks + Gravel + Fine_soil + pH + CaCO3 + C_org + CN_ratio + Temperature, data = ukraine)
 ```
 
 Nun gibt es im Prinzip zwei Möglichkeiten, vom globalen (vollen) Modell zu einem minimal
@@ -123,8 +127,7 @@ Parametern). Diese Lösung stelle ich im Folgenden vor:
 
 ```{r}
 # Multimodel inference
-if(!require(MuMIn)){install.packages("MuMIn")}
-library(MuMIn)
+library("MuMIn")
 
 options(na.action = "na.fail")
 allmodels <- dredge(global.model)
@@ -132,6 +135,7 @@ allmodels <- dredge(global.model)
 
 ```{r}
 #| eval: false
+
 allmodels
 ```
 
@@ -159,6 +163,7 @@ enthalten sind.
 
 ```{r}
 #| eval: false
+
 # Modelaveraging (Achtung: dauert mit 13 Variablen einige Minuten)
 summary(model.avg(allmodels, rank = "AICc"), subset = TRUE)
 ```

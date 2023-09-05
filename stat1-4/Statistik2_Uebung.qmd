@@ -1,5 +1,5 @@
 ---
-date: 2022-11-01
+date: 2023-10-31
 lesson: Stat2
 thema: "Einführung in lineare Modelle"
 index: 2
@@ -10,7 +10,8 @@ index: 2
 ```{r}
 #| include: false
 #| purl: false
-knitr::opts_chunk$set(echo = TRUE, include = F, collapse=TRUE)
+
+knitr::opts_chunk$set(echo = TRUE, include = F, collapse = TRUE)
 ```
 
 **Abzugeben sind am Ende**
@@ -32,7 +33,7 @@ c.  ausformulierter Methoden- und Ergebnisteil (für eine wiss.Arbeit).
 
 ### Übung 2.1: Regression
 
-**Regressionsanalyse mit [SAR.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604474)**
+**Regressionsanalyse mit *SAR.csv***
 
 Der Datensatz beschreibt die Zunahme der Artenzahlen (richness) von Pflanzen in Trockenrasen der Schweiz in Abhängigkeit von der Probeflächengrösse (area, hier in m²). Diese Beziehung bezeichnet man als Artenzahl-Areal-Kurve (Species-area relationship = SAR).
 
@@ -45,13 +46,13 @@ Der Datensatz beschreibt die Zunahme der Artenzahlen (richness) von Pflanzen in 
 
 ### Übung 2.2: Einfaktorielle ANOVA
 
-**ANOVA mit [Datensatz_novanimal_Uebung_Statistik2.2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=662331)**
+**ANOVA mit Datensatz *Datensatz_novanimal_Uebung_Statistik2.2.csv*
 
 Führt mit dem Datensatz novanimal.csv eine einfaktorielle ANOVA durch. Gibt es Unterschiede zwischen der Anzahl verkaufter Gerichte "tot_sold" (Buffet, Fleisch oder Vegetarisch) pro Woche?
 
 ### Übung 2.3N: Mehrfaktorielle ANOVA (NatWis)
 
-**ANOVA mit [kormoran.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604484)**
+**ANOVA mit *kormoran.csv***
 
 Der Datensatz enthält 40 Beobachtungen zu Tauchzeiten zweier Kormoranunterarten (C = *Phalocrocorax carbo carbo* und S = *Phalacrocorax carbo sinensis*) aus vier Jahreszeiten (F = Frühling, S = Sommer, H = Herbst, W = Winter).
 
@@ -61,6 +62,6 @@ Der Datensatz enthält 40 Beobachtungen zu Tauchzeiten zweier Kormoranunterarten
 
 ### Übung 2.3S: Mehrfaktorielle ANOVA mit Interaktion (SozWis)
 
-**MANOVA mit [Datensatz_novanimal_Uebung_Statistik2.3.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=662332)**
+**MANOVA mit *Datensatz_novanimal_Uebung_Statistik2.3.csv***
 
 In der Mensa gibt es zwei unterschiedliche Preisniveaus bzgl. den Gerichten: eine preisgünstigere Menülinie ("World" & "Favorite") und eine teuere Menülinie ("Kitchen"). Gibt es Unterschiede zwischen dem Kauf von preisgünstigeren resp. teureren Menülinien betreffend Menüinhalt & Hochschulzugehörigkeit?

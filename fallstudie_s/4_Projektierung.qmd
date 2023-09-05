@@ -39,9 +39,9 @@ Nutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn 
 # Texte, vor denen ein # steht, erklaeren den Ablauf
 
 # Dann folgen die Arbeitsschritte
-1+1
+1 + 1
 
-# Wenn man auf "Outline" klickt (oder CTRL + SHIFT + O), 
+# Wenn man auf "Outline" klickt (oder CTRL + SHIFT + O),
 # öffnet sich die Übersicht zu den Überschriften
 ```
 
@@ -70,28 +70,28 @@ Ein Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema
 Bereitet euer Skript mit diesen Kapitel vor.
 
 ```{r}
-#.###########################################################################################
+# .###########################################################################################
 # Einfluss von COVID19 auf das Naherholungsverhalten in WPZ ####
 # Fallstudie Modul Research Methods, HS22. Autor/in ####
-#.##########################################################################################
+# .##########################################################################################
 
-#.##########################################################################################
+# .##########################################################################################
 # METADATA UND DEFINITIONEN ####
-#.##########################################################################################
+# .##########################################################################################
 
 # Datenherkunft ####
 # ...
 
-#.##########################################################################################
+# .##########################################################################################
 # 1. DATENIMPORT #####
-#.##########################################################################################
+# .##########################################################################################
 
 ```
 
 In einem Bericht ist es schön, wenn die Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable "mycolors" abrufen kann.
 
 ```{r eval=FALSE}
-mycolors <- c("orangered","gold", "mediumvioletred", "darkblue")
+mycolors <- c("orangered", "gold", "mediumvioletred", "darkblue")
 ```
 
 
@@ -105,15 +105,16 @@ mycolors <- c("orangered","gold", "mediumvioletred", "darkblue")
 # Benoetigte Bibliotheken ####
 library("ggplot2") # Data wrangling und pipeing
 library("lubridate") # Arbeiten mit Datumsformaten
-library("ggpubr")    # to arrange multiple plots in one graph
+library("ggpubr") # to arrange multiple plots in one graph
 library("PerformanceAnalytics") # Plotte Korrelationsmatrix
-library("MuMIn")     # Multi-Model Inference
-library("AICcmodavg")# Modellaverageing
-library("fitdistrplus")# Prueft die Verteilung in Daten
-library("lme4")      # Multivariate Modelle
-library("blmeco")    # Bayesian data analysis using linear models
-library("sjPlot")    # Plotten von Modellergebnissen (tab_model)
-library("lattice")   # einfaches plotten von Zusammenhängen zwischen Variablen
+library("MuMIn") # Multi-Model Inference
+library("AICcmodavg") # Modellaverageing
+library("fitdistrplus") # Prueft die Verteilung in Daten
+library("lme4") # Multivariate Modelle
+library("blmeco") # Bayesian data analysis using linear models
+library("sjPlot") # Plotten von Modellergebnissen (tab_model)
+library("lattice") # einfaches plotten von Zusammenhängen zwischen Variablen
+library("readr")
 ```
 
 ## Aufgabe 3: Zeitliche Definitionen

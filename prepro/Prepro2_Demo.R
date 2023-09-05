@@ -16,13 +16,13 @@ charvec1[4:6]
 charvec2 <- "abcdefgh"
 substr(charvec2, 4, 6)
 
-subtrahieren <- function(minuend, subtrahend){
+subtrahieren <- function(minuend, subtrahend) {
   minuend - subtrahend
 }
 
 subtrahieren(10, 4)
 
-output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
+output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)), 273.15))
 #                                             \_1_/
 #                                      \________2__________/
 #                           \___________________3___________/
@@ -35,16 +35,16 @@ output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 # 4. Subtrahiere 273.15
 # 5. Berechne den Mittlwert
 
-temp <- substr(diary, 20, 22)       # 2
-temp <- as.numeric(temp)            # 3
-temp <- subtrahieren(temp, 273.15)  # 4
-output <- mean(temp)                # 5
+temp <- substr(diary, 20, 22)      # 2
+temp <- as.numeric(temp)           # 3
+temp <- subtrahieren(temp, 273.15) # 4
+output <- mean(temp)               # 5
 
-diary |>                            # 1
-  substr(20, 22) |>                 # 2
-  as.numeric() |>                   # 3 
-  subtrahieren(273.15) |>           # 4
-  mean()                            # 5
+diary |>                  # 1
+  substr(20, 22) |>       # 2
+  as.numeric() |>         # 3
+  subtrahieren(273.15) |> # 4
+  mean()                  # 5
 
 studierende <- data.frame(
   Matrikel_Nr = c(100002, 100003, 200003),
@@ -61,7 +61,7 @@ ortschaften <- data.frame(
 
 ortschaften
 
-#Load library
+# Load library
 library("dplyr")
 
 inner_join(studierende, ortschaften, by = "PLZ")

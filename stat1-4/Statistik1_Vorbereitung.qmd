@@ -1,0 +1,33 @@
+---
+date: 2023-10-30
+lesson: Stat1
+thema: Vorbereitung
+index: 0
+knitr:
+  opts_chunk: 
+    collapse: true
+---
+
+## Vorbereitung {#sec-stat1-4-vorbereitung}
+
+Im Rahmen von Statistik 1 - 4 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
+
+```{r}
+#| eval: false
+
+ipak <- function(pkg) {
+    new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+    if (length(new.pkg)) {
+        install.packages(new.pkg, dependencies = TRUE)
+    }
+}
+
+packages <- c(
+    "agricolae", "ggplot2", "dplyr", "readr", "car", "FSA", "sjPlot", "ggfortify", "multcomp",
+    "nlstools", "corrplot", "corrplot", "MuMIn", "AER", "AICcmodavg", "mgcv"
+)
+
+ipak(packages)
+```
+
+Zudem könnt ihr die Daten für die Übungen auf [Moodle](https://moodle.zhaw.ch/mod/resource/view.php?id=976905) herunterladen.

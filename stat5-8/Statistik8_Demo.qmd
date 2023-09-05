@@ -1,5 +1,5 @@
 ---
-date: 2022-11-22
+date: 2023-11-21
 lesson: Stat8
 thema: Clusteranalysen
 index: 1
@@ -12,7 +12,7 @@ format:
 # Stat8: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
--   Datensatz [Doubs.RData](https://moodle.zhaw.ch/mod/resource/view.php?id=606667)
+-   Datensatz *Doubs.RData*
 -   Funktion drawmap.R [drawmap.R](drawmap.R)
 -   Funktion hcoplot.R [hcoplot.R](hcoplot.R)
 
@@ -20,8 +20,7 @@ format:
 
 ```{r}
 # Das Moordatenset sveg laden
-if(!require(dave)){install.packages("dave")}
-library(dave)
+library("dave")
 
 # PCA und CA rechnen
 pca <- rda(sveg^0.25, scale = TRUE)
@@ -61,7 +60,7 @@ mit Daten und Skripten aus @borcard2011
 
 ```{r}
 # Daten laden
-load("datasets/statistik/Doubs.RData")  
+load("datasets/stat5-8/Doubs.RData")  
 ```
 
 ```{r}
@@ -129,7 +128,6 @@ plot(spe.ch.beta3,  labels = rownames(spe),  main = "Chord - Beta-flexible (beta
 # Compute Ward's minimum variance clustering
 spe.ch.ward <- hclust(spe.ch, method = "ward.D2")
 plot(spe.ch.ward, labels = rownames(spe), main = "Chord - Ward")
-
 ```
 
 ## Cophenetic correlations
@@ -212,7 +210,7 @@ plot(1:nrow(spe), Si, type = "h",
   main = "Silhouette-optimal number of clusters",
   xlab = "k (number of clusters)", ylab = "Average silhouette width")
 axis(1, k.best,paste("optimum", k.best, sep = "\n"), col = "red", 
-     font = 2, col.axis = "red")
+  font = 2, col.axis = "red")
 points(k.best,max(Si), pch = 16, col = "red",cex = 1.5)
 
 # Optimal number of clusters according to matrix correlation 
@@ -296,7 +294,6 @@ rownames(sil) <- row.names(spe)
 plot(sil, main = "Silhouette plot - Chord - Ward", cex.names = 0.8, col = 2:(k + 1), nmax = 100)
 
 # Reorder clusters
-if(!require(gclus)){install.packages("gclus")}
 library("gclus")
 spe.chwo <- reorder.hclust(spe.ch.ward, spe.ch)
 
@@ -336,7 +333,6 @@ heatmap(as.matrix(spe.ch), Rowv = dend, symm = TRUE, margin = c(3, 3))
 # Ordered community table
 # Species are ordered by their weighted averages on site scores.
 # Dots represent absences.
-library(vegan)
+library("vegan")
 or <- vegemite(spe, spe.chwo)
-
 ```

@@ -1,5 +1,5 @@
 ---
-date: 2022-11-08
+date: 2023-11-07
 lesson: Stat4
 thema: Komplexere Regressionsmethoden
 index: 3
@@ -54,12 +54,12 @@ format:
 Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
 
 ```{r}
-curonian <- read.delim("datasets/statistik/Curonian_spit.csv", sep=",")
+curonian <- read.delim("datasets/stat1-4/Curonian_spit.csv", sep = ",")
 str(curonian)
 summary(curonian)
 
- # Explorative Datenanalyse
-plot(Species.richness~Area, data = curonian)
+# Explorative Datenanalyse
+plot(Species.richness ~ Area, data = curonian)
 ```
 
 Es liegt in der Tat ein nicht-linearer Zusammenhang vor, der sich gut mit nls analysieren lässt.
@@ -68,8 +68,7 @@ Plots mit der Fläche ansteigt.
 
 ```{r}
 # Potenzfunktion selbst definiert
-if(!require(nlstools)){install.packages("nlstools")}
-library(nlstools)
+library("nlstools")
 # power.model <- nls(Species.richness~c*Area^z, data = curonian)
 # summary(power.model)
 ```
@@ -84,8 +83,8 @@ summary(power.model)
 Das Ergebnis ist identisch
 
 ```{r}
-#logarithmische Funktion selbst definiert
-logarithmic.model <- nls(Species.richness~b0 + b1 * log10(Area), data = curonian)
+# logarithmische Funktion selbst definiert
+logarithmic.model <- nls(Species.richness ~ b0 + b1 * log10(Area), data = curonian)
 summary(logarithmic.model)
 ```
 
@@ -98,11 +97,11 @@ wenn man sich selbst Gedanken
 _Im Folgenden habe ich ein paar unterschiedliche Sättigungsfunktionen mit verschiedenen Einstellungen durchprobiert, um zu zeigen, was alles passieren kann…_
 
 ```{r}
-micmen.1 <- nls(Species.richness~SSmicmen(Area, Vm, K), data = curonian)
+micmen.1 <- nls(Species.richness ~ SSmicmen(Area, Vm, K), data = curonian)
 summary(micmen.1)
 
 # Dasselbe selbst definiert (mit default-Startwerten)
-micmen.2 <- nls(Species.richness~Vm*Area/(K+Area), data = curonian)
+micmen.2 <- nls(Species.richness ~ Vm * Area / (K + Area), data = curonian)
 summary(micmen.2)
 ```
 
@@ -113,7 +112,7 @@ Selbststartfunktion bessere Ergebnisse liefern, aber das werden wir unten sehen.
 
 ```{r}
 # Dasselbe selbst definiert (mit sinnvollen Startwerten, basierend auf dem Plot)
-micmen.3 <- nls(Species.richness~Vm*Area/(K+Area), start = list(Vm = 100, K = 1), data = curonian)
+micmen.3 <- nls(Species.richness ~ Vm * Area / (K + Area), start = list(Vm = 100, K = 1), data = curonian)
 summary(micmen.3)
 ```
 
@@ -121,13 +120,14 @@ Wenn man sinnvollere Startwerte als die default-Werte (1 für alle Parameter) ei
 
 ```{r}
 # Eine asymptotische Funktion durch den Ursprung (mit implementierter Selbststartfunktion)
-asym.model <- nls(Species.richness~SSasympOrig(Area, Asym, lrc), data = curonian)
+asym.model <- nls(Species.richness ~ SSasympOrig(Area, Asym, lrc), data = curonian)
 summary(asym.model)
 ```
 
 ```{r}
 #| eval: false
-logistic.model <- nls(Species.richness~SSlogis(Area, asym, xmid, scal), data = curonian)
+
+logistic.model <- nls(Species.richness ~ SSlogis(Area, asym, xmid, scal), data = curonian)
 summary(logistic.model)
 ```
 
@@ -137,15 +137,16 @@ Das ist etwas, was einem bei nls immer wieder passieren kann. Die Iteration ist 
 
 **Logistische Regression mit Startwerten**
 ```{r}
-logistic.model.2 <- nls(Species.richness~asym/(1 + exp((xmid-Area) / scal)), 
-                      control = nls.control(maxiter = 100), 
-                      start = (list(xmid = 1, scal = 0.2, asym = 100)), data = curonian)
+logistic.model.2 <- nls(Species.richness ~ asym / (1 + exp((xmid - Area) / scal)),
+  control = nls.control(maxiter = 100),
+  start = (list(xmid = 1, scal = 0.2, asym = 100)), data = curonian
+)
 summary(logistic.model.2)
 ```
 
 ```{r}
 # Vergleich der Modellgüte mittels AICc
-library(AICcmodavg)
+library("AICcmodavg")
 cand.models <- list()
 cand.models[[1]] <- power.model
 cand.models[[2]] <- logarithmic.model
@@ -154,16 +155,17 @@ cand.models[[4]] <- micmen.2
 cand.models[[5]] <- asym.model
 cand.models[[6]] <- logistic.model.2
 
-Modnames<-c("Power", "Logarithmic", "Michaelis-Menten (SS)", "Michaelis-Menten", 
-            "Asymptotic through origin", "Logistische Regression")
-aictab(cand.set=cand.models, modnames=Modnames)
+Modnames <- c(
+  "Power", "Logarithmic", "Michaelis-Menten (SS)", "Michaelis-Menten",
+  "Asymptotic through origin", "Logistische Regression"
+)
+aictab(cand.set = cand.models, modnames = Modnames)
 ```
 
 Diese Ergebnistabelle vergleicht die Modellgüte zwischen den fünf Modellen, die wir in unsere Auswahl reingesteckt haben. Alle haben drei geschätzte Parameter (K), also zwei Funktionsparameter und die Varianz. Das beste Modell (niedrigster AICc bzw. Delta = 0) hat das Potenzmodell (power). Das zweitbeste Modell (logarithmic) hat bereits einen Delta-AICc von mehr als 4, ist daher statistisch nicht relevant. Das zeigt sich auch am Akaike weight, das für das zweite Modell nur noch 2 % ist. Die verschiedenen Modelle mit oberem Grenzwert (3-5) sind komplett ungeeignet.
 
 ```{r}
 # Modelldiagnostik für das beste Modell
-library(nlstools)
 plot(nlsResiduals(power.model))
 ```
 
@@ -172,7 +174,7 @@ Links oben sieht man zwar ein Muster (liegt daran, dass in diesem Fall die Plots
 
 ```{r}
 # Ergebnisplot
-plot(Species.richness~Area, pch = 16, xlab = "Fläche [m²]", ylab = "Artenreichtum", data = curonian)
+plot(Species.richness ~ Area, pch = 16, xlab = "Fläche [m²]", ylab = "Artenreichtum", data = curonian)
 xv <- seq(0, 1000, by = 0.1)
 yv <- predict(power.model, list(Area = xv))
 lines(xv, yv, lwd = 2, col = "red")
@@ -192,14 +194,14 @@ Kurvenanpassung im linken Bereich besser differenzieren zu können:
 
 ```{r}
 # Ergebnisplot Double-log
-plot(log10(Species.richness)~log10(Area), pch = 16, xlab = "log A", ylab = "log (S)", data = curonian)
+plot(log10(Species.richness) ~ log10(Area), pch = 16, xlab = "log A", ylab = "log (S)", data = curonian)
 
 xv <- seq(0, 1000, by = 0.0001)
 
 yv <- predict(power.model, list(Area = xv))
 lines(log10(xv), log10(yv), lwd = 2, col = "red")
 
-yv2 <- predict(micmen.1, list(Area=xv))
+yv2 <- predict(micmen.1, list(Area = xv))
 lines(log10(xv), log10(yv2), lwd = 2, col = "blue")
 ```
 

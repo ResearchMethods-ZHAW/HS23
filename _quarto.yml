@@ -27,11 +27,10 @@ execute:
   message: false
   warning: false
 
-
 knitr:
   opts_chunk: 
     collapse: true
-    tidy: true
+    #tidy: true
     
 book:
   title: "Research Methods HS23"
@@ -71,6 +70,8 @@ book:
       - infovis/Infovis2_Uebung_B.qmd
     - part: Stat1-4.qmd
       chapters:
+      - stat1-4/Statistik1_Vorbereitung.qmd
+      - --
       - stat1-4/Statistik1_Demo.qmd
       - stat1-4/Statistik1_Novanimal.qmd
       - stat1-4/Statistik1_Uebung.qmd
@@ -94,6 +95,8 @@ book:
       - stat1-4/Statistik4_Loesung_2s.qmd
     - part: Stat5-8.qmd
       chapters:
+      - stat5-8/Statistik5_Vorbereitung.qmd
+      - --
       - stat5-8/Statistik5_Demo.qmd
       - stat5-8/Statistik5_Uebung.qmd      
       - stat5-8/Statistik5_Loesung_1.qmd
@@ -112,6 +115,8 @@ book:
       - stat5-8/Statistik8_Loesung.qmd
     - part: StatKons.qmd
       chapters:
+      - statKons/StatKons0_Vorbereitung.qmd
+      - --
       - statKons/StatKons1_Demo_assoziationen.qmd
       - statKons/StatKons1_Demo_open_datasets.qmd
       #- statKons/StatKons1_Demo_suggest_datasets.qmd

@@ -1,5 +1,5 @@
 ---
-date: 2022-11-07
+date: 2023-11-06
 lesson: Stat3
 thema: Lineare Modelle II
 index: 2
@@ -7,7 +7,7 @@ index: 2
 
 # Stat3: Übung
 
-- Datensatz [Ukraine_bearbeitet.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=604495)
+- Datensatz *Ukraine_bearbeitet.csv*
 
 ###	Übung 3: Multiple Regression
 

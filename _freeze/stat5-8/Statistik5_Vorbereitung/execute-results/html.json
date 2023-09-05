@@ -1,0 +1,14 @@
+{
+  "hash": "ee4fbb9ac17bbc96e4ffb1d7edac5c5e",
+  "result": {
+    "markdown": "---\ndate: 2023-11-13\nlesson: Stat5\nthema: Vorbereitung\nindex: 0\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n## Vorbereitung {#sec-stat5-8-vorbereitung}\n\nIm Rahmen von Statistik 5 - 8 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nipak <- function(pkg) {\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages <- c(\n  \"nlme\", \"MASS\", \"lme4\", \"glmmML\",  \"dplyr\", \"readr\", \"ggplot2\", \"MuMIn\", \"labdsv\",\n  \"vegan\", \"dave\", \"AER\", \"sveg\", \"ssit\", \"gclus\", \"cclust\", \"cluster\", \"multcomp\"\n)\n\nipak(packages)\n```\n:::\n\n\nZudem könnt ihr die Daten für die Übungen auf [Moodle](https://moodle.zhaw.ch/mod/resource/view.php?id=976907) herunterladen.",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

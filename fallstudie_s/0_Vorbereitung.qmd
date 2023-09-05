@@ -16,15 +16,18 @@ Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, d
 ```{r}
 #| eval: false
 
-ipak <- function(pkg){
+ipak <- function(pkg) {
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
 }
 
-packages <- c("readr", "ggplot2", "lubridate", "ggpubr", "PerformanceAnalytics", 
-"MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "blmeco", "sjPlot", "lattice", 
-"dplyr", "suncalc")
+packages <- c(
+  "readr", "ggplot2", "lubridate", "ggpubr", "PerformanceAnalytics",
+  "MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "blmeco", "sjPlot", "lattice",
+  "dplyr", "suncalc"
+)
 
 ipak(packages)
-
 ```

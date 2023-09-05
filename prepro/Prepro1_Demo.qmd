@@ -1,5 +1,5 @@
 ---
-date: 2022-10-11
+date: 2023-10-10
 lesson: PrePro1
 thema: Datentypen
 index: 1
@@ -36,8 +36,7 @@ typeof(x)
 Statt `<-` kann auch `=` verwendet werden. Dies funktioniert aber nicht in allen Situationen, und ist zudem leicht mit `==` zu verwechseln.
 
 ```{r}
-y = 7.3
-
+y <- 7.3
 y
 ```
 
@@ -75,7 +74,7 @@ is.integer(a)
 Mit `c()` können eine Reihe von Werten in einer Variabel zugewiesen werden (als `vector`). Es gibt zudem auch `character vectors`.
 
 ```{r}
-vector <- c(10,20,33,42,54,66,77)
+vector <- c(10, 20, 33, 42, 54, 66, 77)
 vector
 vector[5]
 vector[2:4]
@@ -131,7 +130,7 @@ Oft braucht man auch das Gegenteil / die Negation eines Wertes. Dies wird mittel
 
 ```{r}
 u <- TRUE
-v <- !u 
+v <- !u
 v
 ```
 
@@ -150,19 +149,21 @@ Zeichenketten verbinden / zusammenfügen (Eng. **concatenate**)
 ```{r}
 fname <- "Hans"
 lname <- "Muster"
-paste(fname,lname)
+paste(fname, lname)
 
 fname2 <- "hans"
 fname == fname2
 ```
 
-#### `Factors`
+#### Factors
 
-Mit `Factors` wird in R eine Sammlung von Zeichenketten bezeichnet, die sich wiederholen, z.B. Wochentage (es gibt nur 7 unterschiedliche Werte für "Wochentage").
+Mit Factors wird in R eine Sammlung von Zeichenketten bezeichnet, die sich wiederholen, z.B. Wochentage (es gibt nur 7 unterschiedliche Werte für "Wochentage").
 
 ```{r}
-wochentage <- c("Donnerstag","Freitag","Samstag","Sonntag","Montag","Dienstag","Mittwoch",
-                "Donnerstag","Freitag","Samstag","Sonntag", "Montag","Dienstag","Mittwoch")
+wochentage <- c(
+  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch",
+  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch"
+)
 
 typeof(wochentage)
 
@@ -193,7 +194,7 @@ Um in R mit Datum/Zeit Datentypen umzugehen, müssen sie als `POSIXct` eingelese
 datum <- "2017-10-01 13:45:10"
 
 # konvertiert character in POSIXct:
-as.POSIXct(datum) 
+as.POSIXct(datum)
 ```
 
 Wenn das die Zeichenkette in dem obigen Format (`Jahr-Monat-Tag Stunde:Minute:Sekunde`) daher kommt, braucht `as.POSIXct`keine weiteren Informationen. 
@@ -204,9 +205,9 @@ Sollte das Format von dem aber Abweichen, muss man der Funktion das genaue Schem
 datum <- "01.10.2017 13:45"
 
 # konvertiert character in POSIXct:
-as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
+as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 
-datum <- as.POSIXct(datum,format = "%d.%m.%Y %H:%M")
+datum <- as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 ```
 
 Beachtet, dass in den den obigen Beispiel R automatisch eine Zeitzone angenommen hat (`CEST`). R geht davon aus, dass die Zeitzone der **System Timezone** (`Sys.timezone()`) entspricht.
@@ -224,11 +225,10 @@ Einfacher sind an dieser Stelle aber die Functions aus lubridate:
 ```{r}
 library("lubridate")
 
-month(datum)                             # extrahiert den Monat als Zahl
-month(datum, label = TRUE, abbr = TRUE)  # extrahiert den Monat mit Namen (abgekürzt)
+month(datum) # extrahiert den Monat als Zahl
+month(datum, label = TRUE, abbr = TRUE) # extrahiert den Monat mit Namen (abgekürzt)
 month(datum, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
 ```
-
 
 ### Data Frames und Conveniance Variabeln
 
@@ -236,10 +236,12 @@ Eine `data.frame` ist die gängigste Art, Tabellarische Daten zu speichern.
 
 ```{r}
 df <- data.frame(
-  Stadt = c("Zürich","Genf","Basel","Bern","Lausanne"),
-  Einwohner = c(396027,194565,175131,140634,135629),
-  Ankunft = c("1.1.2017 10:00","1.1.2017 14:00",
-              "1.1.2017 13:00","1.1.2017 18:00","1.1.2017 21:00")
+  Stadt = c("Zürich", "Genf", "Basel", "Bern", "Lausanne"),
+  Einwohner = c(396027, 194565, 175131, 140634, 135629),
+  Ankunft = c(
+    "1.1.2017 10:00", "1.1.2017 14:00",
+    "1.1.2017 13:00", "1.1.2017 18:00", "1.1.2017 21:00"
+  )
 )
 
 str(df)
@@ -275,12 +277,10 @@ df$Ankunft_stunde <- hour(df$Ankunft)
 df$Ankunft_stunde
 ```
 
-
-
 ```{r}
 #| purl: false
 #| echo: false
 #| output: false
 
-knitr::purl("prepro/Prepro1_Demo.qmd", "prepro/Prepro1_Demo.R",documentation = 0)
+knitr::purl("prepro/Prepro1_Demo.qmd", "prepro/Prepro1_Demo.R", documentation = 0)
 ```

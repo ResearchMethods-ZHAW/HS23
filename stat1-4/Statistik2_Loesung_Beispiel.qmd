@@ -1,5 +1,5 @@
 ---
-date: 2022-11-01
+date: 2023-10-31
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 3
@@ -37,7 +37,8 @@ format:
 
 ```{r}
 #| include: false
-decay <- read.delim("datasets/statistik/decay.csv",sep = ",")
+
+decay <- read.delim("datasets/stat1-4/decay.csv", sep = ",")
 decay
 ```
 
@@ -53,7 +54,7 @@ Man erkennt, dass es 31 Beobachtungen für die Zeit als Integer von Zerfällen g
 ```{r}
 boxplot(decay$time)
 boxplot(decay$amount)
-plot(amount~time, data=decay)
+plot(amount ~ time, data = decay)
 ```
 
 Während der Boxplot für time wunderbar symmetrisch ohne Ausreisser ist, zeigt amount eine stark rechtsschiefe (linkssteile) Verteilung mit einem Ausreisser. Das deutet schon an, dass ein einfaches lineares Modell vermutlich die Modellannahmen verletzen wird. Auch der einfache Scatterplot zeigt, dass ein lineares Modell wohl nicht adäquat ist. Wir rechnen aber erst einmal weiter.
@@ -61,7 +62,7 @@ Während der Boxplot für time wunderbar symmetrisch ohne Ausreisser ist, zeigt 
 ### Einfaches lineares Modell
 
 ```{r}
-lm.1 <- lm(amount~time, data = decay)
+lm.1 <- lm(amount ~ time, data = decay)
 summary(lm.1)
 ```
 
@@ -103,7 +104,7 @@ hist(log(decay$amount))
 *Die log-transformierte Variante rechts sieht sowohl im Boxplot als auch im Histogramm viel symmetrischer/besser normalverteilt aus. Damit ergibt sich dann folgendes lineares Modell*
 
 ```{r}
-lm.2 <- lm(log(amount)~time, data = decay)
+lm.2 <- lm(log(amount) ~ time, data = decay)
 summary(lm.2)
 ```
 
@@ -127,7 +128,7 @@ Lösungen 2 und 3 greifen auf Methoden von Statistik 3 und 4 zurück, sie sind h
 ### Gesetzmässigkeit
 
 ```{r}
-model.quad <- lm(amount~time + I(time^2), data=  decay)
+model.quad <- lm(amount ~ time + I(time^2), data = decay)
 summary(model.quad)
 ```
 
@@ -153,15 +154,15 @@ plot(model.quad)
 (die beste, hatten wir aber am 2. Tag noch nicht; mit Startwerten muss man ggf. ausprobieren) ***mit Startwerten muss man ggf. ausprobieren***
 
 ```{r}
-model.nls <- nls(amount~a*exp(-b*time), start=(list(a = 100, b = 1)),data = decay)
+model.nls <- nls(amount ~ a * exp(-b * time), start = (list(a = 100, b = 1)), data = decay)
 summary(model.nls)
 ```
 
 ### Modelldiagnostik
 
 ```{r}
-if(!require(nlstools)){install.packages("nlstools")}
-library(nlstools)
+library("nlstools")
+
 residuals.nls <- nlsResiduals(model.nls)
 plot(residuals.nls)
 ```
@@ -190,7 +191,7 @@ lines(xv, yv1, col = "red")
 ```{r}
 plot(decay$time, decay$amount)
 yv2 <- predict(model.quad, list(time = xv))
-lines(xv, yv2, col=  "blue")
+lines(xv, yv2, col = "blue")
 ```
 
 3.  nicht-lineares Modell

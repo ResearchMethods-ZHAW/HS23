@@ -28,8 +28,6 @@ library("PerformanceAnalytics")
 library("pastecs")
 library("car")
 library("psych")
-
-
 ```
 
 ## Aufgabe 1
@@ -39,10 +37,8 @@ Einlesen des Gesamtdatensatzes für die Multivariate Analyse von Moodle
 1) Sichtung des Datensatzes, der Variablen und der Datentypen
 2) Kontrolle wieviele Rehe in diesem Datensatz enthalten sind
 
-
 ```{r}
 #| output: false
-
 
 DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", delim = ";")
 
@@ -52,8 +48,8 @@ class(DF_mod$time_of_day)
 
 table(DF_mod$id)
 
-DF_mod |> 
-  group_by(id) |> 
+DF_mod |>
+  group_by(id) |>
   summarize(anzahl = n())
 
 length(unique(DF_mod$id))
@@ -84,21 +80,25 @@ Erstellen von Density Plots der Präsenz / Absenz in Abhängigkeit der unabhäng
 #| echo: true
 #| code-fold: false
 
-# Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz 
+# Ein Satz Density Plots für den Tagesdatensatz und einer für den Nachtdatensatz
 
-par(mfrow=c(3,3), mar=c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
+par(mfrow = c(3, 3), mar = c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
 
 # innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
 
-for (i in 6:12) {                           
-  dp  <-  DF_mod_day |> filter(pres_abs == 1) |> pull(i)
+for (i in 6:12) {
+  dp <- DF_mod_day |> filter(pres_abs == 1) |> pull(i)
   dp <- density(dp)
-  da  <-  DF_mod_day |> filter(pres_abs == 0) |> pull(i)
+  da <- DF_mod_day |> filter(pres_abs == 0) |> pull(i)
   da <- density(da)
-  plot(0,0, type="l", xlim=range(c(dp$x,da$x)), ylim=range(dp$y,da$y), 
-       xlab=names(DF_mod_day[i]), ylab="Density")
-  lines(dp$x, dp$y, col="blue")             # Präsenz
-  lines(da$x, da$y, col="red")              # Absenz
+  plot(0, 0, type = "l",
+    xlim = range(c(dp$x, da$x)),
+    ylim = range(dp$y, da$y),
+    xlab = names(DF_mod_day[i]),
+    ylab = "Density"
+  )
+  lines(dp$x, dp$y, col = "blue")             # Präsenz
+  lines(da$x, da$y, col = "red")              # Absenz
 }
 ```
 
@@ -107,25 +107,22 @@ for (i in 6:12) {
 Testen eurer erklärenden Variablen auf Normalverteilung (nur kontinuierliche) 
 
 ```{r}
-
 # klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische
 # Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p>0.05 = ja)
 
-round(stat.desc(DF_mod_day[6:12], basic= F, norm= T), 3)
+round(stat.desc(DF_mod_day[6:12], basic = F, norm = T), 3)
 
 # empfohlener Weg
 
-ggplot(DF_mod_day, aes(slope)) + geom_histogram(aes(y=..density..), color = "black", fill = "white") + 
-  stat_function(fun = dnorm, args = list(mean = mean(DF_mod_day$slope, na.rm = T),sd = sd(DF_mod_day$slope, na.rm = T)), color = "black",size = 1)
+ggplot(DF_mod_day, aes(slope)) +
+  geom_histogram(aes(y = ..density..), color = "black", fill = "white") +
+  stat_function(fun = dnorm, args = list(mean = mean(DF_mod_day$slope, na.rm = T), sd = sd(DF_mod_day$slope, na.rm = T)), color = "black", size = 1)
 ```
 
-
 ```{r}
-
-# Aufgabe 4: die Verteilung bei einem Teildatensatz zu testen reicht, 
-# denn die verwendeten Kreise sind die selben am Tag und in der Nacht, 
+# Aufgabe 4: die Verteilung bei einem Teildatensatz zu testen reicht,
+# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,
 # nur die Nutzung durch das Reh nicht
-
 ```
 
 ## Aufgabe 5
@@ -135,23 +132,19 @@ Explorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen
 1) Zu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.
 2) Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)
 
-
-
 ```{r}
+chart.Correlation(DF_mod_day[6:12], histogram = TRUE, pch = 19, method = "kendall")
 
-chart.Correlation(DF_mod_day[6:12], histogram=TRUE, pch=19, method = "kendall")
+# ?chart.Correlation
 
-#?chart.Correlation
+pairs.panels(DF_mod_day[6:12],
+  method = "kendall", # correlation method
+  hist.col = "#00AFBB",
+  density = TRUE, # show density plots
+  ellipses = TRUE # show correlation ellipses
+)
 
-pairs.panels(DF_mod_day[6:12], 
-             method = "kendall", # correlation method
-             hist.col = "#00AFBB",
-             density = TRUE,  # show density plots
-             ellipses = TRUE # show correlation ellipses
-             )
-
-# Aufgabe 5: die Korrelation bei einem Teildatensatz zu testen reicht, 
-# denn die verwendeten Kreise sind die selben am Tag und in der Nacht, 
+# Aufgabe 5: die Korrelation bei einem Teildatensatz zu testen reicht,
+# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,
 # nur die Nutzung durch das Reh nicht.
-
 ```

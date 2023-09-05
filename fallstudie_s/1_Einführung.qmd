@@ -34,7 +34,8 @@ _Perimeter des Wildnispark Zürichs mit den ungefähren Standorten von zwei ausg
 #| fig.align: center
 #| fig.cap: ''
 #| echo: false
-knitr::include_url("https://map.geo.admin.ch/?lang=de&topic=ech&bgLayer=ch.swisstopo.pixelkarte-grau&layers=ch.bafu.schutzgebiete-paerke_nationaler_bedeutung_perimeter,KML%7C%7Chttps:%2F%2Fpublic.geo.admin.ch%2Fapi%2Fkml%2Ffiles%2Fx41hLcDcT_64Xn3Wt_UajQ&E=2684727.07&N=1235631.69&zoom=7&layers_opacity=0.35,1", height ="1000px")
+
+knitr::include_url("https://map.geo.admin.ch/?lang=de&topic=ech&bgLayer=ch.swisstopo.pixelkarte-grau&layers=ch.bafu.schutzgebiete-paerke_nationaler_bedeutung_perimeter,KML%7C%7Chttps:%2F%2Fpublic.geo.admin.ch%2Fapi%2Fkml%2Ffiles%2Fx41hLcDcT_64Xn3Wt_UajQ&E=2684727.07&N=1235631.69&zoom=7&layers_opacity=0.35,1", height = "1000px")
 ```
 
 __Hinweis:__ 
@@ -50,7 +51,6 @@ Unsere Analysen in diesem Modul helfen dem Management, ein besseres Verständnis
 In dieser Fallstudie zeigen wir, welche Einflüsse die Covid19-Pandemie im Frühjahr 2020 auf die täglichen Besuchszahlen im Wildnispark Zürich hatte. Dabei setzen wir den Fokus auf die Dämmerung und die Nacht, den in diesen Zeiten sind Wildtiere (u.a. Rehe) besonders sensibel gegenüber Störungen.
 
 In unsere Analysen ziehen wir auch weitere erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.
-
 
 ## Grundlagen
 

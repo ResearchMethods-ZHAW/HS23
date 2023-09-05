@@ -1,5 +1,5 @@
 ---
-date: 2022-10-17
+date: 2023-10-16
 lesson: PrePro2
 thema: Piping / Joins
 index: 1
@@ -28,7 +28,6 @@ diary <- c(
 diary
 ```
 
-
 Dazu brauchen wir die Funktion `substr()`, welche aus einem `character` einen Teil "raus schnipseln" kann.
 
 ```{r}
@@ -46,18 +45,17 @@ substr(charvec2, 4, 6)
 Zudem nutzen haben wir eine Hilfsfunktion `subtrahieren`, welche zwei Werte annimmt, den `minuend` und den `subtrahend`:
 
 ```{r}
-subtrahieren <- function(minuend, subtrahend){
+subtrahieren <- function(minuend, subtrahend) {
   minuend - subtrahend
 }
 
 subtrahieren(10, 4)
 ```
 
-
 Übersetzt in `R`-Code entsteht folgende Operation:
 
 ```{r}
-output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
+output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)), 273.15))
 #                                             \_1_/
 #                                      \________2__________/
 #                           \___________________3___________/
@@ -74,20 +72,20 @@ output <- mean(subtrahieren(as.numeric(substr(diary, 20, 22)),273.15))
 Die ganze Operation liest sich etwas leichter, wenn diese sequentiell notiert wird:
 
 ```{r}
-temp <- substr(diary, 20, 22)       # 2
-temp <- as.numeric(temp)            # 3
-temp <- subtrahieren(temp, 273.15)  # 4
-output <- mean(temp)                # 5
+temp <- substr(diary, 20, 22)      # 2
+temp <- as.numeric(temp)           # 3
+temp <- subtrahieren(temp, 273.15) # 4
+output <- mean(temp)               # 5
 ```
 
 Umständlich ist dabei einfach, dass die Zwischenresultate immer abgespeichert und in der darauf folgenden Operation wieder abgerufen werden müssen. Hier kommt "piping" ins Spiel: *Mit "piping" wird der Output der einen Funktion der erste Parameter der darauf folgenden Funktion.*
 
 ```{r}
-diary |>                            # 1
-  substr(20, 22) |>                 # 2
-  as.numeric() |>                   # 3 
-  subtrahieren(273.15) |>           # 4
-  mean()                            # 5
+diary |>                  # 1
+  substr(20, 22) |>       # 2
+  as.numeric() |>         # 3
+  subtrahieren(273.15) |> # 4
+  mean()                  # 5
 ```
 
 :::{.callout-important}
@@ -95,13 +93,9 @@ diary |>                            # 1
 - Neben dem *base R* Pipe Operator existiert im Package `magrittr` ein sehr ähnlicher[^pipe] Pipe Operator: `|>`
 - Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein. 
 - Welcher Pipe Operator `|>` oder `|>` mit der obigen Tastenkombination eingeführt wird, kann über die RStudio Settings `Tools` → `Global Options` → `Code` → Häckchen setzen bei `Use nativ pipe operator`
-
-
 :::
 
-
 [^pipe]: siehe <https://stackoverflow.com/q/67633022/4139249>
-
 
 ## Joins
 
@@ -123,7 +117,7 @@ ortschaften
 ```
 
 ```{r}
-#Load library
+# Load library
 library("dplyr")
 
 inner_join(studierende, ortschaften, by = "PLZ")
@@ -150,5 +144,5 @@ left_join(studierende, ortschaften, by = c("Wohnort" = "PLZ"))
 #| echo: false
 #| output: false
 
-knitr::purl("prepro/Prepro2_Demo.qmd", "prepro/Prepro2_Demo.R",documentation = 0)
+knitr::purl("prepro/Prepro2_Demo.qmd", "prepro/Prepro2_Demo.R", documentation = 0)
 ```

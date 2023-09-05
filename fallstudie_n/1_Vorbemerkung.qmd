@@ -4,22 +4,23 @@ Aktuell dient diese Plattform für die BiEc Fallstudie - Profil N einzig der Ber
 
 ![](Reh_graf.jpg){width="50%"}
 
-
 Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
 ```{r}
 #| eval: false
 
-
-ipak <- function(pkg){
+ipak <- function(pkg) {
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
 }
 
-packages <- c("adehabitatHR", "bbmle", "car", "cowplot", "DHARMa", "dplyr", 
-"ggeffects", "ggplot2", "ggspatial", "glmmTMB", "gstat", "kableExtra", "lme4", 
-"MASS", "MuMIn", "pastecs", "performance", "PerformanceAnalytics", "psych", 
-"readr", "rms", "ROCR", "sf", "sjPlot", "sjstats", "terra") 
+packages <- c(
+  "adehabitatHR", "bbmle", "car", "cowplot", "DHARMa", "dplyr",
+  "ggeffects", "ggplot2", "ggspatial", "glmmTMB", "gstat", "kableExtra", "lme4",
+  "MASS", "MuMIn", "pastecs", "performance", "PerformanceAnalytics", "psych",
+  "readr", "rms", "ROCR", "sf", "sjPlot", "sjstats", "terra"
+)
 
 ipak(packages)
-
 ```
