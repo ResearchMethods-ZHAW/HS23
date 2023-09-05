@@ -26,6 +26,7 @@
   {
     "listing": "/Stat1-4.html",
     "items": [
+      "/stat1-4/Statistik1_Vorbereitung.html",
       "/stat1-4/Statistik1_Demo.html",
       "/stat1-4/Statistik1_Novanimal.html",
       "/stat1-4/Statistik1_Uebung.html",
@@ -49,6 +50,7 @@
   {
     "listing": "/Stat5-8.html",
     "items": [
+      "/stat5-8/Statistik5_Vorbereitung.html",
       "/stat5-8/Statistik5_Demo.html",
       "/stat5-8/Statistik5_Uebung.html",
       "/stat5-8/Statistik5_Loesung_1.html",
@@ -67,6 +69,7 @@
   {
     "listing": "/StatKons.html",
     "items": [
+      "/statKons/StatKons0_Vorbereitung.html",
       "/statKons/StatKons1_Demo_assoziationen.html",
       "/statKons/StatKons1_Demo_open_datasets.html",
       "/statKons/StatKons2_Demo_PCA.html",
@@ -77,15 +80,15 @@
   {
     "listing": "/RaumAn.html",
     "items": [
-      "/rauman/Rauman1_Vorbereitung.html",
+      "/rauman/Rauman0_Vorbereitung.html",
       "/rauman/Rauman1_Uebung_A.html",
       "/rauman/Rauman1_Uebung_B.html",
-      "/rauman/Rauman2_Uebung_C.html",
-      "/rauman/Rauman2_Uebung_B.html",
       "/rauman/Rauman2_Uebung_A.html",
+      "/rauman/Rauman2_Uebung_B.html",
       "/rauman/Rauman3_Uebung_A.html",
+      "/rauman/Rauman3_Uebung_B.html",
+      "/rauman/Rauman3_Uebung_C.html",
       "/rauman/Rauman4_Uebung_A.html",
-      "/rauman/Rauman4_Uebung_B.html",
       "/rauman/Rauman5_Uebung_A.html",
       "/rauman/Rauman5_Uebung_B.html"
     ]

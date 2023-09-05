@@ -6,6 +6,10 @@ table{
     font-size: smaller;
 }
 
+figcaption{
+    font-size: 0.9rem !important;
+}
+
 details > summary{
     color: #00bc8c;
     /* folgende zeile hat kein effekt */
