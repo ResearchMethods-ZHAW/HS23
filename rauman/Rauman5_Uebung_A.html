@@ -230,7 +230,7 @@ div.csl-indent {
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">InfoVis</span></a>
+ <span class="menu-text">Informationsvisualisierung</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -617,9 +617,9 @@ div.csl-indent {
   <ul>
   <li><a href="#aufgabe-1-vektor-daten-laden-und-anzeigen" id="toc-aufgabe-1-vektor-daten-laden-und-anzeigen" class="nav-link active" data-scroll-target="#aufgabe-1-vektor-daten-laden-und-anzeigen">Aufgabe 1: Vektor Daten laden und anzeigen</a></li>
   <li><a href="#sec-raster-distance" id="toc-sec-raster-distance" class="nav-link" data-scroll-target="#sec-raster-distance">Aufgabe 2: Erschliessung berechnen</a></li>
-  <li><a href="#sec-classify1" id="toc-sec-classify1" class="nav-link" data-scroll-target="#sec-classify1">Aufgabe 3: Distanzkriterien Bewerten</a></li>
+  <li><a href="#sec-classify1" id="toc-sec-classify1" class="nav-link" data-scroll-target="#sec-classify1">Aufgabe 3: Distanzkriterien bewerten</a></li>
   <li><a href="#sec-raster-overlay1" id="toc-sec-raster-overlay1" class="nav-link" data-scroll-target="#sec-raster-overlay1">Aufgabe 4: Raster Overlay</a></li>
-  <li><a href="#sec-rauman5-mask" id="toc-sec-rauman5-mask" class="nav-link" data-scroll-target="#sec-rauman5-mask">Aufgabe 5: Mask raster</a></li>
+  <li><a href="#sec-rauman5-mask" id="toc-sec-rauman5-mask" class="nav-link" data-scroll-target="#sec-rauman5-mask">Aufgabe 5: Mask Raster</a></li>
   <li><a href="#sec-raster-overlay1b" id="toc-sec-raster-overlay1b" class="nav-link" data-scroll-target="#sec-raster-overlay1b">Aufgabe 6: Weighted Raster Overlay</a></li>
   </ul>
 </nav>
@@ -801,7 +801,7 @@ div.csl-indent {
 </div>
 </section>
 <section id="sec-classify1" class="level2">
-<h2 class="anchored" data-anchor-id="sec-classify1">Aufgabe 3: Distanzkriterien Bewerten</h2>
+<h2 class="anchored" data-anchor-id="sec-classify1">Aufgabe 3: Distanzkriterien bewerten</h2>
 <p>Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Aufgabe folgende Einteilung:</p>
 <p>Hierfür brauchen wir die Function <code>classify()</code>. Wie wir aus der Dokumentation der Funktion (mit <code>?classify</code>) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument <code>rcl</code>). Eine sehr explizite Variante ist, dass wir für <code>rcl</code> eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen <em>from</em>, <em>to</em> und <em>becomes</em> dar.</p>
 <p>Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch “von Hand” in R erstellen. Um in R tabellarische Daten zu schreiben empfehlen wir die Funktion <code>tribble()</code>, welche eine sehr anschauliche Art bietet, Tabellen in R zu generieren.</p>
@@ -874,7 +874,7 @@ div.csl-indent {
 </div>
 </section>
 <section id="sec-rauman5-mask" class="level2">
-<h2 class="anchored" data-anchor-id="sec-rauman5-mask">Aufgabe 5: Mask raster</h2>
+<h2 class="anchored" data-anchor-id="sec-rauman5-mask">Aufgabe 5: Mask Raster</h2>
 <p>Im letzten Plot fällt auf, dass wir auch eine Bewertung für Gebiete ausserhalb des Untersuchungsgebiets haben. Da wir für diese Gebiete keine Geodaten verwendet haben, sind die Resultate ausserhalb des Untersuchungsgebiets nicht gültig. Deshalb ist es sinnvoll, die Werte ausserhalb des Untersuchungsgebeits zu entfernen. Dafür verwenden wir die Funktion <code>mask()</code> zusammen mit dem Vektordatensatz <code>kt_schwzy</code>. Diese setzt alle Werte ausserhalb des Polygons zu <code>NA</code>:</p>
 <div class="cell">
 <div class="cell-output-display">
