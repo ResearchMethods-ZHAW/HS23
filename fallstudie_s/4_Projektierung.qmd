@@ -99,7 +99,7 @@ mycolors <- c("orangered", "gold", "mediumvioletred", "darkblue")
 
 - Lädt nun die nachfolgenden, benoetigten Bibliotheken.
 
-- Diese müssen zuerst mit _install.packages("NAME")_ installiert werden.
+- Diese habt ihr, falls nötig, im Kapitel [Vorbereitung] installiert.
 
 ```{r eval=FALSE}
 # Benoetigte Bibliotheken ####
