@@ -48,7 +48,7 @@ Unsere Analysen in diesem Modul helfen dem Management, ein besseres Verständnis
 
 ## Ziel
 
-In dieser Fallstudie zeigen wir, welche Einflüsse die Covid19-Pandemie im Frühjahr 2020 auf die täglichen Besuchszahlen im Wildnispark Zürich hatte. Dabei setzen wir den Fokus auf die Dämmerung und die Nacht, den in diesen Zeiten sind Wildtiere (u.a. Rehe) besonders sensibel gegenüber Störungen.
+In dieser Fallstudie zeigen wir, welche Einflüsse die Covid19-Pandemie im Frühjahr 2020 auf die täglichen Besuchszahlen im Wildnispark Zürich hatte. Dabei setzen wir den Fokus auf die Dämmerung und die Nacht, den in diesen Zeiten sind Wildtiere (u.a. Rehe) besonders sensibel gegenüber Störungen. Wir untersuchen ebenfalls, wie sich die Besuchszhalen seit der Pandemie entwickelt haben und ob sie sich wieder dem Muster von vor der Pandemie annähern. Auch dabei ist die "dunkle" Tageszeit im Fokus.
 
 In unsere Analysen ziehen wir auch weitere erklärende Faktoren wie Wetter, Wochentag, Kalenderwoche und Schulferien mit ein. Die statistischen Auswertungen erlauben und somit klare Rückschlüsse auf die Effekte der Faktoren und deren Stärke zu ziehen.
 

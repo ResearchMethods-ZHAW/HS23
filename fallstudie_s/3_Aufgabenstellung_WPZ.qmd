@@ -22,9 +22,11 @@ knitr:
 
 Ihr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. De Aufgaben im Zusammenhang mit dem Grüental sind __abgeschlossen__ und wir beschäftigen uns ab jetzt ausschliesslich mit dem __WPZ__.
 
-Im Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch [Einführung], Ziele). 
+Im Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele). 
 
-Konkret sollen folgende Fragestellungen beantwortet werden:
+__Konkret sollen eure Fragestellungen aus dem Forschungsplan untersucht werden. __
+
+Für "meine" Analysen habe ich folgende Fragestellungen formuliert:
 
 >1) Welchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ __am Tag, in der Dämmerung und in der Nacht__?
 >
