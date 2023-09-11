@@ -32,3 +32,5 @@ packages <- c(
 
 ipak(packages)
 ```
+
+Zudem könnt ihr alle für die Fallstudie Profil S benötigten Daten unter folgendem  [Link](https://moodle.zhaw.ch/mod/folder/view.php?id=956254) herunterladen.
