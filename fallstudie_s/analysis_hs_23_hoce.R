@@ -390,9 +390,6 @@ ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +
 
 
 
-# .################################################################################################
-
-
 # mache einen prozentuellen areaplot
 ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
   geom_area(position = "fill", alpha = 0.8) +
@@ -406,8 +403,27 @@ ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
   labs(title = "", y = "Verteilung Fussgänger:innen / Monat [%]", x = "Jahr")
 
 ggsave("Proz_Entwicklung_Zaehlstelle.png",
-  width = 20, height = 10, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/")
+       width = 20, height = 10, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# .################################################################################################
+
 
 # # ctree ####
 # # berechne Regression für die Besuchszahlen in den Tageszeiten
