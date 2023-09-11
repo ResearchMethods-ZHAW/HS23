@@ -13,10 +13,8 @@ knitr:
     collapse: true
 ---
 
-# BiEcS3 - Aufgabenstellung WPZ
+# Aufgabenstellung Abschlussbericht
 
-
-# Multivariate Analyse: Abschlussbericht
 
 ## Ziele 
 

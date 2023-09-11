@@ -13,7 +13,8 @@ knitr:
     collapse: true
 ---
 
-# BiEcS5 - Datenverarbeitung
+# Datenverarbeitung
+
 
 ```{r include=FALSE, echo=FALSE}
 # Benoetigte Bibliotheken ####
@@ -85,7 +86,7 @@ Die Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte ent
 - Lest die Zählaten ein, speichert ihn unter der Variable __depo__ und sichtet den Datensatz (z.B. str(), head(), view() usw.).
 
 
-```{r echo = TRUE, eval: false}
+```{r echo = TRUE, eval=FALSE}
 # Speicherort sowie Dateiname anpassen
 depo <- read_delim("./HIER RELATIVEN DATEIPFAD EINGEBEN", "HIER SEPERATOR EINGEBEN")
 ```
@@ -105,7 +106,7 @@ str(depo)
 
 - Nun muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = "HIER DATUMSFORMAT")?
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 depo <- depo |>
   mutate(
     Datetime = as.POSIXct(DatumUhrzeit, format = "HIER STEHT DAS DATUMSFORMAT", tz = "CET"),
@@ -115,6 +116,7 @@ depo <- depo |>
 ```
 
 ```{r}
+# hier der code mit dem richtigen Format
 depo <- depo |>
   mutate(
     Datetime = as.POSIXct(DatumUhrzeit, format = "%d.%m.%Y %H:%M", tz = "CET"),
@@ -156,11 +158,6 @@ depo <- depo |>
 # Entferne die NA's in dem df.
 depo <- na.omit(depo)
 ```
-
-
-
-
-
 
 
 
@@ -228,9 +225,11 @@ Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
 1. Wochentag; der Befehl dazu ist __wday()__
 2. Werktag oder Wochenende als Faktor. Der Code dazu könnte so aussehen:
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
+  ...|>
   mutate(Wochenende = ifelse(Wochentag %in% c(6,7), "Wochenende", "Werktag")) |>
   mutate(Wochenende = as.factor(Wochenende)) |>
+  ...
 ```
 
 je als Faktor: 
@@ -333,7 +332,7 @@ Die wichtigsten Punkte:
 
 Hinweis: damit __case_when()__ funktioniert, müsst ihr  dplyr Version als 1.1.1 oder neuer haben.
 
-```{r}
+```{r echo=TRUE}
 # Einteilung Standort Zuerich
 Latitude <- 47.38598
 Longitude <- 8.50806
@@ -411,7 +410,7 @@ Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir a
 
 Tipp: Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in das neue df übernommen und müssen nicht nochmals hinzugefügt werden
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 depo_d <- depo |> 
   group_by(VARIABLE1, VARIABLE2, ...) |>   # Gruppieren nach den Variablen
   summarise(Total = sum(Fuss_IN + Fuss_OUT),# Berechnen der gewünschten Werte
@@ -490,8 +489,6 @@ depo_m_daytime <- depo_m_daytime |>
         Ym = lubridate::ym(Ym)
     ) # formatiere als Datum
 ```
-
-
 
 
 ### 4c)

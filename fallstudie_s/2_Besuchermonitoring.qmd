@@ -13,7 +13,8 @@ knitr:
     collapse: true
 ---
 
-# BiEcS2 - Monitoring
+# Monitoring
+
 
 ## Einführung und Installation
 

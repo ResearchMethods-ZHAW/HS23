@@ -13,7 +13,8 @@ knitr:
     collapse: true
 ---
 
-# BiEcS1 - Einführung
+# Einführung
+
 
 ## Hintergrund
 

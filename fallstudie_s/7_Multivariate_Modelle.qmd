@@ -13,7 +13,7 @@ knitr:
     collapse: true
 ---
 
-# BiEcS7 -  Multivariate Modelle
+# Multivariate Modelle
 
 ```{r include=FALSE}
 # Datenherkunft ####

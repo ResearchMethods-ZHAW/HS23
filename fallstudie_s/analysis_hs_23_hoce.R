@@ -269,13 +269,6 @@ depo <- depo |>
   mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"), ordered = TRUE))
 
 
-
-
-
-
-
-
-
 # behalte die relevanten Var
 depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
 
@@ -366,17 +359,14 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1)) + # group = 1 braucht R, das
       xmin = ym("2020-3"), xmax = ym("2020-5"),
       ymin = 0, ymax = max(Total + (Total / 100 * 10))
     ),
-    fill = "lightskyblue", alpha = 0.2, colour = NA
-  ) +
+    fill = "lightskyblue", alpha = 0.2, colour = NA) +
   # zeichne Lockdown 2
   geom_rect(
     mapping = aes(
       xmin = ym("2020-12"), xmax = ym("2021-3"),
-      ymin = 0, ymax = max(Total + (Total / 100 * 10))
-    ),
-    fill = "darkolivegreen2", alpha = 0.2, colour = NA
-  ) +
-  geom_line(alpha = 0.6, size = 1) +
+      ymin = 0, ymax = max(Total + (Total / 100 * 10))),
+    fill = "darkolivegreen2", alpha = 0.2, colour = NA) +
+  geom_line(alpha = 0.6, linewidth = 1) +
   scale_x_date(date_labels = "%b%y", date_breaks = "6 months") +
   labs(title = "", y = "Fussgänger:innen pro Monat", x = "Jahr") +
   theme_classic(base_size = 15) +
@@ -384,8 +374,7 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1)) + # group = 1 braucht R, das
 
 ggsave("Entwicklung_Zaehlstelle.png",
   width = 20, height = 10, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/"
-)
+  path = "fallstudie_s/results/")
 
 # Monatliche Summen am Standort aübereinander gelagert
 ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +
@@ -394,6 +383,7 @@ ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +
   scale_colour_viridis_d() +
   scale_linetype_manual(values = c(rep("solid", 3), "twodash", "twodash", "solid")) +
   scale_x_continuous(breaks = c(seq(0, 12, by = 1))) +
+  geom_vline(xintercept = c(seq(1, 12, by = 1)), linetype = "dashed", color = "gray") +
   labs(title = "", y = "Fussgänger:innen pro Monat", x = "Monat") +
   theme_classic(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
@@ -405,16 +395,19 @@ ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +
 
 # mache einen prozentuellen areaplot
 ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
-  geom_area(position = "fill") +
+  geom_area(position = "fill", alpha = 0.8) +
   scale_fill_manual(values = mycolors) +
+  scale_x_date(date_labels = "%b%y", date_breaks = "6 months", 
+               limits = c(min(depo_m_daytime$Ym), max = max(depo_m_daytime$Ym)), expand = c(0, 0)) +
+  geom_vline(xintercept = seq(as.Date(min(depo_m_daytime$Ym)), as.Date(max(depo_m_daytime$Ym)), 
+                              by = "6 months"), linetype = "dashed", color = "black")+
   theme_classic(base_size = 15) +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
   labs(title = "", y = "Verteilung Fussgänger:innen / Monat [%]", x = "Jahr")
 
 ggsave("Proz_Entwicklung_Zaehlstelle.png",
   width = 20, height = 10, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/"
-)
+  path = "fallstudie_s/results/")
 
 # # ctree ####
 # # berechne Regression für die Besuchszahlen in den Tageszeiten
