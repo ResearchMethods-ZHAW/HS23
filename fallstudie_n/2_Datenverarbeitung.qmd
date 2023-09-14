@@ -1,7 +1,7 @@
 ---
 execute:
-  echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
+  output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -27,7 +27,7 @@ Im Kopf des Skripts zuerst immer den Titel des Projekts sowie die Autor:innen de
 
 # .##################################################################################
 # Daten(vor)verarbeitung Fallstudie WPZ  ####
-# Modul Research Methods, HS22. Autor/in ####
+# Modul Research Methods, HS23. Autor/in ####
 # .##################################################################################
 ```
 
