@@ -9,7 +9,7 @@ knitr:
     collapse: true
 ---
 
-# 6. Modellgüte und -diagnostics MM / Habitatselektionsmodell
+# BiEc6_N Modellgüte und -diagnostics MM
 
 ## Libraries laden
 
@@ -204,7 +204,7 @@ cowplot::plot_grid()
 Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
 - Bestimmen delta AIC nach @coppes2017 → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.
-- Auftrag auf den 21.11.2022: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
+- Auftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)
 
 ```{r}
 m_os <- glmer(pres_abs ~
