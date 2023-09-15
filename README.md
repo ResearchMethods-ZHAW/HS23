@@ -92,8 +92,9 @@ Um die Änderungen an den Source Files zu veröffentlichen müsst ihr diese via 
 
 Um Änderungen an den Output Files zu Veröffentlichen muss (TBD)
 
-
-    quarto publish gh-pages --no-prompt # not tested
+```sh
+quarto publish gh-pages --no-prompt 
+```
 
 ## FAQ
 
