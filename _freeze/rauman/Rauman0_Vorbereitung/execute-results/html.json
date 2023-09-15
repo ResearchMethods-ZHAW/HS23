@@ -1,0 +1,14 @@
+{
+  "hash": "36333c40f5eac748a1abcae98753acc9",
+  "result": {
+    "markdown": "---\ndate: 2022-10-11\nlesson: RaumAn1\nthema: Vorbereitung\nindex: 0\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n\n## Vorbereitung {#sec-rauman-vorbereitung}\n\nIm Rahmen von Rauman 1 - 5 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nipak <- function(pkg) {\n    new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n    if (length(new.pkg)) {\n        install.packages(new.pkg, dependencies = TRUE)\n    }\n}\n\npackages <- c(\"sf\", \"dplyr\", \"ggplot2\", \"spatstat.geom\", \"spatstat.explore\", \"gstat\",\n    \"tidyr\", \"terra\", \"tmap\")\n\nipak(packages)\n\n```\n:::",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
