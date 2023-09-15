@@ -1,5 +1,5 @@
 ---
-date: 2022-11-08
+date: 2023-11-07
 lesson: Stat4
 thema: Komplexere Regressionsmethoden
 index: 2
@@ -9,7 +9,7 @@ index: 2
 
 ##	Aufgabe 4.1: Nicht-lineare Regression
 
-**Datensatz [Curonian_Spit.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=606569)**
+**Datensatz *Curonian_Spit.csv***
 
 Dieser enthält gemittelte Pflanzenartenzahlen (Species.richness) von
 geschachtelten Plots (Vegetationsaufnahmen) der Pflanzengesellschaft LolioCynosuretum im Nationalpark Kurische Nehrung (Russland) auf
@@ -19,7 +19,7 @@ Flächengrössen (Area) von 0.0001 bis 900 m².
 
 ## Aufgabe 4.2N: Logistische Regression (NatWis)
 
-**Datensatz [polis.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=606624)**
+**Datensatz *polis.csv***
 
 Der Datensatz polis.csv beschreibt für 19 Inseln im Golf von Kalifornien, ob Eidechsen der Gattung Uta vorkommen (presence/absence: PA) in Abhängigkeit von der Form der Inseln (Verhältnis Umfang zu Fläche: RATIO). 
 
@@ -27,10 +27,7 @@ Der Datensatz polis.csv beschreibt für 19 Inseln im Golf von Kalifornien, ob Ei
 
 ## Aufgabe 4.2S: Multiple logistische Regression (SozWis)
 
-**Datensatz [Datensatz_novanimal_Uebung_Statistik4.2.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=662344)**
-
+**Datensatz *Datensatz_novanimal_Uebung_Statistik4.2.csv***
 
 Führt mit dem Datensatz der Gästebefragung eine logistische Regression durch. 
 Kann der Mensabesuch durch die sozioökonomischen Variablen (Alter, Geschlecht, Hochschulzugehörigkeit), wahrgenommener Fleischkonsum und Umwelteinstellung vorhergesagt werden?
-
-

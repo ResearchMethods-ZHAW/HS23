@@ -1,10 +1,10 @@
 ---
-date: 2022-10-18
+date: 2023-10-17
 lesson: PrePro3
 thema: Split-Apply-Combine
 index: 2
 execute: 
-  echo: true   # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"
@@ -17,7 +17,7 @@ knitr:
 
 ## Aufgabe 1
 
-Gegeben sei ein Datensatz "[sensors_combined.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602238)", mit den Temperaturwerten von drei verschiedenen Sensoren. Lade diesen Datensatz herunter,  importiere ihn als csv in R (als `sensors_combined`). 
+Gegeben sei ein Datensatz *sensors_combined.csv*, mit den Temperaturwerten von drei verschiedenen Sensoren. Importiere ihn als csv in R (als `sensors_combined`). 
 
 Formatiere die `Datetime` Spalte in `POSIXct` um. Verwende dazu die Funktion `as.POSIXct` (lies mit `?strftime()` nochmal nach wie du das spezfische Format (die "Schablone") festlegen kannst.
 
@@ -80,7 +80,7 @@ sensors_long |>
 
 ## Aufgabe 5
 
-Lade jetzt nochmal den Datensatz [weather.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602135) (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
+Lade jetzt nochmal den Datensatz *weather.csv* (Quelle MeteoSchweiz) herunter und importiere ihn als CSV mit den korrekten Spaltentypen (`stn` als `factor`, `time` als `POSIXct`, `tre200h0` als `double`).
 
 ```{r}
 weather <- read_csv("datasets/prepro/weather.csv", col_types = cols(col_factor(), col_datetime("%Y%m%d%H"), col_double()))

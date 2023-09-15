@@ -1,5 +1,5 @@
 ---
-date: 2022-10-24
+date: 2023-10-23
 lesson: InfoVis1
 thema: "Plots & Facets"
 index: 1
@@ -15,10 +15,10 @@ library("ggplot2")
 library("tidyr")
 ```
 
-Als erstes laden wir den Temperaturdatensatz [temperature_SHA_ZER.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602256) ein. Es handelt sich dabei um eine leicht modifizierte Variante der Daten aus PrePro1 und PrePro2.
+Als erstes laden wir den Datensatz *temperature_SHA_ZER.csv* ein. Es handelt sich dabei um eine leicht modifizierte Variante der Daten aus PrePro1 und PrePro2.
 
 ```{r}
-# Wir können den Datensatz direkt über die URL einladen oder aber ihr nutzt die 
+# Wir können den Datensatz direkt über die URL einladen oder aber ihr nutzt die
 # URL um den Datensatz lokal bei euch abzuspeichern und wie gewohnt einzulesen
 temperature <- read_csv("datasets/infovis/temperature_SHA_ZER.csv")
 ```
@@ -26,6 +26,7 @@ temperature <- read_csv("datasets/infovis/temperature_SHA_ZER.csv")
 ```{r}
 #| echo: false
 #| purl: false
+
 knitr::kable(head(temperature))
 ```
 
@@ -42,23 +43,23 @@ In `ggplot` sieht das etwas anders und auf den ersten Blick etwas komplizierter 
 
 ```{r}
 # Datensatz: "temperature" | Beeinflussende Variabeln: "time" und "temp"
-ggplot(data = temperature, mapping = aes(time,SHA))             
+ggplot(data = temperature, mapping = aes(time, SHA))
 ```
 
 Weiter braucht es *mindestens* ein "Layer" der beschreibt, wie die Daten dargestellt werden sollen (z.B. `geom_point()`).
 Anders als bei "Piping" (`|>`) wird ein Layer mit `+` hinzugefügt.
 
 ```{r}
-ggplot(data = temperature, mapping = aes(time,SHA)) +         
-  # Layer: "geom_point" entspricht Punkten in einem Scatterplot 
-  geom_point()                                    
+ggplot(data = temperature, mapping = aes(time, SHA)) +
+  # Layer: "geom_point" entspricht Punkten in einem Scatterplot
+  geom_point()
 ```
 
 Da ggplot die Eingaben in der Reihenfolge `data = ` und dann `mapping = `erwartet, können wir diese Spezifizierungen auch weglassen.
 
 ```{r}
 #| eval: false
-ggplot(temperature, aes(time,SHA)) +
+ggplot(temperature, aes(time, SHA)) +
   geom_point()
 ```
 
@@ -73,15 +74,15 @@ temperature_long <- pivot_longer(temperature, -time, names_to = "station", value
 Nun wollen wir die unterschiedlichen Stationen unterschiedlich einfärben. Da wir Variablen definieren wollen, welche Einfluss auf die Grafik haben sollen, gehört diese Information in `aes()`.
 
 ```{r}
-ggplot(temperature_long, aes(time,temp, colour = station)) +
+ggplot(temperature_long, aes(time, temp, colour = station)) +
   geom_point()
 ```
 
 Wir können noch einen Layer mit Linien hinzufügen:
 
 ```{r}
-ggplot(temperature_long, aes(time,temp, colour = station)) +
-  geom_point()+
+ggplot(temperature_long, aes(time, temp, colour = station)) +
+  geom_point() +
   geom_line()
 ```
 
@@ -90,15 +91,15 @@ ggplot(temperature_long, aes(time,temp, colour = station)) +
 Weiter können wir die Achsen beschriften und einen Titel hinzufügen. Zudem lasse ich die Punkte (`geom_point()`) nun weg, da mir diese nicht gefallen.
 
 ```{r}
-ggplot(temperature_long, aes(time,temp, colour = station)) +
+ggplot(temperature_long, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002",
     color = "Station"
-    )
+  )
 ```
 
 ## Split Apply Combine
@@ -107,7 +108,7 @@ Im obigen Plot fällt auf, dass stündliche Werte eine zu hohe Auflösung ist, w
 
 ```{r}
 temperature_day <- temperature_long |>
-  mutate(time = as.Date(time)) 
+  mutate(time = as.Date(time))
 
 temperature_day
 
@@ -115,7 +116,7 @@ temperature_day <- temperature_day |>
   group_by(station, time) |>
   summarise(temp = mean(temp))
 
-temperature_day  
+temperature_day
 ```
 
 ## X/Y-Achse anpassen
@@ -125,16 +126,16 @@ Man kann auch Einfluss auf die x-/y-Achsen nehmen. Dabei muss man zuerst festleg
 Bei unserer y-Achse handelt es sich um numerische Daten, `ggplot` nennt diese: `scale_y_continuous()`. Unter [ggplot2.tidyverse.org](http://ggplot2.tidyverse.org/reference/#section-scales) findet man noch andere x/y-Achsentypen (`scale_x_irgenwas` bzw. `scale_y_irgendwas`).
 
 ```{r}
-ggplot(temperature_day, aes(time,temp, colour = station)) +
+ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002",
     color = "Station"
-    ) +    
-  scale_y_continuous(limits = c(-30,30))    # y-Achsenabschnitt bestimmen
+  ) +
+  scale_y_continuous(limits = c(-30, 30)) # y-Achsenabschnitt bestimmen
 
 ```
 
@@ -142,18 +143,20 @@ ggplot(temperature_day, aes(time,temp, colour = station)) +
 Das gleiche Spiel kann man für die y-Achse betreiben. Bei unserer y-Achse handelt es sich ja um Datumsangaben. `ggplot` nennt diese: `scale_x_date()`. 
 
 ```{r}
-ggplot(temperature_day, aes(time,temp, colour = station)) +
+ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002",
     color = "Station"
-    ) +    
-  scale_y_continuous(limits = c(-30,30)) +
-  scale_x_date(date_breaks = "3 months", 
-                   date_labels = "%b")
+  ) +
+  scale_y_continuous(limits = c(-30, 30)) +
+  scale_x_date(
+    date_breaks = "3 months",
+    date_labels = "%b"
+  )
 ```
 
 ## Themes
@@ -165,7 +168,7 @@ Individuell pro Plot:
 ```{r}
 #| eval: false
 
-ggplot(temperature_day, aes(time,temp, colour = station)) +
+ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   theme_classic()
 ```
@@ -181,19 +184,21 @@ theme_set(theme_classic())
 Sehr praktisch sind auch die Funktionen für "Small multiples". Dies erreicht man mit `facet_wrap()` (oder `facet_grid()`, mehr dazu später). Man muss mit einem Tilde-Symbol "`~`" nur festlegen, welche *Variable* für das Aufteilen des Plots in kleinere Subplots verantwortlich sein soll. 
 
 ```{r}
-ggplot(temperature_day, aes(time,temp, colour = station)) +
+ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002",
     color = "Station"
-    ) +    
-  scale_y_continuous(limits = c(-30,30)) +
-  scale_x_date(date_breaks = "3 months", 
-                   date_labels = "%b") +
-  facet_wrap(station~.)
+  ) +
+  scale_y_continuous(limits = c(-30, 30)) +
+  scale_x_date(
+    date_breaks = "3 months",
+    date_labels = "%b"
+  ) +
+  facet_wrap(station ~ .)
 ```
 
 Auch `facet_wrap` kann man auf seine Bedürfnisse anpassen: Beispielweise kann man mit `ncol = ` die Anzahl facets pro Zeile bestimmen. 
@@ -201,19 +206,21 @@ Auch `facet_wrap` kann man auf seine Bedürfnisse anpassen: Beispielweise kann m
 Zudem brauchen wir die Legende nicht mehr, da der Stationsnamen über jedem Facet steht. Ich setze deshalb `theme(legend.position="none")` 
 
 ```{r}
-ggplot(temperature_day, aes(time,temp, colour = station)) +
+ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002"
-    ) +  
-  scale_y_continuous(limits = c(-30,30)) +
-  scale_x_date(date_breaks = "3 months", 
-                   date_labels = "%b") +
-  facet_wrap(~station,ncol = 1) +
-  theme(legend.position="none")
+  ) +
+  scale_y_continuous(limits = c(-30, 30)) +
+  scale_x_date(
+    date_breaks = "3 months",
+    date_labels = "%b"
+  ) +
+  facet_wrap(~station, ncol = 1) +
+  theme(legend.position = "none")
 ```
 
 ## In Variabel abspeichern und Exportieren
@@ -221,41 +228,45 @@ ggplot(temperature_day, aes(time,temp, colour = station)) +
 Genau wie `data.frames` und andere Objekte, kann man einen ganzen Plot auch in einer Variabel speichern. Dies kann nützlich sein um einen Plot zu exportieren (als png, jpg usw.) oder sukzessive erweitern wie in diesem Beispiel.
 
 ```{r}
-p <- ggplot(temperature_day, aes(time,temp, colour = station)) +
+p <- ggplot(temperature_day, aes(time, temp, colour = station)) +
   geom_line() +
   labs(
     x = "Zeit",
-    y = "Temperatur in Grad C°", 
+    y = "Temperatur in Grad C°",
     title = "Temperaturdaten Schweiz",
     subtitle = "2001 bis 2002"
-    ) +
-  scale_y_continuous(limits = c(-30,30)) +
-  scale_x_date(date_breaks = "3 months", 
-                   date_labels = "%b") +
-  facet_wrap(~station,ncol = 1)
-  # ich habe an dieser Stelle theme(legend.position="none") entfernt
+  ) +
+  scale_y_continuous(limits = c(-30, 30)) +
+  scale_x_date(
+    date_breaks = "3 months",
+    date_labels = "%b"
+  ) +
+  facet_wrap(~station, ncol = 1)
+# ich habe an dieser Stelle theme(legend.position="none") entfernt
 ```
 
 Folgendermassen kann ich den Plot als png-File abspeichern (ohne Angabe von "plot = " wird einfach der letzte Plot gespeichert)
 
 ```{r}
 #| eval: false
-ggsave(filename = "plot.png",plot = p)
+
+ggsave(filename = "plot.png", plot = p)
 ```
 
 .. und so kann ich einen bestehenden Plot (in einer Variabel) mit einem Layer / einer Option erweitern
 
 ```{r}
 #| eval: false
+
 p +
-  theme(legend.position="none")
+  theme(legend.position = "none")
 ```
 
 Wie üblich wurde diese Änderung nicht gespeichert, sondern nur das Resultat davon ausgeben. Wenn die Änderung in meinem Plot (in der Variabel) abspeichern will, muss ich die Variabel überschreiben:
 
 ```{r}
 p <- p +
-  theme(legend.position="none")
+  theme(legend.position = "none")
 ```
 
 ## Smoothing
@@ -265,6 +276,5 @@ Mit `geom_smooth()` kann `ggplot` eine Trendlinie auf der Baiss von Punktdaten b
 ```{r}
 p <- p +
   geom_smooth(colour = "black")
-
 p
 ```

@@ -1,5 +1,5 @@
 ---
-date: 2022-11-14
+date: 2023-11-13
 lesson: Stat5
 thema: Von linearen Modellen zu GLMMs
 index: 3
@@ -54,7 +54,7 @@ format:
  
 ### Kommentierter Lösungsweg
 ```{r}
-splityield <- read.delim("datasets/statistik/splityield.csv", sep = ",", stringsAsFactors = T)
+splityield <- read.delim("datasets/stat5-8/splityield.csv", sep = ",", stringsAsFactors = T)
 ```
 ```{r}
 # Checken der eingelesenen Daten
@@ -92,8 +92,8 @@ grossen Mittelwerten aufgetreten wären, hätten wir eine log- oder Wurzeltransf
 yield in Betracht ziehen müssen).
 
 ```{r}
-boxplot(log10(yield)~irrigation * density * fertilizer, data = splityield)# bringt keine Verbesserung
-aov.1 <- aov(yield~irrigation * density * fertilizer + Error(block/irrigation/density), data = splityield)
+boxplot(log10(yield) ~ irrigation * density * fertilizer, data = splityield) # bringt keine Verbesserung
+aov.1 <- aov(yield ~ irrigation * density * fertilizer + Error(block / irrigation / density), data = splityield)
 ```
 
 Das schwierigste an der Analyse ist hier die Definition des Splitt-Plot ANOVA-Modells. Hier
@@ -120,12 +120,12 @@ irrigation:density und irrigation:fertilizer.
 
 ```{r}
 # Modelvereinfachung
-aov.2 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density + 
-               irrigation:fertilizer + density:fertilizer + Error(block/irrigation/density), data = splityield)
+aov.2 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density +
+  irrigation:fertilizer + density:fertilizer + Error(block / irrigation / density), data = splityield)
 summary(aov.2)
 
-aov.3 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density + 
-               irrigation:fertilizer+ Error(block/irrigation/density), data = splityield)
+aov.3 <- aov(yield ~ irrigation + density + fertilizer + irrigation:density +
+  irrigation:fertilizer + Error(block / irrigation / density), data = splityield)
 summary(aov.3)
 ```
 
@@ -134,11 +134,13 @@ Interaktionen aussehen. Bei multiplen ANOVAs macht man das am besten visuell:
 
 ```{r}
 # Visualisierung der Ergebnisse
-boxplot(yield~fertilizer, data = splityield)
-boxplot(yield~irrigation, data = splityield)
+boxplot(yield ~ fertilizer, data = splityield)
+boxplot(yield ~ irrigation, data = splityield)
 
-interaction.plot(splityield$fertilizer, splityield$irrigation, splityield$yield, 
-                 xlab= "fertilizer", ylab = "mean of splityield", trace.label = "irrigation")
-interaction.plot(splityield$density, splityield$irrigation, splityield$yield, 
-                 xlab= "fertilizer", ylab = "mean of splityield", trace.label = "irrigation")
+interaction.plot(splityield$fertilizer, splityield$irrigation, splityield$yield,
+  xlab = "fertilizer", ylab = "mean of splityield", trace.label = "irrigation"
+)
+interaction.plot(splityield$density, splityield$irrigation, splityield$yield,
+  xlab = "fertilizer", ylab = "mean of splityield", trace.label = "irrigation"
+)
 ```

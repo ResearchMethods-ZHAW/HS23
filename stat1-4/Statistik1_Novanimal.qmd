@@ -1,5 +1,5 @@
 ---
-date: 2022-10-31
+date: 2023-10-30
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 2

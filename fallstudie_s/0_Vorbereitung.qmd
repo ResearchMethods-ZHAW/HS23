@@ -11,20 +11,26 @@ knitr:
 
 ## Vorbereitung {#sec-rauman-vorbereitung}
 
+
 Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
 
 ```{r}
 #| eval: false
 
-ipak <- function(pkg){
+ipak <- function(pkg) {
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
 }
 
-packages <- c("readr", "ggplot2", "lubridate", "ggpubr", "PerformanceAnalytics", 
-"MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "blmeco", "sjPlot", "lattice", 
-"dplyr", "suncalc")
+packages <- c(
+  "readr", "ggplot2", "lubridate", "ggpubr", "PerformanceAnalytics",
+  "MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "blmeco", "sjPlot", "lattice",
+  "dplyr", "suncalc"
+)
 
 ipak(packages)
-
 ```
+
+Zudem könnt ihr alle für die Fallstudie Profil S benötigten Daten unter folgendem  [Link](https://moodle.zhaw.ch/mod/folder/view.php?id=956254) herunterladen.

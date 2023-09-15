@@ -1,5 +1,5 @@
 ---
-date: 2022-11-21
+date: 2023-11-20
 lesson: Stat7
 thema: Ordinationen II
 index: 2

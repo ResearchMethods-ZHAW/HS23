@@ -1,7 +1,7 @@
 {
-  "hash": "c362d05d304c7c20c77b759226dad925",
+  "hash": "998902e3243f51712205d60d1161cf88",
   "result": {
-    "markdown": "---\ndate: 2022-10-11\nlesson: InfoVis1\nthema: Vorbereitung\nindex: 0\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n\n## Vorbereitung {#sec-infovis-vorbereitung}\n\nIm Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\n\nipak <- function(pkg){\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}\n}\n\npackages <- c(\"dplyr\", \"ggplot\", \"lubridate\", \"readr\", \"scales\", \"tidyr\")\n\nipak(packages)\n```\n:::",
+    "markdown": "---\ndate: 2023-10-23\nlesson: InfoVis1\nthema: Vorbereitung\nindex: 0\nknitr:\n  opts_chunk: \n    collapse: true\n---\n\n\n## Vorbereitung {#sec-infovis-vorbereitung}\n\nIm Rahmen von InfoVis 1 - 2 werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog @sec-prepro-vorbereitung könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.\n\n\n::: {.cell}\n\n```{.r .cell-code}\nipak <- function(pkg) {\n  new.pkg <- pkg[!(pkg %in% installed.packages()[, \"Package\"])]\n  if (length(new.pkg)) {\n    install.packages(new.pkg, dependencies = TRUE)\n  }\n}\n\npackages <- c(\"dplyr\", \"ggplot\", \"lubridate\", \"readr\", \"scales\", \"tidyr\")\n\nipak(packages)\n```\n:::\n\n\nZudem könnt ihr die Daten für die Übungen auf [Moodle](https://moodle.zhaw.ch/mod/resource/view.php?id=976901) herunterladen.",
     "supporting": [],
     "filters": [
       "rmarkdown/pagebreak.lua"

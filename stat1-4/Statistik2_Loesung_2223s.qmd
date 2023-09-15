@@ -1,5 +1,5 @@
 ---
-date: 2022-11-01
+date: 2023-10-31
 lesson: Stat2
 thema: Einführung in lineare Modelle
 index: 5
@@ -20,25 +20,25 @@ format:
 #| echo: false
 #| results: hide
 
-#lade Packages
-library(ggplot2)
-library(readr)
+# lade Packages
+library("ggplot2")
+library("readr")
 
 ## definiert mytheme für ggplot2 (verwendet dabei theme_classic())
-mytheme <- 
-  theme_classic() + 
+mytheme <-
+  theme_classic() +
   theme(
-    axis.line = element_line(color = "black"), 
-    axis.text = element_text(size = 12, color = "black"), 
-    axis.title = element_text(size = 12, color = "black"), 
-    axis.ticks = element_line(size = .75, color = "black"), 
+    axis.line = element_line(color = "black"),
+    axis.text = element_text(size = 12, color = "black"),
+    axis.title = element_text(size = 12, color = "black"),
+    axis.ticks = element_line(size = .75, color = "black"),
     axis.ticks.length = unit(.5, "cm")
-    )
+  )
 ```
 
 ```{r}
 #lade die Daten
-df <- readr::read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv")
+df <- readr::read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.1.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
@@ -78,17 +78,17 @@ plot(model)
 
 ```{r}
 # überprüft die Voraussetzungen des Welch-Tests:
-# Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der 
+# Gibt es eine hohe Varianzheterogenität und ist die relative Verteilung der
 # Residuen gegeben? (siehe Statistik 2)
-# Ja Varianzheterogenität ist gegeben, aber die Verteilung der Residuen folgt 
+# Ja Varianzheterogenität ist gegeben, aber die Verteilung der Residuen folgt
 # einem "Trichter", also keiner "normalen/symmetrischen" Verteilung um 0
 # Daher ziehe ich eine Transformation der AV einem nicht-parametrischen Test vor
-# für weitere Infos: 
+# für weitere Infos:
 # https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/
 
 # achtung hier log10, bei Rücktransformation achten
-model_log <- aov(log10(tot_sold) ~ label_content, data = df) 
-par(mfrow = c(2,2))
+model_log <- aov(log10(tot_sold) ~ label_content, data = df)
+par(mfrow = c(2, 2))
 plot(model_log) # scheint ok zu sein
 
 summary.lm(model_log) # Referenzkategorie ist Fleisch
@@ -127,36 +127,44 @@ Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wö
 #|   Das Modell wurde mit den log-tranformierten Daten gerechnet.
 #| tidy: true
 
-# plottet die originalen Beobachtungen, die nicht tranformierten Daten werden 
+# plottet die originalen Beobachtungen, die nicht tranformierten Daten werden
 # hier aufgezeigt
 # Wichtig: einen Verweis auf die Log-Transformation benötigt es jedoch
 
-# aufbereitung für die Infos der Signifikanzen 
+# aufbereitung für die Infos der Signifikanzen
 # => Alternative Lösungen findet ihr in der Musterlösung 2.3S
 
 # Multiplikation nur aus dem Grund, weil ich vorher einen anderen Datensatz hatte
-df1 <- data.frame(a = c(1, 1:3,3), b = c(150, 151, 151, 151, 150)*15) 
-df2 <- data.frame(a = c(1, 1,2, 2), b = c(130, 131, 131, 130)*15)
-df3 <- data.frame(a = c(2, 2, 3, 3), b = c(140, 141, 141, 140)*15)
+df1 <- data.frame(a = c(1, 1:3, 3), b = c(150, 151, 151, 151, 150) * 15)
+df2 <- data.frame(a = c(1, 1, 2, 2), b = c(130, 131, 131, 130) * 15)
+df3 <- data.frame(a = c(2, 2, 3, 3), b = c(140, 141, 141, 140) * 15)
 
-
-ggplot(df, aes(x = label_content, y= tot_sold)) +
-   stat_boxplot(geom = "errorbar", width = .25) +
-   geom_boxplot(fill="white", color = "black", size = 1, width = .5) + 
+ggplot(df, aes(x = label_content, y = tot_sold)) +
+  stat_boxplot(geom = "errorbar", width = .25) +
+  geom_boxplot(fill = "white", color = "black", size = 1, width = .5) +
   # aus der Information aus dem Tukey Test von oben: Buffet-Vegetarisch
-   geom_line(data = df1, aes(x = a, y = b)) + annotate("text", x = 2, y = 2320, 
-                                                       label = "***", size = 8) + 
+  geom_line(data = df1, aes(x = a, y = b)) +
+  annotate("text",
+    x = 2, y = 2320,
+    label = "***", size = 8
+  ) +
   # Buffet - Fleisch
-   geom_line(data = df2, aes(x = a, y = b)) + annotate("text", x = 1.5, y = 2020, 
-                                                       label = "***", size = 8) +
+  geom_line(data = df2, aes(x = a, y = b)) +
+  annotate("text",
+    x = 1.5, y = 2020,
+    label = "***", size = 8
+  ) +
   # Fleisch - Vegetarisch
-   geom_line(data = df3, aes(x = a, y = b)) + annotate("text", x = 2.5, y = 2150, 
-                                                       label = "***", size = 8)+ 
-   expand_limits(y = 0) + # bezieht das 0 bei der y-Achse mit ein
-   labs(x = "\nMenüinhalt", y = "Anzahl verkaufte Gerichte\n pro Woche\n") +
-   mytheme 
+  geom_line(data = df3, aes(x = a, y = b)) +
+  annotate("text",
+    x = 2.5, y = 2150,
+    label = "***", size = 8
+  ) +
+  expand_limits(y = 0) + # bezieht das 0 bei der y-Achse mit ein
+  labs(x = "\nMenüinhalt", y = "Anzahl verkaufte Gerichte\n pro Woche\n") +
+  mytheme
 
-# hier ein paar interessante Links zu anderen R-Packages, die es 
+# hier ein paar interessante Links zu anderen R-Packages, die es
 # ermöglichen signifikante Ergebniss in den Plot zu integrieren
 # https://www.r-bloggers.com/add-p-values-and-significance-levels-to-ggplots/
 # https://cran.r-project.org/web/packages/ggsignif/vignettes/intro.html
@@ -171,31 +179,38 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
 ```{r}
 #| echo: false
 
-#lade Daten
-df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.3.csv")
+# lade Daten
+df <- read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.3.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an
-# Sind Mittelwerte nahe bei Null? Gäbe uns einen weiteren Hinweis auf 
+# Sind Mittelwerte nahe bei Null? Gäbe uns einen weiteren Hinweis auf
 # eine spezielle Binomial-Verteilung (vgl. Statistik 4)
-aggregate(tot_sold ~ article_description, data = df, FUN = function(x) c(mn = mean(x), n = sd(x) ))
+aggregate(tot_sold ~ article_description, data = df, FUN = function(x) c(mn = mean(x), n = sd(x)))
 
-
-# visualisiere dir dein Model, was siehst du? 
+# visualisiere dir dein Model, was siehst du?
 # sind möglicherweise gewiesse Voraussetzungen verletzt?
 # Boxplot
-ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) + 
-   # Achtung: Reihenfolge spielt hier eine Rolle!
+ggplot(df, aes(x = interaction(article_description, member), y = tot_sold)) +
+  # Achtung: Reihenfolge spielt hier eine Rolle!
   stat_boxplot(geom = "errorbar", width = 0.25) +
-  geom_boxplot(fill="white", color = "black", size = 1, width = .5) +
-  labs(x = "\nMenülinie nach Hochschulzugehörigkeit", y = "Anzahl verkaufte Gerichte\n") + 
+  geom_boxplot(fill = "white", color = "black", size = 1, width = .5) +
+  labs(x = "\nMenülinie nach Hochschulzugehörigkeit", y = "Anzahl verkaufte Gerichte\n") +
   # ändere Gruppennamen händisch
-  scale_x_discrete(limits = c("Fav_World.Mitarbeitende", "Kitchen.Mitarbeitende",
-                              "Fav_World.Studierende", "Kitchen.Studierende"),
-                   breaks = c("Fav_World.Mitarbeitende", "Fav_World.Studierende",
-                              "Kitchen.Mitarbeitende",  "Kitchen.Studierende"),
-                   labels = c("Fav_World\nMitarbeitende", "Fav_World\nStudierende",
-                              "Kitchen\nMitarbeitende",  "Kitchen\nStudierende")) +
+  scale_x_discrete(
+    limits = c(
+      "Fav_World.Mitarbeitende", "Kitchen.Mitarbeitende",
+      "Fav_World.Studierende", "Kitchen.Studierende"
+    ),
+    breaks = c(
+      "Fav_World.Mitarbeitende", "Fav_World.Studierende",
+      "Kitchen.Mitarbeitende", "Kitchen.Studierende"
+    ),
+    labels = c(
+      "Fav_World\nMitarbeitende", "Fav_World\nStudierende",
+      "Kitchen\nMitarbeitende", "Kitchen\nStudierende"
+    )
+  ) +
   mytheme # wie sind die Voraussetzungen erfüllt?
 ```
 
@@ -207,7 +222,7 @@ model <- aov(tot_sold ~ article_description * member, data = df)
 summary.lm(model)
 
 # überprüft die Modelvoraussetzungen (Statistik 2)
-par(mfrow = c(2,2)) # alternativ gäbe es die ggfortify::autoplot(model) funktion
+par(mfrow = c(2, 2)) # alternativ gäbe es die ggfortify::autoplot(model) funktion
 plot(model)
 ```
 
@@ -215,28 +230,28 @@ plot(model)
 
 ```{r }
 # sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind
-# mögliche alternativen: 
+# mögliche alternativen:
 # 0. keine Tranformation der AV (machen wir hier)
-# 1. log-transformation um die grossen werte zu minimieren (nur möglich, wenn 
+# 1. log-transformation um die grossen werte zu minimieren (nur möglich, wenn
 # keine 0 enthalten sind und die Mittelwerte weit von 0 entfernt sind (bei uns wäre dieser Fall erfüllt)
 # => bei Zähldaten ist dies leider nicht immer gegeben)
-# 2. nicht parametrische Test z.B. Welch-Test, wenn hohe Varianzheterogenität 
+# 2. nicht parametrische Test z.B. Welch-Test, wenn hohe Varianzheterogenität
 # zwischen den Residuen
 
-#0) keine Tranformation
+# 0) keine Tranformation
 # post-hov Vergleiche
 TukeyHSD(model)
 
-#1) Alterativ: log-transformation
+# 1) Alterativ: log-transformation
 model_log <- aov(log10(tot_sold) ~ article_description * member, data = df)
 
-summary.lm(model_log) # interaktion ist nun nicht mehr signifikant: vgl. 
+summary.lm(model_log) # interaktion ist nun nicht mehr signifikant: vgl.
 # nochmals euren Boxplot zu beginn, machen diese Koeffizienten sinn?
 
 # überprüft die Modelvoraussetzungen (vgl. Skript Statistik 2)
-# bringt aber keine wesentliche Verbesserung, daher bleibe ich bei den 
+# bringt aber keine wesentliche Verbesserung, daher bleibe ich bei den
 # untranfromierten Daten
-par(mfrow = c(2,2))
+par(mfrow = c(2, 2))
 plot(model_log)
 
 # post-hov Vergleiche
@@ -263,30 +278,40 @@ Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochsc
 #| label: fig-plots-sol3-final
 #| fig.cap: Box-Whisker-Plots der wöchentlichen Verkaufszahlen pro Menü-Inhalte. Kleinbuchstaben
 #|   bezeichnen homogene Gruppen auf *p* < .05 nach Tukeys post-hoc-Test.
-# zeigt die Ergebnisse anhand eines Boxplots
-library(multcomp)
 
-# bei Interaktionen gibt es diesen Trick, um bei den multiplen Vergleiche, 
+# zeigt die Ergebnisse anhand eines Boxplots
+library("multcomp")
+
+# bei Interaktionen gibt es diesen Trick, um bei den multiplen Vergleiche,
 # die richtigen Buchstaben zu bekommen
 df$cond_label <- interaction(df$article_description, df$member) #
 model1 <- aov(tot_sold ~ cond_label, data = df)
-letters <-cld(glht(model1, linfct=mcp(cond_label="Tukey")))
+letters <- cld(glht(model1, linfct = mcp(cond_label = "Tukey")))
 
-ggplot(df, aes(x = interaction(article_description, member), y= tot_sold)) + 
-  stat_boxplot(geom = "errorbar", width = 0.25) + 
-  geom_boxplot(fill="white", color = "black", size = .75, width = .5) +
-  labs(x = "\nMenülinie nach Hochschulzugehörigkeit", y = "Anzahl verkaufte Gerichte\n") + 
-  scale_x_discrete(limits = c("Fav_World.Mitarbeitende", "Kitchen.Mitarbeitende",
-                              "Fav_World.Studierende", "Kitchen.Studierende"),
-                   breaks = c("Fav_World.Mitarbeitende", "Fav_World.Studierende",
-                              "Kitchen.Mitarbeitende",  "Kitchen.Studierende"),
-                   labels = c("Fav_World\nMitarbeitende", "Fav_World\nStudierende",
-                              "Kitchen\nMitarbeitende",  "Kitchen\nStudierende")) +
+ggplot(df, aes(x = interaction(article_description, member), y = tot_sold)) +
+  stat_boxplot(geom = "errorbar", width = 0.25) +
+  geom_boxplot(fill = "white", color = "black", size = .75, width = .5) +
+  labs(x = "\nMenülinie nach Hochschulzugehörigkeit", y = "Anzahl verkaufte Gerichte\n") +
+  scale_x_discrete(
+    limits = c(
+      "Fav_World.Mitarbeitende", "Kitchen.Mitarbeitende",
+      "Fav_World.Studierende", "Kitchen.Studierende"
+    ),
+    breaks = c(
+      "Fav_World.Mitarbeitende", "Fav_World.Studierende",
+      "Kitchen.Mitarbeitende", "Kitchen.Studierende"
+    ),
+    labels = c(
+      "Fav_World\nMitarbeitende", "Fav_World\nStudierende",
+      "Kitchen\nMitarbeitende", "Kitchen\nStudierende"
+    )
+  ) +
   annotate("text", x = 1:4, y = 1000, label = letters$mcletters$Letters, size = 6) +
-  mytheme 
+  mytheme
 
 ggsave("stat1-4/distill-preview.png",
-       height = 12,
-       width = 20,
-       device = png)   
+  height = 12,
+  width = 20,
+  device = png
+)
 ``` 

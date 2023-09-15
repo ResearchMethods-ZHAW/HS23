@@ -1,5 +1,5 @@
 ---
-date: 2022-10-11
+date: 2023-10-10
 lesson: PrePro1
 thema: Vorbereitung
 index: 0
@@ -8,7 +8,6 @@ knitr:
     collapse: true
 ---
 
-
 ## Vorbereitung {#sec-prepro-vorbereitung}
 
 Im Rahmen von Prepro 1 - 3 werden wir folgende Packages brauchen: `dplyr`, `ggplot2`, `lubridate`, `readr` und `tidyr`. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Einzelne Packages werden typischerweise folgendermassen installiert: 
@@ -16,10 +15,9 @@ Im Rahmen von Prepro 1 - 3 werden wir folgende Packages brauchen: `dplyr`, `ggpl
 ```{r}
 #| eval: false
 
-install.packages("dplyr")    # Anführungs- und Schlusszeichen sind zwingend
+install.packages("dplyr")     # Anführungs- und Schlusszeichen sind zwingend
 install.packages("ggplot2")
-...                          # usw.
-
+...                           # usw.
 ```
 
 Mit nachstehendem Code werden alle noch nicht installierten packages automatisch installiert.
@@ -27,13 +25,16 @@ Mit nachstehendem Code werden alle noch nicht installierten packages automatisch
 ```{r}
 #| eval: false
 
-ipak <- function(pkg){
+ipak <- function(pkg) {
   new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
-  if(length(new.pkg)){install.packages(new.pkg, dependencies = TRUE)}
+  if (length(new.pkg)) {
+    install.packages(new.pkg, dependencies = TRUE)
+  }
 }
 
 packages <- c("dplyr", "ggplot", "lubridate", "readr", "tidyr")
 
 ipak(packages)
-
 ```
+
+Zudem könnt ihr die Daten für die Übungen auf [Moodle](https://moodle.zhaw.ch/mod/resource/view.php?id=976899) herunterladen.

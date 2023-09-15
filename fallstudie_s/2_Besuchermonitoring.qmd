@@ -13,12 +13,12 @@ knitr:
     collapse: true
 ---
 
-# BiEcS2 - Monitoring
+# Monitoring
+
 
 ## Einführung und Installation
 
 Es gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Automatische Zählgeräte bieten die Möglichkeit lange und durchgehende Zeitreihen zu erfassen. Inputs dazu, wie diese ausgewertet werden können, erhält ihr in dieser Aufgabe.
-
 
 ![](images/gruental.jpg){width=50%}
 
@@ -82,7 +82,7 @@ depo$DatumUhrzeit <- as.POSIXct(depo$DatumUhrzeit, format = "%d.%m.%Y %H:%M")
 ```{r}
 ### Kennzahlen
 
-#zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:
+# zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:
 str(depo)
 
 # hat es im Datensatz noch fehlende Werte?
@@ -100,15 +100,17 @@ sum(depo$Total)
 
 ```{r}
 # Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R
-plot(x = depo$DatumUhrzeit, y = depo$Total,
-     pch = 21,  # Form
-     cex = 1.5, # Grösse
-     bg="blue") # Füllung
+plot(
+  x = depo$DatumUhrzeit, y = depo$Total,
+  pch = 21, # Form
+  cex = 1.5, # Grösse
+  bg = "blue"
+) # Füllung
 ```
 
 ```{r}
 # Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)
 slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))
-lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT") 
+lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT")
 pie(slieces, labels = lbls)
 ```

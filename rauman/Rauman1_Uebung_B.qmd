@@ -1,11 +1,11 @@
 ---
-date: 2022-11-28
+date: 2023-11-27
 lesson: RaumAn1
 thema: Spatial Joins
 index: 2
 execute: 
-  echo: true   # set to true to show musterlösung
-  output: true # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
+  output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -15,7 +15,7 @@ knitr:
 
 # Rauman 1: Übung B {#sec-rauman1b}
 
-Für die kommende Übung arbeiten wir mit nachstehendem Datensatz: [gruental.gpkg](https://moodle.zhaw.ch/mod/resource/view.php?id=602277). Lade diesen Herunter und importiere ihn in R. Zudem brauchen wir die folgenden libraries:
+Für die kommende Übung arbeiten wir mit dem Datensatz *gruental.gpkg*. Importiere ihn in R. Zudem brauchen wir die folgenden libraries:
 
 ```{r}
 #| echo: true
@@ -35,7 +35,7 @@ read_sf("datasets/rauman/gruental.gpkg")
 
 ### Aufgabe 1: Geopackage "Layers"
 
-Allenfalls ist euch beim Importieren des Geopackage *gruental.gpkg *folgende Warnmeldung aufgefallen:
+Allenfalls ist euch beim Importieren des Geopackage *gruental.gpkg* folgende Warnmeldung aufgefallen:
 
 ```
 Warning message:
@@ -46,7 +46,6 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
 ```{r}
-#| echo: true
 st_layers("datasets/rauman/gruental.gpkg")
 
 wiesen <- read_sf("datasets/rauman/gruental.gpkg", "wiesen")
@@ -58,6 +57,7 @@ baeume <- read_sf("datasets/rauman/gruental.gpkg", "baeume")
 Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von `ggplot` (insbesondere `geom_sf`). Du kannst mehrere `geom_sf()` übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.
 
 ```{r}
+#| output: true
 #| label: fig-ggplot-ex2
 #| layout-ncol: 2
 #| column: page
@@ -83,7 +83,7 @@ Wir wollen nun für jeden *Baum* wissen, ob er sich in einer Wiese befindet oder
 Beachte, dass der Output eine neue Spalte `flaechen_typ` aufweist. Diese ist leer (`NA`) wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?
 
 ```{r}
-baeume_join <- st_join(baeume, wiesen) 
+baeume_join <- st_join(baeume, wiesen)
 
 anzahl_in_wiese <- sum(!is.na(baeume_join$flaechen_typ))
 anzahl_nicht_in_wiese <- sum(is.na(baeume_join$flaechen_typ))

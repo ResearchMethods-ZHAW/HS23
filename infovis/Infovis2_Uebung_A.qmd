@@ -1,10 +1,10 @@
 ---
-date: 2022-10-25
+date: 2023-10-24
 lesson: InfoVis2
 thema: Vertiefung ggplot
-index: 2
+index: 1
 execute: 
-  echo: true   # set to true to show musterlösung
+  echo: false   # set to true to show musterlösung
   output: false
 code-fold: true
 code-summary: "Musterlösung"
@@ -15,7 +15,7 @@ knitr:
 
 # Infovis 2: Übung A
 
-Für die heutige Übung brauchst du den Datensatz [temperature_2005.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602268). Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
+Für die heutige Übung brauchst du den Datensatz *temperature_2005.csv*. Dabei handelt es sich wieder um Teperaturwerte verschiedener Stationen, diesmal aus dem Jahr 2005. Das Datum ist so formatiert, dass `R` (isbesondere `read_csv`) es korrekt als `datetime` erkennen und als `POSIXct` einlesen sollte.
 
 ```{r}
 #| echo: true
@@ -45,7 +45,7 @@ temperature_long <- pivot_longer(temperature, -time, names_to = "station", value
 knitr::kable(head(temperature_long))
 ```
 
-Lade anschliessend [temperature_2005_metadata.csv](https://moodle.zhaw.ch/mod/resource/view.php?id=602269) herunter und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
+Importiere anschliessend den Datensatz *temperature_2005_metadata.csv* und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
 metadata <- read_csv("datasets/infovis/temperature_2005_metadata.csv")
@@ -61,11 +61,10 @@ Erstelle ein Scatterplot (`time` vs. `temperature`) wobei die Punkte aufgrund ih
 #| output: true
 
 # Musterlösung
-
-ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
+ggplot(temperature_long, aes(time, temperature, color = Meereshoehe)) +
   geom_point(size = 0.5) +
   labs(x = "", y = "Temperatur in ° Celsius") +
-  scale_x_datetime(date_breaks = "3 months", date_labels = "%b")  +
+  scale_x_datetime(date_breaks = "3 months", date_labels = "%b") +
   scale_color_gradient(low = "blue", high = "red")
 ```
 
@@ -89,12 +88,11 @@ Wiederhole nun den Plot aus der ersten Aufgabe mit den aggregierten Daten aus de
 ```{r}
 #| output: true
 
-p <- ggplot(temperature_long, aes(time,temperature, color = Meereshoehe)) +
+p <- ggplot(temperature_long, aes(time, temperature, color = Meereshoehe)) +
   geom_point(size = 0.5) +
   labs(x = "", y = "Temperatur in ° Celsius") +
-  scale_x_date(date_breaks = "3 months", date_labels = "%b")  +
+  scale_x_date(date_breaks = "3 months", date_labels = "%b") +
   scale_color_gradient(low = "blue", high = "red")
-
 p
 ```
 
@@ -106,10 +104,8 @@ Füge am obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.
 #| output: true
 
 # Musterlösung
-
 p <- p +
-  stat_smooth(colour = "black",lty = 2)
-
+  stat_smooth(colour = "black", lty = 2)
 p
 ```
 
@@ -121,10 +117,8 @@ Positioniere die Legende oberhalb des Plots (nutze dazu `theme()` mit `legend.po
 #| output: true
 
 # Musterlösung
-
-p <- p + 
+p <- p +
   theme(legend.position = "top")
-
 p
 ```
 
@@ -136,11 +130,9 @@ Füge den Temperaturwerten auf der y-Ache ein `°C` hinzu (siehe unten und studi
 #| output: true
 
 # Musterlösung
-
 p <- p +
-  scale_y_continuous(labels = function(x)paste0(x,"°C")) +
+  scale_y_continuous(labels = function(x) paste0(x, "°C")) +
   labs(x = "Kalenderwoche", y = "Temperatur")
-
 p
 ```
 
@@ -158,10 +150,9 @@ Jetzt verlassen wir den Scatterplot und machen einen Boxplot mit den Temperaturd
 #| output: true
 
 # Musterlösung
+temperature_long <- mutate(temperature_long, monat = month(time, label = T, abbr = F))
 
-temperature_long <- mutate(temperature_long, monat = month(time,label = T,abbr = F))
-
-ggplot(temperature_long, aes(monat,temperature, fill = Meereshoehe)) +
+ggplot(temperature_long, aes(monat, temperature, fill = Meereshoehe)) +
   geom_boxplot() +
   labs(x = "Station", y = "Temperatur") +
   facet_wrap(~station) +
@@ -178,13 +169,12 @@ Tip: Nutze `cut` um die Stationen in die drei Gruppen aufzuteilen
 #| output: true
 
 # Musterlösung
-
 temperature_long <- temperature_long |>
-  mutate(lage = cut(Meereshoehe, c(0, 400, 600,1000),labels = c("Tieflage", "Mittellage", "Hochlage")))
+  mutate(lage = cut(Meereshoehe, c(0, 400, 600, 1000), labels = c("Tieflage", "Mittellage", "Hochlage")))
 
 ggplot(temperature_long, aes(temperature)) +
   geom_histogram() +
   facet_grid(~lage) +
   labs(x = "Lage", y = "Temperatur") +
-  theme(axis.text.x = element_text(angle = 45,hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```

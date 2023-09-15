@@ -1,5 +1,5 @@
 ---
-date: 2022-10-31
+date: 2023-10-30
 lesson: Stat1
 thema: Grundlagen der Statistik
 index: 1
@@ -18,7 +18,7 @@ Download dieses Demoscript via "\</\>Code" (oben rechts)
 ```{r}
 a <- c(20, 19, 25, 10, 8, 15, 13, 18, 11, 14)
 b <- c(12, 15, 16, 7, 8, 10, 12, 11, 13, 10)
-blume <- data.frame(a,b)
+blume <- data.frame(a, b)
 blume
 summary(blume)
 boxplot(blume$a, blume$b)
@@ -44,7 +44,7 @@ t.test(blume$a, blume$b, alternative = "less") # Einseitig "Test auf a < b"
 
 ```{r}
 # Varianzen gleich: klassischer t-Test
-t.test(blume$a, blume$b, var.equal = TRUE) 
+t.test(blume$a, blume$b, var.equal = TRUE)
 
 # Varianzen ungleich: Welch's t-Test (siehe Titelzeile des R-Outputs!)
 t.test(blume$a, blume$b) # dasselbe wie var.equal = FALSE
@@ -62,7 +62,7 @@ t.test(blume$a, blume$b, paired = TRUE, alternative = "greater")
 Dasselbe mit einer "long table"
 
 ```{r}
-# "Long table" erstellen 
+# "Long table" erstellen
 cultivar <- c(rep("a", 10), rep("b", 10))
 size <- c(a, b)
 blume.long <- data.frame(cultivar, size)
@@ -72,61 +72,76 @@ rm(size)
 rm(cultivar)
 
 # Daten anschauen
-summary(blume.long)             
+summary(blume.long)
 head(blume.long)
-boxplot(size~cultivar, data = blume.long)
+boxplot(size ~ cultivar, data = blume.long)
 
 # Tests durchführen
-t.test(size~cultivar, blume.long, var.equal = TRUE)
-t.test(size~cultivar, blume.long, paired = TRUE)
+t.test(size ~ cultivar, blume.long, var.equal = TRUE)
+t.test(size ~ cultivar, blume.long, paired = TRUE)
 ```
 
 ## Base R vs. ggplot2
 
 ```{r}
-library(ggplot2)
-ggplot(blume.long, aes(cultivar, size)) + geom_boxplot()
-ggplot(blume.long, aes(cultivar, size)) + geom_boxplot() + theme_classic()
-ggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size = 1) + theme_classic()+
-theme(axis.line = element_line(size = 1)) + theme(axis.title = element_text(size = 14))+
-theme(axis.text = element_text(size = 14))
-ggplot(blume.long, aes(cultivar, size)) + geom_boxplot(size=1) + theme_classic()+
-  theme(axis.line = element_line(size = 1), axis.ticks = element_line(size = 1), 
-       axis.text = element_text(size = 20), axis.title = element_text(size = 20))
+library("ggplot2")
+
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot()
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot() +
+  theme_classic()
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot(size = 1) +
+  theme_classic() +
+  theme(axis.line = element_line(size = 1)) +
+  theme(axis.title = element_text(size = 14)) +
+  theme(axis.text = element_text(size = 14))
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot(size = 1) +
+  theme_classic() +
+  theme(
+    axis.line = element_line(size = 1), axis.ticks = element_line(size = 1),
+    axis.text = element_text(size = 20), axis.title = element_text(size = 20)
+  )
 ```
 
 Definieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)
 
 ```{r}
-mytheme <- theme_classic() + 
-  theme(axis.line = element_line(color = "black", size=1), 
-        axis.text = element_text(size = 20, color = "black"), 
-        axis.title = element_text(size = 20, color = "black"), 
-        axis.ticks = element_line(size = 1, color = "black"), 
-        axis.ticks.length = unit(.5, "cm"))
+mytheme <- theme_classic() +
+  theme(
+    axis.line = element_line(color = "black", size = 1),
+    axis.text = element_text(size = 20, color = "black"),
+    axis.title = element_text(size = 20, color = "black"),
+    axis.ticks = element_line(size = 1, color = "black"),
+    axis.ticks.length = unit(.5, "cm")
+  )
 ```
 
 ```{r}
 # Schöne Boxplots erstellen
 
-ggplot(blume.long, aes(cultivar, size)) + 
+ggplot(blume.long, aes(cultivar, size)) +
   geom_boxplot(size = 1) +
   mytheme
 
-t_test <- t.test(size~cultivar, blume.long)
+t_test <- t.test(size ~ cultivar, blume.long)
 
 # Mit p-Wert im Plot
-ggplot(blume.long, aes(cultivar, size)) + 
-  geom_boxplot(size = 1) + 
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot(size = 1) +
   mytheme +
-  annotate("text", x = "b", y = 24, 
-  label = paste0("italic(p) == ", round(t_test$p.value, 3)), parse = TRUE, size = 8)
+  annotate("text",
+    x = "b", y = 24,
+    label = paste0("italic(p) == ", round(t_test$p.value, 3)), parse = TRUE, size = 8
+  )
 
 # Ohne p-Wert im Plot (da dieser > 0.05)
-ggplot (blume.long, aes(cultivar,size)) + 
-  geom_boxplot(size = 1) + 
+ggplot(blume.long, aes(cultivar, size)) +
+  geom_boxplot(size = 1) +
   mytheme +
-  labs(x="Cultivar",y="Size (cm)")
+  labs(x = "Cultivar", y = "Size (cm)")
 ```
 
 ## Binomialtest
@@ -134,8 +149,8 @@ ggplot (blume.long, aes(cultivar,size)) +
 In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse
 
 ```{r}
-binom.test(84, 200) # Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019) 
-binom.test(116, 200) # Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019) 
+binom.test(84, 200) # Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019)
+binom.test(116, 200) # Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019)
 binom.test(3, 7) # Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)
 ```
 
@@ -156,7 +171,7 @@ count <- matrix(c(38, 14, 11, 51), nrow = 2)
 count # Check
 rownames(count) <- c("blond", "dunkel") # Benennen für Übersicht
 colnames(count) <- c("blau", "braun") #  Benennen für Übersicht
-count # Check 
+count # Check
 
 # Tests durchführen
 chisq.test(count)
