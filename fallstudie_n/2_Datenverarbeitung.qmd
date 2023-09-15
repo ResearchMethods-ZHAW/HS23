@@ -109,7 +109,7 @@ str(df_gesamt)
 
 - 1.1 Einfügen zusätzliche Spalte pro Datensatz mit der Gruppenzugehörigkeit (Team1-6) 
 - 1.2 Spaltenumbenennung damit die Bezeichungen in allen Datensätzen gleich sind und der Gesamtdatensatz zusammengefügt werden kann
-  - → Befehle mutate und rename, mit pipes (alt: `|>`, neu: `|>`) in einem Schritt möglich
+  - → Befehle mutate und rename, mit pipes (alt: `%>%`, neu: `|>`) in einem Schritt möglich
 
 ```{r}
 # .#################################################################################

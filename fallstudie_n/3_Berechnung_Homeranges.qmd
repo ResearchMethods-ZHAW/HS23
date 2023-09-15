@@ -4,6 +4,9 @@ execute:
   output: false # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
+knitr:
+  opts_chunk: 
+    collapse: true
 ---
 
 # BiEc3_N Homeranges
