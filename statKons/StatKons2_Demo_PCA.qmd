@@ -12,6 +12,7 @@ format:
 # StatKons2: Demo
 
 - Download dieses Demoscript via "\</\>Code" (oben rechts)
+- Datensatz *dave_sveg.csv* von @wildi2017data
 
 ```{r}
 #| echo: false
@@ -24,7 +25,9 @@ knitr::opts_chunk$set(echo = T, collapse = TRUE, message = FALSE, results = "hid
 ```{r}
 # Mit Beispieldaten aus Wildi (2013, 2017)
 library("labdsv")
-library("dave") # lade package für Daten sveg
+library("readr")
+
+sveg <- read_delim("datasets/statKons/dave_sveg.csv")
 head(sveg)
 str(sveg)
 # View(sveg)
@@ -74,7 +77,6 @@ text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 # hier gehts noch zu weiteren Beispielen zu PCA's:
 # https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
 # https://stats.stackexchange.com/questions/222/what-are-principal-component-scores
-# https://stats.stackexchange.com/questions/102882/steps-done-in-factor-analysis-compared-to-steps-done-in-pca/102999#102999
 ```
 
 ## PCA mit Beispiel aus Skript
@@ -200,10 +202,7 @@ stressplot(o.imds, mde)
 stressplot(o.mmds, mde)
 ```
 
-
-
 ## PCA mit mtcars
-
 ```{r}
 # Beispiel inspiriert von Luke Hayden: https://www.datacamp.com/community/tutorials/pca-analysis-r
 
@@ -224,14 +223,12 @@ cars <- mtcars[, c(1:7, 10, 11)]
 
 # pca
 # achtung unterschiedliche messeinheiten, wichtig es muss noch einheitlich transfomiert werden
-library(FactoMineR) # siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
+library("FactoMineR") # siehe Beispiel hier: https://www.youtube.com/watch?v=vP4korRby0Q
 o.pca <- PCA(cars, scale.unit = TRUE) # entweder korrelations oder covarianzmatrix
 
 # schaue output an
 summary(o.pca) # generiert auch automatische plots
 ```
-
-
 
 ## CA mit mtcars
 ```{r}

@@ -24,7 +24,7 @@ ipak <- function(pkg) {
 
 packages <- c(
   "nlme", "MASS", "lme4", "glmmML",  "dplyr", "readr", "ggplot2", "MuMIn", "labdsv",
-  "vegan", "dave", "AER", "sveg", "ssit", "gclus", "cclust", "cluster", "multcomp"
+  "vegan", "AER", "sveg", "ssit", "gclus", "cclust", "cluster", "multcomp", "readr"
 )
 
 ipak(packages)

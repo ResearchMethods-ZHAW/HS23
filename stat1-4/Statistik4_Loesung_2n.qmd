@@ -46,7 +46,7 @@ Modell ist signifikant (p-Wert in Zeile RATIO ist < 0.05). Jetzt müssen wir noc
 1 - pchisq(glm.1$deviance, glm.1$df.resid)
 
 # Visuelle Inspektion der Linearität
-library(car)
+library("car")
 crPlots(glm.1, ask = F)
 ```
 
