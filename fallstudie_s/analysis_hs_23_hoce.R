@@ -132,6 +132,13 @@ meteo <- read_delim("datasets/fallstudie_s/WPZ/order_105742_data.txt", ";")
 # das eigentliche Datum herausgelesen werden kann
 meteo <- mutate(meteo, time = as.Date(as.character(time), "%Y%m%d"))
 
+# Zeitangaben in UTC: 
+#  00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit
+# Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00
+# --> da wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht 
+# mit den Zähldaten übereinstimmt.
+
+
 # Die eigentlichen Messwerte sind alle nummerisch
 meteo <- meteo |>
   mutate(
@@ -357,8 +364,7 @@ ggplot(depo_m, mapping = aes(Ym, Total, group = 1)) + # group = 1 braucht R, das
   geom_rect(
     mapping = aes(
       xmin = ym("2020-3"), xmax = ym("2020-5"),
-      ymin = 0, ymax = max(Total + (Total / 100 * 10))
-    ),
+      ymin = 0, ymax = max(Total + (Total / 100 * 10))),
     fill = "lightskyblue", alpha = 0.2, colour = NA) +
   # zeichne Lockdown 2
   geom_rect(
@@ -376,7 +382,8 @@ ggsave("Entwicklung_Zaehlstelle.png",
   width = 20, height = 10, units = "cm", dpi = 1000,
   path = "fallstudie_s/results/")
 
-# Monatliche Summen am Standort aübereinander gelagert
+
+# Monatliche Summen am Standort übereinander gelagert
 ggplot(depo_m, aes(Monat, Total, group = Jahr, color = Jahr, linetype = Jahr)) +
   geom_line(size = 2) +
   geom_point() +
@@ -399,26 +406,13 @@ ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
   geom_vline(xintercept = seq(as.Date(min(depo_m_daytime$Ym)), as.Date(max(depo_m_daytime$Ym)), 
                               by = "6 months"), linetype = "dashed", color = "black")+
   theme_classic(base_size = 15) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1), 
+        legend.position = "bottom") +
   labs(title = "", y = "Verteilung Fussgänger:innen / Monat [%]", x = "Jahr")
 
 ggsave("Proz_Entwicklung_Zaehlstelle.png",
        width = 20, height = 10, units = "cm", dpi = 1000,
        path = "fallstudie_s/results/")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -512,45 +506,37 @@ ggsave("Proz_Entwicklung_Zaehlstelle.png",
 
 
 
-
-
-
 # 3.2 Wochengang ####
-
-# mean / d / phase
-mean_phase_wd <- depo_d |>
-  group_by(Wochentag, Phase) |>
-  summarise(Total = mean(Total))
-
-write.csv(mean_phase_wd, "fallstudie_s/results/mean_phase_wd.csv")
-
-
-
-# MACHE DAS ANDERS MIT DEM FOKUS TAGESZEIT
-
-# plot
-ggplot(data = depo_d) +
-  geom_boxplot(mapping = aes(x = Wochentag, y = Total, fill = Tageszeit)) +
+ggplot(data = depo, aes(x = Wochentag, y = Total, fill = Tageszeit)) +
+  geom_violin() +
   labs(title = "", y = "Fussgänger:innen pro Tag") +
-  scale_fill_manual(values = c("lightgray", "royalblue", "red4", "orangered", "gold2")) +
+  facet_grid(cols = vars(Tageszeit), rows = vars(Phase))+
+  scale_y_log10()+
+  scale_fill_manual(values = mycolors) +
   theme_classic(base_size = 15) +
   theme(
+    panel.background = element_rect(fill = NA, color = "black"),
     axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
-    legend.title = element_blank()
-  )
-
-
-
+    legend.title = element_blank(), 
+    legend.position = "none")
 
 
 # gruppiere nur nach Tageszeit und Phasen für Kennwerte
-total_phase <- depo_daytime |>
+mean_phase <- depo_daytime |>
   group_by(Phase, Tageszeit) |>
   summarise(
-    Total = sum(Total),
-    IN = sum(Fuss_IN),
-    OUT = sum(Fuss_OUT)
-  )
+    Mean = mean(Total))
+
+ggplot(mean_phase, aes(Tageszeit, Mean, fill = Phase))+
+  geom_col(position = "dodge", color = "black") +
+  scale_fill_viridis_d() +
+  labs(title = "", y = "Durchschnitt Fussgänger:innen pro Tag") +
+  # scale_fill_manual(values = mycolors) +
+  theme_classic(base_size = 15) +
+  theme(legend.position = "bottom")
+
+
+
 
 # 3.3 Tagesgang ####
 # Bei diesen Berechnungen wird jeweils der Mittelwert pro Stunde berechnet.
@@ -560,7 +546,6 @@ Mean_h <- depo |>
   summarise(Total = mean(Total))
 
 # Plotte den Tagesgang, unterteilt nach Wochentagen
-
 ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochentag)) +
   geom_line(size = 1) +
   scale_colour_viridis_d() +
@@ -574,8 +559,7 @@ ggplot(Mean_h, aes(x = Stunde, y = Total, colour = Wochentag, linetype = Wochent
 
 ggsave("Tagesgang.png",
   width = 25, height = 25, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/"
-)
+  path = "fallstudie_s/results/")
 
 
 
@@ -583,14 +567,18 @@ ggsave("Tagesgang.png",
 ggplot(mean_phase_d, mapping = aes(Phase, Total, fill = Tageszeit)) +
   geom_col(position = "fill") +
   scale_fill_manual(values = mycolors) +
+  labs(title = "", y = "Verteilung Fussgänger:innen nach Tageszeit [%]", x = "Phase")+
   theme_classic(base_size = 15) +
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) +
-  labs(title = "", y = "Verteilung Fussgänger:innen nach Tageszeit [%]", x = "Phase")
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1),
+        legend.position = "bottom") 
 
 ggsave("Proz_Entwicklung_Zaehlstelle_Phase.png",
   width = 20, height = 15, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/"
-)
+  path = "fallstudie_s/results/")
+
+
+
+
 
 
 

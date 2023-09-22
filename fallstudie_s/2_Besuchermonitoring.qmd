@@ -59,7 +59,7 @@ _Da die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, a
 
 R bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bitte den bereitgestellten Datensatz zur Hand und visualisiert eure Ideen mit R. 
 
-Untenstehend sind einige Ideen zur Umsetzung.
+Untenstehend sind einige Ideen zur Umsetzung:
 
 ```{r}
 ### Bibliothek laden
