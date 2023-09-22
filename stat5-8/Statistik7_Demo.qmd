@@ -13,6 +13,8 @@ format:
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
 -   Datensatz *Doubs.RData*
+-   Datensatz *dave_sveg.csv* von @wildi2017data
+-   Datensatz *dave_ssit.csv* von @wildi2017data
 
 ## Ordinationen II
 
@@ -22,7 +24,11 @@ Wildi pp. 96 et seq.
 
 ```{r}
 # Plot Arten
-library("dave")
+library("readr")
+library("vegan")
+
+sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
+ssit <- read_delim("datasets/stat5-8/dave_ssit.csv")
 
 # Daten anschauen
 dim(sveg) # Vegetationsaufnahmen
@@ -84,7 +90,6 @@ text(-4, 4, "pH", col = "red")
 plot(imds$points)
 ordisurf(imds, ssit$Waterlev.av, add = T, col = "blue")
 text(-4, 4, "Wasserstand", col = "blue")
-
 ```
 
 ### Constrained ordination

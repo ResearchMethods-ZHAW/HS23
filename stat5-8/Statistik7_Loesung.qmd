@@ -14,7 +14,7 @@ index: 3
 
 **Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)**
 
-- Ladet die library dave, welche den Moordatensatz enthält. sveg beinhaltet presenceabsence-Daten  aller untersuchten Arten in den Plots; ssit beinhaltet 18 metrische Umweltdaten sowie Koordinaten der Plots
+- Ladet die zwei Dateien *dave_sveg.csv* und *dave_ssit.csv* welche die Moordatensätze enthalten. sveg beinhaltet presenceabsence-Daten  aller untersuchten Arten in den Plots; ssit beinhaltet 18 metrische Umweltdaten sowie Koordinaten der Plots
 - **Führt eine RDA und eine Varianzpartizionierung in die Variablengruppen Physiographie**  (Waterlev.max, Waterlev.av, Waterlev.min, log.peat.lev, log
   slope.deg) **und Chemie** (alle übrigen) **durch.**
 - Formuliert abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.
@@ -22,9 +22,10 @@ index: 3
 
 __Moordatensatz laden__ 
 ```{r}
-library("dave")
-data("sveg")
-data("ssit")
+library("readr")
+
+sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
+ssit <- read_delim("datasets/stat5-8/dave_ssit.csv")
 ```
 
 ```{r}

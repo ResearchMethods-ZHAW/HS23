@@ -13,6 +13,7 @@ format:
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
 -   Datensatz *Doubs.RData*
+-   Datensatz *dave_sveg.csv* von @wildi2017data
 -   Funktion drawmap.R [drawmap.R](drawmap.R)
 -   Funktion hcoplot.R [hcoplot.R](hcoplot.R)
 
@@ -20,9 +21,11 @@ format:
 
 ```{r}
 # Das Moordatenset sveg laden
-library("dave")
+library("readr")
+sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
 
 # PCA und CA rechnen
+library("vegan")
 pca <- rda(sveg^0.25, scale = TRUE)
 ca <- cca(sveg^0.5)
 
@@ -75,6 +78,7 @@ latlong <- latlong[-8, ]
 
 ```{r}
 ## Hierarchical agglomerative clustering of the species abundance 
+library("cluster")
 
 # Compute matrix of chord distance among sites
 spe.norm <- decostand(spe, "normalize")
@@ -187,6 +191,7 @@ lines(lowess(spe.ch, spe.ch.ward.coph), col = "red")
 ## Optimale Anzahl Cluster
 
 ```{r}
+library("labdsv")
 ## Select a dendrogram (Ward/chord) and apply three criteria
 ## to choose the optimal number of clusters
 

@@ -76,7 +76,8 @@ Hinweise:
 
 - Siehe [Einführung] für den Standort der __Zähler 211 und 502__. 
 
-- Die Daten sind auf Moodle unter _ReMe HS22 MSc ENR / Fallstudie Biodiversity & Ecosystems / S_Daten_ abgelegt.
+- Alle für die Fallstudie Profil S benötigten Daten könnt ihr unter folgendem  [Link](https://moodle.zhaw.ch/mod/folder/view.php?id=956254) herunterladen.
+
 1. Zähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2022.csv, 502_sihluferweg_2016_2022.csv)
 2. Meteodaten (order_105742_data.txt)
 
@@ -182,7 +183,14 @@ Tipp: Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt wer
 meteo <- mutate(meteo, time = as.Date(as.character(time), "%Y%m%d"))
 ```
 
-__Hinweis__ Was ist eigentlich Niederschlag: https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html
+Die Zeitangaben sind in UTC: 
+00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit, Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00
+
+--> Da wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht mit den Daten der Zählstellen übereinstimmt. Learning: es ist zentral immer die Metadaten zu checken.
+
+__Hinweis__ Was ist eigentlich Niederschlag:
+
+[Link Meteo Schweiz](https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html)
 
 - Werden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.
 
@@ -267,6 +275,8 @@ Ich mache den folgenden Punkt nachgelagert, da zu viele Operationen in einem Sch
   - Ende 2. Lockdown bis Ende Untersuchungsperiode
 
 - Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte --> long-format ist schöner (und praktischer für das plotten) als wide-format.
+
+- Hier der Code dazu:
 
 ```{r echo=TRUE}
 depo <- depo |>
@@ -493,7 +503,7 @@ depo_m_daytime <- depo_m_daytime |>
 
 ### 4c)
 
-Macht euch mit den Daten vertraut. Plottet sie, seht euch die df's an, versteht, was sie repräsentieren.
+Macht euch mit den Daten vertraut. Plottet sie, seht euch die df's an, versteht, was sie representieren.
 
 Z.B. sind folgende Befehle und Plots wichtig:
 
