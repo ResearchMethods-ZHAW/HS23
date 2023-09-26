@@ -12,6 +12,7 @@ format:
 # Stat6: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
+-   Datensatz *dave_sveg.csv* von @wildi2017data
 
 ## Ordinationen I
 
@@ -98,10 +99,11 @@ biplot(pca.3)
 ```
 
 ```{r}
-#| eval: false
+#| output: false
 
 # Mit Beispieldaten aus Wildi
-library("dave")
+library("readr")
+sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
 
 str(sveg)
 summary(sveg)

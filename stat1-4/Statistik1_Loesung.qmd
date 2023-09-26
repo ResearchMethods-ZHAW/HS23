@@ -8,8 +8,8 @@ format:
     code-tools:
       source: true
 knitr:
-    opts_chunk:
-        collapse: false
+  opts_chunk:
+    collapse: false
 ---
 
 # Stat1: Lösung

@@ -18,13 +18,13 @@ Wer Lokal auf seinem eingenen PC arbeiten will, muss eine aktuell version von R,
 
 ### RStudio Konfigurieren
 
-Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
+Ich empfehle folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 -   R Markdown
-    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Rmd files dar)*
-    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Rmd files)*
+    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Qmd files dar)*
+    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Qmd files)*
     -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
-    -   Show output preview in: Window *(beim kopilieren von Rmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
+    -   Show output preview in: Window *(beim kopilieren von Qmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
     -   Show equation an image previews: In a popup
     -   Evaluate chunks in directory: Document (**← wichtig !**)
 -   Code \> Tab "Saving"
@@ -42,7 +42,7 @@ git config --global user.name
 Falls nicht, müssen diese Angaben zuerst noch gemacht werden. Siehe dazu folgende Kapitel:
 
 -   [happygitwithr: Introduce yourself to Git](https://happygitwithr.com/hello-git.html)
--   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/credential-caching.html)
+-   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/https-pat)
 
 ## Anleitung 2: Projekt aufsetzen
 
@@ -70,13 +70,13 @@ Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Fa
 
 ### Qmd editieren
 
-Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
+Um Inhalte zu editieren, öffnet ihr das entsprechende .Qmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
 
 ### Qmd Kompilieren / Vorschau
 
 Statt auf den Preview button in RStudio zu clicken empfehlen wir, quarto von der Konsole (Terminal) aus zu bedienen. `quarto render` kompiliert das jeweilige File / Projekt in html (oder pdf). Sehr praktisch ist aber `quarto preview`, welches zusätzlich zum rendern erstellt einen "Webserver" zur Verfügung stellt, wo Änderungen an den qmd Files detektiert und live ge-updated werden.
 
-Hinweis: Auf Windows muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2))
+Hinweis: Auf gewissen Windows Versionen muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen. Versuche es zuerst mit quarto, wenn das nicht klappt versuche die erwähnten Varianten (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2)).
 
 ### Änderungen veröffentlichen
 
