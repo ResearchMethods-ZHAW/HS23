@@ -7,6 +7,9 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat2: Lösung 2.3N
