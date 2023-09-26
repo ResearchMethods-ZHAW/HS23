@@ -18,7 +18,7 @@ Wer Lokal auf seinem eingenen PC arbeiten will, muss eine aktuell version von R,
 
 ### RStudio Konfigurieren
 
-Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
+Ich empfehle folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 -   R Markdown
     -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Rmd files dar)*
@@ -42,7 +42,7 @@ git config --global user.name
 Falls nicht, müssen diese Angaben zuerst noch gemacht werden. Siehe dazu folgende Kapitel:
 
 -   [happygitwithr: Introduce yourself to Git](https://happygitwithr.com/hello-git.html)
--   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/credential-caching.html)
+-   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/https-pat)
 
 ## Anleitung 2: Projekt aufsetzen
 
