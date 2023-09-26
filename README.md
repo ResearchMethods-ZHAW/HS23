@@ -76,7 +76,7 @@ Um Inhalte zu editieren, öffnet ihr das entsprechende .Qmd file in einem der Or
 
 Statt auf den Preview button in RStudio zu clicken empfehlen wir, quarto von der Konsole (Terminal) aus zu bedienen. `quarto render` kompiliert das jeweilige File / Projekt in html (oder pdf). Sehr praktisch ist aber `quarto preview`, welches zusätzlich zum rendern erstellt einen "Webserver" zur Verfügung stellt, wo Änderungen an den qmd Files detektiert und live ge-updated werden.
 
-Hinweis: Auf Windows muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2))
+Hinweis: Auf gewissen Windows Versionen muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen. Versuche es zuerst mit quarto, wenn das nicht klappt versuche die erwähnten Varianten (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2)).
 
 ### Änderungen veröffentlichen
 
