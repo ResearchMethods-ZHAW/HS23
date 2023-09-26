@@ -11,7 +11,6 @@ knitr:
 
 ## Vorbereitung {#sec-rauman-vorbereitung}
 
-
 Im Rahmen der Fallstudie werden wir einige R Packages brauchen. Wir empfehlen, diese bereits *vor* der ersten Lektion zu installieren. Analog [der Vorbereitungsübung in Prepro1](#sec-prepro-vorbereitung) könnt ihr mit nachstehendem Code alle noch nicht installierten packages automatisch installieren.
 
 ```{r}
@@ -26,7 +25,7 @@ ipak <- function(pkg) {
 
 packages <- c(
   "readr", "ggplot2", "lubridate", "ggpubr", "PerformanceAnalytics",
-  "MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "blmeco", "sjPlot", "lattice",
+  "MuMIn", "AICcmodavg", "fitdistrplus", "lme4", "DHARMa", "blmeco", "sjPlot", "lattice",
   "dplyr", "suncalc"
 )
 
