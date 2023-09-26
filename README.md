@@ -21,10 +21,10 @@ Wer Lokal auf seinem eingenen PC arbeiten will, muss eine aktuell version von R,
 Ich empfehle folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 -   R Markdown
-    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Rmd files dar)*
-    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Rmd files)*
+    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Qmd files dar)*
+    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Qmd files)*
     -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
-    -   Show output preview in: Window *(beim kopilieren von Rmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
+    -   Show output preview in: Window *(beim kopilieren von Qmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
     -   Show equation an image previews: In a popup
     -   Evaluate chunks in directory: Document (**← wichtig !**)
 -   Code \> Tab "Saving"
@@ -70,7 +70,7 @@ Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Fa
 
 ### Qmd editieren
 
-Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
+Um Inhalte zu editieren, öffnet ihr das entsprechende .Qmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
 
 ### Qmd Kompilieren / Vorschau
 
