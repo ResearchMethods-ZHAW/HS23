@@ -3,6 +3,7 @@ date: 2023-10-31
 lesson: Stat2
 thema: "Einführung in lineare Modelle"
 index: 2
+
 ---
 
 # Stat2: Übung
