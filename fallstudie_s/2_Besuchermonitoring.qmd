@@ -61,7 +61,7 @@ R bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bi
 
 Untenstehend sind einige Ideen zur Umsetzung:
 
-```{r}
+```{r echo=TRUE}
 ### Bibliothek laden
 
 # zuerst muss sie installiert sein. folgende Zeile müsst ihr nur das erste Mal ausführen
@@ -79,7 +79,7 @@ depo <- read_delim("datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv")
 depo$DatumUhrzeit <- as.POSIXct(depo$DatumUhrzeit, format = "%d.%m.%Y %H:%M")
 ```
 
-```{r}
+```{r echo=TRUE}
 ### Kennzahlen
 
 # zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:
@@ -98,7 +98,7 @@ depo$Total = depo$Fuss_IN + depo$Fuss_OUT + depo$Velo_IN + depo$Velo_OUT
 sum(depo$Total)
 ```
 
-```{r}
+```{r echo=TRUE}
 # Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R
 plot(
   x = depo$DatumUhrzeit, y = depo$Total,
@@ -108,7 +108,7 @@ plot(
 ) # Füllung
 ```
 
-```{r}
+```{r echo=TRUE}
 # Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)
 slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT")
