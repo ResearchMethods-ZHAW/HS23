@@ -782,6 +782,8 @@ cdfcomp(list(f1, f4, f3), legendtext = plot.legend)
 
 # 4.4 Berechne verschiedene Modelle ####
 
+# TAG ####
+
 # Hinweise zu GLMM: https://bbolker.github.io/mixedmodels-misc/glmmFAQ.html
 
 # wie kommt man von log mean estimates zu den eigentlich werten?
@@ -864,37 +866,100 @@ summary(nb_model_day)
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
 # werden (dauert je nach dem sehr lange)
-
 simulationOutput <- simulateResiduals(fittedModel = nb_model_day, n = 1000)
-
 # plotting and testing scaled residuals
-
 plot(simulationOutput)
-
 testResiduals(simulationOutput)
-
 testUniformity(simulationOutput)
-
 # The most common concern for GLMMs is overdispersion, underdispersion and
 # zero-inflation.
-
 # separate test for dispersion
-
 testDispersion(simulationOutput)
-
 # test for Zeroinflation
-
 testZeroInflation(simulationOutput)
-
 # Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls
 # auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
-
 car::vif(nb_model_day)
 mean(car::vif(nb_model_day))
 
 
+
+# ich verwende das package glmmTMB. Es ist wahnsinnig schnell und erlaubt viele spezifikationen
+# https://glmmtmb.github.io/glmmTMB/articles/glmmTMB.pdf
+
+# auf quadratischen Term testen ("es gehen weniger Leute in den Wald, wenn es zu heiss ist")
+nb_quad_model_day <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
+                                  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
+                                  sremaxdv_scaled +
+                                  (1 | Jahr), family =nbinom1,
+                               data = umwelt_day)
+
+summary(nb_quad_model_day)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_day, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_model_day)
+mean(car::vif(nb_model_day))
+
+
+# Interaktion testen, da Ferien und / oder Wochentage einen Einfluss auf
+# die Besuchszahlen waehrend des Lockown haben koennen!
+# (Achtung: Rechenintensiv!)
+nb_quad_int_model_day <- glmmTMB(Total ~  Ferien + Phase + Wochenende +
+                                   Monat * rre150j0_scaled+ tre200jx_scaled + I(tre200jx_scaled^2)  +
+                                   sremaxdv_scaled +
+                                  (1|Jahr), data = umwelt_day)
+
+summary(nb_quad_int_model_day)
+# nicht signifikant, darum vernachlaessige
+
+
+
+# Vergleich der Modellguete mittels AICc
+
+# cand.models <- list()
+# cand.models[[1]] <- nb_model_day
+# cand.models[[2]] <- nb_quad_model_day
+# 
+# 
+# Modnames <- c(
+#   "nb_model_day", "nb_quad_model_day"
+# )
+# aictab(cand.set = cand.models, modnames = Modnames)
+
+# K = Anzahl geschaetzter Parameter (2 Funktionsparameter und die Varianz)
+# Delta_AICc <2 = Statistisch gleichwertig
+# AICcWt =  Akaike weight in %
+
+# --> Ich entscheide mich bei diesen drei Modellen für das nb_quad_model_day
+# Warum: statistisch das beste und ich denke die Quadratur macht Sinn!
+# zudem wissen wir gem. Test der Verteilungen, dass negativ binomial Sinn macht.
+# PROBLEM: alle drei Modelle erfüllen gem. der Modelldiagnostik die Vorausetzungen
+# nicht komplett.
+
+# Berechne ein Modell mit exponentieller Verteilung:
+# gemäss AICc der Verteilung die zweitbeste
+# https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle
+exp_model_day <- glmmTMB((Total + 1) ~ Monat + Ferien + Phase + Wochenende +
+                             tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
+                             sremaxdv_scaled +
+                           (1 | Jahr), 
+                         family = Gamma(link = "log"), data = umwelt_day)
+
+summary(exp_model_day, dispersion = 1)
+simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_day, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(exp_model_day)
+mean(car::vif(exp_model_day))
+
+# --> Die zweitbeste Verteilung (exp) führt auch nicht dazu, dass die Modellvoraussetzungen deutlich besser
+# erfüllt werden
 
 
 
@@ -913,112 +978,163 @@ nb_model_day_zi <- glmmTMB(Total ~ Monat + Phase + Wochenende +
 
 summary(nb_model_day_zi)
 
-
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
 # werden (dauert je nach dem sehr lange)
-
 simulationOutput <- simulateResiduals(fittedModel = nb_model_day_zi, n = 1000)
-
 # plotting and testing scaled residuals
-
 plot(simulationOutput)
-
 testResiduals(simulationOutput)
-
 testUniformity(simulationOutput)
-
 # The most common concern for GLMMs is overdispersion, underdispersion and
 # zero-inflation.
-
 # separate test for dispersion
-
 testDispersion(simulationOutput)
-
 # test for Zeroinflation
-
 testZeroInflation(simulationOutput)
-
 # Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls
 # auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
-
 car::vif(nb_model_day_zi)
 mean(car::vif(nb_model_day_zi))
 
 
+#. BEST MODEL DAY ####
+# interaktion zero inflation
+# "Ferien" not sig, therefore exclude
+nb_int_model_day_zi <- glmmTMB(Total ~ Phase + Wochenende +
+                             Monat * rre150j0_scaled + tre200jx_scaled + I(tre200jx_scaled^2) +
+                             sremaxdv_scaled +
+                             (1 | Jahr), data = umwelt_day, 
+                           # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-
+                           # inflation parameter applying to all observations (ziformula~1)
+                           ziformula=~1,
+                           family = nbinom1)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# NACHT: Berechne ein negativ binomiales Modell
-# gemäss AICc die beste Verteilung
-nb_model_night <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
-                           tre200nx_scaled + rre150n0_scaled +
-                           (1 | Jahr), data = umwelt_night)
-
-summary(nb_model_night)
-
-
-
+summary(nb_int_model_day_zi)
 
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
 # werden (dauert je nach dem sehr lange)
-
-simulationOutput <- simulateResiduals(fittedModel = nb_model_day, n = 1000)
-
+simulationOutput <- simulateResiduals(fittedModel = nb_int_model_day_zi, n = 1000)
 # plotting and testing scaled residuals
-
 plot(simulationOutput)
-
 testResiduals(simulationOutput)
-
 testUniformity(simulationOutput)
-
 # The most common concern for GLMMs is overdispersion, underdispersion and
 # zero-inflation.
-
 # separate test for dispersion
-
 testDispersion(simulationOutput)
-
 # test for Zeroinflation
-
 testZeroInflation(simulationOutput)
-
 # Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls
 # auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
+car::vif(nb_model_day_zi)
+mean(car::vif(nb_model_day_zi))
+# erklaerte varianz
+# The marginal R squared values are those associated with your fixed effects,
+# the conditional ones are those of your fixed effects plus the random effects.
+# Usually we will be interested in the marginal effects.
+performance::r2(nb_int_model_day_zi)
 
-car::vif(nb_model_day)
-mean(car::vif(nb_model_day))
 
 
 
+# NACHT ####
+
+
+# NACHT: Berechne ein negativ binomiales Modell
+nb_model_night <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
+                           tre200nx_scaled + rre150n0_scaled +
+                           (1 | Jahr), data = umwelt_night)
+
+#.BEST MODEL NIGHT ####
+# not sig:tre200nx_scaled + rre150n0_scaled +
+nb_red_model_night <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
+                             (1 | Jahr), 
+                             data = umwelt_night)
+summary(nb_red_model_night)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_red_model_night, n = 1000)
+plot(simulationOutput)
+testResiduals(simulationOutput)
+testUniformity(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_red_model_night)
+mean(car::vif(nb_red_model_night))
+performance::r2(nb_red_model_night)
+
+
+
+# auf quadratischen Term testen ("es gehen weniger Leute in den Wald, wenn es zu heiss ist")
+nb_quad_model_night <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
+                               tre200nx_scaled + I(tre200nx_scaled^2) + rre150n0_scaled +
+                               (1 | Jahr), family =nbinom1,
+                             data = umwelt_night)
+
+summary(nb_quad_model_night)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_night, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_quad_model_night)
+mean(car::vif(nb_quad_model_night))
+performance::check_singularity(nb_quad_model_night)
+
+
+# reduziertes modell
+# not sig, therefore excl: Phase + tre200nx_scaled + I(tre200nx_scaled^2) + rre150n0_scaled +
+nb_red_model_night <- glmmTMB(Total ~ Monat + Ferien +  + Wochenende +
+                                 (1 | Jahr), family =nbinom1,
+                               data = umwelt_night)
+
+summary(nb_red_model_night)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_red_model_night, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_red_model_night)
+mean(car::vif(nb_red_model_night))
+performance::r2(nb_red_model_night)
+performance::check_singularity(nb_red_model_night)
+
+
+# Interaktion testen, da Ferien und / oder Wochentage einen Einfluss auf
+# die Besuchszahlen waehrend des Lockown haben koennen!
+nb_quad_int_model_night <- glmmTMB(Total ~  Ferien + Phase + Wochenende +
+                                   Monat * rre150n0_scaled+ tre200nx_scaled + I(tre200nx_scaled^2)  +
+                                   (1|Jahr), data = umwelt_night)
+
+summary(nb_quad_int_model_night)
+# nicht signifikant, darum vernachlaessige
+
+
+# Berechne ein Modell mit exponentieller Verteilung:
+exp_model_night <- glmmTMB((Total + 1) ~ Monat + Ferien + Phase + Wochenende +
+                           tre200nx_scaled + I(tre200nx_scaled^2) + rre150n0_scaled +
+                          (1 | Jahr), 
+                         family = Gamma(link = "log"), data = umwelt_night)
+
+summary(exp_model_night, dispersion = 1)
+simulationOutput <- simulateResiduals(fittedModel = exp_model_night, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(exp_model_day)
+mean(car::vif(exp_model_day))
+
+# -->sehr schlecht
 
 
 # zero-inflated model
-
-# "Ferien" not sig, therefore exclude
-nb_model_night_zi <- glmmTMB(Total ~ Monat + Phase + Wochenende +
+# Dies weiss ich aus dem testZeroInflation und testResiduals
+nb_model_night_zi <- glmmTMB(Total ~ Ferien +Monat + Phase + Wochenende +
                              tre200nx_scaled + rre150n0_scaled +
                              (1 | Jahr), data = umwelt_night, 
                            # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-
@@ -1027,45 +1143,49 @@ nb_model_night_zi <- glmmTMB(Total ~ Monat + Phase + Wochenende +
                            family = nbinom1)
 
 summary(nb_model_night_zi)
-
-
-
-# Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
-# können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
-# werden (dauert je nach dem sehr lange)
-
 simulationOutput <- simulateResiduals(fittedModel = nb_model_night_zi, n = 1000)
-
-# plotting and testing scaled residuals
-
 plot(simulationOutput)
-
 testResiduals(simulationOutput)
-
 testUniformity(simulationOutput)
-
-# The most common concern for GLMMs is overdispersion, underdispersion and
-# zero-inflation.
-
-# separate test for dispersion
-
 testDispersion(simulationOutput)
-
-##### wir haben hier immer noch sehr grosse dispersion
-##### https://stats.stackexchange.com/questions/518013/varying-dispersion-parameter-dispformula-in-glmmtmb-in-r-to-account-for-heter
-
-
-# test for Zeroinflation
-
 testZeroInflation(simulationOutput)
-
-# Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls
-# auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)
-# use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
-# not substantially greater than 1 (say 5), no need to worry.
-
 car::vif(nb_model_night_zi)
 mean(car::vif(nb_model_night_zi))
+performance::r2(nb_model_night_zi)
+performance::check_singularity(nb_model_night_zi)
+
+
+# interaktion zero inflation
+nb_int_model_night_zi <- glmmTMB(Total ~ Ferien + Phase + Wochenende +
+                                 Monat * rre150n0_scaled + tre200nx_scaled + I(tre200nx_scaled^2) +
+                                 (1 | Jahr), data = umwelt_night, 
+                               # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-
+                               # inflation parameter applying to all observations (ziformula~1)
+                               ziformula=~1,
+                               family = nbinom1)
+
+summary(nb_int_model_night_zi)
+simulationOutput <- simulateResiduals(fittedModel = nb_int_model_day_zi, n = 1000)
+plot(simulationOutput)
+testResiduals(simulationOutput)
+testUniformity(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_model_day_zi)
+mean(car::vif(nb_model_day_zi))
+performance::r2(nb_int_model_night_zi)
+# == TRUE, problem
+performance::check_singularity(nb_int_model_night_zi)
+# A “singular” model fit means that some dimensions of the variance-covariance matrix have been estimated as exactly zero. This often occurs for mixed models with overly complex random effects structures.
+
+
+
+
+
+
+
+
+# ---> in der nacht noch kein gutes modell gefunden
 
 
 
@@ -1079,73 +1199,151 @@ mean(car::vif(nb_model_night_zi))
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# DUSKDAWN ####
+# TAG: Berechne ein negativ binomiales Modell
+# gemäss AICc die beste Verteilung
+nb_model_duskdawn <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
+                               tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
+                               sremaxdv_scaled +
+                               (1 | Jahr), family =nbinom1,
+                             data = umwelt_duskdawn)
+summary(nb_model_duskdawn)
+simulationOutput <- simulateResiduals(fittedModel = nb_model_duskdawn, n = 1000)
+plot(simulationOutput)
+testResiduals(simulationOutput)
+testUniformity(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_model_duskdawn)
+mean(car::vif(nb_model_duskdawn))
 
 
 # auf quadratischen Term testen ("es gehen weniger Leute in den Wald, wenn es zu heiss ist")
-Tages_Model_nb_quad <- glmer.nb(Total ~ Wochentag + Ferien + Phase + Monat +
-  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled +
-  sremaxdv_scaled +
-  (1 | Jahr), data = umwelt)
+nb_quad_model_duskdawn <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
+                               tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
+                               sremaxdv_scaled +
+                               (1 | Jahr), family =nbinom1,
+                             data = umwelt_duskdawn)
 
-summary(Tages_Model_nb_quad)
-plot(Tages_Model_nb_quad, type = c("p", "smooth"))
-qqmath(Tages_Model_nb_quad)
-dispersion_glmer(Tages_Model_nb_quad)
-r.squaredGLMM(Tages_Model_nb_quad)
-car::vif(Tages_Model_nb_quad)
+summary(nb_quad_model_duskdawn)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_duskdawn, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_quad_model_duskdawn)
+mean(car::vif(nb_quad_model_duskdawn))
+
 
 # Interaktion testen, da Ferien und / oder Wochentage einen Einfluss auf
 # die Besuchszahlen waehrend des Lockown haben koennen!
 # (Achtung: Rechenintensiv!)
-# Tages_Model_nb_int <- glmer.nb(Anzahl_Total ~  Wochentag  * Ferien + Phase +
-#                                  tre200jx_scaled + I(tre200jx_scaled^2) *
-#                                  rre150j0_scaled + sremaxdv_scaled +
-#                                  (1|KW) + (1|Jahr), data = umwelt)
-#
-# summary(Tages_Model_nb_int)
-# plot(Tages_Model_nb_int, type = c("p", "smooth"))
-# qqmath(Tages_Model_nb_int)
-# dispersion_glmer(Tages_Model_nb_int)
-# r.squaredGLMM(Tages_Model_nb_int)
+nb_quad_int_model_duskdawn <- glmmTMB(Total ~  Ferien + Phase + Wochenende +
+                                   Monat * rre150j0_scaled+ tre200jx_scaled + I(tre200jx_scaled^2)  +
+                                   sremaxdv_scaled +
+                                   (1|Jahr), data = umwelt_duskdawn)
+
+summary(nb_quad_int_model_duskdawn)
+# nicht signifikant, darum vernachlaessige
 
 
-# Vergleich der Modellguete mittels AICc
-cand.models <- list()
-cand.models[[1]] <- Tages_Model
-cand.models[[2]] <- Tages_Model_nb
-cand.models[[3]] <- Tages_Model_nb_quad
-
-Modnames <- c(
-  "Tages_Model", "Tages_Model_nb",
-  "Tages_Model_nb_quad"
-)
-aictab(cand.set = cand.models, modnames = Modnames)
-# K = Anzahl geschaetzter Parameter (2 Funktionsparameter und die Varianz)
-# Delta_AICc <2 = Statistisch gleichwertig
-# AICcWt =  Akaike weight in %
-
-# --> Ich entscheide mich bei diesen drei Modellen für das Tages_Model_nb_quad
-# Warum: statistisch das beste und ich denke die Quadratur macht Sinn!
-# zudem wissen wir gem. Test der Verteilungen, dass negativ binomial Sinn macht.
-# PROBLEM: alle drei Modelle erfüllen gem. der Modelldiagnostik die VOrausetzungen
-# nicht komplett.
 
 # Berechne ein Modell mit exponentieller Verteilung:
 # gemäss AICc der Verteilung die zweitbeste
 # https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle
-Tages_Model_exp <- glmer((Total + 1) ~ Wochentag + Ferien + Phase + Monat +
-  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled + rre150n0_scaled +
-  sremaxdv_scaled + (1 | Jahr), family = Gamma(link = "log"), data = umwelt)
+exp_model_duskdawn <- glmmTMB((Total + 1) ~ Monat + Ferien + Phase + Wochenende +
+                           tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
+                           sremaxdv_scaled +
+                           (1 | Jahr), 
+                         family = Gamma(link = "log"), data = umwelt_duskdawn)
 
-summary(Tages_Model_exp, dispersion = 1)
-plot(Tages_Model_exp, type = c("p", "smooth"))
-qqmath(Tages_Model_exp)
-dispersion_glmer(Tages_Model_exp) # it shouldn't be over 1.4
-r.squaredGLMM(Tages_Model_exp)
-car::vif(Tages_Model_nb_quad)
+summary(exp_model_duskdawn, dispersion = 1)
+simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_day, n = 1000)
+plot(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(exp_model_duskdawn)
+mean(car::vif(exp_model_duskdawn))
 
-# --> Die zweitbeste Verteilung (exp) führt auch nicht dazu, dass die Modellvoraussetzungen besser
+# --> Die zweitbeste Verteilung (exp) führt dazu, dass die Modellvoraussetzungen besser
 # erfüllt werden
+
+
+#. BEST MODEL DUSKDAWN ####
+
+# zero-inflated model
+# Dies weiss ich aus dem testZeroInflation und testResiduals
+
+# "Ferien" , tre200jx_scaled, not sig, sremaxdv_scaled, therefore exclude
+nb_model_duskdawn_zi <- glmmTMB(Total ~ Monat + Phase + Wochenende +
+                              rre150j0_scaled +
+                              (1 | Jahr), data = umwelt_duskdawn, 
+                           # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-
+                           # inflation parameter applying to all observations (ziformula~1)
+                           ziformula=~1,
+                           family = nbinom1)
+
+summary(nb_model_duskdawn_zi)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_model_duskdawn_zi, n = 1000)
+plot(simulationOutput)
+testResiduals(simulationOutput)
+testUniformity(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_model_duskdawn_zi)
+mean(car::vif(nb_model_duskdawn_zi))
+performance::r2(nb_model_duskdawn_zi)
+performance::check_singularity(nb_model_duskdawn_zi)
+
+
+
+
+# interaktion zero inflation
+# "Ferien" not sig, therefore exclude
+nb_int_model_duskdawn_zi <- glmmTMB(Total ~ Ferien + Phase + Wochenende +
+                                 Monat * rre150j0_scaled + tre200jx_scaled + I(tre200jx_scaled^2) +
+                                 sremaxdv_scaled +
+                                 (1 | Jahr), data = umwelt_duskdawn, 
+                               # The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-
+                               # inflation parameter applying to all observations (ziformula~1)
+                               ziformula=~1,
+                               family = nbinom1)
+
+summary(nb_int_model_duskdawn_zi)
+
+simulationOutput <- simulateResiduals(fittedModel = nb_int_model_duskdawn_zi, n = 1000)
+plot(simulationOutput)
+testResiduals(simulationOutput)
+testUniformity(simulationOutput)
+testDispersion(simulationOutput)
+testZeroInflation(simulationOutput)
+car::vif(nb_int_model_duskdawn_zi)
+mean(car::vif(nb_int_model_duskdawn_zi))
+performance::r2(nb_int_model_duskdawn_zi)
+performance::check_singularity(nb_int_model_duskdawn_zi)
+
+
+
+
+
+
+
+
+
 
 
 # 4.5 Transformationen ####
@@ -1202,9 +1400,20 @@ car::vif(Tages_Model_nb_quad)
 # abhaengigen Variable.
 
 
+
+
+
+
+
+
+
 # 4.6 Exportiere die Modellresultate ####
 # (des besten Modells)
-tab_model(Tages_Model_nb_quad, transform = NULL, show.se = TRUE)
+tab_model(nb_int_model_day_zi, transform = NULL, show.se = TRUE)
+tab_model(nb_red_model_night, transform = NULL, show.se = TRUE)
+tab_model(nb_model_duskdawn_zi, transform = NULL, show.se = TRUE)
+
+
 # The marginal R squared values are those associated with your fixed effects,
 # the conditional ones are those of your fixed effects plus the random effects.
 # Usually we will be interested in the marginal effects.
@@ -1234,7 +1443,7 @@ tab_model(Tages_Model_nb_quad, transform = NULL, show.se = TRUE)
 
 # schreibe fun fuer continuierliche var
 rescale_plot_num_day <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
-  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "red")
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "orangered")
   labels <- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks + 1) * x_scaling, x_nk)
   
   custom_breaks <- seq(min(scaled_var), max(scaled_var), by = ((max(scaled_var) - min(scaled_var)) / num_breaks))
@@ -1242,14 +1451,14 @@ rescale_plot_num_day <- function(input_df, input_term, unscaled_var, scaled_var,
   
   plot_id <- plot_id +
     scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x = x_lab)) +
-    scale_y_continuous(labs(y = y_lab), limits = c(0, 100)) +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 170)) +
     theme_classic(base_size = 20)
   
   return(plot_id)
 }
 
 rescale_plot_num_night <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
-  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "blue")
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "darkblue")
   labels <- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks + 1) * x_scaling, x_nk)
   
   custom_breaks <- seq(min(scaled_var), max(scaled_var), by = ((max(scaled_var) - min(scaled_var)) / num_breaks))
@@ -1257,7 +1466,22 @@ rescale_plot_num_night <- function(input_df, input_term, unscaled_var, scaled_va
   
   plot_id <- plot_id +
     scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x = x_lab)) +
-    scale_y_continuous(labs(y = y_lab), limits = c(0, 100)) +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 20)) +
+    theme_classic(base_size = 20)
+  
+  return(plot_id)
+}
+
+rescale_plot_num_duskdawn <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "mediumvioletred")
+  labels <- round(seq(floor(min(unscaled_var)), ceiling(max(unscaled_var)), length.out = num_breaks + 1) * x_scaling, x_nk)
+  
+  custom_breaks <- seq(min(scaled_var), max(scaled_var), by = ((max(scaled_var) - min(scaled_var)) / num_breaks))
+  custom_limits <- c(min(scaled_var), max(scaled_var))
+  
+  plot_id <- plot_id +
+    scale_x_continuous(breaks = custom_breaks, limits = custom_limits, labels = c(labels), labs(x = x_lab)) +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 15)) +
     theme_classic(base_size = 20)
   
   return(plot_id)
@@ -1265,10 +1489,10 @@ rescale_plot_num_night <- function(input_df, input_term, unscaled_var, scaled_va
 
 # schreibe fun fuer diskrete var
 rescale_plot_fac_day <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
-  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "red")
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "orangered")
   
   plot_id <- plot_id +
-    scale_y_continuous(labs(y = y_lab), limits = c(0, 65)) +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 170)) +
     theme_classic(base_size = 20) +
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
   
@@ -1276,10 +1500,21 @@ rescale_plot_fac_day <- function(input_df, input_term, unscaled_var, scaled_var,
 }
 
 rescale_plot_fac_night <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
-  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "blue")
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "darkblue")
   
   plot_id <- plot_id +
-    scale_y_continuous(labs(y = y_lab), limits = c(0, 65)) +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 20)) +
+    theme_classic(base_size = 20) +
+    theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
+  
+  return(plot_id)
+}
+
+rescale_plot_fac_duskdawn <- function(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {
+  plot_id <- plot_model(input_df, type = "pred", terms = input_term, axis.title = "", title = "", color = "mediumvioletred")
+  
+  plot_id <- plot_id +
+    scale_y_continuous(labs(y = y_lab), limits = c(0, 15)) +
     theme_classic(base_size = 20) +
     theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1))
   
@@ -1288,8 +1523,10 @@ rescale_plot_fac_night <- function(input_df, input_term, unscaled_var, scaled_va
 
 # Plotte
 
+# Temperatur ####
+
 ## Tagesmaximaltemperatur
-input_df <- nb_model_day_zi
+input_df <- nb_int_model_day_zi
 input_term <- "tre200jx_scaled [all]"
 unscaled_var <- umwelt_day$tre200jx
 scaled_var <- umwelt_day$tre200jx_scaled
@@ -1306,60 +1543,19 @@ p_temp <- rescale_plot_num_day(
 )
 p_temp
 
-ggsave("temp.png",
+ggsave("day_temp.png",
        width = 15, height = 15, units = "cm", dpi = 1000,
        path = "fallstudie_s/results/"
 )
 
 
 
+# Sonnenscheindauer ####
 
-
-
-## NACHTmaximaltemperatur
-input_df <- nb_model_night_zi
-input_term <- "tre200nx_scaled [all]"
-unscaled_var <- umwelt_night$tre200jx
-scaled_var <- umwelt_night$tre200jx_scaled
-num_breaks <- 10
-x_lab <- "Temperatur [°C]"
-y_lab <- "Fussgänger:innen pro Nacht"
-x_scaling <- 1 # in prozent
-x_nk <- 0 # x round nachkommastellen
-
-
-p_temp <- rescale_plot_num_night(
-  input_df, input_term, unscaled_var, scaled_var, num_breaks,
-  x_lab, y_lab, x_scaling, x_nk
-)
-p_temp
-
-ggsave("temp.png",
-       width = 15, height = 15, units = "cm", dpi = 1000,
-       path = "fallstudie_s/results/"
-)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## sonnenscheindauer
-input_df <- Tages_Model_nb_quad
+input_df <- nb_int_model_day_zi
 input_term <- "sremaxdv_scaled [all]"
-unscaled_var <- umwelt$sremaxdv
-scaled_var <- umwelt$sremaxdv_scaled
+unscaled_var <- umwelt_day$sremaxdv
+scaled_var <- umwelt_day$sremaxdv_scaled
 num_breaks <- 10
 x_lab <- "Sonnenscheindauer [%]"
 y_lab <- "Fussgänger:innen pro Tag"
@@ -1367,47 +1563,74 @@ x_scaling <- 1 # in prozent
 x_nk <- 0 # x round nachkommastellen
 
 
-p_sonn <- rescale_plot_num(
+p_sonn <- rescale_plot_num_day(
   input_df, input_term, unscaled_var, scaled_var, num_breaks,
   x_lab, y_lab, x_scaling, x_nk
 )
 p_sonn
 
-ggsave("sonne.png",
+ggsave("day_sonne.png",
   width = 15, height = 15, units = "cm", dpi = 1000,
   path = "fallstudie_s/results/"
 )
 
+# Niederschlag ####
 
 ## regen tag
-input_df <- Tages_Model_nb_quad
+input_df <- nb_int_model_day_zi
 input_term <- "rre150j0_scaled [all]"
-unscaled_var <- umwelt$rre150j0
-scaled_var <- umwelt$rre150j0_scaled
+unscaled_var <- umwelt_duskdawn$rre150j0
+scaled_var <- umwelt_duskdawn$rre150j0_scaled
 num_breaks <- 10
-x_lab <- "Regensumme 6 - 18 Uhr [mm]"
+x_lab <- "Regensumme 6 - 18 Uhr UTC [mm]"
 y_lab <- "Fussgänger:innen pro Tag"
 x_scaling <- 1 # in prozent
 x_nk <- 0 # x round nachkommastellen
 
 
-p_reg <- rescale_plot_num(
+p_reg <- rescale_plot_num_day(
   input_df, input_term, unscaled_var, scaled_var, num_breaks,
   x_lab, y_lab, x_scaling, x_nk
 )
 p_reg
 
-ggsave("regen.png",
+ggsave("day_regen.png",
   width = 15, height = 15, units = "cm", dpi = 1000,
   path = "fallstudie_s/results/"
 )
 
 
-## Wochentag
-input_df <- Tages_Model_nb_quad
-input_term <- "Wochentag [all]"
-unscaled_var <- umwelt$Wochentag
-scaled_var <- umwelt$Wochentag
+## regen duskdawn
+input_df <- nb_model_duskdawn_zi
+input_term <- "rre150j0_scaled [all]"
+unscaled_var <- umwelt_day$rre150j0
+scaled_var <- umwelt_day$rre150j0_scaled
+num_breaks <- 10
+x_lab <- "Regensumme 6 - 18 Uhr UTC [mm]"
+y_lab <- "Fussgänger:innen pro Tag"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_reg <- rescale_plot_num_duskdawn(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk
+)
+p_reg
+
+ggsave("dusk_regen.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+
+# Wochentag ####
+
+## Wochentag tag
+input_df <- nb_int_model_day_zi
+input_term <- "Wochenende [all]"
+unscaled_var <- umwelt_day$Wochenende
+scaled_var <- umwelt_day$Wochenende
 num_breaks <- 10
 x_lab <- "Wochentag"
 y_lab <- "Fussgänger:innen pro Tag"
@@ -1415,43 +1638,89 @@ x_scaling <- 1 # in prozent
 x_nk <- 0 # x round nachkommastellen
 
 
-p_wd <- rescale_plot_fac(
+p_wd <- rescale_plot_fac_day(
   input_df, input_term, unscaled_var, scaled_var, num_breaks,
-  x_lab, y_lab, x_scaling, x_nk
-)
+  x_lab, y_lab, x_scaling, x_nk)
 p_wd
 
-ggsave("wd.png",
+ggsave("day_wd.png",
   width = 15, height = 15, units = "cm", dpi = 1000,
   path = "fallstudie_s/results/"
 )
 
-
-## Ferien
-# input_df     <-  Tages_Model_nb_quad
-# input_term   <- "Ferien [all]"
-# unscaled_var <- umwelt$Ferien
-# scaled_var   <- umwelt$Ferien
-# num_breaks   <- 10
-# x_lab        <- "Ferien"
-# y_lab        <- "Fussgänger:innen pro Tag"
-# x_scaling    <- 1 # in prozent
-# x_nk         <- 0   # x round nachkommastellen
-#
-#
-# p_feri <- rescale_plot_fac(input_df, input_term, unscaled_var, scaled_var, num_breaks,
-#                          x_lab, y_lab, x_scaling, x_nk)
-# p_feri
-#
-# ggsave("ferien.png", width=15, height=15, units="cm", dpi=1000,
-#        path = "fallstudie_s/results/")
+## Wochentag nacht
+input_df <- nb_red_model_night
+input_term <- "Wochenende [all]"
+unscaled_var <- umwelt_night$Wochenende
+scaled_var <- umwelt_night$Wochenende
+num_breaks <- 10
+x_lab <- "Wochentag"
+y_lab <- "Fussgänger:innen pro Nacht"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
 
 
-## Phase
-input_df <- Tages_Model_nb_quad
+p_wd <- rescale_plot_fac_night(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk)
+p_wd
+
+ggsave("night_wd.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+
+## Wochentag duskdawn
+input_df <- nb_model_duskdawn_zi
+input_term <- "Wochenende [all]"
+unscaled_var <- umwelt_duskdawn$Wochenende
+scaled_var <- umwelt_duskdawn$Wochenende
+num_breaks <- 10
+x_lab <- "Wochentag"
+y_lab <- "Fussgänger:innen in der Dämmerung"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_wd <- rescale_plot_fac_duskdawn(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk)
+p_wd
+
+ggsave("duskdawn_wd.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+# Ferien ####
+
+# nacht
+input_df     <-  nb_red_model_night
+input_term   <- "Ferien [all]"
+unscaled_var <- umwelt_night$Ferien
+scaled_var   <- umwelt_night$Ferien
+num_breaks   <- 10
+x_lab        <- "Ferien"
+y_lab        <- "Fussgänger:innen pro Nacht"
+x_scaling    <- 1 # in prozent
+x_nk         <- 0   # x round nachkommastellen
+
+p_feri <- rescale_plot_fac_night(input_df, input_term, unscaled_var, scaled_var, num_breaks,
+                         x_lab, y_lab, x_scaling, x_nk)
+p_feri
+
+ggsave("night_ferien.png", width=15, height=15, units="cm", dpi=1000,
+       path = "fallstudie_s/results/")
+
+
+# Phase ####
+
+# tag
+input_df <- nb_int_model_day_zi
 input_term <- "Phase [all]"
-unscaled_var <- umwelt$Phase
-scaled_var <- umwelt$Phase
+unscaled_var <- umwelt_day$Phase
+scaled_var <- umwelt_day$Phase
 num_breaks <- 10
 x_lab <- "Phase"
 y_lab <- "Fussgänger:innen pro Tag"
@@ -1459,23 +1728,70 @@ x_scaling <- 1 # in prozent
 x_nk <- 0 # x round nachkommastellen
 
 
-p_phase <- rescale_plot_fac(
+p_phase <- rescale_plot_fac_day(
   input_df, input_term, unscaled_var, scaled_var, num_breaks,
   x_lab, y_lab, x_scaling, x_nk
 )
 p_phase
 
-ggsave("phase.png",
+ggsave("day_phase.png",
   width = 15, height = 15, units = "cm", dpi = 1000,
   path = "fallstudie_s/results/"
 )
 
 
-## Monat
-input_df <- Tages_Model_nb_quad
+# nacht
+input_df <- nb_red_model_night
+input_term <- "Phase [all]"
+unscaled_var <- umwelt_night$Phase
+scaled_var <- umwelt_night$Phase
+num_breaks <- 10
+x_lab <- "Phase"
+y_lab <- "Fussgänger:innen pro Nacht"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_phase <- rescale_plot_fac_night(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk
+)
+p_phase
+
+ggsave("night_phase.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+# duskdawn
+input_df <- nb_model_duskdawn_zi
+input_term <- "Phase [all]"
+unscaled_var <- umwelt_duskdawn$Phase
+scaled_var <- umwelt_duskdawn$Phase
+num_breaks <- 10
+x_lab <- "Phase"
+y_lab <- "Fussgänger:innen in der Dämmerung"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_phase <- rescale_plot_fac_duskdawn(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk
+)
+p_phase
+
+ggsave("duskdawn_phase.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+# Monat ####
+# tag
+input_df <- nb_int_model_day_zi
 input_term <- "Monat [all]"
-unscaled_var <- umwelt$Monat
-scaled_var <- umwelt$Monat
+unscaled_var <- umwelt_day$Monat
+scaled_var <- umwelt_day$Monat
 num_breaks <- 10
 x_lab <- "Monat"
 y_lab <- "Fussgänger:innen pro Tag"
@@ -1483,16 +1799,72 @@ x_scaling <- 1 # in prozent
 x_nk <- 0 # x round nachkommastellen
 
 
-p_monat <- rescale_plot_fac(
+p_Monat <- rescale_plot_fac_day(
   input_df, input_term, unscaled_var, scaled_var, num_breaks,
   x_lab, y_lab, x_scaling, x_nk
 )
-p_monat
+p_Monat
 
-ggsave("monat.png",
-  width = 15, height = 15, units = "cm", dpi = 1000,
-  path = "fallstudie_s/results/"
+ggsave("day_Monat.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
 )
+
+
+# nacht
+input_df <- nb_red_model_night
+input_term <- "Monat [all]"
+unscaled_var <- umwelt_night$Monat
+scaled_var <- umwelt_night$Monat
+num_breaks <- 10
+x_lab <- "Monat"
+y_lab <- "Fussgänger:innen pro Nacht"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_Monat <- rescale_plot_fac_night(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk
+)
+p_Monat
+
+ggsave("night_Monat.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+# duskdawn
+input_df <- nb_model_duskdawn_zi
+input_term <- "Monat [all]"
+unscaled_var <- umwelt_duskdawn$Monat
+scaled_var <- umwelt_duskdawn$Monat
+num_breaks <- 10
+x_lab <- "Monat"
+y_lab <- "Fussgänger:innen in der Dämmerung"
+x_scaling <- 1 # in prozent
+x_nk <- 0 # x round nachkommastellen
+
+
+p_Monat <- rescale_plot_fac_duskdawn(
+  input_df, input_term, unscaled_var, scaled_var, num_breaks,
+  x_lab, y_lab, x_scaling, x_nk
+)
+p_Monat
+
+ggsave("duskdawn_Monat.png",
+       width = 15, height = 15, units = "cm", dpi = 1000,
+       path = "fallstudie_s/results/"
+)
+
+
+
+
+
+
+
+
+
 
 
 
