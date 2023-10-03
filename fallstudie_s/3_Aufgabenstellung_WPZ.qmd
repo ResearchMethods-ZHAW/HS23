@@ -32,7 +32,7 @@ Für "meine" Analysen habe ich folgende Fragestellungen formuliert:
 >
 >3)	Gibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?
 >
->4)	Welches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?
+>4)	Welche Auswirkungen haben diese Nutzungen und Nutzungsveränderungen auf das in der Literatur beschriebene Verhalten der Rehe?
 >
 
 - Jede Gruppe wertet __Daten von einem Zähler__ aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Jeder Zähler soll nur von einer Gruppe ausgewertet werden!
