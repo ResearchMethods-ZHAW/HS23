@@ -90,7 +90,7 @@ Um die Änderungen an den Source Files zu veröffentlichen müsst ihr diese via 
 -   `push`: Click auf den button "Push" (im Terminal mit `git push`)
 -   
 
-Um Änderungen an den Output Files zu Veröffentlichen muss (TBD)
+Um Änderungen an den Output Files zu Veröffentlichen muss folgender Code im Terminal eingegeben werden:
 
 ```sh
 quarto publish gh-pages --no-prompt 
@@ -114,6 +114,16 @@ Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-de
 ```sh
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
+
+
+### Was tun bei folgendem Fehler: `error: Your local changes to the following files would be overwritten by merge:`
+
+Hier muss unterschieden werden, ob es sich bei der Liste von Files, die nach einer solchen Fehlermeldung erscheinen, um quellcode oder output-Files handelt. Quellcode sind typischerweise Qmd Files, können aber auch YAML oder R-Scripts sein. Also v.a. Files, die *ihr* von Hand editiert. Output files werden aus dem Quellcode generiert, und sind typischerweise Html oder JSON Files. Vor allem befinden sich sämtliche output Files im Ordner `_freeze`. 
+
+TDB:
+
+- 
+
 
 ### Warum ist `datasets` ein separates Git-Repo?
 1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
