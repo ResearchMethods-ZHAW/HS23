@@ -54,11 +54,6 @@ library("readr")
 library("lubridate")
 ```
 
-:::{.callout-note}
-Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_csv` (mit *underscore*) als alternative zu `read.csv` (mit *Punkt*). Das ist eine persönliche Präferenz[^readr], es ist euch überlassen welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.
-:::
-
-[^readr]: Vorteile von `read_csv` gegenüber `read.csv`: <https://stackoverflow.com/a/60374974/4139249>
 
 ## Aufgabe 1
 
@@ -119,11 +114,16 @@ knitr::kable(df)
 
 ## Aufgabe 4
 
-Importiere den Datensatz *weather.csv* (Quelle MeteoSchweiz). Es handelt sich dabei um die stündlich gemittelten Temperaturdaten an verschiedenen Standorten in der Schweiz. 
+Auf Moodle findest du ein Zip-Files mit dem Namen *prepro.zip*. Lade das File herunter und entpacke es **in deinem Projektordner**. Importiere die Datei `weather.csv`. Falls du dafür das RStudio GUI verwendest, speichere den Import-Befehl in deinem R-Script ab. Bitte verwende einen relativen Pfad (also kein Pfad der mit `C:/`, `~/` o.ä. beginnt).)
 
-:::{.callout-warning}
-Wenn du `read_csv` verwenden möchtest: Diese Funktion erwartet leicht andere inputs als `read.csv`, konsultiere dazu die Hilfe zu `read_csv` (mit `?read_csv`).
-::::
+:::{.callout-note}
+Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_delim` (mit *underscore*) als alternative zu `read.csv` oder `read.delim` (mit *Punkt*). Das ist eine persönliche Präferenz[^readr], es ist euch überlassen welche Funktion ihr verwendet. Beachtet, dass die beiden Funktionen leicht andere Parameter erwarten.
+:::
+
+[^readr]: Vorteile von `read_delim` gegenüber `read.csv`: <https://stackoverflow.com/a/60374974/4139249>
+
+
+
 
 ```{r}
 wetter <- read_csv("datasets/prepro/weather.csv")
