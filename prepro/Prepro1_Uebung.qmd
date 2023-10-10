@@ -35,19 +35,7 @@ Das Verwenden von Projects bringt verschiedene Vorteile, wie zum Beispiel:
 
 ## Arbeiten mit Libraries / Packages
 
-R ist ohne Zusatzpackete nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen [Tidyverse](https://www.tidyverse.org/) werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das "Tidy"-Universum eingehen, an dieser Stelle können wir einfach mal die wichtigsten Packages aus `tidyverse` installieren (heute werden wir davon nur einen kleinen Teil benutzen).
-
-```{r}
-#| eval: false
-#| echo: true
-#| code-fold: false
-
-install.packages("dplyr")
-install.packages("tidyr")
-install.packages("readr")
-install.packages("lubridate")
-install.packages("ggplot2")
-```
+R ist ohne Zusatzpackete, sogenannte "Packages" nicht mehr denkbar. Die allermeisten Packages werden auf [CRAN](https://cran.r-project.org/) gehostet und können leicht mittels `install.packages()` installiert werden. Eine sehr wichtige Sammlung von Packages wird von RStudio entwickelt. Unter dem Namen [Tidyverse](https://www.tidyverse.org/) werden eine Reihe von Packages angeboten, den R-Alltag enorm erleichtert. Wir werden später näher auf das "Tidy"-Universum eingehen, an dieser Stelle können wir einfach mal die wichtigsten Packages aus `tidyverse` installieren (heute werden wir davon nur einen kleinen Teil benutzen).
 
 Um ein `package` in R verwenden zu können, gibt es zwei Möglichkeiten:
 
