@@ -115,6 +115,44 @@ Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-de
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
 
+
+### Was tun bei folgendem Fehler: `error: Your local changes to the following files would be overwritten by merge:`
+
+Bei einem `git pull` kann es zu folgender Fehlermeldung kommen.
+
+```
+error: Your local changes to the following files would be overwritten by merge:
+        _freeze/stat1-4/Statistik1_Demo/execute-results/html.json
+        _freeze/stat1-4/Statistik1_Demo/figure-html/unnamed-chunk-1-1.png
+        ...
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+Alle *Quellcode*-Files sollten unbedingt ge-`stage`d und `commited` werden. Mit *Quellcode* sind Files gemeint, die ihr selbst von Hand erstellt und verändert (meist Qmd-Files, seltender Yaml oder R-Files). Z.B folgendermassen:
+
+```
+git add "*.qmd"                # staged alle Files mit der Endung .qmd
+git commit -m "meine message"
+```
+
+*Output*-Files hingegen müssen (und sollten) nicht gemerged werden. Output files sind Dateien, die *aus* dem Quellcode generiert wird. Diese werden automatisch generiert, und da macht ein Merge auch keinen Sinn. Bei Output files gilt: das neuere file ist das gültige File. Um das zu erreichen können lokale änderungen ge`stash`ed und dann verworfen werden.
+
+```
+git status                    # versichern, dass nur output files betroffen sind
+git stash                     # stash alle lokalen Änderungen
+git pull                      # holt die remote Änderungen
+git stash drop                # verwirft die lokalen Änderungen
+```
+
+Alternativ könnten auch verschiedene Merge-Strategien verwendet werden. Das hat bei Nils aber schon zu unerwarteten Resultaten geführt (Änderungen wurden verworfen). 
+
+- Lokale Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `ours` durchführen (`git pull --strategy=ours`)
+  <!-- - Lokalen Änderungen `stash`-en und verwerfen -->
+- Remote Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `theirs` durchführen (`git pull --strategy=theirs`)
+
+
+
 ### Warum ist `datasets` ein separates Git-Repo?
 1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
 2. Die Datenstäze sind teilweise vertraulich und sollten nicht öffentlich geteilt werden (das entsprechende Repo ist *private*) → dies sollte sich in Zukunft hoffentlich ändern (OER!)
