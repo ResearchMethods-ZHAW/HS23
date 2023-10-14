@@ -22,7 +22,7 @@ ipak <- function(pkg) {
   }
 }
 
-packages <- c("dplyr", "ggplot", "lubridate", "readr", "scales", "tidyr")
+packages <- c("dplyr", "ggplot2", "lubridate", "readr", "scales", "tidyr")
 
 ipak(packages)
 ```

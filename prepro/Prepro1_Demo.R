@@ -4,7 +4,7 @@ x
 
 typeof(x)
 
-y <- 7.3
+y = 7.3
 y
 
 z <- 42
@@ -26,58 +26,29 @@ typeof(a)
 is.numeric(a)
 is.integer(a)
 
-vector <- c(10, 20, 33, 42, 54, 66, 77)
-vector
-vector[5]
-vector[2:4]
-
-vector2 <- vector[2:4]
-
-a <- as.integer(7)
-b <- as.integer(3.14)
-a
-b
-typeof(a)
-typeof(b)
-is.integer(a)
-is.integer(b)
-
-c <- as.integer("3.14")
-c
-typeof(c)
-
 e <- 3
 f <- 6
-g <- e > f
-e
-f
-g
-typeof(g)
+
+e > f
+
 
 sonnig <- TRUE
 trocken <- FALSE
 
 sonnig & !trocken
 
-u <- TRUE
-v <- !u
-v
-
 s <- as.character(3.14)
 s
 typeof(s)
 
-fname <- "Hans"
+fname <- "Andrea"
 lname <- "Muster"
 paste(fname, lname)
 
-fname2 <- "hans"
+fname2 <- "Simon"
 fname == fname2
 
-wochentage <- c(
-  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch",
-  "Donnerstag", "Freitag", "Samstag", "Sonntag", "Montag", "Dienstag", "Mittwoch"
-)
+wochentage <- c("Donnerstag", "Freitag", "Samstag")
 
 typeof(wochentage)
 
@@ -98,11 +69,11 @@ datum <- "01.10.2017 13:45"
 # konvertiert character in POSIXct:
 as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 
-datum <- as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
+datum2 <- as.POSIXct(datum, format = "%d.%m.%Y %H:%M")
 
-strftime(datum, format = "%m") # extrahiert den Monat als Zahl
-strftime(datum, format = "%b") # extrahiert den Monat mit Namen (abgekürzt)
-strftime(datum, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
+strftime(datum2, format = "%m") # extrahiert den Monat als Zahl
+strftime(datum2, format = "%b") # extrahiert den Monat mit Namen (abgekürzt)
+strftime(datum2, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben)
 
 library("lubridate")
 
@@ -110,9 +81,27 @@ month(datum) # extrahiert den Monat als Zahl
 month(datum, label = TRUE, abbr = TRUE) # extrahiert den Monat mit Namen (abgekürzt)
 month(datum, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
 
+vec <- c(10, 20, 33, 42, 54, 66, 77)
+vec
+vec[5]
+vec[2:4]
+
+vec2 <- vec[2:4]
+
+
+mylist <- list("q", TRUE, 3.14)
+
+
+mylist2 <- list(fav_letter = "q", fav_boolean = TRUE, fav_number = 3.14)
+
+mylist2
+
+
+as.data.frame(mylist2)
+
 df <- data.frame(
   Stadt = c("Zürich", "Genf", "Basel", "Bern", "Lausanne"),
-  Einwohner = c(396027, 194565, 175131, 140634, 135629),
+  Einwohner = c(400000, 200000, 175000, 14000, 130000),
   Ankunft = c(
     "1.1.2017 10:00", "1.1.2017 14:00",
     "1.1.2017 13:00", "1.1.2017 18:00", "1.1.2017 21:00"

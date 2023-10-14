@@ -230,7 +230,7 @@ sum(is.na(meteo)) # zeigt die Anzahl NA's im data.frame an
 
 Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:
 
-1. Wochentag; der Befehl dazu ist __wday()__
+1. Wochentag; der Befehl dazu ist __wday()__. Danach als Faktor speichern.
 2. Werktag oder Wochenende als Faktor. Der Code dazu könnte so aussehen:
 
 ```{r eval=FALSE, echo=TRUE}
@@ -247,26 +247,71 @@ je als Faktor:
 
 ```{r}
 depo <- depo |>
-    # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
-    mutate(
-        Wochentag = wday(Datetime, week_start = 1),
-        Wochentag = factor(Wochentag),
-        # Werktag oder Wochenende hinzufuegen
-        Wochenende = ifelse(Wochentag %in% c(6, 7), "Wochenende", "Werktag"),
-        Wochenende = as.factor(Wochenende),
-        # Kalenderwoche hinzufuegen
-        KW = isoweek(Datetime),
-        KW = factor(KW),
-        # monat und Jahr
-        Monat = month(Datetime),
-        Jahr = year(Datetime)
-    )
+  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
+  mutate(
+    Wochentag = wday(Datetime, week_start = 1),
+    Wochentag = factor(Wochentag),
+    # Werktag oder Wochenende hinzufuegen
+    Wochenende = ifelse(Wochentag %in% c(6, 7), "Wochenende", "Werktag"),
+    Wochenende = as.factor(Wochenende),
+    # Kalenderwoche hinzufuegen
+    KW = isoweek(Datetime),
+    KW = factor(KW),
+    # monat und Jahr
+    Monat = month(Datetime),
+    Monat = factor(Monat),
+    Jahr = year(Datetime),
+    Jahr = factor(Jahr))
 ```
 
 
+Dies machen wir auch mit dem "meteo" Datensatz.
+
+- Wiederum bitte Wochentag, Werktag oder Wochenende, Kalenderwoche, Monat und Jahr. Ebenfalls alles als Faktor speichern.
+
+```{r}
+# Wir gruppieren die Meteodaten noch nach Kalenderwoche und Werktag / Wochenende
+# Dafür brauchen wir zuerst diese als Convenience Variablen
+meteo <- meteo |>
+  # wday sortiert die Wochentage automatisch in der richtigen Reihenfolge
+  mutate(
+    Wochentag = wday(time, week_start = 1),
+    Wochentag = factor(Wochentag),
+    # Werktag oder Wochenende hinzufuegen
+    Wochenende = ifelse(Wochentag %in% c(6, 7), "Wochenende", "Werktag"),
+    Wochenende = as.factor(Wochenende),
+    # Kalenderwoche hinzufuegen
+    KW = isoweek(time),
+    KW = factor(KW),
+    # monat und Jahr
+    Monat = month(time),
+    Monat = factor(Monat),
+    Jahr = year(time),
+    Jahr = factor(Jahr))
+
+
+
+```
+
+- Später werden wir nicht nur Analysen pro Tag machen, sondern auch zusammengefasst nach Woche. Dafür müssen wir nun den meteo-Datensaz gruppieren und den mean berechnen. Hier der Code dazu, wie das aussehen könnte:
+
+```{r echo=TRUE}
+meteo_day <- meteo |>
+  group_by(Jahr, Monat, KW, Wochenende) |>
+  summarise(
+    tre200nx = mean(tre200nx),
+    tre200jx = mean(tre200jx),
+    rre150n0 = mean(rre150n0),
+    rre150j0 = mean(rre150j0),
+    sremaxdv= mean(sremaxdv))
+```
+
+
+Wieder zurück zum Depo-Datensazt.
+
 Ich mache den folgenden Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.
 
-5. Phase Covid (Code untenstehend). Wir definieren 5 Phasen: 
+Phase Covid (Code untenstehend). Wir definieren 5 Phasen: 
 
   - von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1
   - Lockdown 1
@@ -300,6 +345,23 @@ depo <- depo |>
 str(depo)
 
 ```
+
+Neben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchszahlen haben. Wir haben die Schulferien bereits als .csv eingelesen. Allerdings können wir die Schulferien nicht mit der case_when()-Funktion zuweisen, da diese mit dieser Funktion alle  Vektoren im Datensatz "schulferien" verglichen werden, und nicht elementweise für jede Zeile im "depo"-Datensatz. Dies führt dazu, dass die Bedingungen nur einmal überprüft werden und dann auf den gesamten Vektor angewendet werden, anstatt Zeile für Zeile. 
+
+- Weil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:
+
+```{r}
+# schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als
+# ende, DANN schreibe ein 1
+for (i in 1:nrow(schulferien)) {
+  depo$Ferien[depo$Datum >= schulferien[i, "Start"] & depo$Datum <= schulferien[i, "Ende"]] <- 1
+}
+depo$Ferien[is.na(depo$Ferien)] <- 0
+
+# als faktor speichern
+depo$Ferien <- factor(depo$Ferien)
+```
+
 
 ### 3b)
 
@@ -444,20 +506,36 @@ head(depo_d)
 ```
 
 
-- Erstellt nun einen Datensatz depo_daytime, in welchem ihr obrigen Schritt wiederholt aber zusätzlich noch die Gruppierung "Tageszeit" nutzt.
+- Erstellt nun einen Datensatz depo_daytime, in welchem ihr gruppiet nach:
+a) Jahr
+b) Monat
+c) Kalenderwoche
+d) Phase
+e) Ferien
+f) Wochenende oder Werktag
+g) Tageszeit
 
 ```{r}
 # nun gruppieren wir nicht nur nach Tag sondern auch noch nach Tageszeit
 depo_daytime <- depo |>
-    group_by(Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase, Tageszeit) |>
-    summarise(
-        Total = sum(Fuss_IN + Fuss_OUT),
-        Fuss_IN = sum(Fuss_IN),
-        Fuss_OUT = sum(Fuss_OUT)
-    )
+  group_by(Jahr, Monat, KW, Phase, Ferien, Wochenende, Tageszeit) |>
+  summarise(
+    Total = sum(Fuss_IN + Fuss_OUT),
+    Fuss_IN = sum(Fuss_IN),
+    Fuss_OUT = sum(Fuss_OUT))
+
 ```
 
 - Weiter benötigen wir für für die Berechnung der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), unterteilt nach Tageszeit und Phase __(Gruppierungen Tageszeit, Phase__). Speichert das unter "mean_phase_d".
+
+```{r}
+mean_phase_d <- depo_daytime |>
+  group_by(Phase, Tageszeit) |>
+  summarise(
+    Total = mean(Total),
+    IN = mean(Fuss_IN),
+    OUT = mean(Fuss_OUT))
+```
 
 
 ### 4b)

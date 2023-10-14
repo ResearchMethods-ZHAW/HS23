@@ -5,6 +5,7 @@
 .DS_Store
 .config/
 .local/
+.bash_history
 
 data/
 /.quarto/

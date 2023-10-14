@@ -18,13 +18,13 @@ Wer Lokal auf seinem eingenen PC arbeiten will, muss eine aktuell version von R,
 
 ### RStudio Konfigurieren
 
-Ich empfehle folgende Konfiguration in RStudio (`Global Options`):
+Ich empfehle folgende Konfiguration in RStudio (Tools → `Global Options`):
 
 -   R Markdown
-    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Rmd files dar)*
-    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Rmd files)*
+    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Qmd files dar)*
+    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Qmd files)*
     -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
-    -   Show output preview in: Window *(beim kopilieren von Rmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
+    -   Show output preview in: Window *(beim kopilieren von Qmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
     -   Show equation an image previews: In a popup
     -   Evaluate chunks in directory: Document (**← wichtig !**)
 -   Code \> Tab "Saving"
@@ -42,7 +42,7 @@ git config --global user.name
 Falls nicht, müssen diese Angaben zuerst noch gemacht werden. Siehe dazu folgende Kapitel:
 
 -   [happygitwithr: Introduce yourself to Git](https://happygitwithr.com/hello-git.html)
--   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/credential-caching.html)
+-   [happygitwithr: Cache credentials for HTTPS](https://happygitwithr.com/https-pat)
 
 ## Anleitung 2: Projekt aufsetzen
 
@@ -70,13 +70,13 @@ Die meisten Inhalte exisitieren bereits und ihr müsst sie nur noch anpassen. Fa
 
 ### Qmd editieren
 
-Um Inhalte zu editieren, öffnet ihr das entsprechende .Rmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
+Um Inhalte zu editieren, öffnet ihr das entsprechende .Qmd file in einem der Ordner `prepro`, `infovis`, `rauman` usw.. Ihr könnt dieses File wie ein reguläres, eigenständiges .Qmd File handhaben. **Wichtig**: Alle Pfade im Dokument sind relativ zum Project zu verstehen: **Das Working directory ist der Project folder!!**.
 
 ### Qmd Kompilieren / Vorschau
 
 Statt auf den Preview button in RStudio zu clicken empfehlen wir, quarto von der Konsole (Terminal) aus zu bedienen. `quarto render` kompiliert das jeweilige File / Projekt in html (oder pdf). Sehr praktisch ist aber `quarto preview`, welches zusätzlich zum rendern erstellt einen "Webserver" zur Verfügung stellt, wo Änderungen an den qmd Files detektiert und live ge-updated werden.
 
-Hinweis: Auf Windows muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2))
+Hinweis: Auf gewissen Windows Versionen muss man den Befehl `quarto` mit `quarto.cmd` oder `quarto.exe` ersetzen. Versuche es zuerst mit quarto, wenn das nicht klappt versuche die erwähnten Varianten (siehe [hier](https://community.rstudio.com/t/bash-quarto-command-not-found/144187/2)).
 
 ### Änderungen veröffentlichen
 
@@ -114,6 +114,44 @@ Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-de
 ```sh
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
 ```
+
+
+### Was tun bei folgendem Fehler: `error: Your local changes to the following files would be overwritten by merge:`
+
+Bei einem `git pull` kann es zu folgender Fehlermeldung kommen.
+
+```
+error: Your local changes to the following files would be overwritten by merge:
+        _freeze/stat1-4/Statistik1_Demo/execute-results/html.json
+        _freeze/stat1-4/Statistik1_Demo/figure-html/unnamed-chunk-1-1.png
+        ...
+Please commit your changes or stash them before you merge.
+Aborting
+```
+
+Alle *Quellcode*-Files sollten unbedingt ge-`stage`d und `commited` werden. Mit *Quellcode* sind Files gemeint, die ihr selbst von Hand erstellt und verändert (meist Qmd-Files, seltender Yaml oder R-Files). Z.B folgendermassen:
+
+```
+git add "*.qmd"                # staged alle Files mit der Endung .qmd
+git commit -m "meine message"
+```
+
+*Output*-Files hingegen müssen (und sollten) nicht gemerged werden. Output files sind Dateien, die *aus* dem Quellcode generiert wird. Diese werden automatisch generiert, und da macht ein Merge auch keinen Sinn. Bei Output files gilt: das neuere file ist das gültige File. Um das zu erreichen können lokale änderungen ge`stash`ed und dann verworfen werden.
+
+```
+git status                    # versichern, dass nur output files betroffen sind
+git stash                     # stash alle lokalen Änderungen
+git pull                      # holt die remote Änderungen
+git stash drop                # verwirft die lokalen Änderungen
+```
+
+Alternativ könnten auch verschiedene Merge-Strategien verwendet werden. Das hat bei Nils aber schon zu unerwarteten Resultaten geführt (Änderungen wurden verworfen). 
+
+- Lokale Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `ours` durchführen (`git pull --strategy=ours`)
+  <!-- - Lokalen Änderungen `stash`-en und verwerfen -->
+- Remote Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `theirs` durchführen (`git pull --strategy=theirs`)
+
+
 
 ### Warum ist `datasets` ein separates Git-Repo?
 1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)

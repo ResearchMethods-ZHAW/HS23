@@ -7,6 +7,9 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat1: Demo
@@ -63,13 +66,11 @@ Dasselbe mit einer "long table"
 
 ```{r}
 # "Long table" erstellen
-cultivar <- c(rep("a", 10), rep("b", 10))
-size <- c(a, b)
-blume.long <- data.frame(cultivar, size)
 
-# nicht mehr benötitgten Objekte entfernen
-rm(size)
-rm(cultivar)
+library("tidyr")
+
+blume.long <- pivot_longer(blume, cols = c("a", "b"))
+
 
 # Daten anschauen
 summary(blume.long)

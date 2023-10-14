@@ -93,6 +93,7 @@ diary |>                  # 1
 - Neben dem *base R* Pipe Operator existiert im Package `magrittr` ein sehr ähnlicher[^pipe] Pipe Operator: `%>%`
 - Die Tastenkombination <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>M</kbd> in RStudio fügt einen Pipe Operator ein. 
 - Welcher Pipe Operator `|>` oder `%>%` mit der obigen Tastenkombination eingeführt wird, kann über die RStudio Settings `Tools` → `Global Options` → `Code` → Häckchen setzen bei `Use nativ pipe operator`
+- Wir empfehlen die base-R Pipe `|>` zu verwenden
 :::
 
 [^pipe]: siehe <https://stackoverflow.com/q/67633022/4139249>
