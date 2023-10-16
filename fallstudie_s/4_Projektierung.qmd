@@ -1,12 +1,12 @@
 ---
-date: 2023-10-16
+date: 2023-10-17
 lesson: Projektierung
 thema: Projekt Fallstudie erstellen
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
   output: false
-code-fold: true
+code-fold: false # set false to show all code
 code-summary: "Musterlösung"
 knitr:
   opts_chunk: 
@@ -70,7 +70,7 @@ Ein Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema
 
 Bereitet euer Skript mit diesen Kapitel vor.
 
-```{r echo=TRUE}
+```{r}
 # .###########################################################################################
 # Einfluss von COVID19 auf das Naherholungsverhalten in WPZ ####
 # Fallstudie Modul Research Methods, HS22. Autor/in ####
@@ -91,7 +91,7 @@ Bereitet euer Skript mit diesen Kapitel vor.
 
 In einem Bericht ist es schön, wenn die Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable "mycolors" abrufen kann.
 
-```{r eval=FALSE,  echo=TRUE}
+```{r}
 mycolors <- c("orangered", "gold", "mediumvioletred", "darkblue")
 ```
 
@@ -102,7 +102,7 @@ mycolors <- c("orangered", "gold", "mediumvioletred", "darkblue")
 
 - Diese habt ihr, falls nötig, im Kapitel [Vorbereitung] installiert.
 
-```{r echo=TRUE}
+```{r}
 # Benoetigte Bibliotheken ####
 library("ggplot2") # Data wrangling und pipeing
 library("lubridate") # Arbeiten mit Datumsformaten
@@ -122,7 +122,7 @@ library("readr")
 
 Wir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag __gemäss den vorhandenen Zähldaten__.
 
-```{r echo=TRUE}
+```{r}
 depo_start <- as.Date("2017-01-01")
 depo_end <- as.Date("2022-7-31")
 ```
@@ -132,7 +132,7 @@ Ein Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuc
 
 -Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:
 
-```{r eval=FALSE, echo=TRUE}
+```{r}
 lock_1_start_2020 <- as.Date("2020-03-16")
 lock_1_end_2020 <- as.Date("2020-05-11")
 
@@ -144,7 +144,7 @@ Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist defi
 
 Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/). 
 
-Lest das bereitgestellte .csv mit den Ferienzeiträumen ein und dpeichert es unter __schulferien__.
+Lest das bereitgestellte .csv mit den Ferienzeiträumen ein und speichert es unter __schulferien__.
 
 ```{r warning=FALSE, results="hide"}
 schulferien <- read_delim("datasets/fallstudie_s/ferien.csv", ",")
