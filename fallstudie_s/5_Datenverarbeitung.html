@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS23 - Stat2: Übung</title>
+<title>Research Methods HS23 - Datenverarbeitung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../stat1-4/Statistik2_Loesung_Beispiel.html" rel="next">
-<link href="../stat1-4/Statistik2_Demo.html" rel="prev">
+<link href="../fallstudie_n/1_Vorbemerkung.html" rel="next">
+<link href="../fallstudie_s/4_Projektierung.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -114,7 +148,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat1-4.html">Statistik 1 - 4</a></li><li class="breadcrumb-item"><a href="../stat1-4/Statistik2_Uebung.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stat2: Übung</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/5_Datenverarbeitung.html"><span class="chapter-number">57</span>&nbsp; <span class="chapter-title">Datenverarbeitung</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -257,11 +291,11 @@ window.onload = function() {
       <div class="sidebar-item-container"> 
             <a href="../Stat1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Statistik 1 - 4</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
@@ -291,7 +325,7 @@ window.onload = function() {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Stat2: Übung</span></a>
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -501,13 +535,13 @@ window.onload = function() {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">Fallstudie S</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_s/0_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
@@ -538,7 +572,7 @@ window.onload = function() {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_s/5_Datenverarbeitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Datenverarbeitung</span></a>
+  <a href="../fallstudie_s/5_Datenverarbeitung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Datenverarbeitung</span></a>
   </div>
 </li>
       </ul>
@@ -579,10 +613,31 @@ window.onload = function() {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#übung-2.1-regression" id="toc-übung-2.1-regression" class="nav-link active" data-scroll-target="#übung-2.1-regression">Übung 2.1: Regression</a></li>
-  <li><a href="#übung-2.2-einfaktorielle-anova" id="toc-übung-2.2-einfaktorielle-anova" class="nav-link" data-scroll-target="#übung-2.2-einfaktorielle-anova">Übung 2.2: Einfaktorielle ANOVA</a></li>
-  <li><a href="#übung-2.3n-mehrfaktorielle-anova-natwis" id="toc-übung-2.3n-mehrfaktorielle-anova-natwis" class="nav-link" data-scroll-target="#übung-2.3n-mehrfaktorielle-anova-natwis">Übung 2.3N: Mehrfaktorielle ANOVA (NatWis)</a></li>
-  <li><a href="#übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" id="toc-übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" class="nav-link" data-scroll-target="#übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis">Übung 2.3S: Mehrfaktorielle ANOVA mit Interaktion (SozWis)</a></li>
+  <li><a href="#aufgabe-1-zähldaten" id="toc-aufgabe-1-zähldaten" class="nav-link active" data-scroll-target="#aufgabe-1-zähldaten">Aufgabe 1: Zähldaten</a>
+  <ul class="collapse">
+  <li><a href="#a" id="toc-a" class="nav-link" data-scroll-target="#a">1a)</a></li>
+  <li><a href="#b" id="toc-b" class="nav-link" data-scroll-target="#b">1b)</a></li>
+  <li><a href="#c" id="toc-c" class="nav-link" data-scroll-target="#c">1c)</a></li>
+  <li><a href="#d" id="toc-d" class="nav-link" data-scroll-target="#d">1d)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-2-meteodaten" id="toc-aufgabe-2-meteodaten" class="nav-link" data-scroll-target="#aufgabe-2-meteodaten">Aufgabe 2: Meteodaten</a>
+  <ul class="collapse">
+  <li><a href="#a-1" id="toc-a-1" class="nav-link" data-scroll-target="#a-1">2a)</a></li>
+  <li><a href="#b-1" id="toc-b-1" class="nav-link" data-scroll-target="#b-1">2b)</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-3-datenvorverarbeitung-mutationen" id="toc-aufgabe-3-datenvorverarbeitung-mutationen" class="nav-link" data-scroll-target="#aufgabe-3-datenvorverarbeitung-mutationen">Aufgabe 3: Datenvorverarbeitung (Mutationen)</a>
+  <ul class="collapse">
+  <li><a href="#a-2" id="toc-a-2" class="nav-link" data-scroll-target="#a-2">3a)</a></li>
+  <li><a href="#b-2" id="toc-b-2" class="nav-link" data-scroll-target="#b-2">3b)</a></li>
+  <li><a href="#c-1" id="toc-c-1" class="nav-link" data-scroll-target="#c-1">3c)</a></li>
+  <li><a href="#d-tageszeit" id="toc-d-tageszeit" class="nav-link" data-scroll-target="#d-tageszeit">3d) Tageszeit</a></li>
+  </ul></li>
+  <li><a href="#aufgabe-4-aggregierung-der-stundendaten" id="toc-aufgabe-4-aggregierung-der-stundendaten" class="nav-link" data-scroll-target="#aufgabe-4-aggregierung-der-stundendaten">Aufgabe 4: Aggregierung der Stundendaten</a>
+  <ul class="collapse">
+  <li><a href="#a-3" id="toc-a-3" class="nav-link" data-scroll-target="#a-3">4a)</a></li>
+  <li><a href="#b-3" id="toc-b-3" class="nav-link" data-scroll-target="#b-3">4b)</a></li>
+  <li><a href="#c-2" id="toc-c-2" class="nav-link" data-scroll-target="#c-2">4c)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -591,7 +646,7 @@ window.onload = function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Stat2: Übung</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Datenverarbeitung</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -602,7 +657,7 @@ window.onload = function() {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">31. Oktober 2023</p>
+      <p class="date">17. Oktober 2023</p>
     </div>
   </div>
   
@@ -612,60 +667,367 @@ window.onload = function() {
 
 </header>
 
-<p><strong>Abzugeben sind am Ende</strong></p>
+<section id="aufgabe-1-zähldaten" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-zähldaten">Aufgabe 1: Zähldaten</h2>
+<section id="a" class="level3">
+<h3 class="anchored" data-anchor-id="a">1a)</h3>
+<p>Die Projektstruktur steht. Nun können die Daten eingelesen und die nötigen Datentypen definiert werden.</p>
+<p>Lädt die Daten zuerst von Moodle herunter.</p>
+<p>Hinweise:</p>
+<ul>
+<li><p>Siehe [Einführung] für den Standort der <strong>Zähler 211 und 502</strong>.</p></li>
+<li><p>Alle für die Fallstudie Profil S benötigten Daten könnt ihr unter folgendem <a href="https://moodle.zhaw.ch/mod/folder/view.php?id=956254">Link</a> herunterladen.</p></li>
+</ul>
+<ol type="1">
+<li>Zähldaten zu eurem Standort (211_sihlwaldstrasse_2017_2022.csv, 502_sihluferweg_2016_2022.csv)</li>
+<li>Meteodaten (order_105742_data.txt)</li>
+</ol>
+<p>Die Zähldaten des WPZ wurden vorgängig bereinigt (z.B. wurden Stundenwerte entfernt, an denen am Zähler Wartungsarbeiten stattgefunden haben). Das macht es für uns einfach, denn wir können die Daten ohne vorgängige Bereinigung einlesen. Behaltet aber im Hinterkopf, dass die Datenaufbereitung, die Datenbereinigung mit viel Aufwand verbunden ist.</p>
+<ul>
+<li>Lest die Zählaten ein, speichert ihn unter der Variable <strong>depo</strong> und sichtet den Datensatz (z.B. str(), head(), view() usw.).</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Speicherort sowie Dateiname anpassen</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"./HIER RELATIVEN DATEIPFAD EINGEBEN"</span>, <span class="st">"HIER SEPERATOR EINGEBEN"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p><strong>Hinweis:</strong> Im Stundenformat zeigen die Werte bei 11:00 die Zähldaten zwischen 11:00 bis 12:00 Uhr.</p>
+</section>
+<section id="b" class="level3">
+<h3 class="anchored" data-anchor-id="b">1b)</h3>
+<ul>
+<li>Nun muss das Datum als solches definiert werden. Welches Format hat es (im Code: format = “HIER DATUMSFORMAT”)?</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Datetime =</span> <span class="fu">as.POSIXct</span>(DatumUhrzeit, <span class="at">format =</span> <span class="st">"HIER STEHT DAS DATUMSFORMAT"</span>, <span class="at">tz =</span> <span class="st">"CET"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># nun schreiben wir uns das Datum in eine seperate Spalte</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Datum =</span> <span class="fu">as.Date</span>(Datetime)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="c" class="level3">
+<h3 class="anchored" data-anchor-id="c">1c)</h3>
+<p>Ihr könnt selbst wählen, ob ihr Fussgänger:innen oder Fahrräder untersuchen wollt (je nachdem ob sie in eurem Datensatz vorhanden sind).</p>
+<ul>
+<li>Entfernt die überflüssigen Spalten aus dem Datensatz. Ich schlage vor, dass ihr dafür den Befehl dplyr::select() verwendet.</li>
+</ul>
+</section>
+<section id="d" class="level3">
+<h3 class="anchored" data-anchor-id="d">1d)</h3>
+<ul>
+<li>Berechnen des Totals (IN + OUT), da dieses in den Daten nicht vorhanden ist (wiederum mit piping).</li>
+</ul>
+<p>Tipp: Wenn man R sagt: “addiere mir Spalte x mit Spalte y”, dann macht R das für alle Zeilen in diesen zwei Spalten. Wenn man nun noch sagt: “speichere mir das Ergebnis dieser Addition in einer neuen Spalte namens <strong>Total</strong>”, dann hat man die Aufgabe bereits gelöst. Arbeitet mit <strong>mutate()</strong>).</p>
+<p><strong>Hinweis:</strong> Ihr habt das auch schon in Kapitel [Einführung und Installation] gemacht.</p>
+<ul>
+<li>Entfernt nun alle NA-Werte mit <strong>na.omit()</strong>.</li>
+</ul>
+</section>
+</section>
+<section id="aufgabe-2-meteodaten" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-meteodaten">Aufgabe 2: Meteodaten</h2>
+<section id="a-1" class="level3">
+<h3 class="anchored" data-anchor-id="a-1">2a)</h3>
+<ul>
+<li>Lest die Meteodaten ein und speichert sie unter <strong>meteo</strong>.</li>
+</ul>
+</section>
+<section id="b-1" class="level3">
+<h3 class="anchored" data-anchor-id="b-1">2b)</h3>
+<ul>
+<li>Auch hier müssen die Datentypen manuell gesetzt werden.</li>
+</ul>
+<p>Tipp: Das Datum wird als Integer erkannt. Zuerst muss es in Text umgewandelt werden aus dem dann das eigentliche Datum herausgelesen werden kann. Das ist mühsam - darum hier der Code.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>meteo <span class="ot">&lt;-</span> <span class="fu">mutate</span>(meteo, <span class="at">time =</span> <span class="fu">as.Date</span>(<span class="fu">as.character</span>(time), <span class="st">"%Y%m%d"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Die Zeitangaben sind in UTC: 00:40 UTC = 02:40 Sommerzeit = 01:40 Winterzeit, Beispiel: 13 = beinhaltet Messperiode von 12:01 bis 13:00</p>
+<p>–&gt; Da wir mit Tageshöchstwerten oder -summen rechnen, können wir zum Glück ignorieren, dass das nicht mit den Daten der Zählstellen übereinstimmt. Learning: es ist zentral immer die Metadaten zu checken.</p>
+<p><strong>Hinweis</strong> Was ist eigentlich Niederschlag:</p>
+<p><a href="https://www.meteoschweiz.admin.ch/home/wetter/wetterbegriffe/niederschlag.html">Link Meteo Schweiz</a></p>
+<ul>
+<li><p>Werden den anderen Spalten die richtigen Typen zugewiesen? Falls nicht, ändert die Datentypen.</p></li>
+<li><p>Nun schneiden wir den Datensatz auf die Untersuchungsdauer zu.</p></li>
+<li><p>Dann müssen auch hier alle nicht verfügbare Werte (NA’s) herausgefiltert werden.</p></li>
+<li><p>Prüft nun, wie die Struktur des data.frame (df) aussieht und ob alle NA Werte entfernt wurden (sum(is.na(df$Variable))). Stimmen alle Datentypen?</p></li>
+</ul>
+</section>
+</section>
+<section id="aufgabe-3-datenvorverarbeitung-mutationen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-datenvorverarbeitung-mutationen">Aufgabe 3: Datenvorverarbeitung (Mutationen)</h2>
+<section id="a-2" class="level3">
+<h3 class="anchored" data-anchor-id="a-2">3a)</h3>
+<p>Jetzt fügen wir viele Convinience Variabeln hinzu. Wir brauchen:</p>
+<ol type="1">
+<li>Wochentag; der Befehl dazu ist <strong>wday()</strong>. Danach als Faktor speichern.</li>
+<li>Werktag oder Wochenende als Faktor. Der Code dazu könnte so aussehen:</li>
+</ol>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>  ...<span class="sc">|&gt;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochenende =</span> <span class="fu">ifelse</span>(Wochentag <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">6</span>,<span class="dv">7</span>), <span class="st">"Wochenende"</span>, <span class="st">"Werktag"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wochenende =</span> <span class="fu">as.factor</span>(Wochenende)) <span class="sc">|&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>je als Faktor: 3. Kalenderwoche: <strong>isoweek()</strong> 4. Monat: <strong>month()</strong> 5. Jahr: <strong>year()</strong></p>
+<p>Dies machen wir auch mit dem “meteo” Datensatz.</p>
+<ul>
+<li>Wiederum bitte Wochentag, Werktag oder Wochenende, Kalenderwoche, Monat und Jahr. Ebenfalls alles als Faktor speichern.</li>
+</ul>
+<ul>
+<li>Später werden wir nicht nur Analysen pro Tag machen, sondern auch zusammengefasst nach Woche. Dafür müssen wir nun den meteo-Datensaz gruppieren und den mean berechnen. Hier der Code dazu, wie das aussehen könnte:</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>meteo_day <span class="ot">&lt;-</span> meteo <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Jahr, Monat, KW, Wochenende) <span class="sc">|&gt;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tre200nx =</span> <span class="fu">mean</span>(tre200nx),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">tre200jx =</span> <span class="fu">mean</span>(tre200jx),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rre150n0 =</span> <span class="fu">mean</span>(rre150n0),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">rre150j0 =</span> <span class="fu">mean</span>(rre150j0),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">sremaxdv=</span> <span class="fu">mean</span>(sremaxdv))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Wieder zurück zum Depo-Datensazt.</p>
+<p>Ich mache den folgenden Punkt nachgelagert, da zu viele Operationen in einem Schritt auch schon mal etwas durcheinander erzeugen können.</p>
+<p>Phase Covid (Code untenstehend). Wir definieren 5 Phasen:</p>
+<ul>
+<li><p>von Anfang Untersuchungsperiode bis 1 Jahr vor Lockdown 1</p></li>
+<li><p>Lockdown 1</p></li>
+<li><p>zwischen den Lockdowns</p></li>
+<li><p>Lockdown 2</p></li>
+<li><p>Ende 2. Lockdown bis Ende Untersuchungsperiode</p></li>
+<li><p>Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte –&gt; long-format ist schöner (und praktischer für das plotten) als wide-format.</p></li>
+<li><p>Hier der Code dazu:</p></li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Phase =</span> <span class="fu">case_when</span>(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&lt;</span> lock_1_start <span class="sc">~</span> <span class="st">"Pre"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;=</span> lock_1_start <span class="sc">&amp;</span> Datetime <span class="sc">&lt;=</span> lock_1_end <span class="sc">~</span> <span class="st">"Lockdown_1"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;</span> lock_1_end <span class="sc">&amp;</span> Datetime <span class="sc">&lt;</span> lock_2_start <span class="sc">~</span> <span class="st">"inter"</span>,</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;=</span> lock_2_start <span class="sc">&amp;</span> Datetime <span class="sc">&lt;=</span> lock_2_end <span class="sc">~</span> <span class="st">"Lockdown_2"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;</span> lock_2_end <span class="sc">~</span> <span class="st">"Post"</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das gepklappt?!</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(depo<span class="sc">$</span>Phase)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mit factor() koennen die levels direkt einfach selbst definiert werden.</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># wichtig: speizfizieren, dass aus R base, ansonsten kommt es zu einem</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mix-up mit anderen packages</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Phase =</span> base<span class="sc">::</span><span class="fu">factor</span>(Phase, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Pre"</span>, <span class="st">"Lockdown_1"</span>, <span class="st">"Inter"</span>, <span class="st">"Lockdown_2"</span>, <span class="st">"Post"</span>)))</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(depo)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Neben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchszahlen haben. Wir haben die Schulferien bereits als .csv eingelesen. Allerdings können wir die Schulferien nicht mit der case_when()-Funktion zuweisen, da diese mit dieser Funktion alle Vektoren im Datensatz “schulferien” verglichen werden, und nicht elementweise für jede Zeile im “depo”-Datensatz. Dies führt dazu, dass die Bedingungen nur einmal überprüft werden und dann auf den gesamten Vektor angewendet werden, anstatt Zeile für Zeile.</p>
+<ul>
+<li>Weil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ende, DANN schreibe ein 1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(schulferien)) {</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  depo<span class="sc">$</span>Ferien[depo<span class="sc">$</span>Datum <span class="sc">&gt;=</span> schulferien[i, <span class="st">"Start"</span>] <span class="sc">&amp;</span> depo<span class="sc">$</span>Datum <span class="sc">&lt;=</span> schulferien[i, <span class="st">"Ende"</span>]] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Ferien[<span class="fu">is.na</span>(depo<span class="sc">$</span>Ferien)] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co"># als faktor speichern</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>depo<span class="sc">$</span>Ferien <span class="ot">&lt;-</span> <span class="fu">factor</span>(depo<span class="sc">$</span>Ferien)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="b-2" class="level3">
+<h3 class="anchored" data-anchor-id="b-2">3b)</h3>
+<ul>
+<li>Nun soll noch die volle Stunde als Integer im Datensatz stehen. Macht das mit dem Befehl <strong>hour()</strong></li>
+</ul>
+</section>
+<section id="c-1" class="level3">
+<h3 class="anchored" data-anchor-id="c-1">3c)</h3>
+<p>Die Daten wurden durch den WPZ kalibriert (Kommastellen).</p>
+<ul>
+<li><p>Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen). Der Befeht lautet <strong>round()</strong></p></li>
+<li><p>Definiert sie sicherheitshalber als Integer</p></li>
+<li><p>Macht das für IN, OUT und Total.</p></li>
+</ul>
+</section>
+<section id="d-tageszeit" class="level3">
+<h3 class="anchored" data-anchor-id="d-tageszeit">3d) Tageszeit</h3>
+<p>Wir setzen den Fokus unserer Untersuchung auf die Veränderung der Besuchszahlen in der Abend- und Morgendämmerung sowie der Nacht. Dafür müssen wir diese tageszeitliche Einteilung der Daten erst machen. Da dies über den Umfang dieser Fallstudie geht, liefere ich euch hier den Code dazu.</p>
+<p>Die wichtigsten Punkte:</p>
+<ul>
+<li><p>Die Tageslänge wurde für den Standort Zürich (Zeitzone CET) mit dem Package “suncalc” berechnet. Dabei wurden Sommer- und Winterzeit berücksichtigt.</p></li>
+<li><p>Die Einteilung der Tageszeit beruht auf dem Start und dem Ende der astronomischen Dämmerung sowie der Golden Hour. Der Morgen und der Abend wurden nach dieser Definition berechnet und um je eine Stunde Richtung Tag verlängert.</p></li>
+<li><p>Untenstehenden Code könnt ihr einfach kopieren.</p></li>
+</ul>
+<p>Hinweis: damit <strong>case_when()</strong> funktioniert, müsst ihr dplyr Version als 1.1.1 oder neuer haben.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Einteilung Standort Zuerich</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>Latitude <span class="ot">&lt;-</span> <span class="fl">47.38598</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>Longitude <span class="ot">&lt;-</span> <span class="fl">8.50806</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Start und das Ende der Sommerzeit:</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.schulferien.org/schweiz/zeit/zeitumstellung/</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Welche Zeitzone haben wir eigentlich?</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Switzerland uses Central European Time (CET) during the winter as standard time,</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># which is one hour ahead of Coordinated Universal Time (UTC+01:00), and</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Central European Summer Time (CEST) during the summer as daylight saving time,</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># which is two hours ahead of Coordinated Universal Time (UTC+02:00).</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="co"># https://en.wikipedia.org/wiki/Time_in_Switzerland</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Was sind Astronomische Dämmerung und Golden Hour ueberhaupt?</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># https://sunrisesunset.de/sonne/schweiz/zurich-kreis-1-city/</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="co"># https://www.rdocumentation.org/packages/suncalc/versions/0.5.0/topics/getSunlightTimes</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir arbeiten mit folgenden Variablen:</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># "nightEnd" : night ends (morning astronomical twilight starts)</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHourEnd" : morning golden hour (soft light, best time for photography) ends</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="co"># "goldenHour" : evening golden hour starts</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># "night" : night starts (dark enough for astronomical observations)</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>lumidata <span class="ot">&lt;-</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">getSunlightTimes</span>(</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        <span class="at">date =</span> <span class="fu">seq.Date</span>(depo_start, depo_end, <span class="at">by =</span> <span class="dv">1</span>),</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">keep =</span> <span class="fu">c</span>(<span class="st">"nightEnd"</span>, <span class="st">"goldenHourEnd"</span>, <span class="st">"goldenHour"</span>, <span class="st">"night"</span>),</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">lat =</span> Latitude,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">lon =</span> Longitude,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">tz =</span> <span class="st">"CET"</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span></span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as_tibble</span>()</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="co"># jetzt haben wir alle noetigen Angaben zu Sonnenaufgang, Tageslaenge usw.</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co"># diese Angaben koennen wir nun mit unseren Zaehldaten verbinden:</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">left_join</span>(lumidata, <span class="at">by =</span> <span class="fu">c</span>(<span class="at">Datum =</span> <span class="st">"date"</span>))</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;=</span> nightEnd <span class="sc">&amp;</span> Datetime <span class="sc">&lt;=</span> goldenHourEnd <span class="sc">~</span> <span class="st">"Morgen"</span>,</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;</span> goldenHourEnd <span class="sc">&amp;</span> Datetime <span class="sc">&lt;</span> goldenHour <span class="sc">~</span> <span class="st">"Tag"</span>,</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        Datetime <span class="sc">&gt;=</span> goldenHour <span class="sc">&amp;</span> Datetime <span class="sc">&lt;=</span> night <span class="sc">~</span> <span class="st">"Abend"</span>,</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>        <span class="at">.default =</span> <span class="st">"Nacht"</span></span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>    )) <span class="sc">|&gt;</span></span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Tageszeit =</span> <span class="fu">factor</span>(Tageszeit, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Morgen"</span>, <span class="st">"Tag"</span>, <span class="st">"Abend"</span>, <span class="st">"Nacht"</span>), <span class="at">ordered =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a><span class="co"># behalte die relevanten Var</span></span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>nightEnd, <span class="sc">-</span>goldenHourEnd, <span class="sc">-</span>goldenHour, <span class="sc">-</span>night)</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotte zum pruefn ob das funktioniert hat</span></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(depo, <span class="fu">aes</span>(<span class="at">y =</span> Datetime, <span class="at">color =</span> Tageszeit, <span class="at">x =</span> Stunde)) <span class="sc">+</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_jitter</span>() <span class="sc">+</span></span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_color_manual</span>(<span class="at">values =</span> mycolors)</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(depo))</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="co"># bei mir hat der Zusatz der Tageszeit noch zu einigen NA-Wertren gefueht.</span></span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a><span class="co"># Diese loesche ich einfach:</span></span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a>depo <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(depo)</span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="co"># hat das funktioniert?</span></span>
+<span id="cb8-64"><a href="#cb8-64" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(depo))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="aufgabe-4-aggregierung-der-stundendaten" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4-aggregierung-der-stundendaten">Aufgabe 4: Aggregierung der Stundendaten</h2>
+<section id="a-3" class="level3">
+<h3 class="anchored" data-anchor-id="a-3">4a)</h3>
+<p>Unsere Daten liegen im Stundenformat vor. Für einige Auswertungen müssen wir aber auf ganze Tage zurückgreifen können.</p>
+<ul>
+<li>Die Stundendaten müssen zu ganzen Tagen aggregiert werden. Macht das wiederum einer Pipe. Bezieht folgende Gruppierungen (<strong>group_by()</strong>) mit ein: <strong>Datum, Wochentag, Wochenende, KW, Monat, Jahr, Phase</strong>. Summiert die Zählmengen separat (Total, IN, OUT) auf und speichert das Resultat unter <strong>depo_d</strong>.</li>
+</ul>
+<p>Tipp: Wenn man die Convinience Variablen als grouping variable einspeisst, dann werden sie in das neue df übernommen und müssen nicht nochmals hinzugefügt werden</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>depo_d <span class="ot">&lt;-</span> depo <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(VARIABLE1, VARIABLE2, ...) <span class="sc">|&gt;</span>   <span class="co"># Gruppieren nach den Variablen</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Total =</span> <span class="fu">sum</span>(Fuss_IN <span class="sc">+</span> Fuss_OUT),<span class="co"># Berechnen der gewünschten Werte</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">Fuss_IN =</span> <span class="fu">sum</span>(Fuss_IN),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Erstellt nun einen Datensatz depo_daytime, in welchem ihr gruppiet nach:</li>
+</ul>
 <ol type="a">
-<li>lauffähiges R-Skript</li>
-<li>begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation)</li>
-<li>ausformulierter Methoden- und Ergebnisteil (für eine wiss.Arbeit).</li>
+<li>Jahr</li>
+<li>Monat</li>
+<li>Kalenderwoche</li>
+<li>Phase</li>
+<li>Ferien</li>
+<li>Wochenende oder Werktag</li>
+<li>Tageszeit</li>
 </ol>
 <ul>
-<li>Bitte <strong>erklärt und begründet die einzelnen Schritte,</strong> die ihr unternehmt, um zu eurem Ergebnis zu kommen. Dazu erstellt bitte ein Word-Dokument (oder ein z.B. mit Quarto generiertes pdf- oder html-Dokument), in dem ihr Schritt für Schritt den verwendeten <strong>R-Code</strong>, die dazu gehörigen <strong>Ausgaben von R</strong>, eure <strong>Interpretation</strong> derselben und die sich ergebenden <strong>Schlussfolgerungen</strong> für das weitere Vorgehen dokumentiert.</li>
-<li>Dieser <strong>Ablauf</strong> sollte insbesondere beinhalten:
-<ul>
-<li>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen etc.</li>
-<li>Explorative Datenanalyse, um zu sehen, ob evtl. Dateneingabefehler vorliegen oder Datentransformationen vorgenommen werden sollten</li>
-<li>Auswahl und Begründung eines statistischen Verfahrens</li>
-<li>Bestimmung des vollständigen/maximalen Models</li>
-<li>Selektion des/der besten Models/Modelle</li>
-<li>Durchführen der Modelldiagnostik für dieses</li>
-<li>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden</li>
-</ul></li>
-<li>Formuliert abschliessend einen <strong>Methoden- und Ergebnisteil</strong> (ggf. incl.&nbsp;adäquaten Abbildungen/Tabellen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (je einen ausformulierten Absatz von ca. 60-100 Worten bzw. 3-8 Sätzen). Alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.</li>
-</ul>
-<section id="übung-2.1-regression" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.1-regression">Übung 2.1: Regression</h3>
-<p><strong>Regressionsanalyse mit <em>SAR.csv</em></strong></p>
-<p>Der Datensatz beschreibt die Zunahme der Artenzahlen (richness) von Pflanzen in Trockenrasen der Schweiz in Abhängigkeit von der Probeflächengrösse (area, hier in m²). Diese Beziehung bezeichnet man als Artenzahl-Areal-Kurve (Species-area relationship = SAR).</p>
-<ul>
-<li>Ladet den Datensatz in R und macht eine explorative Datenanalyse.</li>
-<li>Wählt unter den schon gelernten Methoden der Regressionsanalyse ein adäquates Vorgehen zur Analyse dieser Daten und führt diese dann durch.</li>
-<li>Prüft anhand der Residuen, ob die Modellvoraussetzungen erfüllt waren</li>
-<li>Falls die Modelldiagnostik negativ ausfällt, überlegt, welche Datentransformation helfen könnte, und rechnet neue Modelle mit einer oder ggf. mehreren Datentransformationen, bis ihr eine statistisch zufriedenstellende Lösung gefunden habt.</li>
-<li>Stellt die erhaltenen Ergebnisse angemessen dar (Text, Abbildung und/oder Tabelle).</li>
-<li>Kennt ihr ggf. noch eine andere geeignete Herangehensweise?</li>
+<li>Weiter benötigen wir für für die Berechnung der Verteilung der Besuchenden über den Tag die durchschnittliche Besucheranzahl pro Stunde (mean), unterteilt nach Tageszeit und Phase <strong>(Gruppierungen Tageszeit, Phase</strong>). Speichert das unter “mean_phase_d”.</li>
 </ul>
 </section>
-<section id="übung-2.2-einfaktorielle-anova" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.2-einfaktorielle-anova">Übung 2.2: Einfaktorielle ANOVA</h3>
-<p><strong>ANOVA mit Datensatz <em>Datensatz_novanimal_Uebung_Statistik2.2.csv</em></strong></p>
-<p>Führt mit dem Datensatz novanimal.csv eine einfaktorielle ANOVA durch. Gibt es Unterschiede zwischen der Anzahl verkaufter Gerichte “tot_sold” (Buffet, Fleisch oder Vegetarisch) pro Woche?</p>
-</section>
-<section id="übung-2.3n-mehrfaktorielle-anova-natwis" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.3n-mehrfaktorielle-anova-natwis">Übung 2.3N: Mehrfaktorielle ANOVA (NatWis)</h3>
-<p><strong>ANOVA mit <em>kormoran.csv</em></strong></p>
-<p>Der Datensatz enthält 40 Beobachtungen zu Tauchzeiten zweier Kormoranunterarten (C = <em>Phalocrocorax carbo carbo</em> und S = <em>Phalacrocorax carbo sinensis</em>) aus vier Jahreszeiten (F = Frühling, S = Sommer, H = Herbst, W = Winter).</p>
+<section id="b-3" class="level3">
+<h3 class="anchored" data-anchor-id="b-3">4b)</h3>
 <ul>
-<li>Lest den Datensatz nach R ein und führt eine adäquate Analyse durch, um beantworten zu können, wie Unterart und Jahreszeit die Tauchzeit beeinflussen.</li>
-<li>Stellt eure Ergebnisse dann angemessen dar (Text mit Abbildung und/oder Tabelle).</li>
-<li>Gibt es eine Interaktion?</li>
+<li>Aggregiere die Stundenwerte nach dem Monat (Gruppierungen <strong>Monat, Jahr</strong>) und speichert das neue df unter depo_m.</li>
+</ul>
+<p>Tipp: Braucht wiederum <strong>group_by()</strong> und <strong>summarise()</strong>. Nun brauchen wir nur noch das Total, keine Richtungstrennung mehr.</p>
+<ul>
+<li>Fügt den neu erstellten df eine Spalte mit Jahr + Monat hinzu. Hier der fertige Code dazu:</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>depo_m <span class="ot">&lt;-</span> depo_m <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">Ym =</span> <span class="fu">paste</span>(Jahr, Monat), <span class="co"># und mache eine neue Spalte, in der Jahr und</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">Ym =</span> lubridate<span class="sc">::</span><span class="fu">ym</span>(Ym)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    ) <span class="co"># formatiere als Datum</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<ul>
+<li>Wiederholt diesen Schritt, diesmal aber mit der Gruppierung “Tageszeit” neben “Jahr” und “Monat” und speichert das Resultat unter “depo_m_daytime</li>
 </ul>
 </section>
-<section id="übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis">Übung 2.3S: Mehrfaktorielle ANOVA mit Interaktion (SozWis)</h3>
-<p><strong>MANOVA mit <em>Datensatz_novanimal_Uebung_Statistik2.3.csv</em></strong></p>
-<p>In der Mensa gibt es zwei unterschiedliche Preisniveaus bzgl. den Gerichten: eine preisgünstigere Menülinie (“World” &amp; “Favorite”) und eine teuere Menülinie (“Kitchen”). Gibt es Unterschiede zwischen dem Kauf von preisgünstigeren resp. teureren Menülinien betreffend Menüinhalt &amp; Hochschulzugehörigkeit?</p>
+<section id="c-2" class="level3">
+<h3 class="anchored" data-anchor-id="c-2">4c)</h3>
+<p>Macht euch mit den Daten vertraut. Plottet sie, seht euch die df’s an, versteht, was sie representieren.</p>
+<p>Z.B. sind folgende Befehle und Plots wichtig:</p>
+<ul>
+<li><p>str()</p></li>
+<li><p>summarize()</p></li>
+<li><p>head()</p></li>
+<li><p>Scatterplot, x = Datum, y = Anzahl pro Zeiteinheit</p></li>
+<li><p>Histrogram</p></li>
+<li><p>usw.</p></li>
+</ul>
+<p><strong>Hinweis:</strong> Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine “analysierenden” Plots erstellt.</p>
+<p>Nachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1070,13 +1432,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../stat1-4/Statistik2_Demo.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat2: Demo</span></span>
+      <a href="../fallstudie_s/4_Projektierung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Projektierung</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">Stat2: Lösung Beispiel</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../fallstudie_n/1_Vorbemerkung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">BiEc1_N Vorbemerkung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

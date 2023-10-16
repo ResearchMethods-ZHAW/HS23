@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Research Methods HS23 - Stat2: Übung</title>
+<title>Research Methods HS23 - Projektierung</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../stat1-4/Statistik2_Loesung_Beispiel.html" rel="next">
-<link href="../stat1-4/Statistik2_Demo.html" rel="prev">
+<link href="../fallstudie_s/5_Datenverarbeitung.html" rel="next">
+<link href="../fallstudie_s/3_Aufgabenstellung_WPZ.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -114,7 +148,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat1-4.html">Statistik 1 - 4</a></li><li class="breadcrumb-item"><a href="../stat1-4/Statistik2_Uebung.html"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Stat2: Übung</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/4_Projektierung.html"><span class="chapter-number">56</span>&nbsp; <span class="chapter-title">Projektierung</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -257,11 +291,11 @@ window.onload = function() {
       <div class="sidebar-item-container"> 
             <a href="../Stat1-4.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Statistik 1 - 4</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
@@ -291,7 +325,7 @@ window.onload = function() {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Stat2: Übung</span></a>
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -501,13 +535,13 @@ window.onload = function() {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
  <span class="menu-text">Fallstudie S</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Abschnitt umschalten">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Abschnitt umschalten">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../fallstudie_s/0_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
@@ -533,7 +567,7 @@ window.onload = function() {
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Projektierung</span></a>
+  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Projektierung</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -579,10 +613,10 @@ window.onload = function() {
     <h2 id="toc-title">Inhaltsverzeichnis</h2>
    
   <ul>
-  <li><a href="#übung-2.1-regression" id="toc-übung-2.1-regression" class="nav-link active" data-scroll-target="#übung-2.1-regression">Übung 2.1: Regression</a></li>
-  <li><a href="#übung-2.2-einfaktorielle-anova" id="toc-übung-2.2-einfaktorielle-anova" class="nav-link" data-scroll-target="#übung-2.2-einfaktorielle-anova">Übung 2.2: Einfaktorielle ANOVA</a></li>
-  <li><a href="#übung-2.3n-mehrfaktorielle-anova-natwis" id="toc-übung-2.3n-mehrfaktorielle-anova-natwis" class="nav-link" data-scroll-target="#übung-2.3n-mehrfaktorielle-anova-natwis">Übung 2.3N: Mehrfaktorielle ANOVA (NatWis)</a></li>
-  <li><a href="#übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" id="toc-übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" class="nav-link" data-scroll-target="#übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis">Übung 2.3S: Mehrfaktorielle ANOVA mit Interaktion (SozWis)</a></li>
+  <li><a href="#vorbereitung" id="toc-vorbereitung" class="nav-link active" data-scroll-target="#vorbereitung">Vorbereitung</a></li>
+  <li><a href="#aufgabe-1-projektaufbau" id="toc-aufgabe-1-projektaufbau" class="nav-link" data-scroll-target="#aufgabe-1-projektaufbau">Aufgabe 1: Projektaufbau</a></li>
+  <li><a href="#aufgabe-2-laden-der-bibliotheken" id="toc-aufgabe-2-laden-der-bibliotheken" class="nav-link" data-scroll-target="#aufgabe-2-laden-der-bibliotheken">Aufgabe 2: Laden der Bibliotheken</a></li>
+  <li><a href="#aufgabe-3-zeitliche-definitionen" id="toc-aufgabe-3-zeitliche-definitionen" class="nav-link" data-scroll-target="#aufgabe-3-zeitliche-definitionen">Aufgabe 3: Zeitliche Definitionen</a></li>
   </ul>
 </nav>
     </div>
@@ -591,7 +625,7 @@ window.onload = function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Stat2: Übung</span></h1>
+<h1 class="title"><span class="chapter-title">Projektierung</span></h1>
 </div>
 
 
@@ -602,7 +636,7 @@ window.onload = function() {
     <div>
     <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">31. Oktober 2023</p>
+      <p class="date">17. Oktober 2023</p>
     </div>
   </div>
   
@@ -612,58 +646,117 @@ window.onload = function() {
 
 </header>
 
-<p><strong>Abzugeben sind am Ende</strong></p>
-<ol type="a">
-<li>lauffähiges R-Skript</li>
-<li>begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation)</li>
-<li>ausformulierter Methoden- und Ergebnisteil (für eine wiss.Arbeit).</li>
+<section id="vorbereitung" class="level2">
+<h2 class="anchored" data-anchor-id="vorbereitung">Vorbereitung</h2>
+<p>Vor den eigentlichen Auswertungen müssen einige Vorbereitungen unternommen werden. Die Zeit, die man hier investiert, wird in der späteren Projektphase um ein Mehrfaches eingespart.</p>
+<p>Wie im Unterricht am Morgen empfehle auch ich mit Projekten zu arbeiten, da diese sehr einfach ausgetauscht (auf verschiedene Rechner) und somit auch reproduziert werden können. Wichtig ist, dass es keine absoluten Arbeitspfade sondern nur relative gibt. Der Datenimport (und -export) kann mithilfe dieser relativen Pfade stark vereinfacht werden. –&gt; Kurz gesagt: Projekte helfen alles am richtigen Ort zu behalten (mehr zur Arbeit mit Projekten: https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).</p>
+<ul>
+<li>Erstellt an einem passenden Speicherort (evtl. onedrive für das gemeinsame Arbeiten an einem Projekt) ein neues Projekt mit einem treffenden Namen:</li>
+</ul>
+<p>–&gt; File / New Project</p>
+</section>
+<section id="aufgabe-1-projektaufbau" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-projektaufbau">Aufgabe 1: Projektaufbau</h2>
+<p><strong>Hinweise:</strong></p>
+<p>Nutzt für allen Text, welcher nicht im Code integriert ist, das Symbol #. Wenn ihr den Text als Titel definieren wollt, so dass er in der Übersicht erscheint, könnnen vor dem Wort “#” und nach dem Wort “####” eingefügt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Texte, vor denen ein # und nach denen #### stehen, sind Überschriften</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Ich bin eine Überschrift ####</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Texte, vor denen ein # steht, erklaeren den Ablauf</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Dann folgen die Arbeitsschritte</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Wenn man auf "Outline" klickt (oder CTRL + SHIFT + O),</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># öffnet sich die Übersicht zu den Überschriften</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Tipps:</p>
+<ul>
+<li><p>Alt + - = &lt;-</p></li>
+<li><p>Ctrl + Shift + C = # vor der ausgewählten Zeile</p></li>
+</ul>
+<p><strong>Aufbau eines Skripts</strong></p>
+<p>Zuerst immer den <strong>Titel des Projekts</strong> sowie den <strong>Autor/ die Autorin</strong> des Skripts nennen. Hier soll auch die <strong>Herkunft der Daten</strong> ersichtlich sein und falls externe Daten verwendet werden, sollte geklärt werden, wer Dateneigentümer ist (WPZ und Meteo Schweiz).</p>
+<p>Im Skript soll immer die <strong>Ordnerstruktur</strong> des Projekts genannt werden. So kann der Arbeitsvorgang auf verschiedenen Rechnern einfach reproduziert werden (ich verwende hier ein Projektordner mit den Unterordnern __scripts, data, results).</p>
+<p>Beschreibt zudem kurz die verwendeten <strong>Meteodaten</strong> (siehe dazu Metadata Meteodaten, –&gt; order_XXX_legend.txt)</p>
+<p>Ein Skript kann in R eigentlich immer (mehr oder weniger) nach dem selbem Schema aufgebaut sein. Dieses Schema enthällt bei uns folgende Kapitel:</p>
+<ol start="0" type="1">
+<li>Metadaten und Definitionen</li>
+<li>Datenimport,</li>
+<li>Vorbereitung,</li>
+<li>Deskriptive Analyse und Visualisierung und</li>
+<li>Multifaktorielle Analyse und Visualisierung.</li>
 </ol>
-<ul>
-<li>Bitte <strong>erklärt und begründet die einzelnen Schritte,</strong> die ihr unternehmt, um zu eurem Ergebnis zu kommen. Dazu erstellt bitte ein Word-Dokument (oder ein z.B. mit Quarto generiertes pdf- oder html-Dokument), in dem ihr Schritt für Schritt den verwendeten <strong>R-Code</strong>, die dazu gehörigen <strong>Ausgaben von R</strong>, eure <strong>Interpretation</strong> derselben und die sich ergebenden <strong>Schlussfolgerungen</strong> für das weitere Vorgehen dokumentiert.</li>
-<li>Dieser <strong>Ablauf</strong> sollte insbesondere beinhalten:
-<ul>
-<li>Überprüfen der Datenstruktur nach dem Einlesen, welches sind die abhängige(n) und welches die unabängige(n) Variablen etc.</li>
-<li>Explorative Datenanalyse, um zu sehen, ob evtl. Dateneingabefehler vorliegen oder Datentransformationen vorgenommen werden sollten</li>
-<li>Auswahl und Begründung eines statistischen Verfahrens</li>
-<li>Bestimmung des vollständigen/maximalen Models</li>
-<li>Selektion des/der besten Models/Modelle</li>
-<li>Durchführen der Modelldiagnostik für dieses</li>
-<li>Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden</li>
-</ul></li>
-<li>Formuliert abschliessend einen <strong>Methoden- und Ergebnisteil</strong> (ggf. incl.&nbsp;adäquaten Abbildungen/Tabellen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (je einen ausformulierten Absatz von ca. 60-100 Worten bzw. 3-8 Sätzen). Alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.</li>
-</ul>
-<section id="übung-2.1-regression" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.1-regression">Übung 2.1: Regression</h3>
-<p><strong>Regressionsanalyse mit <em>SAR.csv</em></strong></p>
-<p>Der Datensatz beschreibt die Zunahme der Artenzahlen (richness) von Pflanzen in Trockenrasen der Schweiz in Abhängigkeit von der Probeflächengrösse (area, hier in m²). Diese Beziehung bezeichnet man als Artenzahl-Areal-Kurve (Species-area relationship = SAR).</p>
-<ul>
-<li>Ladet den Datensatz in R und macht eine explorative Datenanalyse.</li>
-<li>Wählt unter den schon gelernten Methoden der Regressionsanalyse ein adäquates Vorgehen zur Analyse dieser Daten und führt diese dann durch.</li>
-<li>Prüft anhand der Residuen, ob die Modellvoraussetzungen erfüllt waren</li>
-<li>Falls die Modelldiagnostik negativ ausfällt, überlegt, welche Datentransformation helfen könnte, und rechnet neue Modelle mit einer oder ggf. mehreren Datentransformationen, bis ihr eine statistisch zufriedenstellende Lösung gefunden habt.</li>
-<li>Stellt die erhaltenen Ergebnisse angemessen dar (Text, Abbildung und/oder Tabelle).</li>
-<li>Kennt ihr ggf. noch eine andere geeignete Herangehensweise?</li>
-</ul>
+<p>Bereitet euer Skript mit diesen Kapitel vor.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># .###########################################################################################</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Einfluss von COVID19 auf das Naherholungsverhalten in WPZ ####</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fallstudie Modul Research Methods, HS22. Autor/in ####</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># .##########################################################################################</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># .##########################################################################################</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># METADATA UND DEFINITIONEN ####</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># .##########################################################################################</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Datenherkunft ####</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># ...</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># .##########################################################################################</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. DATENIMPORT #####</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># .##########################################################################################</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>In einem Bericht ist es schön, wenn die Abbildung einheitlich sind. Dafür braucht es u.a. eine Farbpalette. Ich definiere meine Auswahl bereits hier; das hat den Vorteil, dass man die Farbnamen nur einmal schreiben muss und später die selbst definierte Palette unter der Variable “mycolors” abrufen kann.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>mycolors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"orangered"</span>, <span class="st">"gold"</span>, <span class="st">"mediumvioletred"</span>, <span class="st">"darkblue"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="übung-2.2-einfaktorielle-anova" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.2-einfaktorielle-anova">Übung 2.2: Einfaktorielle ANOVA</h3>
-<p><strong>ANOVA mit Datensatz <em>Datensatz_novanimal_Uebung_Statistik2.2.csv</em></strong></p>
-<p>Führt mit dem Datensatz novanimal.csv eine einfaktorielle ANOVA durch. Gibt es Unterschiede zwischen der Anzahl verkaufter Gerichte “tot_sold” (Buffet, Fleisch oder Vegetarisch) pro Woche?</p>
-</section>
-<section id="übung-2.3n-mehrfaktorielle-anova-natwis" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.3n-mehrfaktorielle-anova-natwis">Übung 2.3N: Mehrfaktorielle ANOVA (NatWis)</h3>
-<p><strong>ANOVA mit <em>kormoran.csv</em></strong></p>
-<p>Der Datensatz enthält 40 Beobachtungen zu Tauchzeiten zweier Kormoranunterarten (C = <em>Phalocrocorax carbo carbo</em> und S = <em>Phalacrocorax carbo sinensis</em>) aus vier Jahreszeiten (F = Frühling, S = Sommer, H = Herbst, W = Winter).</p>
+<section id="aufgabe-2-laden-der-bibliotheken" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2-laden-der-bibliotheken">Aufgabe 2: Laden der Bibliotheken</h2>
 <ul>
-<li>Lest den Datensatz nach R ein und führt eine adäquate Analyse durch, um beantworten zu können, wie Unterart und Jahreszeit die Tauchzeit beeinflussen.</li>
-<li>Stellt eure Ergebnisse dann angemessen dar (Text mit Abbildung und/oder Tabelle).</li>
-<li>Gibt es eine Interaktion?</li>
+<li><p>Lädt nun die nachfolgenden, benoetigten Bibliotheken.</p></li>
+<li><p>Diese habt ihr, falls nötig, im Kapitel <a href="#vorbereitung">Vorbereitung</a> installiert.</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Benoetigte Bibliotheken ####</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>) <span class="co"># Data wrangling und pipeing</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lubridate"</span>) <span class="co"># Arbeiten mit Datumsformaten</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggpubr"</span>) <span class="co"># to arrange multiple plots in one graph</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"PerformanceAnalytics"</span>) <span class="co"># Plotte Korrelationsmatrix</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>) <span class="co"># Multi-Model Inference</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"AICcmodavg"</span>) <span class="co"># Modellaverageing</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"fitdistrplus"</span>) <span class="co"># Prueft die Verteilung in Daten</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lme4"</span>) <span class="co"># Multivariate Modelle</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"blmeco"</span>) <span class="co"># Bayesian data analysis using linear models</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>) <span class="co"># Plotten von Modellergebnissen (tab_model)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lattice"</span>) <span class="co"># einfaches plotten von Zusammenhängen zwischen Variablen</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis" class="level3">
-<h3 class="anchored" data-anchor-id="übung-2.3s-mehrfaktorielle-anova-mit-interaktion-sozwis">Übung 2.3S: Mehrfaktorielle ANOVA mit Interaktion (SozWis)</h3>
-<p><strong>MANOVA mit <em>Datensatz_novanimal_Uebung_Statistik2.3.csv</em></strong></p>
-<p>In der Mensa gibt es zwei unterschiedliche Preisniveaus bzgl. den Gerichten: eine preisgünstigere Menülinie (“World” &amp; “Favorite”) und eine teuere Menülinie (“Kitchen”). Gibt es Unterschiede zwischen dem Kauf von preisgünstigeren resp. teureren Menülinien betreffend Menüinhalt &amp; Hochschulzugehörigkeit?</p>
+<section id="aufgabe-3-zeitliche-definitionen" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3-zeitliche-definitionen">Aufgabe 3: Zeitliche Definitionen</h2>
+<p>Wir lesen später zwei verschiedene Datensätze ein. Beide sollen exakt denselben Zeitraum umfassen. Definiert dazu den ersten und letzten Tag <strong>gemäss den vorhandenen Zähldaten</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>depo_start <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-01-01"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>depo_end <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2022-7-31"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ein Teil unserer Auswertungen ist der Einfluss der Corona-Lockdown auf das Besuchsverhalten.</p>
+<p>-Wir müssen also Start und Ende der beiden Lockdowns in der Schweiz definieren:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>lock_1_start_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-03-16"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lock_1_end_2020 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-05-11"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lock_2_start_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2020-12-22"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lock_2_end_2021 <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2021-03-01"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Ebenfalls müssen die erste und letzte Kalenderwoche der Untersuchungsfrist definiert werden. Diese werden bei wochenweisen Analysen ausgeklammert da sie i.d.R. unvollständig sind (das ist ein späterer Arbeitsschritt). Geht wie oben vor. Tipp: der Befehl <strong>isoweek()</strong> liefert euch die Kalenderwoche.</p>
+<p>Ferienzeiten können einen grossen Einfluss auf das Besucheraufkommen haben. Die relevanten Ferienzeiträume müssen daher bekannt sein (heruntergeladen von https://www.schulferien.org/schweiz/ferien/2020/).</p>
+<p>Lest das bereitgestellte .csv mit den Ferienzeiträumen ein und speichert es unter <strong>schulferien</strong>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>schulferien <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/fallstudie_s/ferien.csv"</span>, <span class="st">","</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Nun sind alle Vorbereitungen gemacht, die Projektstruktur aufgebaut und die eigentliche Arbeit kann im nächsten Schritt beginnen.</p>
 
 
 </section>
@@ -1070,13 +1163,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../stat1-4/Statistik2_Demo.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat2: Demo</span></span>
+      <a href="../fallstudie_s/3_Aufgabenstellung_WPZ.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Aufgabenstellung Abschlussbericht</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-title">Stat2: Lösung Beispiel</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../fallstudie_s/5_Datenverarbeitung.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Datenverarbeitung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
