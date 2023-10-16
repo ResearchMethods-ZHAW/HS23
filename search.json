@@ -1421,6 +1421,55 @@
     "text": "Aufbau der Fallstudie\nIn dieser Fallstudie erheben wir zuerst selbst Daten auf dem Grüntal, welche wir dann deskriptiv auswerten. Anschliessend beschäftigen wir uns mit den Daten aus dem Wildnispark Zürich, welche wir ebenfalls deskriptiv auswerten und auch sttistische Modelle damit programmieren. Diese Ergebnisse werden dann im Abschlussbericht dokumentiert."
   },
   {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#einführung-und-installation",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#einführung-und-installation",
+    "title": "Monitoring",
+    "section": "Einführung und Installation",
+    "text": "Einführung und Installation\nEs gibt eine Vielzahl an möglichen Methoden zur Erfassung der Besuchszahlen. Automatische Zählgeräte bieten die Möglichkeit lange und durchgehende Zeitreihen zu erfassen. Inputs dazu, wie diese ausgewertet werden können, erhält ihr in dieser Aufgabe."
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#ziele",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#ziele",
+    "title": "Monitoring",
+    "section": "Ziele",
+    "text": "Ziele\n\nDie Studierenden können das eingesetzte Zählgerät installieren und kennen die Vor- und Nachteile verschiedener Methoden.\nDie Studierenden können die Daten auslesen und explorativ analysieren."
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#grundlagen",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#grundlagen",
+    "title": "Monitoring",
+    "section": "Grundlagen",
+    "text": "Grundlagen\nDie Geräte werden innerhalb der unten eingezeichneten Elipsen platziert. Damit soll überprüft werden, wie stark frequentiert die Waldränder der ökologisch aufgewerteten Seeparzelle sind.\n\nDatenschutz ist ein wichtiges Thema. Die Besuchenden werden über den Zweck der Kameras informiert, die Daten nach der Bearbeitung wieder gelöscht und nicht weitergegeben."
+  },
+  {
+    "objectID": "fallstudie_s/2_Besuchermonitoring.html#auswertung",
+    "href": "fallstudie_s/2_Besuchermonitoring.html#auswertung",
+    "title": "Monitoring",
+    "section": "Auswertung",
+    "text": "Auswertung\nNach den Felderhebungen\nNachdem die Kameras für zwei Wochen im Einsatz standen, sichten wir zusammen die Ergebnisse.\nDa die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, arbeiten wir ab jetzt mit einem Datensatz aus dem WPZ. Die Vorteile für euch sind:\n\nihr habt genügend Daten für die Auswertung mit R und\ndie Daten sind im selben Format wir für die späteren Aufgaben.\n\n\nAufgabe 1: Vorarbeiten\n\nÜberlegt euch mögliche Darstellungsformen für die Anzahl Passagen und die beobachteten Aktivitäten an den untersuchten Standorten.\nSkizziert eure Ideen mittels Stift und Papier.\n\n\n\nAufgabe 2: Darstellung in R\nR bietet sehr viele Optionen zur Analyse und zur Darstellung der Daten. Nehmt bitte den bereitgestellten Datensatz zur Hand und visualisiert eure Ideen mit R.\nUntenstehend sind einige Ideen zur Umsetzung:\n\n\nCode\n### Bibliothek laden\n\n# zuerst muss sie installiert sein. folgende Zeile müsst ihr nur das erste Mal ausführen\n# install.packages(\"readr\")\n# WENN installiert, DANN laden\nlibrary(\"readr\") # einlesen von csv mit read_delim\n\n### Datensatz einlesen\n\n# dabei speichere ich ihn gleich unter der Variable \"depo\" ab.\ndepo &lt;- read_delim(\"datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv\")\n## Error: 'datasets/fallstudie_s/Felderhebungen/Bsp_Data.csv' does not exist in current working directory ('C:/Users/hoce/Documents/HS23').\n\n### Datum und Uhrzeit\n# das Datum und die Uhrzeit sind in einer Spalte. R liest das als \"Buchstaben\" ein. Wir definieren es als Datum mit as.POSIXct aus base R\ndepo$DatumUhrzeit &lt;- as.POSIXct(depo$DatumUhrzeit, format = \"%d.%m.%Y %H:%M\")\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n\n\n\nCode\n### Kennzahlen\n\n# zuerst schaue ich mir jeweils den Aufau und die Kennzahlen zum Datensaz an:\nstr(depo)\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n# hat es im Datensatz noch fehlende Werte?\nsum(is.na(depo))\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n# wie viele Personen sind IN das Gebiet gegangen?\nsum(depo$Fuss_IN)\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n# wie viele insgesamt?\n# dafür erstellen wir zuerst eine neue Spalte mit der Totalen Anzahl pro Datum und Zeitstempel:\ndepo$Total = depo$Fuss_IN + depo$Fuss_OUT + depo$Velo_IN + depo$Velo_OUT\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n# und berechnen nachher die Summe dieser neuen Spalte\nsum(depo$Total)\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n\n\n\nCode\n# Darstellen der Anzahl Passagen pro Stunde und Tag, mit Base R\nplot(\n  x = depo$DatumUhrzeit, y = depo$Total,\n  pch = 21, # Form\n  cex = 1.5, # Grösse\n  bg = \"blue\"\n) # Füllung\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\n\n\n\n\nCode\n# Darstellung der verschiedenen Nutzergruppen als Pie Chart (Kuchendiagram)\nslieces &lt;- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$Velo_OUT))\n## Error in eval(expr, envir, enclos): Objekt 'depo' nicht gefunden\nlbls &lt;- c(\"Fuss_IN\", \"Fuss_OUT\", \"Velo_IN\", \"Velo_OUT\")\npie(slieces, labels = lbls)\n## Error in eval(expr, envir, enclos): Objekt 'slieces' nicht gefunden"
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#ziele",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#ziele",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Ziele",
+    "text": "Ziele\nIhr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind abgeschlossen und wir beschäftigen uns ab jetzt ausschliesslich mit dem WPZ.\nIm Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele).\nKonkret sollen eure Fragestellungen aus dem Forschungsplan untersucht werden. \nFür “meine” Analysen habe ich folgende Fragestellungen formuliert:\n\n\nWelchen Einfluss haben zeitliche Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie) und Wetterparameter (Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) auf die Besuchszahlen im WPZ am Tag, in der Dämmerung und in der Nacht?\nWie stark sind die jeweiligen Einflüsse, welche Effektrichtungen sind beobachtbar und welche der untersuchten Parameter sind signifikant?\nGibt es in den Effektrichtungen deutliche Unterschiede zwischen den Tageszeiten und wie können diese erklärt werden?\nWelches sind die mutmasslichen Auswirkungen dieser Nutzung auf das Verhalten der Rege im WPZ?\n\n\n\nJede Gruppe wertet Daten von einem Zähler aus. Sprecht miteinander ab, wer welchen Zähler behandelt (211 oder 502; Spezifikationen siehe [Einführung], Hinweis). Jeder Zähler soll nur von einer Gruppe ausgewertet werden!\nBezieht in eure Auswertungen den gesamten zur Verfügung stehenden Zeitraum ein.\nFür euren Zähler stehen Zahlen zu Fussgänger:innen und Velos zur Verfügung (siehe [Einführung], Hinweis). Entscheidet euch selbst, ob ihr Fussgänger:innen ODER Velos auswerten wollt. Die anderen Daten dürft ihr vernachlässigen.\nIm Bericht sollen die Informationen und Erfahrungen aus dem gesamten Verlauf der Fallstudie in geeigneter Weise einfliessen. Bezüglich der Felderhebung Grüental erwarten wir keine Angaben."
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#erwartungen",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#erwartungen",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Erwartungen",
+    "text": "Erwartungen\n\nStruktur / Aufbau\n\n\nAbstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch) im Umfang von 250 - 300 Wörter. Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.\nEs wird keine Einleitung erwartet. Sie kann aber gerne kurz ausgeführt werden.\nFragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)\nMethoden (aufschlussreiches Kapitel mit den statistischen Analysen)\nResultate (deskriptive Statistik, multivariates Modell; kurzer Fliesstext sowie die notwendigen Tabellen und eine Auswahl möglichst informativer Grafiken)\nDiskussion (Diskussion der deskriptiven Analysen und der Modellergebnisse; dieser Abschnitt sollte die eigenen Resultate auch im Zusammenhang mit aktueller Fachliteratur reflektieren.)\nLiteraturverzeichnis (Tipp: Das Literaturverzeichnis sollte vollständig sein, sowie formal korrekt und einheitlich daherkommen. Wir erwarten speziell in der Diskussion eine Abstützung auf aktuelle Fachliteratur. Auf Moodle haben wir euch eine Auswahl relevanter Papers bereitgestellt.)\nAnhang (für alle Auswertungen relevanter R-Code in geeigneter Form)\n\n\nGesamtumfang max. 7500 Zeichen (inkl. Leerzeichen; exkl. Zusammenfassung, Einleitung, Tabellen, Literaturverzeichnis und Anhang)\nAbgabe am 14.1.2024 per Mail an hoce@zhaw.ch"
+  },
+  {
+    "objectID": "fallstudie_s/3_Aufgabenstellung_WPZ.html#bewertungskriterien",
+    "href": "fallstudie_s/3_Aufgabenstellung_WPZ.html#bewertungskriterien",
+    "title": "Aufgabenstellung Abschlussbericht",
+    "section": "Bewertungskriterien",
+    "text": "Bewertungskriterien\n\nIst die Methode klar und verständlich formuliert?\nSind die deskriptiven Analysen klar beschrieben und geeignet visualisiert?\nIst die Variablenselektion klar beschrieben, plausibel und nachvollziehbar?\nSind die Modellresultate in Text- und Tabellenform korrekt beschrieben und geeignet visualisiert?\nIst die Diskussion klar formuliert und inhaltlich schlüssig?\nWie gut ist die Diskussion auf relevante und aktuelle Fachliteratur abgestützt?\nZusätzliche bewerten wir die inhaltliche Dichte der Arbeit und die formale Qualität (Sprache, Struktur, Aufbau, Darstellung, Literaturverzeichnis, Umgang mit Literatur im Text)\n\nZusammensetzung der Fallstudiennote:\n\nFallstudie-Leistungsnachweis 1 - Forschungsplan: 30 %\nFallstudie-Leistungsnachweis 2 - Multivariate Analyse: 70 %"
+  },
+  {
     "objectID": "fallstudie_n/1_Vorbemerkung.html",
     "href": "fallstudie_n/1_Vorbemerkung.html",
     "title": "BiEc1_N Vorbemerkung",
