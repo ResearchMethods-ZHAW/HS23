@@ -1,5 +1,5 @@
 ---
-date: 2023-10-16
+date: 2023-10-17
 lesson: Aufgabenstellung
 thema: Abschlussbericht Fallstudie
 index: 2
@@ -18,7 +18,7 @@ knitr:
 
 ## Ziele 
 
-Ihr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. De Aufgaben im Zusammenhang mit dem Grüental sind __abgeschlossen__ und wir beschäftigen uns ab jetzt ausschliesslich mit dem __WPZ__.
+Ihr habt selbst ein (kleines) Besuchermonitoring auf dem Grüental durchgeführt und euch bereits mit dem WPZ beschäftigt. Die Aufgaben im Zusammenhang mit dem Grüental sind __abgeschlossen__ und wir beschäftigen uns ab jetzt ausschliesslich mit dem __WPZ__.
 
 Im Rahmen unserer Analyse programmieren wir multivariate Modelle, welche den Zusammenhang zwischen der Anzahl Besuchenden und verschiedenen Einflussfaktoren beschreiben. Dank den Modellen können wir sagen, wie die Besucher:innen auf die untersuchten Faktoren reagiert haben (siehe dazu auch euren Forschungsplan sowie [Einführung], Ziele). 
 
