@@ -101,7 +101,6 @@ as.data.frame(mylist2)
 
 df <- data.frame(
   Stadt = c("Zürich", "Genf", "Basel", "Bern", "Lausanne"),
-  Einwohner = c(400000, 200000, 175000, 14000, 130000),
   Ankunft = c(
     "1.1.2017 10:00", "1.1.2017 14:00",
     "1.1.2017 13:00", "1.1.2017 18:00", "1.1.2017 21:00"
@@ -110,20 +109,25 @@ df <- data.frame(
 
 str(df)
 
+df$Stadt
+
+df$Einwohner <- c(400000, 200000, 175000, 14000, 130000)
+
 df$Einwohner <- as.integer(df$Einwohner)
 
-df$Einwohner
 
 df$Ankunft <- as.POSIXct(df$Ankunft, format = "%d.%m.%Y %H:%M")
 
 df$Ankunft
+
+df$Ankunft_stunde <- hour(df$Ankunft)
+
+df$Ankunft_stunde
+
+df$Groesse <- "keine Angabe"
 
 df$Groesse[df$Einwohner > 300000] <- "gross"
 df$Groesse[df$Einwohner <= 300000 & df$Einwohner > 150000] <- "mittel"
 df$Groesse[df$Einwohner <= 150000] <- "klein"
 
 df$Groesse
-
-df$Ankunft_stunde <- hour(df$Ankunft)
-
-df$Ankunft_stunde
