@@ -15,3 +15,11 @@ details > summary{
     /* folgende zeile hat kein effekt */
     text-transform: capitalize; 
 }
+
+.padding-top-500 {
+    padding-top: 500px;
+}
+
+.presenter-btn{
+    background-color: gray;
+}
