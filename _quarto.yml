@@ -162,7 +162,7 @@ book:
     - part: "Fallstudie N"
       chapters:
       - fallstudie_n/1_Vorbemerkung.qmd
-      # - fallstudie_n/2_Datenverarbeitung.qmd
+      - fallstudie_n/2_Datenverarbeitung.qmd
       # - fallstudie_n/3_Berechnung_Homeranges.qmd
       # - fallstudie_n/4_Multivariate_Modelle.qmd
       # - fallstudie_n/5_Variablenselektion.qmd
