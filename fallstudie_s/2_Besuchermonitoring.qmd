@@ -48,6 +48,9 @@ _Da die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, a
 1. ihr habt genügend Daten für die Auswertung mit R und 
 2. die Daten sind im selben Format wir für die späteren Aufgaben.
 
+
+[Hier](https://moodle.zhaw.ch/mod/folder/view.php?id=956254)könnt ihr die Daten herunterladen.
+
 ### Aufgabe 1: Vorarbeiten
 
 - Überlegt euch mögliche Darstellungsformen für die __Anzahl Passagen__ und die beobachteten __Aktivitäten__ an den untersuchten Standorten.
