@@ -833,10 +833,11 @@ window.onload = function() {
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mit base-R:</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>sensor_fail<span class="sc">$</span>Temp_correct[sensor_fail<span class="sc">$</span>SensorStatus <span class="sc">==</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># das gleiche mit dplyr:</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>sensor_fail <span class="ot">&lt;-</span> sensor_fail <span class="sc">|&gt;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temp_correct =</span> <span class="fu">ifelse</span>(SensorStatus <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, Temp))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>sensor_fail<span class="sc">$</span>Temp_correct[sensor_fail<span class="sc">$</span>SensorStatus <span class="sc">!=</span> <span class="dv">0</span>] <span class="ot">&lt;-</span> sensor_fail<span class="sc">$</span>Temp <span class="co">#Warnmeldung kann ignoriert werden.</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># das gleiche mit dplyr:</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>sensor_fail <span class="ot">&lt;-</span> sensor_fail <span class="sc">|&gt;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Temp_correct =</span> <span class="fu">ifelse</span>(SensorStatus <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, Temp))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
