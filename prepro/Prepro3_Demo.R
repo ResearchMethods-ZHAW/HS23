@@ -67,7 +67,7 @@ summarise(group_by(wetter, month), temp_mittel = mean(tre200h0, na.rm = TRUE))
 ##   group_by(month) |>                       # 2
 ##   summarise(temp_mittel = mean(tre200h0))  # 3
 
-# Maximal und minimal Temperatur pro Kalenderwoche
+# Maximal und minimal Temperatur pro Tag im Monat Januar
 weather_summary <- wetter |>                # 1) nimm den Datensatz "wetter"
   filter(month == 1) |>                     # 2) filter auf den Monat Januar
   mutate(day = day(time)) |>                # 3) erstelle eine neue Spalte "day"
