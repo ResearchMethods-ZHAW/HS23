@@ -15,7 +15,6 @@ knitr:
 
 # Datenverarbeitung
 
-
 ```{r include=FALSE, echo=FALSE}
 # Benoetigte Bibliotheken ####
 library("dplyr") # Data wrangling und piping
