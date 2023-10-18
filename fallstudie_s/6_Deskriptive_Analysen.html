@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -93,8 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken",
-    "search-label": "Suchen"
+    "search-submit-button-title": "Abschicken"
   }
 }</script>
 
@@ -151,7 +150,7 @@ window.onload = function() {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/6_Deskriptive_Analysen.html"><span class="chapter-number">58</span>&nbsp; <span class="chapter-title">Deskriptive Analysen</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -689,7 +688,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> - Nutzt zum plotten <strong>ggplot()</strong> - folgende Codeschnipsel helfen euch:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> depo_m, <span class="at">mapping =</span> <span class="fu">aes</span>(Ym, Total, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span> <span class="co"># group 1 braucht R, dass aus den Einzelpunkten ein Zusammenhang hergestellt wird</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># zeichne Lockdown 1; ein einfaches Rechteck. bestimme mit min und max die Dimensionen</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(</span>
@@ -739,7 +738,7 @@ window.onload = function() {
 <p>Folgende Codeschnipsel helfen euch:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(depo_m_daytime, <span class="fu">aes</span>(Ym, Total, <span class="at">fill =</span> Tageszeit)) <span class="sc">+</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_area</span>(...) <span class="sc">+</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_date</span>(<span class="at">date_labels =</span> <span class="st">"%b%y"</span>, <span class="at">date_breaks =</span> <span class="st">"6 months"</span>, </span>
@@ -767,7 +766,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> - Nutzt zum plotten <strong>ggplot()</strong> - folgende Codeschnipsel helfen euch:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> depo, <span class="fu">aes</span>(<span class="at">x =</span> Wochentag, <span class="at">y =</span> Total, <span class="at">fill =</span> Tageszeit)) <span class="sc">+</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>() <span class="sc">+</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="at">cols =</span> <span class="fu">vars</span>(...), <span class="at">rows =</span> <span class="fu">vars</span>(...))<span class="sc">+</span></span>
@@ -788,7 +787,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mean_phase <span class="ot">&lt;-</span> depo_daytime <span class="sc">|&gt;</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Phase, Tageszeit) <span class="sc">|&gt;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
@@ -828,7 +827,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> - Nutzt zum plotten <strong>ggplot()</strong> - folgende Codeschnipsel helfen euch:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(Mean_h, <span class="fu">aes</span>(<span class="at">x =</span> Stunde, <span class="at">y =</span> Total, <span class="at">colour =</span> Wochentag, <span class="at">linetype =</span> Wochentag)) <span class="sc">+</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(...) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(...)</span>
