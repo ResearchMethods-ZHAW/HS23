@@ -6,7 +6,7 @@ index: 2
 execute: 
   echo: false   # set to true to show musterlösung
   output: false
-code-fold: true
+code-fold: true # set false to show all code
 code-summary: "Musterlösung"
 knitr:
   opts_chunk: 
@@ -14,7 +14,6 @@ knitr:
 ---
 
 # Datenverarbeitung
-
 
 ```{r include=FALSE, echo=FALSE}
 # Benoetigte Bibliotheken ####
@@ -321,6 +320,8 @@ Phase Covid (Code untenstehend). Wir definieren 5 Phasen:
 
 - Wir packen alle Phasen (normal, die beiden Lockdowns und Covid aber ohne Lockdown) in eine Spalte --> long-format ist schöner (und praktischer für das plotten) als wide-format.
 
+- Später im multivariaten Modell werden die Levels der Variablen (z.B. bei der Phase Covid: Pre, Normal, Lockdown 1 und 2, Covid) per "default" alphabetisch geordnet und die Effektstärken der einzelnen Levels gegenüber dem ersten Level gerechnet. Das macht wenig Sinn, den die Levels sind nicht alphabetisch, sondern gemäss der Liste oben. Das passen wir ebenfalls an.
+
 - Hier der Code dazu:
 
 ```{r echo=TRUE}
@@ -350,7 +351,7 @@ Neben dem Lockdown können auch die Schulferien einen Einfluss auf die Besuchsza
 
 - Weil dies etwas kompliziert ist, hier eine Funktion zur Zuweisung der Ferien, welche ihr kopieren könnt:
 
-```{r}
+```{r echo=TRUE}
 # schreibe nun eine Funktion zur zuweisung Ferien. WENN groesser als start UND kleiner als
 # ende, DANN schreibe ein 1
 for (i in 1:nrow(schulferien)) {
@@ -378,7 +379,7 @@ typeof(depo$Stunde)
 
 Die Daten wurden durch den WPZ kalibriert (Kommastellen). 
 
-- Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen). 
+- Rundet sie auf 0 Nachkommastellen (Ganzzahl; unser Modell kann nicht mit Kommazahlen in der ahbängigen Variable umgehen). Der Befeht lautet __round()__
 
 - Definiert sie sicherheitshalber als Integer
 
@@ -594,7 +595,5 @@ Z.B. sind folgende Befehle und Plots wichtig:
 - usw.
 
 __Hinweis:__ Geht noch nicht zu weit mit euren Plots. Die Idee ist, dass man sich einen Überblick über die Daten verschafft und noch keine "analysierenden" Plots erstellt.
-
-__--> Erklärt dem Plenum nächste Woche was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __
 
 Nachdem nun alle Daten vorbereitet sind folgt im nächsten Schritt die deskriptive Analyse.

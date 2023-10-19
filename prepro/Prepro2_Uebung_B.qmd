@@ -75,6 +75,7 @@ knitr::kable(sensor_fail)
 ```{r}
 # mit base-R:
 sensor_fail$Temp_correct[sensor_fail$SensorStatus == 0] <- NA
+sensor_fail$Temp_correct[sensor_fail$SensorStatus != 0] <- sensor_fail$Temp #Warnmeldung kann ignoriert werden.
 
 # das gleiche mit dplyr:
 sensor_fail <- sensor_fail |>

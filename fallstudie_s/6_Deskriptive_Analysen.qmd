@@ -1,5 +1,5 @@
 ---
-date: 2023-10-24
+date: 2023-10-23
 lesson: Deskriptive Analysen
 thema: Explorativ / Beschreibend
 index: 2
@@ -333,7 +333,6 @@ depo_m_daytime <- depo_m_daytime |>
   ) # formatiere als Datum
 ```
 
-
 ## Aufgabe 1: Verlauf der Besuchszahlen nach Monat
 
 ### 1a)
@@ -342,7 +341,7 @@ Nachdem wir die Projektstruktur aufgebaut haben und die Daten vorbereitet (inkl.
 
 Wir interessieren uns in den Analysen für 5 Zeitabschnitte:
 
-1. von Anfang Untersuchungsperiode bis vor Lockdown 1 (pre)
+1. von Anfang Untersuchungsperiode bis vor dem 1. Lockdown (pre)
 2. Lockdown 1
 3. Zwischen beiden Lockdowns
 4. Lockdown 2
@@ -506,14 +505,15 @@ ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
 
 Nun möchten wir genauer untersuchen, wie sich die Besuchszahlen je nach Phase (Pre, Normal, Lockdown 1, Lockdown 2 und Covid) auf die __Wochentage und Tageszeiten__ verteilen. 
 
+
 ### 2a)
 
-- Erstellt dazu einen Violinplot nach untenstehender Vorgabe. Was sagt uns dieser okmplexe Plot?
+- Erstellt dazu einen Violinplot nach untenstehender Vorgabe. Was sagt uns dieser komplexe Plot?
 
 ```{r echo=FALSE, output = TRUE}
 ggplot(data = depo, aes(x = Wochentag, y = Total, fill = Tageszeit)) +
   geom_violin() +
-  labs(title = "", y = "Fussgänger:innen pro Tag") +
+  labs(title = "", y = "Fussgänger:innen pro Tag (log10)") +
   facet_grid(cols = vars(Tageszeit), rows = vars(Phase))+
   scale_y_log10()+
   scale_fill_manual(values = mycolors) +

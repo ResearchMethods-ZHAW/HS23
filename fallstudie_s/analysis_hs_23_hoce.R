@@ -659,8 +659,6 @@ umwelt <- inner_join(depo_daytime, meteo_day, by = c("Jahr", "Monat", "KW", "Woc
 # Faktor vorliegen. 
 # prüfe:
 str(umwelt)
-
-
 # es darf keine NA's im datensatz haben
 sum(is.na(umwelt))
 # umwelt <- na.omit(umwelt)
@@ -765,9 +763,7 @@ gofstat(list(f1, f2, f3, f4, f6, f7),
   fitnames = c(
     "Normalverteilung", "Poisson",
     "negativ binomial", "exponentiell", "logistisch",
-    "geometrisch"
-  )
-)
+    "geometrisch"))
 
 # die 2 besten (gemaess Akaike's Information Criterion) als Plot + normalverteilt,
 plot.legend <- c("Normalverteilung", "exponentiell", "negativ binomial")
@@ -955,8 +951,8 @@ simulationOutput <- simulateResiduals(fittedModel = nb_quad_model_day, n = 1000)
 plot(simulationOutput)
 testDispersion(simulationOutput)
 testZeroInflation(simulationOutput)
-car::vif(exp_model_day)
-mean(car::vif(exp_model_day))
+# car::vif(exp_model_day)
+# mean(car::vif(exp_model_day))
 
 # --> Die zweitbeste Verteilung (exp) führt auch nicht dazu, dass die Modellvoraussetzungen deutlich besser
 # erfüllt werden

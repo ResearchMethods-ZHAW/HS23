@@ -41,12 +41,12 @@ mytheme <-
 
 ```{r}
 #lade die Daten
-df <- readr::read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.1.csv")
+df <- readr::read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.1.csv", delim = ";")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
 # Sind Mittelwerte nahe bei Null? 
-# Gäbe uns einen weiteren Hinweis auf eine spezielle Binomail-Verteilung 
+# Gäbe uns einen weiteren Hinweis auf eine spezielle Binomial-Verteilung 
 aggregate(tot_sold ~ label_content, data = df, FUN = function(x) c(mn = mean(x), n = sd(x) ))
 
 # Boxplot
@@ -55,7 +55,7 @@ ggplot(df, aes(x = label_content, y= tot_sold)) +
   stat_boxplot(geom = "errorbar", width = 0.25) +
   geom_boxplot(fill="white", color = "black", size = 1, width = .5) +
   labs(x = "\nMenu-Inhalt", y = "Anzahl verkaufte Gerichte pro Woche\n") +
-  # achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&Cold Gerichten
+  # achtung erster Hinweis einer Varianzheterogenität, wegen den Hot&Cold-Gerichten
   mytheme
 
 #alternative mit base
@@ -71,12 +71,15 @@ par(mfrow = c(2,2))
 plot(model)
 ```
 <br> 
-**Fazit**: Inspektion der Modellvoraussetzung zeigt klare Verletzungen des Residualplots (zeigt einen "Trichter", siehe Skript Statistik 2), D.h. die Voraussetzung der Homoskedastizität sind verletzt. Mögliche nächste Schritte:
+**Fazit**: Beim Überprüfen der Modellannahmen haben wir festgestellt, dass der Residualplot deutliche Abweichungen aufweist, die einem "Trichter" ähneln (wie im Statistik-Skript 2 erklärt). Dies bedeutet, dass die Annahme der Homoskedastizität nicht erfüllt ist. Welche Schritte könnten wir als nächstes unternehmen?
 
-- Menüinhalt "Buffet" aus der Analyse ausschliessen, da sowieso kein richtiger Menüinhalt (ACHTUNG: Informationsverlust & inhaltiche Begründung für diesen Ausschluss)
-- Datentransformation z.B. log-Transformation
-- nicht-parametrischer Test (ACHTUNG: auch dieser setzt Voraussetzungen voraus)
-- ein glm Model (general linear model) mit einer poisson/quasipoisson link Funktion (vgl. Skript Statistik 4), weitere Infos dazu [Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5869353/)
+- Wir sollten das "Buffet"-Menü aus unserer Analyse entfernen, da es in Wirklichkeit keine vollständigen Menüinformationen enthält. Beachte jedoch, dass dies zu einem Informationsverlust führt. Wir können diesen Ausschluss damit begründen, dass das "Buffet" nicht den gleichen strukturierten Menüinhalt aufweist wie die anderen Menüs.
+
+- Wir könnten eine Daten-Transformation in Betracht ziehen, zum Beispiel die Anwendung einer logarithmischen Transformation, um die Daten besser zu analysieren.
+
+- Eine andere Option wäre die Verwendung eines nicht-parametrischen Tests. Beachte jedoch, dass auch solche Tests bestimmte Voraussetzungen erfüllen müssen, um verlässliche Ergebnisse zu liefern.
+
+- Eine weitere Möglichkeit wäre die Anwendung eines general linear models (glm) mit einer Poisson- oder Quasipoisson-Link-Funktion, wie im Statistik-Skript 4 erklärt. Weitere Informationen dazu findest du im Skript Statistik 4. [Link](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5869353/)
 <br>
 
 ```{r}
@@ -89,7 +92,7 @@ plot(model)
 # für weitere Infos:
 # https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/
 
-# achtung hier log10, bei Rücktransformation achten
+# achtung hier log10, bei einer Rücktransformation zwingend beachten
 model_log <- aov(log10(tot_sold) ~ label_content, data = df)
 par(mfrow = c(2, 2))
 plot(model_log) # scheint ok zu sein
@@ -115,13 +118,17 @@ TukeyHSD(model_log) # (vgl. Statistik 2)
 
 #### Methoden
 
-Ziel war es, die Unterschiede in den wöchentlichen Verkaufszahlen pro Menüinhalt aufzuzeigen. Da die Responsevariable (Verkaufszahlen) "metrisch" und die Prädiktorvariable kategorial sind, wurde eine einfaktorielle ANOVA gerechnet. 
-Die visuelle Inspektion des Modells zeigte insbesondere schwere Verletzungen der Homoskedastizität. Der Boxplot bestätigt dieser Befund. 
-Weil die Voraussetzungen schwer verletzt sind, wurde eine log-Transformation der Responsevariable vorgenommen. Anschliessend wurde erneut eine ANOVA gerechnet und die Modelvoraussetzungen visuell inspiziert: Homoskedastizität und Normalverteilung der Residuen sind gegeben. Für mehr Informationen zu log-Transformationen und Darstellung der Ergebnisse findet ihr [hier](https://dzchilds.github.io/stats-for-bio/data-transformations.html#presenting-results-from-analyses-of-transformed-data)
+Unser Ziel war es, die Unterschiede in den wöchentlichen Verkaufszahlen für verschiedene Menüinhalte zu untersuchen. Da die Anzahl der verkauften Menüs eine Zahlenangabe ist und die Menüinhalte kategorisch sind, haben wir eine einfaktorielle ANOVA durchgeführt.
+
+Als wir das Modell überprüften, stellten wir fest, dass die Homoskedastizität stark verletzt war. Dies wurde auch durch den Boxplot bestätigt, den wir verwendet haben.
+
+Um dieses Problem anzugehen, haben wir die Verkaufszahlen durchgeführt, um sie besser vergleichbar zu machen. Anschliessend haben wir erneut eine ANOVA durchgeführt und die Modellvoraussetzungen überprüft. Diesmal stellten wir fest, dass die Homoskedastizität (gleichmässige Streuung der Residuen) und die Normalverteilung der Residuen erfüllt waren.
+
+Für weitere Informationen zur log-Transformation und zur Darstellung der Ergebnisse findest du [hier](https://dzchilds.github.io/stats-for-bio/data-transformations.html#presenting-results-from-analyses-of-transformed-data) zusätzliche Details.
 
 #### Ergebnisse
 
-Die Menüinhalte (Fleisch, Vegetarisch und Buffet) unterscheiden sich in den wöchentlichen Verkaufszahlen signifikant (p < .001). Die Abbildung 1 zeigt die wöchentlichen Verkaufszahlen pro Menüinhalt.
+Die wöchentlichen Verkaufszahlen für die verschiedenen Menüarten (Fleisch, Vegetarisch und Buffet) sind signifikant unterschiedlich (p < 0.001). Dies wird in Abbildung 1 anschaulich dargestellt, wo die Verkaufszahlen pro Menüart zu sehen sind.
 
 ```{r}
 #| echo: false
@@ -229,14 +236,14 @@ par(mfrow = c(2, 2)) # alternativ gäbe es die ggfortify::autoplot(model) funkti
 plot(model)
 ```
 
-**Fazit**: Die Inspektion des Modells zeigt kleinere Verletzungen bei der Normalverteilung der Residuen (Q-Q Plot). Aufgrund keiner starken Verbesserung durch eine Transformation der Responsevariable, entscheide ich mich für eine ANOVA ohne log-transformierten Responsevariablen (AV).
+**Fazit**: Die Überprüfung des Modells zeigt, dass die Residuen (Fehler) zwar nicht perfekt normal verteilt sind, aber die Abweichungen sind nicht allzu gross (das zeigt der Q-Q Plot). Da die Anwendung einer Log-Transformation auf die Verkaufszahlen nicht zu einer signifikanten Verbesserung führt, habe ich mich entschieden, eine ANOVA ohne die log-transformierten Verkaufszahlen durchzuführen.
 
 ```{r }
 # sieht aus, als ob die Voraussetzungen für eine Anova nur geringfügig verletzt sind
 # mögliche alternativen:
 # 0. keine Tranformation der AV (machen wir hier)
 # 1. log-transformation um die grossen werte zu minimieren (nur möglich, wenn
-# keine 0 enthalten sind und die Mittelwerte weit von 0 entfernt sind (bei uns wäre dieser Fall erfüllt)
+# keine 0 enthalten sind und die Mittelwerte weit von 0 entfernt sind (bei uns wäre dies klar erfüllt)
 # => bei Zähldaten ist dies leider nicht immer gegeben)
 # 2. nicht parametrische Test z.B. Welch-Test, wenn hohe Varianzheterogenität
 # zwischen den Residuen
@@ -253,7 +260,7 @@ summary.lm(model_log) # interaktion ist nun nicht mehr signifikant: vgl.
 
 # überprüft die Modelvoraussetzungen (vgl. Skript Statistik 2)
 # bringt aber keine wesentliche Verbesserung, daher bleibe ich bei den
-# untranfromierten Daten
+# untransformierten Daten
 par(mfrow = c(2, 2))
 plot(model_log)
 
@@ -263,18 +270,19 @@ TukeyHSD(model_log) # gibt sehr ähnliche Resultate im Vergleich zum nicht-trans
 
 #### Methode
 
-Ziel war es die Unterschiede zwischen den preisgünstigeren und teureren Menülinien und der Hochschulzugehörigkeit herauszufinden: Hierfür wurde eine ANOVA mit Interaktion gerechnet, da wir eine (quasi)-metrische Responsevariable und zwei Prädiktorvariablen (Menülinie und Hochschulzugehörigkeit) haben. 
+Unser Ziel war es, herauszufinden, ob es Unterschiede zwischen den preisgünstigeren und teureren Menülinien in Bezug auf die Zugehörigkeit zur Hochschule gibt. Dafür haben wir eine ANOVA mit Interaktion durchgeführt, da wir eine Art von Zahlenangabe für unsere Ergebnisse und zwei Faktoren (Menülinie und Hochschulzugehörigkeit) hatten.
 
-Die Voraussetzungen für eine ANOVA waren im ersten Model nicht stark verletzt, lediglich die Normalverteilung der Residuen: Deshalb habe wurde auf eine log-Transformation der Responsevariable verzichtet. Anschliessend wurden noch post-hoc Einzelvergleiche nach Tukey durchgeführt.
+Im ersten Modell haben wir festgestellt, dass die Voraussetzungen für eine ANOVA grösstenteils erfüllt waren, abgesehen von der Normalverteilung der Abweichungen (Residuen). Aus diesem Grund haben wir uns entschieden, auf eine log-Transformation der Zahlenangabe zu verzichten. Anschliessend haben wir zusätzlich Einzelvergleiche nach Tukey durchgeführt, um spezifische Unterschiede zwischen den Gruppen zu ermitteln.
 
-Kleiner Exkurs: Verkaufsdaten sind Zähldaten und per se binomial-Verteilt, da es keine negativen Werte geben kann. Ich versuche immer folgende Fragen zu beantworten:
+Ein wichtiger Punkt zu beachten: Die Verkaufsdaten sind in Wirklichkeit Zähldaten und haben eine binomiale Verteilung, da sie keine negativen Werte haben können. Bei der Analyse stelle ich mir immer zwei Fragen:
 
-* Wie weit ist der Mittelwert von "Null entfernt"? -> Wenn ja uns keine Voraussetzungen zur Normalverteilung gibt, kann auch eine Normalverteilung angenommen werden
-* Beinhalten die Daten viele "Null's"? -> Wenn ja muss eine spezielle binomial Verteilung angenommen werden, z.B. negative binomiale Transformation mit GLM (see Skript XY)
+1. Wie weit ist der Mittelwert von "Null" entfernt? Wenn die Daten keine starken Abweichungen von der Normalverteilung aufweisen, können wir trotzdem annehmen, dass sie normal verteilt sind.
+
+2. Enthalten die Daten viele "Nullen"? Wenn dies der Fall ist, müssen wir eine spezielle binomiale Verteilung berücksichtigen, wie beispielsweise die Verwendung einer negativen binomialen Transformation mit einem general linear model (GLM) (siehe Skript Kapitel 4).
 
 #### Ergebnisse
 
-Die wöchentlichen Verkaufszahlen der Menülinien unterscheiden sich nach Hochschulzugehörigkeit signifikant (p < .001). Inhaltich bedeutet dies, dass Studierende signifikant häufiger die preisgünstigere Menülinie "Favorite & World" als Mitarbeitende kaufen. Entgegen der Annahme gibt es aber keine signifikanten Unterschiede zwischen Studierende und Mitarbeitende bei dem Kauf der teureren Menülinie "Kitchen". Über die möglichen Gründe können nur spekuliert werden, hierfür bedarf es weiteren Analysen z.B. mit dem Prädiktor "Menüinhalt".
+Die wöchentlichen Verkaufszahlen der verschiedenen Menülinien sind abhängig von der Zugehörigkeit zur Hochschule und zeigen signifikante Unterschiede (p < 0.001). Das bedeutet, dass Studierende die preisgünstigere Menülinie "Favorite & World" signifikant häufiger kaufen als Mitarbeitende. Überraschenderweise gibt es jedoch keine signifikanten Unterschiede zwischen Studierenden und Mitarbeitenden beim Kauf der teureren Menülinie "Kitchen". Um die möglichen Gründe dafür zu verstehen, sind weitere Analysen erforderlich, beispielsweise unter Einbeziehung des Menüinhalts als zus$tzlicher Faktor resp. Variable.
 
 ```{r}
 #| echo: false

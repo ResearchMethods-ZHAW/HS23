@@ -46,7 +46,7 @@ mytheme <-
 ```
 
 ```{r}
-df <- read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik4.2.csv")
+df <- read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik4.2.csv", delim = ";")
 
 # sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an
 # sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen
@@ -140,7 +140,9 @@ sens
 
 ### Methode
 
-In der Aufgabe war es das Ziel zu schauen, ob wir einen potenziellen Besuch eines Mensagasts vorhersagen können und zwar in Abhängigkeit von den sozioökonomischen Variablen, wahrgenommene Fleischkonsum und der Umwelteinstellung. Die Kriteriumsvariable "Mensa" weist eine binäre Verteilung auf: Deshalb rechnen wir eine multiple logistische Regression mit den Prädiktoren “Alter”, “Geschlecht”, “Hochschulzugehörigkeit”, "Fleischkonsum" und "Umwelteinstellung. Mehr Informationen zu den logistischen Regressionen findet ihr im Buch von Crawley (2015) oder auch im Buch von Gareth (2016).
+In dieser Aufgabe möchten wir untersuchen, ob wir vorhersagen können, ob jemand die Mensa besuchen wird. Wir interessieren uns dabei besonders für sozioökonomische Faktoren, die wahrgenommene Fleischkonsum und die Einstellung zur Umwelt. Die Zielgröße "Mensa-Besuch" ist entweder ja oder nein, daher führen wir eine "multiple logistische Regression" durch. Wir verwenden die Merkmale "Alter", "Geschlecht", "Hochschulzugehörigkeit", "Fleischkonsum" und "Umwelteinstellung" als Vorhersagevariablen. 
+
+Wenn du mehr über logistische Regressionen erfahren möchtest, findest du ausführlichere Informationen in den Büchern von Crawley (2015) und Gareth (2016).
 
 ### Ergebnisse
 ```{r}
@@ -150,15 +152,17 @@ In der Aufgabe war es das Ziel zu schauen, ob wir einen potenziellen Besuch eine
 knitr::kable(km)
 ```
 
-Der Output des logistischen Models mit der Linkfunktin "logit" sagt und, dass das Modell nicht gut zu den Daten passt, d.h. mit dem Modell (gegeben die Daten) können wir nur schlecht vorhersagen, ob eine Person zukünftig sich in der Mensa verpflegt oder ihr Mittagessen selber mitnimmt. Hinweise dafür geben das kleine pseudo-R2 (14%) als auch die hohe Missklassifizierungsrate (24%): bei genauerer Betrachtung fällt auf, dass das Modell häufig einen alpha-Fehler begeht, d.h. unser Modell sagt zu viele Mensagänger vorher, obwohl diese in Realität Selbstverpfleger sind. 
-Es gibt verschiedene Gründe für diesen schlechten Modelfit:
+Die Ergebnisse des logistischen Modells mit der "logit" Linkfunktion deuten darauf hin, dass das Modell nicht gut zu unseren Daten passt. Das bedeutet, dass es schwierig ist, basierend auf diesem Modell vorherzusagen, ob jemand in Zukunft in der Mensa essen wird oder sein Mittagessen mitbringt. Diese Schlussfolgerung wird durch den kleinen pseudo-R2-Wert (14%) und die hohe Rate der Fehlklassifikation (24%) gestützt. Wenn wir genauer hinsehen, stellen wir fest, dass das Modell häufig einen Fehler vom Typ "Alpha" (1. Fehler) macht, das bedeutet, es sagt oft voraus, dass jemand in die Mensa geht, obwohl sie tatsächlich ihr Essen selbst mitbringen.
 
-* die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger Selbstverpfleger als Mensgänger im Datensatz (26% vs. 74%)
-* die Prädiktorvariablen sind alle entweder kategorial oder ordinal: dies kann dazu führen, dass das Model keinen guten fit zu den Daten erzielt 
+Es gibt mehrere Gründe für die schlechte Passung des Modells:
 
-**Fazit**: Es sollte nach einem weiteren adäquateren Modell gesucht werden: insbesondere ein Modell, welches einen mit ordinalen Prädiktorvariablen umgehen kann: 
+Die Kriteriumsvariable ist in den Daten ungleich verteilt, es gibt also weniger Personen, die ihr Essen selbst mitbringen (26%) im Vergleich zu denen, die in der Mensa essen (74%).
 
-- eine bessere Link-Funktion für das GLM suchen z.B. probit 
+Die Prädiktorvariablen sind alle entweder kategorisch oder ordinal, was dazu führen kann, dass das Modell keine guten Ergebnisse liefert.
+
+Zusammengefasst, es wäre ratsam, nach einem besseren geeigneten Modell zu suchen, insbesondere einem Modell, das mit ordinalen Prädiktorvariablen besser umgehen kann. Beispiele wären:
+
+- eine andere Link-Funktion für das GLM verwenden z.B. probit 
 - [polynomiale Kontraste](https://stats.stackexchange.com/questions/195246/how-to-handle-ordinal-categorical-variable-as-independent-variable)
 - Smooth Splines [hier](https://www.frontiersin.org/articles/10.3389/fams.2017.00015/full)
 - multinomiale Regression z.M. nnet::mulitom() [hier](https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/) 

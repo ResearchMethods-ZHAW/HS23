@@ -6,7 +6,7 @@ index: 2
 execute: 
   echo: true   # set to true to show musterlösung
   output: false
-code-fold: true
+code-fold: false # set false to show all code
 code-summary: "Musterlösung"
 knitr:
   opts_chunk: 
@@ -117,3 +117,6 @@ slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT")
 pie(slieces, labels = lbls)
 ```
+
+
+__--> Erklärt dem Plenum nächste Woche was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __
