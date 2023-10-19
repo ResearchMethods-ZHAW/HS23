@@ -77,9 +77,9 @@ strftime(datum2, format = "%B") # extrahiert den Monat mit Namen (ausgeschrieben
 
 library("lubridate")
 
-month(datum) # extrahiert den Monat als Zahl
-month(datum, label = TRUE, abbr = TRUE) # extrahiert den Monat mit Namen (abgekürzt)
-month(datum, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
+month(datum2) # extrahiert den Monat als Zahl
+month(datum2, label = TRUE, abbr = TRUE) # extrahiert den Monat mit Namen (abgekürzt)
+month(datum2, label = TRUE, abbr = FALSE) # extrahiert den Monat mit Namen (ausgeschrieben)
 
 vec <- c(10, 20, 33, 42, 54, 66, 77)
 vec
