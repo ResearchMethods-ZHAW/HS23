@@ -71,7 +71,7 @@ plot(RE13["TierID"])
 
 Hier einige Zeilen Code, um eine HomeRange zu berechnen.
 
-Herumschrauben an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
+Herumschrauben an der Ausdehnung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
 
 **→ Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
 
