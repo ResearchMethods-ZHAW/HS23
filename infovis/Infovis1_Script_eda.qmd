@@ -8,7 +8,7 @@ knitr:
     collapse: true
 ---
 
-# Infovis 1: Demo B
+# Infovis 1: Script EDA
 
 ```{r}
 library("ggplot2")
