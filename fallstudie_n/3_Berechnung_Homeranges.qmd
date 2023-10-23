@@ -36,7 +36,7 @@ Einlesen des Gesamtdatensatzes von Moodle, Sichtung des Datensatzes und der Date
 #| code-fold: false
 #| output: false
 
-Rehe <- read_delim("datasets/fallstudie_n/Aufgabe3_Homeranges_Rehe_landforst_20221024.csv", delim = ";")
+Rehe <- read_delim("datasets/fallstudie_n/Aufgabe3_Homeranges_Rehe_landforst_20231023.csv", delim = ";")
 
 str(Rehe)
 ```
@@ -71,14 +71,9 @@ plot(RE13["TierID"])
 
 Hier einige Zeilen Code, um eine HomeRange zu berechnen.
 
-Herumschrauben an den Einstellungen von: 
-
-- an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
-- href (in der Funktion kernelUD)
+Herumschrauben an der Ausdehung, resp. prozentualer Anteil Punkte in der HR (Funktion getverticeshr) 
 
 **→ Ziel: eine Karte erstellen mit der Visualiserung mindestens einer HR**
-
-Berechnung von `href` nach: @pebsworth2012.
 
 ```{r}
 #| echo: true
@@ -201,5 +196,5 @@ Testen der Variablen der Vegetationsschichten von letzter Woche auf einen linear
 
 df_with_lidar <- read_delim("datasets/fallstudie_n/df_with_lidar.csv", delim = ";")
 
-cor.test(~ DG_Strauchschicht + DG_us, data = df_with_lidar, method = "pearson")
+cor.test(~ DG_Strauchschicht + DG_us_2022, data = df_with_lidar, method = "pearson")
 ```
