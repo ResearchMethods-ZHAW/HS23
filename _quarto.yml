@@ -65,8 +65,8 @@ book:
       - infovis/Infovis1_Vorbereitung.qmd
       - --
       - infovis/Infovis1_Demo.qmd
-      - infovis/Infovis1_Script_eda.qmd
       - infovis/Infovis1_Uebung.qmd
+      - infovis/Infovis1_Script_eda.qmd
       - --
       - infovis/Infovis2_Uebung_A.qmd
       - infovis/Infovis2_Uebung_B.qmd
