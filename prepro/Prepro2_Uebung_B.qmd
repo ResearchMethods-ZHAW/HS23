@@ -4,8 +4,8 @@ lesson: PrePro2
 thema: Piping / Joins
 index: 3
 execute: 
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -75,6 +75,7 @@ knitr::kable(sensor_fail)
 ```{r}
 # mit base-R:
 sensor_fail$Temp_correct[sensor_fail$SensorStatus == 0] <- NA
+sensor_fail$Temp_correct[sensor_fail$SensorStatus != 0] <- sensor_fail$Temp #Warnmeldung kann ignoriert werden.
 
 # das gleiche mit dplyr:
 sensor_fail <- sensor_fail |>

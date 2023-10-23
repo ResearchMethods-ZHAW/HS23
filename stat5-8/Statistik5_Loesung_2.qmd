@@ -16,7 +16,7 @@ format:
 ## Musterlösung Übung 5.2: GLMM
 
 - Lese-Empfehlung Kapitel 4.3.1 von [Christopher Molnar](https://christophm.github.io/interpretable-ml-book/extend-lm.html#glm)
-- Interessierte [hier](https://rpsychologist.com/r-guide-longitudinal-lme-lmer) oder [hier](https://rpubs.com/kaz_yos/glmm1)
+- Für Interessierte [hier](https://rpsychologist.com/r-guide-longitudinal-lme-lmer) oder [hier](https://rpubs.com/kaz_yos/glmm1)
 
 ### Kommentierter Lösungsweg
 ```{r}
@@ -45,7 +45,7 @@ mytheme <-
 df <- read_csv2("datasets/stat5-8/Datensatz_novanimal_Uebung_Statistik5.2.csv")
 
 # sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an,
-# beide Kategorien kommen nicht gleich häufig vor, aber nicht super tragisch
+# beide Kategorien kommen nicht gleich häufig vor, ist aber nicht tragisch
 prop.table(table(df$meat)) # gibt die Prozente an
 table(df$meat) # gibt die absoluten Werte an
 
@@ -56,7 +56,7 @@ table(df$meat) # gibt die absoluten Werte an
 # check out ICC: https://www.datanovia.com/en/lessons/intraclass-correlation-coefficient-in-r/
 # attention: however data needs to be wide format
 
-# dauert ein paar sekunden
+# dauert ein paar Sekunden
 mod0 <- glmer(meat ~ gender + member + age_group + (1 | ccrs),
   data = df, binomial("logit")
 )
@@ -100,7 +100,7 @@ Die Responsevariable “Fleischkonsum” ist eine binäre Variable. Demnach wird
 
 ### Ergebnisse
 
-Das Geschlecht und das Alter nehmen einen signifikanten Einfluss auf den Fleischkonsum (siehe Table 1): Männer kaufen signifikant häufiger ein fleischhaltiges Gericht als Frauen; junge Personen (15 bis 25-jährig) kaufen signifikant häufiger (p > .1) ein fleischhaltiges Gericht in der Mensa. Es sieht so aus, als ob die Hochschulzugehörigkeit auf den ersten Blick keinen Einfluss nimmt. Aber man müsste auch die Interaktion zwischen Geschlecht und Hochschulzugehörigkeit berücksichtigen, um ein abschliessendes Bild zu bekommen. Das kleine marginale Pseudo-R^2 zeigt auf, dass es nicht das "beste" Modell ist. Insbesondere die tiefe Varianzaufklärung für die randomisierte Variable (r2c; ccrs) scheint mit (nur) 4% sehr gering. Das sind Hinweise dafür, dass das Modell ggf. noch weitere Ebenen haben könnte (z.B. Standort Mensa).
+Das Geschlecht und das Alter nehmen einen signifikanten Einfluss auf den Fleischkonsum (siehe Table 1): Männer kaufen signifikant häufiger ein fleischhaltiges Gericht als Frauen; junge Personen (15 bis 25-jährig) kaufen signifikant häufiger ein fleischhaltiges Gericht in der Mensa. Es sieht so aus, als ob die Hochschulzugehörigkeit auf den ersten Blick keinen Einfluss nimmt. Aber man müsste auch die Interaktion zwischen Geschlecht und Hochschulzugehörigkeit berücksichtigen, um ein abschliessendes Bild zu bekommen. Das kleine marginale Pseudo-R^2 zeigt auf, dass es nicht das "beste" Modell ist. Insbesondere die tiefe Varianzaufklärung für die randomisierte Variable (r2c; ccrs) scheint mit (nur) 4% sehr gering. Das sind Hinweise dafür, dass im Modell gegebenenfalls noch weitere Faktoren miteinbezogen werden müssten (z.B. Standort Mensa).
 
 ```{r}
 #| echo: false

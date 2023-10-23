@@ -65,4 +65,4 @@ Der Datensatz enthält 40 Beobachtungen zu Tauchzeiten zweier Kormoranunterarten
 
 **MANOVA mit *Datensatz_novanimal_Uebung_Statistik2.3.csv***
 
-In der Mensa gibt es zwei unterschiedliche Preisniveaus bzgl. den Gerichten: eine preisgünstigere Menülinie ("World" & "Favorite") und eine teuere Menülinie ("Kitchen"). Gibt es Unterschiede zwischen dem Kauf von preisgünstigeren resp. teureren Menülinien betreffend Menüinhalt & Hochschulzugehörigkeit?
+In der Mensa gibt es zwei Preiskategorien für Gerichte: eine günstigere Menülinie ("World" und "Favorite") und eine teurere Menülinie ("Kitchen"). Wir möchten herausfinden, ob es Unterschiede gibt, wenn es um den Kauf von Gerichten aus den verschiedenen Preiskategorien geht (Menülinien), abhängig von der Zugehörigkeit zur Hochschule (Mitarbeitende und Studierende).

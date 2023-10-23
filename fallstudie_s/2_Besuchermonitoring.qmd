@@ -6,7 +6,7 @@ index: 2
 execute: 
   echo: true   # set to true to show musterlösung
   output: false
-code-fold: true
+code-fold: false # set false to show all code
 code-summary: "Musterlösung"
 knitr:
   opts_chunk: 
@@ -39,7 +39,7 @@ Datenschutz ist ein wichtiges Thema. Die Besuchenden werden über den Zweck der 
 ![](images/Begleitzettel_Kamera.png){width=50%}
 
 ## Auswertung
-__AUFGABE ab nächster Woche__
+__Nach den Felderhebungen__
 
 _Nachdem die Kameras für zwei Wochen im Einsatz standen, sichten wir zusammen die Ergebnisse._
 
@@ -47,6 +47,9 @@ _Da die Anzahl Passagen auf der Seeparzelle keine schöne Auswertung erlauben, a
 
 1. ihr habt genügend Daten für die Auswertung mit R und 
 2. die Daten sind im selben Format wir für die späteren Aufgaben.
+
+
+[Hier](https://moodle.zhaw.ch/mod/folder/view.php?id=956254)könnt ihr die Daten herunterladen.
 
 ### Aufgabe 1: Vorarbeiten
 
@@ -114,3 +117,6 @@ slieces <- c(sum(depo$Fuss_IN), sum(depo$Fuss_OUT), sum(depo$Velo_IN), sum(depo$
 lbls <- c("Fuss_IN", "Fuss_OUT", "Velo_IN", "Velo_OUT")
 pie(slieces, labels = lbls)
 ```
+
+
+__--> Erklärt dem Plenum nächste Woche was ihr gemacht habt, was eure Daten zeigen und präsentiert diese einfachen Plots. __

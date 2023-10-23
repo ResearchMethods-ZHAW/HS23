@@ -146,7 +146,7 @@ git stash drop                # verwirft die lokalen Änderungen
 ```
 
 Alternativ könnten auch verschiedene Merge-Strategien verwendet werden. Das hat bei Nils aber schon zu unerwarteten Resultaten geführt (Änderungen wurden verworfen). 
-
+    
 - Lokale Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `ours` durchführen (`git pull --strategy=ours`)
   <!-- - Lokalen Änderungen `stash`-en und verwerfen -->
 - Remote Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `theirs` durchführen (`git pull --strategy=theirs`)
