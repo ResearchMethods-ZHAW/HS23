@@ -126,7 +126,7 @@ Wir nutzen `readr` um csvs zu importieren und verwenden die Funktion `read_delim
 
 
 ```{r}
-wetter <- read_csv("datasets/prepro/weather.csv")
+wetter <- read_delim("datasets/prepro/weather.csv", ",")
 ```
 
 ```{r}

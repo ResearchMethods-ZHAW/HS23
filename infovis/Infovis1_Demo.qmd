@@ -20,7 +20,7 @@ Als erstes laden wir den Datensatz *temperature_SHA_ZER.csv* ein. Es handelt sic
 ```{r}
 # Wir können den Datensatz direkt über die URL einladen oder aber ihr nutzt die
 # URL um den Datensatz lokal bei euch abzuspeichern und wie gewohnt einzulesen
-temperature <- read_csv("datasets/infovis/temperature_SHA_ZER.csv")
+temperature <- read_delim("datasets/infovis/temperature_SHA_ZER.csv", ",")
 ```
 
 ```{r}

@@ -32,7 +32,7 @@ Lese die Wetterdaten von letzer Woche *weather.csv* (Quelle MeteoSchweiz) in `R`
 
 ```{r}
 # Variante 1
-wetter <- read_csv("datasets/prepro/weather.csv")
+wetter <- read_delim("datasets/prepro/weather.csv", ",")
 wetter$stn <- as.factor(wetter$stn)
 wetter$time <- as.POSIXct(as.character(wetter$time), format = "%Y%m%d%H", tz = "UTC")
 ```
