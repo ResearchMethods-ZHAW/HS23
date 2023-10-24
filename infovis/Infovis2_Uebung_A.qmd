@@ -40,6 +40,8 @@ temperature <- read_delim("datasets/infovis/temperature_2005.csv", ",")
 Mache aus der *wide table* eine *long table* die wie folgt aussieht. 
 
 ```{r}
+#| output: true
+
 temperature_long <- pivot_longer(temperature, -time, names_to = "station", values_to = "temperature")
 
 knitr::kable(head(temperature_long))

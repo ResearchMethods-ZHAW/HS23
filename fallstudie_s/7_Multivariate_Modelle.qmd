@@ -415,7 +415,7 @@ Nachdem die deskriptiven Resultate vorliegen, kann jetzt die Berechnung eines mu
 
 Aktuell haben wir noch zwei verschiedene Datensätze von Interesse:
 
-1) Einen mit den Besuchszahlen pro Tageszeit von Besucher:innen mit den dazugehörigen Datumsinformationen (Datensatz "depo_daytime" - zu Tageszeiten aggregierte Stunden) 
+1) Einen mit den Besuchszahlen pro Tageszeit von Besucher:innen mit den dazugehörigen Datumsinformationen (Datensatz "depo_daytime" - zu Tageszeiten und Wochenende / Werktag aggregierte Stunden) 
 
 2) und einen mit den Wetterparametern pro Tag ("meteo_day"). 
 
