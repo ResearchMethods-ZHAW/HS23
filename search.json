@@ -485,23 +485,23 @@
   {
     "objectID": "infovis/Infovis2_Uebung_B.html#aufgabe-1-parallel-coordinate-plots",
     "href": "infovis/Infovis2_Uebung_B.html#aufgabe-1-parallel-coordinate-plots",
-    "title": "Infovis 2: Übung B",
+    "title": "Infovis 2: Übung optional",
     "section": "Aufgabe 1: Parallel coordinate plots",
     "text": "Aufgabe 1: Parallel coordinate plots\nErstelle einen parallel coordinate plot. Dafür eignet sich der integrierte Datensatz mtcars. Extrahiere die Fahrzeugnamen mit rownames_to_column.\nZudem müssen die Werte jeweiles auf eine gemeinsame Skala normalisiert werden. Hierfür kannst du die Funktion scales::rescale verwenden.\nSo sieht der fertige Plot aus:"
   },
   {
     "objectID": "infovis/Infovis2_Uebung_B.html#aufgabe-2-polar-plot-mit-biber-daten",
     "href": "infovis/Infovis2_Uebung_B.html#aufgabe-2-polar-plot-mit-biber-daten",
-    "title": "Infovis 2: Übung B",
+    "title": "Infovis 2: Übung optional",
     "section": "Aufgabe 2: Polar Plot mit Biber Daten",
     "text": "Aufgabe 2: Polar Plot mit Biber Daten\nPolar Plots eignen sich unter anderem für Daten, die zyklischer Natur sind, wie zum Beispiel zeitlich geprägte Daten (Tages-, Wochen-, oder Jahresrhythmen). Aus den Beispiels-Datensätzen habe ich zwei Datensätze gefunden, die zeitlich geprägt sind:\n\nbeaver1 und beaver2\nAirPassenger\n\nBeide Datensätze müssen noch etwas umgeformt werden, bevor wir sie für einen Radialplot verwenden können. In Aufgabe 2 verwenden wir die Biber-Datensätze, in der nächsten Aufgabe (3) die Passagier-Daten.\nWenn wir die Daten von beiden Bibern verwenden wollen, müssen wir diese noch zusammenfügen.\nZudem müssen wir die Zeitangabe noch anpassen: Gemäss der Datenbeschreibung handelt es sich bei der Zeitangabe um ein sehr programmier-unfreundliches Format. 3:30 wird als “0330” notiert. Wir müssen diese Zeitangabe, noch in ein Dezimalsystem umwandeln.\nSo sieht der fertige Plot aus:"
   },
   {
     "objectID": "infovis/Infovis2_Uebung_B.html#aufgabe-3-raster-visualisierung-mit-flugpassagieren",
     "href": "infovis/Infovis2_Uebung_B.html#aufgabe-3-raster-visualisierung-mit-flugpassagieren",
-    "title": "Infovis 2: Übung B",
+    "title": "Infovis 2: Übung optional",
     "section": "Aufgabe 3: Raster Visualisierung mit Flugpassagieren",
-    "text": "Aufgabe 3: Raster Visualisierung mit Flugpassagieren\nAnalog Aufgabe 2, dieses Mal mit dem Datensatz AirPassanger\nAirPassengers kommt in einem Format daher, das ich selbst noch gar nicht kannte. Es sieht zwar aus wie ein data.frame oder eine matrix, ist aber von der Klasse ts.\nDamit wir den Datensatz verwenden können, müssen wir ihn zuerst in eine matrix umwandeln. Wie das geht habe ich hier erfahren.\nAus der matrix muss noch ein Dataframe her, zudem müssen wir aus der breiten Tabelle eine lange Tabelle machen.\nSo sieht der fertige Plot aus:"
+    "text": "Aufgabe 3: Raster Visualisierung mit Flugpassagieren\nAnalog Aufgabe 2, dieses Mal mit dem Datensatz AirPassengers\nAirPassengers kommt in einem Format daher, das ich selbst noch gar nicht kannte. Es sieht zwar aus wie ein data.frame oder eine matrix, ist aber von der Klasse ts.\nDamit wir den Datensatz verwenden können, müssen wir ihn zuerst in eine matrix umwandeln. Wie das geht habe ich hier erfahren.\nAus der matrix muss noch ein Dataframe her, zudem müssen wir aus der breiten Tabelle eine lange Tabelle machen.\nSo sieht der fertige Plot aus:"
   },
   {
     "objectID": "Stat1-4.html",
