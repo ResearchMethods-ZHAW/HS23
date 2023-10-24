@@ -1,5 +1,18 @@
-## Abstract
 
+## TODOS 2024
+
+- Infovis 1: 
+  - Lief dieses Jahr etwas aus dem Ruder, weil einerseits der Theorie Input sehr lange war, aber dann auch die Demo aus sehr ausführlich. 
+  - Zudem hat verwirrt, das wir in der Theorie mit ggplot begonnen haben aber in der Übung mit base-R
+  - Weiter haben wir mit Qmd Files gearbeitet, was für die Studenten sehr verwirrend war und zeit kostete
+  - InfoVis1 war an einem Montag, da können wir kaum erwarten, dass die studis auf dienstag nenneswert viel zuhause machen können
+  - Vorschlag:
+    - Quarto: verschieben in InfoVis2. Zudem in der 1. Lektion von InfoVis2 mit R-Scripts arbeiten, und erst in der zweiten Lektion demonstrieren, wie aus diesem R-Script ein Quarto-File erstellt werden kann
+    - InfoVis1: base-R nach hinten schieben. Viele Details entfernen, wie z.b. date_breaks, limits usw.
+    - InfoVis2: 
+
+
+## Abstract
 
 Im Kurs Research Methods verwenden wir seit einigen Jahren RMarkdown um die R Unterlagen für die Studenten bereit zu stellen. 
 
@@ -13,22 +26,22 @@ Seit HS2020 arbeiten wir mit Quarto, der Nachfolger von Rmarkdown. Am besten Nil
 
 Wer Lokal auf seinem eingenen PC arbeiten will, muss eine aktuell version von R, RStudio und Git installieren. Siehe dazu folgende Anleitungen:
 
--   [happygitwithr: Install or upgrade R and RStudio](https://happygitwithr.com/install-r-rstudio.html)
--   [happygitwithr: Install Git](https://happygitwithr.com/install-git.html)
+- [happygitwithr: Install or upgrade R and RStudio](https://happygitwithr.com/install-r-rstudio.html)
+- [happygitwithr: Install Git](https://happygitwithr.com/install-git.html)
 
 ### RStudio Konfigurieren
 
 Ich empfehle folgende Konfiguration in RStudio (Tools → `Global Options`):
 
--   R Markdown
-    -   Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Qmd files dar)*
-    -   Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Qmd files)*
-    -   Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
-    -   Show output preview in: Window *(beim kopilieren von Qmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
-    -   Show equation an image previews: In a popup
-    -   Evaluate chunks in directory: Document (**← wichtig !**)
--   Code \> Tab "Saving"
-    -   Default Text Encoding: UTF-8 (**← wichtig !**)
+- R Markdown
+    - Show document outline by default: checked *(Stellt ein Inhaltsverzeichnis rechts von .Qmd files dar)*
+    - Soft-wrap R Markdown files: checken *(macht autmatische Zeilenumbrüche bei .Qmd files)*
+    - Show in document outline: Sections Only *(zeigt nur "Sections" im Inhaltsverzeichnis)*
+    - Show output preview in: Window *(beim kopilieren von Qmd Files wird im Anschluss ein Popup mit dem Resultat dargestellt)*
+    - Show equation an image previews: In a popup
+    - Evaluate chunks in directory: Document (**← wichtig !**)
+- Code \> Tab "Saving"
+    - Default Text Encoding: UTF-8 (**← wichtig !**)
 
 ### Git konfigurieren
 
@@ -109,7 +122,7 @@ Nach ausführen von `quarto preview` erhalte ich den obigen Fehler. Der output i
 ERROR: SyntaxError: Unexpected token < in JSON at position 2
 ``` 
 
-Ich kann den fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-der-fehlermeldung.qmd` ausführe. In dem obigen Fall also:
+Ich kann den Fehler beheben, indem ich `quarto render das-letzte-qmd-file-vor-der-fehlermeldung.qmd` ausführe. In dem obigen Fall also:
 
 ```sh
 quarto render fallstudie_n/2_Datenverarbeitung_Loesung.qmd
@@ -122,36 +135,24 @@ Bei einem `git pull` kann es zu folgender Fehlermeldung kommen.
 
 ```
 error: Your local changes to the following files would be overwritten by merge:
-        _freeze/stat1-4/Statistik1_Demo/execute-results/html.json
-        _freeze/stat1-4/Statistik1_Demo/figure-html/unnamed-chunk-1-1.png
+        prepro/Prepro1_Demo.qmd
         ...
 Please commit your changes or stash them before you merge.
 Aborting
 ```
 
-Alle *Quellcode*-Files sollten unbedingt ge-`stage`d und `commited` werden. Mit *Quellcode* sind Files gemeint, die ihr selbst von Hand erstellt und verändert (meist Qmd-Files, seltender Yaml oder R-Files). Z.B folgendermassen:
+Dies bedeutet, dass das genannte File (bzw. die genannten Files) auf Github in Konfikt stehehen könnten mit dem File (bzw. den Files) bei dir auf der Festplatte. Um allfällige Konflikte zu lösen, müssen die lokalen Änderungen zuerst ge`stage`ed und dann `commit`ed werden. Anschliessend können die Änderungen von Github heruntergeladen werden.
 
 ```
 git add "*.qmd"                # staged alle Files mit der Endung .qmd
-git commit -m "meine message"
+git commit -m "meine message" 
+git pull                       # lädt die Änderungen von Github herunter
 ```
 
-*Output*-Files hingegen müssen (und sollten) nicht gemerged werden. Output files sind Dateien, die *aus* dem Quellcode generiert wird. Diese werden automatisch generiert, und da macht ein Merge auch keinen Sinn. Bei Output files gilt: das neuere file ist das gültige File. Um das zu erreichen können lokale änderungen ge`stash`ed und dann verworfen werden.
 
-```
-git status                    # versichern, dass nur output files betroffen sind
-git stash                     # stash alle lokalen Änderungen
-git pull                      # holt die remote Änderungen
-git stash drop                # verwirft die lokalen Änderungen
-```
+### Wie löse ich einen merge-conflict?
 
-Alternativ könnten auch verschiedene Merge-Strategien verwendet werden. Das hat bei Nils aber schon zu unerwarteten Resultaten geführt (Änderungen wurden verworfen). 
-    
-- Lokale Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `ours` durchführen (`git pull --strategy=ours`)
-  <!-- - Lokalen Änderungen `stash`-en und verwerfen -->
-- Remote Änderungen priorisieren: `git pull`mit der *Merge*-Strategie `theirs` durchführen (`git pull --strategy=theirs`)
-
-
+TBD
 
 ### Warum ist `datasets` ein separates Git-Repo?
 1. Die Datensätze sind häufig ein paar megabyte gross. In der Vergangenheit haben kleine Änderungen an diesen Files das Repo extrem ge-bloatet (vergrössert)
