@@ -424,7 +424,7 @@
     "href": "infovis/Infovis2_Uebung_A.html#aufgabe-1",
     "title": "Infovis 2: Übung A",
     "section": "Aufgabe 1",
-    "text": "Aufgabe 1\nMache aus der wide table eine long table die wie folgt aussieht.\nImportiere anschliessend den Datensatz temperature_2005_metadata.csv und verbinde die beiden Datensätze mit einem left_join via station (bzw. stn)."
+    "text": "Aufgabe 1\nMache aus der wide table eine long table die wie folgt aussieht.\n\n\n\n\n\ntime\nstation\ntemperature\n\n\n\n\n2005-01-01\nALT\n1.3\n\n\n2005-01-01\nBUS\n1.5\n\n\n2005-01-01\nGVE\n1.1\n\n\n2005-01-01\nINT\n0.2\n\n\n2005-01-01\nOTL\n2.2\n\n\n2005-01-01\nLUG\n1.7\n\n\n\n\n\nImportiere anschliessend den Datensatz temperature_2005_metadata.csv und verbinde die beiden Datensätze mit einem left_join via station (bzw. stn)."
   },
   {
     "objectID": "infovis/Infovis2_Uebung_A.html#aufgabe-2",
