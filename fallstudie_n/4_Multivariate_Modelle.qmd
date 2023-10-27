@@ -40,7 +40,7 @@ Einlesen des Gesamtdatensatzes für die Multivariate Analyse von Moodle
 ```{r}
 #| output: false
 
-DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", delim = ";")
+DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_231027_moodle.csv", delim = ";")
 
 str(DF_mod)
 
@@ -86,7 +86,7 @@ par(mfrow = c(3, 3), mar = c(4, 4, 3, 3)) # Vorbereitung Raster für Plots
 
 # innerhalb des for()-loops die Nummern der gewünschten Spalten einstellen
 
-for (i in 6:12) {
+for (i in 6:14) {
   dp <- DF_mod_day |> filter(pres_abs == 1) |> pull(i)
   dp <- density(dp)
   da <- DF_mod_day |> filter(pres_abs == 0) |> pull(i)
@@ -110,12 +110,12 @@ Testen eurer erklärenden Variablen auf Normalverteilung (nur kontinuierliche)
 # klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische
 # Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p>0.05 = ja)
 
-round(stat.desc(DF_mod_day[6:12], basic = F, norm = T), 3)
+round(stat.desc(DF_mod_day[6:14], basic = F, norm = T), 3)
 
 # empfohlener Weg
 
 ggplot(DF_mod_day, aes(slope)) +
-  geom_histogram(aes(y = ..density..), color = "black", fill = "white") +
+  geom_histogram(aes(y = after_stat(density)), color = "black", fill = "white") +
   stat_function(fun = dnorm, args = list(mean = mean(DF_mod_day$slope, na.rm = T), sd = sd(DF_mod_day$slope, na.rm = T)), color = "black", size = 1)
 ```
 
@@ -133,11 +133,11 @@ Explorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen
 2) Testen der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)
 
 ```{r}
-chart.Correlation(DF_mod_day[6:12], histogram = TRUE, pch = 19, method = "kendall")
+chart.Correlation(DF_mod_day[6:14], histogram = TRUE, pch = 19, method = "kendall")
 
 # ?chart.Correlation
 
-pairs.panels(DF_mod_day[6:12],
+pairs.panels(DF_mod_day[6:14],
   method = "kendall", # correlation method
   hist.col = "#00AFBB",
   density = TRUE, # show density plots
