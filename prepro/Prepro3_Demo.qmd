@@ -33,7 +33,7 @@ library("ggplot2")
 Wir laden die Wetterdaten (Quelle MeteoSchweiz) der letzten Übung.
 
 ```{r}
-wetter <- read_csv("datasets/prepro/weather.csv")
+wetter <- read_delim("datasets/prepro/weather.csv", ",")
 
 wetter <- wetter |>
   mutate(

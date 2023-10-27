@@ -31,7 +31,7 @@ library("dplyr")
 library("ggplot2")
 library("readr")
 
-kanton <- read_csv("datasets/infovis/tagi_data_kantone.csv")
+kanton <- read_delim("datasets/infovis/tagi_data_kantone.csv", ",")
 ```
 
 ## Aufgabe 1
@@ -96,7 +96,7 @@ Tipp:
 
 # Lösung zu Aufgabe 3
 
-gemeinde <- read_csv("datasets/infovis/tagi_data_gemeinden.csv")
+gemeinde <- read_delim("datasets/infovis/tagi_data_gemeinden.csv", ",")
 
 plot2 <- ggplot(gemeinde, aes(anteil_ausl, anteil_ja)) +
   geom_point() +

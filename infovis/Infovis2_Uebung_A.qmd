@@ -32,7 +32,7 @@ library("ggplot2")
 #| echo: true
 #| code-fold: false
 
-temperature <- read_csv("datasets/infovis/temperature_2005.csv")
+temperature <- read_delim("datasets/infovis/temperature_2005.csv", ",")
 ```
 
 ## Aufgabe 1
@@ -40,6 +40,8 @@ temperature <- read_csv("datasets/infovis/temperature_2005.csv")
 Mache aus der *wide table* eine *long table* die wie folgt aussieht. 
 
 ```{r}
+#| output: true
+
 temperature_long <- pivot_longer(temperature, -time, names_to = "station", values_to = "temperature")
 
 knitr::kable(head(temperature_long))
@@ -48,7 +50,7 @@ knitr::kable(head(temperature_long))
 Importiere anschliessend den Datensatz *temperature_2005_metadata.csv* und verbinde die beiden Datensätze mit einem `left_join` via `station` (bzw. `stn`). 
 
 ```{r}
-metadata <- read_csv("datasets/infovis/temperature_2005_metadata.csv")
+metadata <- read_delim("datasets/infovis/temperature_2005_metadata.csv", ",")
 
 temperature_long <- left_join(temperature_long, metadata, by = c(station = "stn"))
 ```
