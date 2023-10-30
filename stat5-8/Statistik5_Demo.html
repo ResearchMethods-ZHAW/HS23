@@ -669,7 +669,7 @@ window.onload = function() {
 <p>Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat5-8/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spf)</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="do">##      Signal  VP Messung Reaktion</span></span>
@@ -808,7 +808,7 @@ window.onload = function() {
 <p>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von Zuur et al.&nbsp;(2009)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und für GLMM aufbereiten</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat5-8/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DeerEcervi)</span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="do">##   Farm Sex Length Ecervi</span></span>
@@ -1495,7 +1495,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat5-8/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>spf <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/spf.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(spf)</span>
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a></span>
@@ -1525,7 +1525,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und für GLMM aufbereiten</span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat5-8/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/DeerEcervi.txt"</span>, <span class="at">sep =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
 <span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(DeerEcervi)</span>
 <span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DeerEcervi)</span>
