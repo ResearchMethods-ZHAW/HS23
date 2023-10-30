@@ -225,7 +225,7 @@ plot_model(aov, type = "pred", terms = c("cultivar", "house"))
 
 # Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum
 
-Riesch <- read.delim("datasets/stat1-4/Riesch_et_al_ReMe_Extract.csv", sep = ";", stringsAsFactors = TRUE)
+Riesch <- read.delim("datasets/statistik/Riesch_et_al_ReMe_Extract.csv", sep = ";", stringsAsFactors = TRUE)
 str(Riesch)
 
 aov.deer <- aov(Species.richness ~ Year * Treatment * Plot.type, data = Riesch)
@@ -239,7 +239,7 @@ plot_model(aov.deer, type = "pred", terms = c("Year", "Treatment", "Plot.type"))
 ## Korrelationen und Regressionen
 
 # Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum
-df <- read.delim("datasets/stat1-4/Nitrogen.csv", sep = ";")
+df <- read.delim("datasets/statistik/Nitrogen.csv", sep = ";")
 summary(df)
 
 # Plotten der Beziehung

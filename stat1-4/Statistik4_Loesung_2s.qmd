@@ -46,7 +46,7 @@ mytheme <-
 ```
 
 ```{r}
-df <- read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik4.2.csv", delim = ";")
+df <- read_delim("datasets/statistik/Datensatz_novanimal_Uebung_Statistik4.2.csv", delim = ";")
 
 # sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an
 # sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen

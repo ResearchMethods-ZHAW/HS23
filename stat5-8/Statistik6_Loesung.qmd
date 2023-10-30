@@ -17,7 +17,7 @@ format:
 ```{r}
 #| eval: true
 
-load("datasets/stat5-8/Doubs.RData")
+load("datasets/statistik/Doubs.RData")
 summary(env)
 summary(spe)
 

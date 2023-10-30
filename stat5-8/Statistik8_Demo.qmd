@@ -22,7 +22,7 @@ format:
 ```{r}
 # Das Moordatenset sveg laden
 library("readr")
-sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
+sveg <- read_delim("datasets/statistik/dave_sveg.csv")
 
 # PCA und CA rechnen
 library("vegan")
@@ -63,7 +63,7 @@ mit Daten und Skripten aus @borcard2011
 
 ```{r}
 # Daten laden
-load("datasets/stat5-8/Doubs.RData")  
+load("datasets/statistik/Doubs.RData")  
 ```
 
 ```{r}

@@ -25,7 +25,7 @@ Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. ("Fruit") in Abhäng
 ```{r}
 # Daten einlesen und anschauen
 
-compensation <- read.delim("datasets/stat1-4/ipomopsis.csv", sep = ",", stringsAsFactors = T)
+compensation <- read.delim("datasets/statistik/ipomopsis.csv", sep = ",", stringsAsFactors = T)
 head(compensation)
 summary(compensation)
 
@@ -184,7 +184,7 @@ text(x = c(1, 50), "lm.5", col = "violet")
 
 ```{r}
 # Daten laden und anschauen
-loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",")
+loyn <- read.delim("datasets/statistik/loyn.csv", sep = ",")
 summary(loyn)
 ```
 

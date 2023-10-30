@@ -42,7 +42,7 @@ mytheme <-
 
 ```{r}
 # lade datei
-df <- read_csv2("datasets/stat5-8/Datensatz_novanimal_Uebung_Statistik5.2.csv")
+df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik5.2.csv")
 
 # sieht euch die Verteilung zwischen Fleisch und  kein Fleisch an,
 # beide Kategorien kommen nicht gleich häufig vor, ist aber nicht tragisch

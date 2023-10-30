@@ -21,7 +21,7 @@ Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010)
 
 ```{r}
 # Daten laden
-spf <- read.delim("datasets/stat5-8/spf.csv", sep = ";")
+spf <- read.delim("datasets/statistik/spf.csv", sep = ";")
 # Daten anschauen
 head(spf)
 
@@ -51,7 +51,7 @@ summary(spf.lme.2)
 
 ```{r}
 # Daten laden und für GLMM aufbereiten
-DeerEcervi <- read.delim("datasets/stat5-8/DeerEcervi.txt", sep = "", stringsAsFactors = TRUE)
+DeerEcervi <- read.delim("datasets/statistik/DeerEcervi.txt", sep = "", stringsAsFactors = TRUE)
 # Daten anschauen
 head(DeerEcervi)
 summary(DeerEcervi)

@@ -27,8 +27,8 @@ Wildi pp. 96 et seq.
 library("readr")
 library("vegan")
 
-sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
-ssit <- read_delim("datasets/stat5-8/dave_ssit.csv")
+sveg <- read_delim("datasets/statistik/dave_sveg.csv")
+ssit <- read_delim("datasets/statistik/dave_ssit.csv")
 
 # Daten anschauen
 dim(sveg) # Vegetationsaufnahmen
@@ -126,7 +126,7 @@ Mehr Details zu RDA aus @borcard2011
 
 ```{r}
 # Datensatz Doubs in den workspace laden
-load("datasets/stat5-8/Doubs.RData")
+load("datasets/statistik/Doubs.RData")
 ```
 
 ```{r}
