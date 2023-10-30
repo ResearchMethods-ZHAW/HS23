@@ -842,13 +842,13 @@ mean difference
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyr"</span>)</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>blume.long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(blume, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>))</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>blume.long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(blume, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>), <span class="at">names_to =</span> <span class="st">"cultivar"</span>, <span class="at">values_to =</span> <span class="st">"size"</span>)</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
 <span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume.long)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>     name               value      
+<pre><code>   cultivar              size      
  Length:20          Min.   : 7.00  
  Class :character   1st Qu.:10.00  
  Mode  :character   Median :12.50  
@@ -859,132 +859,126 @@ mean difference
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(blume.long)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 2
-  name  value
-  &lt;chr&gt; &lt;dbl&gt;
-1 a        20
-2 b        12
-3 a        19
-4 b        15
-5 a        25
-6 b        16</code></pre>
+  cultivar  size
+  &lt;chr&gt;    &lt;dbl&gt;
+1 a           20
+2 b           12
+3 a           19
+4 b           15
+5 a           25
+6 b           16</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume.long)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): object 'size' not found</code></pre>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): object 'size' not found</code></pre>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  size by cultivar
+t = 2.0797, df = 18, p-value = 0.05212
+alternative hypothesis: true difference in means between group a and group b is not equal to 0
+95 percent confidence interval:
+ -0.03981237  7.83981237
+sample estimates:
+mean in group a mean in group b 
+           15.3            11.4 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): object 'size' not found</code></pre>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Paired t-test
+
+data:  size by cultivar
+t = 3.4821, df = 9, p-value = 0.006916
+alternative hypothesis: true mean difference is not equal to 0
+95 percent confidence interval:
+ 1.366339 6.433661
+sample estimates:
+mean difference 
+            3.9 </code></pre>
 </div>
 </div>
 </section>
 <section id="base-r-vs.-ggplot2" class="level2">
 <h2 class="anchored" data-anchor-id="base-r-vs.-ggplot2">Base R vs.&nbsp;ggplot2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>), <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>),</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>), <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Definieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>),</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>),</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schöne Boxplots erstellen</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  mytheme</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Schöne Boxplots erstellen</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  mytheme</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in eval(predvars, data, env): object 'size' not found</code></pre>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit p-Wert im Plot</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"b"</span>, <span class="at">y =</span> <span class="dv">24</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"italic(p) == "</span>, <span class="fu">round</span>(t_test<span class="sc">$</span>p.value, <span class="dv">3</span>)), <span class="at">parse =</span> <span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">8</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-9-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit p-Wert im Plot</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"b"</span>, <span class="at">y =</span> <span class="dv">24</span>,</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"italic(p) == "</span>, <span class="fu">round</span>(t_test<span class="sc">$</span>p.value, <span class="dv">3</span>)), <span class="at">parse =</span> <span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">8</span></span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in paste0("italic(p) == ", round(t_test$p.value, 3)): object 't_test' not found</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ohne p-Wert im Plot (da dieser &gt; 0.05)</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cultivar"</span>, <span class="at">y =</span> <span class="st">"Size (cm)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in `geom_boxplot()`:
-! Problem while computing aesthetics.
-ℹ Error occurred in the 1st layer.
-Caused by error in `FUN()`:
-! object 'cultivar' not found</code></pre>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ohne p-Wert im Plot (da dieser &gt; 0.05)</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cultivar"</span>, <span class="at">y =</span> <span class="st">"Size (cm)"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Statistik1_Demo_files/figure-html/unnamed-chunk-9-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -992,7 +986,7 @@ Caused by error in `FUN()`:
 <h2 class="anchored" data-anchor-id="binomialtest">Binomialtest</h2>
 <p>In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">84</span>, <span class="dv">200</span>) <span class="co"># Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">84</span>, <span class="dv">200</span>) <span class="co"># Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Exact binomial test
@@ -1006,7 +1000,7 @@ sample estimates:
 probability of success 
                   0.42 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">116</span>, <span class="dv">200</span>) <span class="co"># Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">116</span>, <span class="dv">200</span>) <span class="co"># Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Exact binomial test
@@ -1020,7 +1014,7 @@ sample estimates:
 probability of success 
                   0.58 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">3</span>, <span class="dv">7</span>) <span class="co"># Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">3</span>, <span class="dv">7</span>) <span class="co"># Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Exact binomial test
@@ -1040,7 +1034,7 @@ probability of success
 <h2 class="anchored" data-anchor-id="chi-quadrat-test-fishers-test">Chi-Quadrat-Test &amp; Fishers Test</h2>
 <p>Ermitteln des kritischen Wertes</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 3.841459</code></pre>
 </div>
@@ -1049,25 +1043,25 @@ probability of success
 <section id="direkter-test-in-r-dazu-werte-als-matrix-nötig" class="level2">
 <h2 class="anchored" data-anchor-id="direkter-test-in-r-dazu-werte-als-matrix-nötig">Direkter Test in R (dazu Werte als Matrix nötig)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix mit Haarfarbe&amp;Augenfarbe-Kombidnationen erstellen</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 38 blond&amp;blau, 14 dunkel&amp;blau, 11 blond&amp;braun,, 51 dunkel&amp;braun</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">14</span>, <span class="dv">11</span>, <span class="dv">51</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix mit Haarfarbe&amp;Augenfarbe-Kombidnationen erstellen</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 38 blond&amp;blau, 14 dunkel&amp;blau, 11 blond&amp;braun,, 51 dunkel&amp;braun</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">14</span>, <span class="dv">11</span>, <span class="dv">51</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     [,1] [,2]
 [1,]   38   11
 [2,]   14   51</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blond"</span>, <span class="st">"dunkel"</span>) <span class="co"># Benennen für Übersicht</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blau"</span>, <span class="st">"braun"</span>) <span class="co">#  Benennen für Übersicht</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blond"</span>, <span class="st">"dunkel"</span>) <span class="co"># Benennen für Übersicht</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blau"</span>, <span class="st">"braun"</span>) <span class="co">#  Benennen für Übersicht</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       blau braun
 blond    38    11
 dunkel   14    51</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
-<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test with Yates' continuity correction
@@ -1075,7 +1069,7 @@ dunkel   14    51</code></pre>
 data:  count
 X-squared = 33.112, df = 1, p-value = 8.7e-09</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(count)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Fisher's Exact Test for Count Data
@@ -1508,186 +1502,186 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb66" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-10-30</span></span>
-<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat1</span></span>
-<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Grundlagen der Statistik</span></span>
-<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb66-8"><a href="#cb66-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb66-9"><a href="#cb66-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb66-10"><a href="#cb66-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
-<span id="cb66-11"><a href="#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
-<span id="cb66-12"><a href="#cb66-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
-<span id="cb66-13"><a href="#cb66-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb66-14"><a href="#cb66-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-15"><a href="#cb66-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat1: Demo</span></span>
-<span id="cb66-16"><a href="#cb66-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-17"><a href="#cb66-17" aria-hidden="true" tabindex="-1"></a>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb66-18"><a href="#cb66-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-19"><a href="#cb66-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Daten generieren und anschauen</span></span>
-<span id="cb66-20"><a href="#cb66-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-23"><a href="#cb66-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-24"><a href="#cb66-24" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>)</span>
-<span id="cb66-25"><a href="#cb66-25" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>)</span>
-<span id="cb66-26"><a href="#cb66-26" aria-hidden="true" tabindex="-1"></a>blume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(a, b)</span>
-<span id="cb66-27"><a href="#cb66-27" aria-hidden="true" tabindex="-1"></a>blume</span>
-<span id="cb66-28"><a href="#cb66-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume)</span>
-<span id="cb66-29"><a href="#cb66-29" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b)</span>
-<span id="cb66-30"><a href="#cb66-30" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(blume)</span>
-<span id="cb66-31"><a href="#cb66-31" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(blume<span class="sc">$</span>a)</span>
-<span id="cb66-32"><a href="#cb66-32" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(blume<span class="sc">$</span>b)</span>
-<span id="cb66-33"><a href="#cb66-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-34"><a href="#cb66-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-35"><a href="#cb66-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Zweiseitiger t-Test</span></span>
-<span id="cb66-36"><a href="#cb66-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-39"><a href="#cb66-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-40"><a href="#cb66-40" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b) <span class="co"># Zweiseitig "Test auf a ≠ b" (default)</span></span>
-<span id="cb66-41"><a href="#cb66-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-42"><a href="#cb66-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-43"><a href="#cb66-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Einseitiger t-Test</span></span>
-<span id="cb66-44"><a href="#cb66-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-47"><a href="#cb66-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-48"><a href="#cb66-48" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="co"># Einseitig "Test auf a &gt; b"</span></span>
-<span id="cb66-49"><a href="#cb66-49" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">alternative =</span> <span class="st">"less"</span>) <span class="co"># Einseitig "Test auf a &lt; b"</span></span>
-<span id="cb66-50"><a href="#cb66-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-51"><a href="#cb66-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-52"><a href="#cb66-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Klassischer t-Test vs. Welch Test</span></span>
-<span id="cb66-53"><a href="#cb66-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-56"><a href="#cb66-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-57"><a href="#cb66-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianzen gleich: klassischer t-Test</span></span>
-<span id="cb66-58"><a href="#cb66-58" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb66-59"><a href="#cb66-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-60"><a href="#cb66-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianzen ungleich: Welch's t-Test (siehe Titelzeile des R-Outputs!)</span></span>
-<span id="cb66-61"><a href="#cb66-61" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b) <span class="co"># dasselbe wie var.equal = FALSE</span></span>
-<span id="cb66-62"><a href="#cb66-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-63"><a href="#cb66-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-64"><a href="#cb66-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Gepaarter t-Test</span></span>
-<span id="cb66-65"><a href="#cb66-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-68"><a href="#cb66-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-69"><a href="#cb66-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Gepaarter t-Test: erster Wert von a wird mit erstem Wert von</span></span>
-<span id="cb66-70"><a href="#cb66-70" aria-hidden="true" tabindex="-1"></a><span class="co"># b gepaart, zweiter Wert von a mit zweitem von b ect.</span></span>
-<span id="cb66-71"><a href="#cb66-71" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb66-72"><a href="#cb66-72" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
-<span id="cb66-73"><a href="#cb66-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-74"><a href="#cb66-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-75"><a href="#cb66-75" aria-hidden="true" tabindex="-1"></a>Dasselbe mit einer "long table"</span>
-<span id="cb66-76"><a href="#cb66-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-79"><a href="#cb66-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-80"><a href="#cb66-80" aria-hidden="true" tabindex="-1"></a><span class="co"># "Long table" erstellen</span></span>
-<span id="cb66-81"><a href="#cb66-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-82"><a href="#cb66-82" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb66-83"><a href="#cb66-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-84"><a href="#cb66-84" aria-hidden="true" tabindex="-1"></a>blume.long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(blume, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>))</span>
-<span id="cb66-85"><a href="#cb66-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-86"><a href="#cb66-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-87"><a href="#cb66-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
-<span id="cb66-88"><a href="#cb66-88" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume.long)</span>
-<span id="cb66-89"><a href="#cb66-89" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(blume.long)</span>
-<span id="cb66-90"><a href="#cb66-90" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume.long)</span>
-<span id="cb66-91"><a href="#cb66-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-92"><a href="#cb66-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
-<span id="cb66-93"><a href="#cb66-93" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb66-94"><a href="#cb66-94" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb66-95"><a href="#cb66-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-96"><a href="#cb66-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-97"><a href="#cb66-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R vs. ggplot2</span></span>
-<span id="cb66-98"><a href="#cb66-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-101"><a href="#cb66-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-102"><a href="#cb66-102" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb66-103"><a href="#cb66-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-104"><a href="#cb66-104" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-105"><a href="#cb66-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb66-106"><a href="#cb66-106" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-107"><a href="#cb66-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb66-108"><a href="#cb66-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb66-109"><a href="#cb66-109" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-110"><a href="#cb66-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-111"><a href="#cb66-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb66-112"><a href="#cb66-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb66-113"><a href="#cb66-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
-<span id="cb66-114"><a href="#cb66-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span>
-<span id="cb66-115"><a href="#cb66-115" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-116"><a href="#cb66-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-117"><a href="#cb66-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb66-118"><a href="#cb66-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb66-119"><a href="#cb66-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>), <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>),</span>
-<span id="cb66-120"><a href="#cb66-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)</span>
-<span id="cb66-121"><a href="#cb66-121" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb66-122"><a href="#cb66-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-123"><a href="#cb66-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-124"><a href="#cb66-124" aria-hidden="true" tabindex="-1"></a>Definieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)</span>
-<span id="cb66-125"><a href="#cb66-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-128"><a href="#cb66-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-129"><a href="#cb66-129" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb66-130"><a href="#cb66-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb66-131"><a href="#cb66-131" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>),</span>
-<span id="cb66-132"><a href="#cb66-132" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb66-133"><a href="#cb66-133" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb66-134"><a href="#cb66-134" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb66-135"><a href="#cb66-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
-<span id="cb66-136"><a href="#cb66-136" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb66-137"><a href="#cb66-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-138"><a href="#cb66-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-141"><a href="#cb66-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-142"><a href="#cb66-142" aria-hidden="true" tabindex="-1"></a><span class="co"># Schöne Boxplots erstellen</span></span>
-<span id="cb66-143"><a href="#cb66-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-144"><a href="#cb66-144" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-145"><a href="#cb66-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-146"><a href="#cb66-146" aria-hidden="true" tabindex="-1"></a>  mytheme</span>
-<span id="cb66-147"><a href="#cb66-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-148"><a href="#cb66-148" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long)</span>
-<span id="cb66-149"><a href="#cb66-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-150"><a href="#cb66-150" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit p-Wert im Plot</span></span>
-<span id="cb66-151"><a href="#cb66-151" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-152"><a href="#cb66-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-153"><a href="#cb66-153" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
-<span id="cb66-154"><a href="#cb66-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
-<span id="cb66-155"><a href="#cb66-155" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"b"</span>, <span class="at">y =</span> <span class="dv">24</span>,</span>
-<span id="cb66-156"><a href="#cb66-156" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"italic(p) == "</span>, <span class="fu">round</span>(t_test<span class="sc">$</span>p.value, <span class="dv">3</span>)), <span class="at">parse =</span> <span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">8</span></span>
-<span id="cb66-157"><a href="#cb66-157" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb66-158"><a href="#cb66-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-159"><a href="#cb66-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Ohne p-Wert im Plot (da dieser &gt; 0.05)</span></span>
-<span id="cb66-160"><a href="#cb66-160" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
-<span id="cb66-161"><a href="#cb66-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb66-162"><a href="#cb66-162" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
-<span id="cb66-163"><a href="#cb66-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cultivar"</span>, <span class="at">y =</span> <span class="st">"Size (cm)"</span>)</span>
-<span id="cb66-164"><a href="#cb66-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-165"><a href="#cb66-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-166"><a href="#cb66-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Binomialtest</span></span>
-<span id="cb66-167"><a href="#cb66-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-168"><a href="#cb66-168" aria-hidden="true" tabindex="-1"></a>In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse</span>
-<span id="cb66-169"><a href="#cb66-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-172"><a href="#cb66-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-173"><a href="#cb66-173" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">84</span>, <span class="dv">200</span>) <span class="co"># Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019)</span></span>
-<span id="cb66-174"><a href="#cb66-174" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">116</span>, <span class="dv">200</span>) <span class="co"># Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019)</span></span>
-<span id="cb66-175"><a href="#cb66-175" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">3</span>, <span class="dv">7</span>) <span class="co"># Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)</span></span>
-<span id="cb66-176"><a href="#cb66-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-177"><a href="#cb66-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-178"><a href="#cb66-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chi-Quadrat-Test &amp; Fishers Test</span></span>
-<span id="cb66-179"><a href="#cb66-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-180"><a href="#cb66-180" aria-hidden="true" tabindex="-1"></a>Ermitteln des kritischen Wertes</span>
-<span id="cb66-181"><a href="#cb66-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-184"><a href="#cb66-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-185"><a href="#cb66-185" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="dv">1</span>)</span>
-<span id="cb66-186"><a href="#cb66-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb66-187"><a href="#cb66-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-188"><a href="#cb66-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## Direkter Test in R (dazu Werte als Matrix nötig)</span></span>
-<span id="cb66-189"><a href="#cb66-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-192"><a href="#cb66-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb66-193"><a href="#cb66-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix mit Haarfarbe&amp;Augenfarbe-Kombidnationen erstellen</span></span>
-<span id="cb66-194"><a href="#cb66-194" aria-hidden="true" tabindex="-1"></a><span class="co"># 38 blond&amp;blau, 14 dunkel&amp;blau, 11 blond&amp;braun,, 51 dunkel&amp;braun</span></span>
-<span id="cb66-195"><a href="#cb66-195" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">14</span>, <span class="dv">11</span>, <span class="dv">51</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb66-196"><a href="#cb66-196" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span>
-<span id="cb66-197"><a href="#cb66-197" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blond"</span>, <span class="st">"dunkel"</span>) <span class="co"># Benennen für Übersicht</span></span>
-<span id="cb66-198"><a href="#cb66-198" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blau"</span>, <span class="st">"braun"</span>) <span class="co">#  Benennen für Übersicht</span></span>
-<span id="cb66-199"><a href="#cb66-199" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span>
-<span id="cb66-200"><a href="#cb66-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb66-201"><a href="#cb66-201" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
-<span id="cb66-202"><a href="#cb66-202" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(count)</span>
-<span id="cb66-203"><a href="#cb66-203" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(count)</span>
-<span id="cb66-204"><a href="#cb66-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb56" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-10-30</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat1</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Grundlagen der Statistik</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
+<span id="cb56-12"><a href="#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
+<span id="cb56-13"><a href="#cb56-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb56-14"><a href="#cb56-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-15"><a href="#cb56-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat1: Demo</span></span>
+<span id="cb56-16"><a href="#cb56-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-17"><a href="#cb56-17" aria-hidden="true" tabindex="-1"></a>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb56-18"><a href="#cb56-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-19"><a href="#cb56-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Daten generieren und anschauen</span></span>
+<span id="cb56-20"><a href="#cb56-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-23"><a href="#cb56-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-24"><a href="#cb56-24" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>)</span>
+<span id="cb56-25"><a href="#cb56-25" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>)</span>
+<span id="cb56-26"><a href="#cb56-26" aria-hidden="true" tabindex="-1"></a>blume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(a, b)</span>
+<span id="cb56-27"><a href="#cb56-27" aria-hidden="true" tabindex="-1"></a>blume</span>
+<span id="cb56-28"><a href="#cb56-28" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume)</span>
+<span id="cb56-29"><a href="#cb56-29" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b)</span>
+<span id="cb56-30"><a href="#cb56-30" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(blume)</span>
+<span id="cb56-31"><a href="#cb56-31" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(blume<span class="sc">$</span>a)</span>
+<span id="cb56-32"><a href="#cb56-32" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(blume<span class="sc">$</span>b)</span>
+<span id="cb56-33"><a href="#cb56-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-34"><a href="#cb56-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-35"><a href="#cb56-35" aria-hidden="true" tabindex="-1"></a><span class="fu">## Zweiseitiger t-Test</span></span>
+<span id="cb56-36"><a href="#cb56-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-39"><a href="#cb56-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-40"><a href="#cb56-40" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b) <span class="co"># Zweiseitig "Test auf a ≠ b" (default)</span></span>
+<span id="cb56-41"><a href="#cb56-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-42"><a href="#cb56-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-43"><a href="#cb56-43" aria-hidden="true" tabindex="-1"></a><span class="fu">## Einseitiger t-Test</span></span>
+<span id="cb56-44"><a href="#cb56-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-47"><a href="#cb56-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-48"><a href="#cb56-48" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">alternative =</span> <span class="st">"greater"</span>) <span class="co"># Einseitig "Test auf a &gt; b"</span></span>
+<span id="cb56-49"><a href="#cb56-49" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">alternative =</span> <span class="st">"less"</span>) <span class="co"># Einseitig "Test auf a &lt; b"</span></span>
+<span id="cb56-50"><a href="#cb56-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-51"><a href="#cb56-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-52"><a href="#cb56-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## Klassischer t-Test vs. Welch Test</span></span>
+<span id="cb56-53"><a href="#cb56-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-56"><a href="#cb56-56" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-57"><a href="#cb56-57" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianzen gleich: klassischer t-Test</span></span>
+<span id="cb56-58"><a href="#cb56-58" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-59"><a href="#cb56-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-60"><a href="#cb56-60" aria-hidden="true" tabindex="-1"></a><span class="co"># Varianzen ungleich: Welch's t-Test (siehe Titelzeile des R-Outputs!)</span></span>
+<span id="cb56-61"><a href="#cb56-61" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b) <span class="co"># dasselbe wie var.equal = FALSE</span></span>
+<span id="cb56-62"><a href="#cb56-62" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-63"><a href="#cb56-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-64"><a href="#cb56-64" aria-hidden="true" tabindex="-1"></a><span class="fu">## Gepaarter t-Test</span></span>
+<span id="cb56-65"><a href="#cb56-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-68"><a href="#cb56-68" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-69"><a href="#cb56-69" aria-hidden="true" tabindex="-1"></a><span class="co"># Gepaarter t-Test: erster Wert von a wird mit erstem Wert von</span></span>
+<span id="cb56-70"><a href="#cb56-70" aria-hidden="true" tabindex="-1"></a><span class="co"># b gepaart, zweiter Wert von a mit zweitem von b ect.</span></span>
+<span id="cb56-71"><a href="#cb56-71" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-72"><a href="#cb56-72" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(blume<span class="sc">$</span>a, blume<span class="sc">$</span>b, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
+<span id="cb56-73"><a href="#cb56-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-74"><a href="#cb56-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-75"><a href="#cb56-75" aria-hidden="true" tabindex="-1"></a>Dasselbe mit einer "long table"</span>
+<span id="cb56-76"><a href="#cb56-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-79"><a href="#cb56-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-80"><a href="#cb56-80" aria-hidden="true" tabindex="-1"></a><span class="co"># "Long table" erstellen</span></span>
+<span id="cb56-81"><a href="#cb56-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-82"><a href="#cb56-82" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"tidyr"</span>)</span>
+<span id="cb56-83"><a href="#cb56-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-84"><a href="#cb56-84" aria-hidden="true" tabindex="-1"></a>blume.long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(blume, <span class="at">cols =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"b"</span>), <span class="at">names_to =</span> <span class="st">"cultivar"</span>, <span class="at">values_to =</span> <span class="st">"size"</span>)</span>
+<span id="cb56-85"><a href="#cb56-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-86"><a href="#cb56-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-87"><a href="#cb56-87" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
+<span id="cb56-88"><a href="#cb56-88" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume.long)</span>
+<span id="cb56-89"><a href="#cb56-89" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(blume.long)</span>
+<span id="cb56-90"><a href="#cb56-90" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume.long)</span>
+<span id="cb56-91"><a href="#cb56-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-92"><a href="#cb56-92" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
+<span id="cb56-93"><a href="#cb56-93" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-94"><a href="#cb56-94" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long, <span class="at">paired =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb56-95"><a href="#cb56-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-96"><a href="#cb56-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-97"><a href="#cb56-97" aria-hidden="true" tabindex="-1"></a><span class="fu">## Base R vs. ggplot2</span></span>
+<span id="cb56-98"><a href="#cb56-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-101"><a href="#cb56-101" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-102"><a href="#cb56-102" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb56-103"><a href="#cb56-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-104"><a href="#cb56-104" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-105"><a href="#cb56-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb56-106"><a href="#cb56-106" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-107"><a href="#cb56-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb56-108"><a href="#cb56-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb56-109"><a href="#cb56-109" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-110"><a href="#cb56-110" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-111"><a href="#cb56-111" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb56-112"><a href="#cb56-112" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb56-113"><a href="#cb56-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>)) <span class="sc">+</span></span>
+<span id="cb56-114"><a href="#cb56-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span>
+<span id="cb56-115"><a href="#cb56-115" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-116"><a href="#cb56-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-117"><a href="#cb56-117" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb56-118"><a href="#cb56-118" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb56-119"><a href="#cb56-119" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>), <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>),</span>
+<span id="cb56-120"><a href="#cb56-120" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>), <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>)</span>
+<span id="cb56-121"><a href="#cb56-121" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-122"><a href="#cb56-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-123"><a href="#cb56-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-124"><a href="#cb56-124" aria-hidden="true" tabindex="-1"></a>Definieren von mytheme mit allen gewünschten Settings, das man zu Beginn einer Sitzung einmal laden und dann immer wieder ausführen kann (statt des langen Codes)</span>
+<span id="cb56-125"><a href="#cb56-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-128"><a href="#cb56-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-129"><a href="#cb56-129" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span> <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb56-130"><a href="#cb56-130" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb56-131"><a href="#cb56-131" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>),</span>
+<span id="cb56-132"><a href="#cb56-132" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb56-133"><a href="#cb56-133" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb56-134"><a href="#cb56-134" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb56-135"><a href="#cb56-135" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
+<span id="cb56-136"><a href="#cb56-136" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-137"><a href="#cb56-137" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-138"><a href="#cb56-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-141"><a href="#cb56-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-142"><a href="#cb56-142" aria-hidden="true" tabindex="-1"></a><span class="co"># Schöne Boxplots erstellen</span></span>
+<span id="cb56-143"><a href="#cb56-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-144"><a href="#cb56-144" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-145"><a href="#cb56-145" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-146"><a href="#cb56-146" aria-hidden="true" tabindex="-1"></a>  mytheme</span>
+<span id="cb56-147"><a href="#cb56-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-148"><a href="#cb56-148" aria-hidden="true" tabindex="-1"></a>t_test <span class="ot">&lt;-</span> <span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume.long)</span>
+<span id="cb56-149"><a href="#cb56-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-150"><a href="#cb56-150" aria-hidden="true" tabindex="-1"></a><span class="co"># Mit p-Wert im Plot</span></span>
+<span id="cb56-151"><a href="#cb56-151" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-152"><a href="#cb56-152" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-153"><a href="#cb56-153" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
+<span id="cb56-154"><a href="#cb56-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>,</span>
+<span id="cb56-155"><a href="#cb56-155" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"b"</span>, <span class="at">y =</span> <span class="dv">24</span>,</span>
+<span id="cb56-156"><a href="#cb56-156" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"italic(p) == "</span>, <span class="fu">round</span>(t_test<span class="sc">$</span>p.value, <span class="dv">3</span>)), <span class="at">parse =</span> <span class="cn">TRUE</span>, <span class="at">size =</span> <span class="dv">8</span></span>
+<span id="cb56-157"><a href="#cb56-157" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-158"><a href="#cb56-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-159"><a href="#cb56-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Ohne p-Wert im Plot (da dieser &gt; 0.05)</span></span>
+<span id="cb56-160"><a href="#cb56-160" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(blume.long, <span class="fu">aes</span>(cultivar, size)) <span class="sc">+</span></span>
+<span id="cb56-161"><a href="#cb56-161" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb56-162"><a href="#cb56-162" aria-hidden="true" tabindex="-1"></a>  mytheme <span class="sc">+</span></span>
+<span id="cb56-163"><a href="#cb56-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Cultivar"</span>, <span class="at">y =</span> <span class="st">"Size (cm)"</span>)</span>
+<span id="cb56-164"><a href="#cb56-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-165"><a href="#cb56-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-166"><a href="#cb56-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Binomialtest</span></span>
+<span id="cb56-167"><a href="#cb56-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-168"><a href="#cb56-168" aria-hidden="true" tabindex="-1"></a>In Klammern übergibt man die Anzahl der Erfolge und die Stichprobengrösse</span>
+<span id="cb56-169"><a href="#cb56-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-172"><a href="#cb56-172" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-173"><a href="#cb56-173" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">84</span>, <span class="dv">200</span>) <span class="co"># Anzahl Frauen im Nationalrat (≙ 42.0 %; Stand 2019)</span></span>
+<span id="cb56-174"><a href="#cb56-174" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">116</span>, <span class="dv">200</span>) <span class="co"># Anzahl Männer im Nationalrat (≙ 58.0 %; Stand 2019)</span></span>
+<span id="cb56-175"><a href="#cb56-175" aria-hidden="true" tabindex="-1"></a><span class="fu">binom.test</span>(<span class="dv">3</span>, <span class="dv">7</span>) <span class="co"># Anzahl Frauen im Bundesrat (≙ 42.9 %; Stand 2019)</span></span>
+<span id="cb56-176"><a href="#cb56-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-177"><a href="#cb56-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-178"><a href="#cb56-178" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chi-Quadrat-Test &amp; Fishers Test</span></span>
+<span id="cb56-179"><a href="#cb56-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-180"><a href="#cb56-180" aria-hidden="true" tabindex="-1"></a>Ermitteln des kritischen Wertes</span>
+<span id="cb56-181"><a href="#cb56-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-184"><a href="#cb56-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-185"><a href="#cb56-185" aria-hidden="true" tabindex="-1"></a><span class="fu">qchisq</span>(<span class="fl">0.95</span>, <span class="dv">1</span>)</span>
+<span id="cb56-186"><a href="#cb56-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-187"><a href="#cb56-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-188"><a href="#cb56-188" aria-hidden="true" tabindex="-1"></a><span class="fu">## Direkter Test in R (dazu Werte als Matrix nötig)</span></span>
+<span id="cb56-189"><a href="#cb56-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-192"><a href="#cb56-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-193"><a href="#cb56-193" aria-hidden="true" tabindex="-1"></a><span class="co"># Matrix mit Haarfarbe&amp;Augenfarbe-Kombidnationen erstellen</span></span>
+<span id="cb56-194"><a href="#cb56-194" aria-hidden="true" tabindex="-1"></a><span class="co"># 38 blond&amp;blau, 14 dunkel&amp;blau, 11 blond&amp;braun,, 51 dunkel&amp;braun</span></span>
+<span id="cb56-195"><a href="#cb56-195" aria-hidden="true" tabindex="-1"></a>count <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">38</span>, <span class="dv">14</span>, <span class="dv">11</span>, <span class="dv">51</span>), <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb56-196"><a href="#cb56-196" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span>
+<span id="cb56-197"><a href="#cb56-197" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blond"</span>, <span class="st">"dunkel"</span>) <span class="co"># Benennen für Übersicht</span></span>
+<span id="cb56-198"><a href="#cb56-198" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(count) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"blau"</span>, <span class="st">"braun"</span>) <span class="co">#  Benennen für Übersicht</span></span>
+<span id="cb56-199"><a href="#cb56-199" aria-hidden="true" tabindex="-1"></a>count <span class="co"># Check</span></span>
+<span id="cb56-200"><a href="#cb56-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-201"><a href="#cb56-201" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests durchführen</span></span>
+<span id="cb56-202"><a href="#cb56-202" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(count)</span>
+<span id="cb56-203"><a href="#cb56-203" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(count)</span>
+<span id="cb56-204"><a href="#cb56-204" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
