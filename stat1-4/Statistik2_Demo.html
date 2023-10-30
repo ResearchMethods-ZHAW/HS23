@@ -894,49 +894,93 @@ F-statistic:  18.8 on 2 and 27 DF,  p-value: 7.683e-06</code></pre>
 <h2 class="anchored" data-anchor-id="tukeys-posthoc-test">Tukeys Posthoc-Test</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"agricolae"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library("agricolae"): there is no package called 'agricolae'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.1</span>, <span class="st">"cultivar"</span>, <span class="at">group =</span> <span class="cn">FALSE</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in HSD.test(aov.1, "cultivar", group = FALSE, console = TRUE): could not find function "HSD.test"</code></pre>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"agricolae"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.1</span>, <span class="st">"cultivar"</span>, <span class="at">group =</span> <span class="cn">FALSE</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Study: aov.1 ~ "cultivar"
+
+HSD Test for size 
+
+Mean Square Error:  19.57778 
+
+cultivar,  means
+
+  size      std  r       se Min Max   Q25  Q50   Q75
+a 15.3 5.207900 10 1.399206   8  25 11.50 14.5 18.75
+b 11.4 2.836273 10 1.399206   7  16 10.00 11.5 12.75
+c 23.3 4.854551 10 1.399206  17  31 19.25 23.5 25.75
+
+Alpha: 0.05 ; DF Error: 27 
+Critical Value of Studentized Range: 3.506426 
+
+Comparison between treatments means
+
+      difference pvalue signif.        LCL       UCL
+a - b        3.9 0.1388          -1.006213  8.806213
+a - c       -8.0 0.0011      ** -12.906213 -3.093787
+b - c      -11.9 0.0000     *** -16.806213 -6.993787</code></pre>
 </div>
 </div>
 </section>
 <section id="beispiel-posthoc-labels-in-plot" class="level2">
 <h2 class="anchored" data-anchor-id="beispiel-posthoc-labels-in-plot">Beispiel Posthoc-Labels in Plot</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA Mit Iris-Datenset, das in R integriert ist</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.2</span>, <span class="st">"Species"</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in HSD.test(aov.2, "Species", console = TRUE): could not find function "HSD.test"</code></pre>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA Mit Iris-Datenset, das in R integriert ist</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.2</span>, <span class="st">"Species"</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Study: aov.2 ~ "Species"
+
+HSD Test for Sepal.Width 
+
+Mean Square Error:  0.1153878 
+
+Species,  means
+
+           Sepal.Width       std  r        se Min Max   Q25 Q50   Q75
+setosa           3.428 0.3790644 50 0.0480391 2.3 4.4 3.200 3.4 3.675
+versicolor       2.770 0.3137983 50 0.0480391 2.0 3.4 2.525 2.8 3.000
+virginica        2.974 0.3224966 50 0.0480391 2.2 3.8 2.800 3.0 3.175
+
+Alpha: 0.05 ; DF Error: 147 
+Critical Value of Studentized Range: 3.348424 
+
+Minimun Significant Difference: 0.1608553 
+
+Treatments with the same letter are not significantly different.
+
+           Sepal.Width groups
+setosa           3.428      a
+virginica        2.974      b
+versicolor       2.770      c</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mit labels</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mit labels</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="at">data =</span> iris)</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fl">4.8</span>, <span class="st">"a"</span>)</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"c"</span>)</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">4.8</span>, <span class="st">"b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="at">data =</span> iris)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fl">4.8</span>, <span class="st">"a"</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"c"</span>)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">4.8</span>, <span class="st">"b"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>Derselbe Plot mit ggplot</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -945,10 +989,10 @@ F-statistic:  18.8 on 2 and 27 DF,  p-value: 7.683e-06</code></pre>
 <section id="klassische-tests-der-modellannahmen-nicht-empfohlen" class="level2">
 <h2 class="anchored" data-anchor-id="klassische-tests-der-modellannahmen-nicht-empfohlen">Klassische Tests der Modellannahmen (NICHT EMPFOHLEN!!!)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk Test auf Normalverteilung</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro Kategorie!</span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0 = Notmalverteilung)</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk Test auf Normalverteilung</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro Kategorie!</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0 = Notmalverteilung)</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -956,7 +1000,7 @@ F-statistic:  18.8 on 2 and 27 DF,  p-value: 7.683e-06</code></pre>
 data:  blume2$size[blume2$cultivar == "a"]
 W = 0.97304, p-value = 0.9175</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -964,7 +1008,7 @@ W = 0.97304, p-value = 0.9175</code></pre>
 data:  blume2$size[blume2$cultivar == "b"]
 W = 0.97341, p-value = 0.9206</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"c"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"c"</span>])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -972,14 +1016,14 @@ W = 0.97341, p-value = 0.9206</code></pre>
 data:  blume2$size[blume2$cultivar == "c"]
 W = 0.94188, p-value = 0.5742</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>?var.test</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co"># F-Test zum Vergleich zweier Varianzen</span></span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0= Gleiche Varianzen)</span></span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>?var.test</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co"># F-Test zum Vergleich zweier Varianzen</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0= Gleiche Varianzen)</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     F test to compare two variances
@@ -995,14 +1039,14 @@ ratio of variances
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf Homogenität der Varianzen</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>],</span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">center =</span> mean</span>
-<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf Homogenität der Varianzen</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>],</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">center =</span> mean</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Levene's Test for Homogeneity of Variance (center = mean)
       Df    F value    Pr(&gt;F)    
@@ -1016,11 +1060,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="nicht-parametrische-alternativen-wenn-modellannahmen-der-anvoa-massiv-verletzt-sind" class="level2">
 <h2 class="anchored" data-anchor-id="nicht-parametrische-alternativen-wenn-modellannahmen-der-anvoa-massiv-verletzt-sind">Nicht-parametrische Alternativen, wenn Modellannahmen der ANVOA massiv verletzt sind</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-parametrische Alternative zu t-Test</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(</span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-parametrische Alternative zu t-Test</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon rank sum test with continuity correction
@@ -1034,7 +1078,7 @@ alternative hypothesis: true location shift is not equal to 0</code></pre>
 <section id="zum-vergleich-normale-anova-noch-mal" class="level2">
 <h2 class="anchored" data-anchor-id="zum-vergleich-normale-anova-noch-mal">Zum Vergleich normale ANOVA noch mal</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 cultivar     2  736.1   368.0    18.8 7.68e-06 ***
@@ -1050,7 +1094,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="kruskal-wallis-test" class="level2">
 <h2 class="anchored" data-anchor-id="kruskal-wallis-test">Kruskal-Wallis-Test</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -1060,15 +1104,16 @@ Kruskal-Wallis chi-squared = 16.686, df = 2, p-value = 0.0002381</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FSA"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library("FSA"): there is no package called 'FSA'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># korrigierte p-Werte nach Bejamini-Hochberg</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dunnTest</span>(size <span class="sc">~</span> cultivar, <span class="at">method =</span> <span class="st">"bh"</span>, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in dunnTest(size ~ cultivar, method = "bh", data = blume2): could not find function "dunnTest"</code></pre>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FSA"</span>)</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a><span class="co"># korrigierte p-Werte nach Bejamini-Hochberg</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a><span class="fu">dunnTest</span>(size <span class="sc">~</span> cultivar, <span class="at">method =</span> <span class="st">"bh"</span>, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Comparison         Z      P.unadj        P.adj
+1      a - b  1.526210 1.269575e-01 0.1269575490
+2      a - c -2.518247 1.179407e-02 0.0176911039
+3      b - c -4.044457 5.244459e-05 0.0001573338</code></pre>
 </div>
 </div>
 </section>
@@ -1078,7 +1123,7 @@ Kruskal-Wallis chi-squared = 16.686, df = 2, p-value = 0.0002381</code></pre>
 <section id="welch-test" class="level2">
 <h2 class="anchored" data-anchor-id="welch-test">Welch-Test</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(size <span class="sc">~</span> cultivar, <span class="at">var.equal =</span> F, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(size <span class="sc">~</span> cultivar, <span class="at">var.equal =</span> F, <span class="at">data =</span> blume2)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One-way analysis of means (not assuming equal variances)
@@ -1091,17 +1136,17 @@ F = 21.642, num df = 2.000, denom df = 16.564, p-value = 2.397e-05</code></pre>
 <section id="faktorielle-anova" class="level2">
 <h2 class="anchored" data-anchor-id="faktorielle-anova">2-faktorielle ANOVA</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>blume3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">20</span>)),</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">house =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"yes"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"no"</span>, <span class="dv">10</span>)), <span class="dv">3</span>)),</span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">c</span>(a, b, c, d, e, f)</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>blume3</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>blume3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">20</span>)),</span>
+<span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">house =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"yes"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"no"</span>, <span class="dv">10</span>)), <span class="dv">3</span>)),</span>
+<span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">c</span>(a, b, c, d, e, f)</span>
+<span id="cb56-10"><a href="#cb56-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb56-11"><a href="#cb56-11" aria-hidden="true" tabindex="-1"></a>blume3</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   cultivar house size
 1         a   yes   20
@@ -1167,11 +1212,11 @@ F = 21.642, num df = 2.000, denom df = 16.564, p-value = 2.397e-05</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 cultivar     2  417.1   208.5   5.005     0.01 *  
@@ -1180,7 +1225,7 @@ Residuals   56 2333.2    41.7
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house <span class="sc">+</span> cultivar<span class="sc">:</span>house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house <span class="sc">+</span> cultivar<span class="sc">:</span>house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 cultivar        2  417.1   208.5   5.364   0.0075 ** 
@@ -1190,8 +1235,8 @@ Residuals      54 2099.6    38.9
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird</span></span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>               Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 cultivar        2  417.1   208.5   5.364   0.0075 ** 
@@ -1201,7 +1246,7 @@ Residuals      54 2099.6    38.9
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1224,17 +1269,17 @@ Residual standard error: 6.455 on 56 degrees of freedom
 Multiple R-squared:  0.3766,    Adjusted R-squared:  0.3432 
 F-statistic: 11.28 on 3 and 56 DF,  p-value: 6.848e-06</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>size)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>size)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>size)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>size)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-14-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">+</span> blume3<span class="sc">$</span>house))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">+</span> blume3<span class="sc">$</span>house))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1246,7 +1291,7 @@ Model 2: blume3$size ~ blume3$cultivar + blume3$house
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1258,24 +1303,24 @@ Model 2: blume3$size ~ blume3$cultivar * blume3$house
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>)</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
-<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3)</span>
-<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"cultivar"</span>, <span class="st">"house"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>)</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3)</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"cultivar"</span>, <span class="st">"house"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geht auch für 3-fach-Interaktionen</span></span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum</span></span>
-<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>Riesch <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/Riesch_et_al_ReMe_Extract.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Riesch)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Geht auch für 3-fach-Interaktionen</span></span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-3"><a href="#cb74-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum</span></span>
+<span id="cb74-4"><a href="#cb74-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb74-5"><a href="#cb74-5" aria-hidden="true" tabindex="-1"></a>Riesch <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/Riesch_et_al_ReMe_Extract.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb74-6"><a href="#cb74-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Riesch)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   60 obs. of  5 variables:
  $ Plot.ID         : Factor w/ 60 levels "Eul_A1_MP_14",..: 9 17 33 37 49 10 18 34 38 50 ...
@@ -1284,8 +1329,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
  $ Plot.type       : Factor w/ 2 levels "fenced","open": 1 1 1 1 1 1 1 1 1 1 ...
  $ Species.richness: int  45 49 44 52 43 37 42 36 46 38 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>aov.deer <span class="ot">&lt;-</span> <span class="fu">aov</span>(Species.richness <span class="sc">~</span> Year <span class="sc">*</span> Treatment <span class="sc">*</span> Plot.type, <span class="at">data =</span> Riesch)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov.deer, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Treatment"</span>, <span class="st">"Plot.type"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>aov.deer <span class="ot">&lt;-</span> <span class="fu">aov</span>(Species.richness <span class="sc">~</span> Year <span class="sc">*</span> Treatment <span class="sc">*</span> Plot.type, <span class="at">data =</span> Riesch)</span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov.deer, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Treatment"</span>, <span class="st">"Plot.type"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1294,11 +1339,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="korrelationen" class="level2">
 <h2 class="anchored" data-anchor-id="korrelationen">Korrelationen</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Korrelationen und Regressionen</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum</span></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/Nitrogen.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
-<span id="cb81-5"><a href="#cb81-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Korrelationen und Regressionen</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/Nitrogen.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  N.deposition   Species.richness
  Min.   : 2.00   Min.   :12.0    
@@ -1308,20 +1353,20 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
  3rd Qu.:30.50   3rd Qu.:23.0    
  Max.   :55.00   Max.   :28.0    </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Beziehung</span></span>
-<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Beziehung</span></span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
-<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
+<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-17-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
+<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -1335,7 +1380,7 @@ sample estimates:
        cor 
 -0.8265238 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>N.deposition, df<span class="sc">$</span>Species.richness, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>N.deposition, df<span class="sc">$</span>Species.richness, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -1349,7 +1394,7 @@ sample estimates:
        cor 
 -0.8265238 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
@@ -1361,7 +1406,7 @@ sample estimates:
        rho 
 -0.8133721 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"kendall"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"kendall"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kendall's rank correlation tau
@@ -1373,9 +1418,9 @@ sample estimates:
       tau 
 -0.657115 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt als Regression</span></span>
-<span id="cb93-2"><a href="#cb93-2" aria-hidden="true" tabindex="-1"></a>lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb93-3"><a href="#cb93-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm) <span class="co"># ANOVA-Tabelle, 1. Möglichkeit</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb89"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt als Regression</span></span>
+<span id="cb89-2"><a href="#cb89-2" aria-hidden="true" tabindex="-1"></a>lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb89-3"><a href="#cb89-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm) <span class="co"># ANOVA-Tabelle, 1. Möglichkeit</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1386,7 +1431,7 @@ Residuals    13 108.49   8.346
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(lm) <span class="co"># ANOVA-Tabelle, 2. Möglichkeit</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(lm) <span class="co"># ANOVA-Tabelle, 2. Möglichkeit</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 N.deposition  1  233.9  233.91   28.03 0.000145 ***
@@ -1394,7 +1439,7 @@ Residuals    13  108.5    8.35
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm) <span class="co"># Regressionskoeffizienten</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb93"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm) <span class="co"># Regressionskoeffizienten</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1415,9 +1460,9 @@ Residual standard error: 2.889 on 13 degrees of freedom
 Multiple R-squared:  0.6831,    Adjusted R-squared:  0.6588 
 F-statistic: 28.03 on 1 and 13 DF,  p-value: 0.0001453</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikantes Ergebnis visualisieren</span></span>
-<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikantes Ergebnis visualisieren</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1426,50 +1471,50 @@ F-statistic: 28.03 on 1 and 13 DF,  p-value: 0.0001453</code></pre>
 <section id="beispiele-modelldiagnostik" class="level2">
 <h2 class="anchored" data-anchor-id="beispiele-modelldiagnostik">Beispiele Modelldiagnostik</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 Plots in einem Fenster</span></span>
-<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 Plots in einem Fenster</span></span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggfortify"</span>)</span>
-<span id="cb101-3"><a href="#cb101-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb101-4"><a href="#cb101-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggfortify"</span>)</span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellstatistik nicht OK</span></span>
-<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
-<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
-<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h <span class="sc">~</span> g, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span>
-<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellstatistik nicht OK</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h <span class="sc">~</span> g, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-20-2.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb103"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb103-2"><a href="#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-20-3.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik mit ggplot</span></span>
-<span id="cb104-2"><a href="#cb104-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(g, h)</span>
-<span id="cb104-3"><a href="#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> g, <span class="at">y =</span> h)) <span class="sc">+</span></span>
-<span id="cb104-4"><a href="#cb104-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(limits = c(0,25)) +</span></span>
-<span id="cb104-5"><a href="#cb104-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_y_continuous(limits = c(0,25)) +</span></span>
-<span id="cb104-6"><a href="#cb104-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb104-7"><a href="#cb104-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> .<span class="dv">5</span>, <span class="at">se =</span> F) <span class="sc">+</span></span>
-<span id="cb104-8"><a href="#cb104-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik mit ggplot</span></span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(g, h)</span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> g, <span class="at">y =</span> h)) <span class="sc">+</span></span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(limits = c(0,25)) +</span></span>
+<span id="cb100-5"><a href="#cb100-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_y_continuous(limits = c(0,25)) +</span></span>
+<span id="cb100-6"><a href="#cb100-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb100-7"><a href="#cb100-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> .<span class="dv">5</span>, <span class="at">se =</span> F) <span class="sc">+</span></span>
+<span id="cb100-8"><a href="#cb100-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid" width="672"></p>
 </div>
-<div class="sourceCode cell-code" id="cb105"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb105-2"><a href="#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb101"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb101-2"><a href="#cb101-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik2_Demo_files/figure-html/unnamed-chunk-21-2.png" class="img-fluid" width="672"></p>
 </div>
@@ -1892,313 +1937,313 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb106" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-10-31</span></span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb106-8"><a href="#cb106-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb106-9"><a href="#cb106-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb106-10"><a href="#cb106-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
-<span id="cb106-11"><a href="#cb106-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
-<span id="cb106-12"><a href="#cb106-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
-<span id="cb106-13"><a href="#cb106-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb106-14"><a href="#cb106-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-15"><a href="#cb106-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Demo</span></span>
-<span id="cb106-16"><a href="#cb106-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-17"><a href="#cb106-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb106-18"><a href="#cb106-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz *Nitrogen.csv*</span>
-<span id="cb106-19"><a href="#cb106-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz *Riesch_et_al_ReMe_Extract.csv*</span>
-<span id="cb106-20"><a href="#cb106-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-21"><a href="#cb106-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## t-test als ANOVA</span></span>
-<span id="cb106-22"><a href="#cb106-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-25"><a href="#cb106-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-26"><a href="#cb106-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren als "long table" (2 Kategorien)</span></span>
-<span id="cb106-27"><a href="#cb106-27" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>)</span>
-<span id="cb106-28"><a href="#cb106-28" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>)</span>
-<span id="cb106-29"><a href="#cb106-29" aria-hidden="true" tabindex="-1"></a>blume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">10</span>)), <span class="at">size =</span> <span class="fu">c</span>(a, b))</span>
-<span id="cb106-30"><a href="#cb106-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-31"><a href="#cb106-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
-<span id="cb106-32"><a href="#cb106-32" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb106-33"><a href="#cb106-33" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">xlab =</span> <span class="st">"Sorte"</span>, <span class="at">ylab =</span> <span class="st">"Bluetengroesse [cm]"</span>, <span class="at">data =</span> blume)</span>
-<span id="cb106-34"><a href="#cb106-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-35"><a href="#cb106-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Klassischer t-Test ausführen</span></span>
-<span id="cb106-36"><a href="#cb106-36" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-37"><a href="#cb106-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-38"><a href="#cb106-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA ausführen</span></span>
-<span id="cb106-39"><a href="#cb106-39" aria-hidden="true" tabindex="-1"></a><span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume)</span>
-<span id="cb106-40"><a href="#cb106-40" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume))</span>
-<span id="cb106-41"><a href="#cb106-41" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume))</span>
-<span id="cb106-42"><a href="#cb106-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-43"><a href="#cb106-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-44"><a href="#cb106-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Echte ANOVA</span></span>
-<span id="cb106-45"><a href="#cb106-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-48"><a href="#cb106-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-49"><a href="#cb106-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren mit 3 statt nur 2 Kategorien</span></span>
-<span id="cb106-50"><a href="#cb106-50" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">19</span>, <span class="dv">31</span>, <span class="dv">23</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">17</span>, <span class="dv">20</span>)</span>
-<span id="cb106-51"><a href="#cb106-51" aria-hidden="true" tabindex="-1"></a>blume2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">10</span>)), <span class="at">size =</span> <span class="fu">c</span>(a, b, c))</span>
-<span id="cb106-52"><a href="#cb106-52" aria-hidden="true" tabindex="-1"></a>blume2<span class="sc">$</span>cultivar <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(blume2<span class="sc">$</span>cultivar)</span>
-<span id="cb106-53"><a href="#cb106-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-54"><a href="#cb106-54" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume2)</span>
-<span id="cb106-55"><a href="#cb106-55" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(blume2)</span>
-<span id="cb106-56"><a href="#cb106-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-57"><a href="#cb106-57" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb106-58"><a href="#cb106-58" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">xlab =</span> <span class="st">"Sorte"</span>, <span class="at">ylab =</span> <span class="st">"Blütengrösse [cm]"</span>, <span class="at">data =</span> blume2)</span>
-<span id="cb106-59"><a href="#cb106-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-60"><a href="#cb106-60" aria-hidden="true" tabindex="-1"></a><span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
-<span id="cb106-61"><a href="#cb106-61" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
-<span id="cb106-62"><a href="#cb106-62" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
-<span id="cb106-63"><a href="#cb106-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-64"><a href="#cb106-64" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
-<span id="cb106-65"><a href="#cb106-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span>
-<span id="cb106-66"><a href="#cb106-66" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(aov<span class="fl">.1</span>)</span>
-<span id="cb106-67"><a href="#cb106-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-68"><a href="#cb106-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung Mittelwerte usw. zur Charakterisierung der Gruppen</span></span>
-<span id="cb106-69"><a href="#cb106-69" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(size <span class="sc">~</span> cultivar, blume2, <span class="cf">function</span>(x) <span class="fu">c</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(x), <span class="at">SD =</span> <span class="fu">sd</span>(x), <span class="at">Min =</span> <span class="fu">min</span>(x), <span class="at">Max =</span> <span class="fu">max</span>(x)))</span>
-<span id="cb106-70"><a href="#cb106-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-71"><a href="#cb106-71" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
-<span id="cb106-72"><a href="#cb106-72" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb106-73"><a href="#cb106-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-74"><a href="#cb106-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-75"><a href="#cb106-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tukeys Posthoc-Test</span></span>
-<span id="cb106-76"><a href="#cb106-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-79"><a href="#cb106-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-80"><a href="#cb106-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb106-81"><a href="#cb106-81" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"agricolae"</span>)</span>
-<span id="cb106-82"><a href="#cb106-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-83"><a href="#cb106-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
-<span id="cb106-84"><a href="#cb106-84" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.1</span>, <span class="st">"cultivar"</span>, <span class="at">group =</span> <span class="cn">FALSE</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-85"><a href="#cb106-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-86"><a href="#cb106-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-87"><a href="#cb106-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-88"><a href="#cb106-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Beispiel Posthoc-Labels in Plot</span></span>
-<span id="cb106-89"><a href="#cb106-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-92"><a href="#cb106-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-93"><a href="#cb106-93" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA Mit Iris-Datenset, das in R integriert ist</span></span>
-<span id="cb106-94"><a href="#cb106-94" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
-<span id="cb106-95"><a href="#cb106-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-96"><a href="#cb106-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
-<span id="cb106-97"><a href="#cb106-97" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.2</span>, <span class="st">"Species"</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-98"><a href="#cb106-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-99"><a href="#cb106-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mit labels</span></span>
-<span id="cb106-100"><a href="#cb106-100" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
-<span id="cb106-101"><a href="#cb106-101" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="at">data =</span> iris)</span>
-<span id="cb106-102"><a href="#cb106-102" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fl">4.8</span>, <span class="st">"a"</span>)</span>
-<span id="cb106-103"><a href="#cb106-103" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"c"</span>)</span>
-<span id="cb106-104"><a href="#cb106-104" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">4.8</span>, <span class="st">"b"</span>)</span>
-<span id="cb106-105"><a href="#cb106-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-106"><a href="#cb106-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-107"><a href="#cb106-107" aria-hidden="true" tabindex="-1"></a>Derselbe Plot mit ggplot</span>
-<span id="cb106-108"><a href="#cb106-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-111"><a href="#cb106-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-112"><a href="#cb106-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb106-113"><a href="#cb106-113" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb106-114"><a href="#cb106-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-115"><a href="#cb106-115" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
-<span id="cb106-116"><a href="#cb106-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb106-117"><a href="#cb106-117" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>))</span>
-<span id="cb106-118"><a href="#cb106-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-119"><a href="#cb106-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-120"><a href="#cb106-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Klassische Tests der Modellannahmen (NICHT EMPFOHLEN!!!)</span></span>
-<span id="cb106-121"><a href="#cb106-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-124"><a href="#cb106-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-125"><a href="#cb106-125" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk Test auf Normalverteilung</span></span>
-<span id="cb106-126"><a href="#cb106-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro Kategorie!</span></span>
-<span id="cb106-127"><a href="#cb106-127" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0 = Notmalverteilung)</span></span>
-<span id="cb106-128"><a href="#cb106-128" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>])</span>
-<span id="cb106-129"><a href="#cb106-129" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>])</span>
-<span id="cb106-130"><a href="#cb106-130" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"c"</span>])</span>
-<span id="cb106-131"><a href="#cb106-131" aria-hidden="true" tabindex="-1"></a>?var.test</span>
-<span id="cb106-132"><a href="#cb106-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-133"><a href="#cb106-133" aria-hidden="true" tabindex="-1"></a><span class="co"># F-Test zum Vergleich zweier Varianzen</span></span>
-<span id="cb106-134"><a href="#cb106-134" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0= Gleiche Varianzen)</span></span>
-<span id="cb106-135"><a href="#cb106-135" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(</span>
-<span id="cb106-136"><a href="#cb106-136" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb106-137"><a href="#cb106-137" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
-<span id="cb106-138"><a href="#cb106-138" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb106-139"><a href="#cb106-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-140"><a href="#cb106-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-143"><a href="#cb106-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-144"><a href="#cb106-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb106-145"><a href="#cb106-145" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
-<span id="cb106-146"><a href="#cb106-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-147"><a href="#cb106-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf Homogenität der Varianzen</span></span>
-<span id="cb106-148"><a href="#cb106-148" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb106-149"><a href="#cb106-149" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>],</span>
-<span id="cb106-150"><a href="#cb106-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">center =</span> mean</span>
-<span id="cb106-151"><a href="#cb106-151" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb106-152"><a href="#cb106-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-153"><a href="#cb106-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-154"><a href="#cb106-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nicht-parametrische Alternativen, wenn Modellannahmen der ANVOA massiv verletzt sind</span></span>
-<span id="cb106-155"><a href="#cb106-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-158"><a href="#cb106-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-159"><a href="#cb106-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-parametrische Alternative zu t-Test</span></span>
-<span id="cb106-160"><a href="#cb106-160" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(</span>
-<span id="cb106-161"><a href="#cb106-161" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
-<span id="cb106-162"><a href="#cb106-162" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
-<span id="cb106-163"><a href="#cb106-163" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb106-164"><a href="#cb106-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-165"><a href="#cb106-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-166"><a href="#cb106-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Zum Vergleich normale ANOVA noch mal</span></span>
-<span id="cb106-167"><a href="#cb106-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-170"><a href="#cb106-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-171"><a href="#cb106-171" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
-<span id="cb106-172"><a href="#cb106-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-173"><a href="#cb106-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-174"><a href="#cb106-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bei starken Abweichungen von der Normalverteilung, aber ähnlichen Varianzen</span></span>
-<span id="cb106-175"><a href="#cb106-175" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-176"><a href="#cb106-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kruskal-Wallis-Test</span></span>
-<span id="cb106-177"><a href="#cb106-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-180"><a href="#cb106-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-181"><a href="#cb106-181" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
-<span id="cb106-182"><a href="#cb106-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-183"><a href="#cb106-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-186"><a href="#cb106-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-187"><a href="#cb106-187" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb106-188"><a href="#cb106-188" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FSA"</span>)</span>
-<span id="cb106-189"><a href="#cb106-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-190"><a href="#cb106-190" aria-hidden="true" tabindex="-1"></a><span class="co"># korrigierte p-Werte nach Bejamini-Hochberg</span></span>
-<span id="cb106-191"><a href="#cb106-191" aria-hidden="true" tabindex="-1"></a><span class="fu">dunnTest</span>(size <span class="sc">~</span> cultivar, <span class="at">method =</span> <span class="st">"bh"</span>, <span class="at">data =</span> blume2)</span>
-<span id="cb106-192"><a href="#cb106-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-193"><a href="#cb106-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-194"><a href="#cb106-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen</span></span>
-<span id="cb106-195"><a href="#cb106-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-196"><a href="#cb106-196" aria-hidden="true" tabindex="-1"></a><span class="fu">## Welch-Test</span></span>
-<span id="cb106-197"><a href="#cb106-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-200"><a href="#cb106-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-201"><a href="#cb106-201" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(size <span class="sc">~</span> cultivar, <span class="at">var.equal =</span> F, <span class="at">data =</span> blume2)</span>
-<span id="cb106-202"><a href="#cb106-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-203"><a href="#cb106-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-204"><a href="#cb106-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2-faktorielle ANOVA</span></span>
-<span id="cb106-205"><a href="#cb106-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-208"><a href="#cb106-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-209"><a href="#cb106-209" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
-<span id="cb106-210"><a href="#cb106-210" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
-<span id="cb106-211"><a href="#cb106-211" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
-<span id="cb106-212"><a href="#cb106-212" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
-<span id="cb106-213"><a href="#cb106-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-214"><a href="#cb106-214" aria-hidden="true" tabindex="-1"></a>blume3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb106-215"><a href="#cb106-215" aria-hidden="true" tabindex="-1"></a>    <span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">20</span>)),</span>
-<span id="cb106-216"><a href="#cb106-216" aria-hidden="true" tabindex="-1"></a>    <span class="at">house =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"yes"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"no"</span>, <span class="dv">10</span>)), <span class="dv">3</span>)),</span>
-<span id="cb106-217"><a href="#cb106-217" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">c</span>(a, b, c, d, e, f)</span>
-<span id="cb106-218"><a href="#cb106-218" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb106-219"><a href="#cb106-219" aria-hidden="true" tabindex="-1"></a>blume3</span>
-<span id="cb106-220"><a href="#cb106-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-221"><a href="#cb106-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-224"><a href="#cb106-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-225"><a href="#cb106-225" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3)</span>
-<span id="cb106-226"><a href="#cb106-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-227"><a href="#cb106-227" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span>
-<span id="cb106-228"><a href="#cb106-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house <span class="sc">+</span> cultivar<span class="sc">:</span>house, <span class="at">data =</span> blume3))</span>
-<span id="cb106-229"><a href="#cb106-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird</span></span>
-<span id="cb106-230"><a href="#cb106-230" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3))</span>
-<span id="cb106-231"><a href="#cb106-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-232"><a href="#cb106-232" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span>
-<span id="cb106-233"><a href="#cb106-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-234"><a href="#cb106-234" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>size)</span>
-<span id="cb106-235"><a href="#cb106-235" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>size)</span>
-<span id="cb106-236"><a href="#cb106-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-237"><a href="#cb106-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-240"><a href="#cb106-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-241"><a href="#cb106-241" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">+</span> blume3<span class="sc">$</span>house))</span>
-<span id="cb106-242"><a href="#cb106-242" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house))</span>
-<span id="cb106-243"><a href="#cb106-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-244"><a href="#cb106-244" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot</span></span>
-<span id="cb106-245"><a href="#cb106-245" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>)</span>
-<span id="cb106-246"><a href="#cb106-246" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb106-247"><a href="#cb106-247" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
-<span id="cb106-248"><a href="#cb106-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-249"><a href="#cb106-249" aria-hidden="true" tabindex="-1"></a>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3)</span>
-<span id="cb106-250"><a href="#cb106-250" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"cultivar"</span>, <span class="st">"house"</span>))</span>
-<span id="cb106-251"><a href="#cb106-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-252"><a href="#cb106-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-255"><a href="#cb106-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-256"><a href="#cb106-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Geht auch für 3-fach-Interaktionen</span></span>
-<span id="cb106-257"><a href="#cb106-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-258"><a href="#cb106-258" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum</span></span>
-<span id="cb106-259"><a href="#cb106-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-260"><a href="#cb106-260" aria-hidden="true" tabindex="-1"></a>Riesch <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/Riesch_et_al_ReMe_Extract.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb106-261"><a href="#cb106-261" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Riesch)</span>
-<span id="cb106-262"><a href="#cb106-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-263"><a href="#cb106-263" aria-hidden="true" tabindex="-1"></a>aov.deer <span class="ot">&lt;-</span> <span class="fu">aov</span>(Species.richness <span class="sc">~</span> Year <span class="sc">*</span> Treatment <span class="sc">*</span> Plot.type, <span class="at">data =</span> Riesch)</span>
-<span id="cb106-264"><a href="#cb106-264" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov.deer, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Treatment"</span>, <span class="st">"Plot.type"</span>))</span>
-<span id="cb106-265"><a href="#cb106-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-266"><a href="#cb106-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-267"><a href="#cb106-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-268"><a href="#cb106-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Korrelationen</span></span>
-<span id="cb106-269"><a href="#cb106-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-272"><a href="#cb106-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-273"><a href="#cb106-273" aria-hidden="true" tabindex="-1"></a><span class="do">## Korrelationen und Regressionen</span></span>
-<span id="cb106-274"><a href="#cb106-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-275"><a href="#cb106-275" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum</span></span>
-<span id="cb106-276"><a href="#cb106-276" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/Nitrogen.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
-<span id="cb106-277"><a href="#cb106-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
-<span id="cb106-278"><a href="#cb106-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-279"><a href="#cb106-279" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Beziehung</span></span>
-<span id="cb106-280"><a href="#cb106-280" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb106-281"><a href="#cb106-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-282"><a href="#cb106-282" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
-<span id="cb106-283"><a href="#cb106-283" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb106-284"><a href="#cb106-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-285"><a href="#cb106-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-288"><a href="#cb106-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-289"><a href="#cb106-289" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
-<span id="cb106-290"><a href="#cb106-290" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb106-291"><a href="#cb106-291" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>N.deposition, df<span class="sc">$</span>Species.richness, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
-<span id="cb106-292"><a href="#cb106-292" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
-<span id="cb106-293"><a href="#cb106-293" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
-<span id="cb106-294"><a href="#cb106-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-295"><a href="#cb106-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt als Regression</span></span>
-<span id="cb106-296"><a href="#cb106-296" aria-hidden="true" tabindex="-1"></a>lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb106-297"><a href="#cb106-297" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm) <span class="co"># ANOVA-Tabelle, 1. Möglichkeit</span></span>
-<span id="cb106-298"><a href="#cb106-298" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(lm) <span class="co"># ANOVA-Tabelle, 2. Möglichkeit</span></span>
-<span id="cb106-299"><a href="#cb106-299" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm) <span class="co"># Regressionskoeffizienten</span></span>
-<span id="cb106-300"><a href="#cb106-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-301"><a href="#cb106-301" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikantes Ergebnis visualisieren</span></span>
-<span id="cb106-302"><a href="#cb106-302" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
-<span id="cb106-303"><a href="#cb106-303" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm)</span>
-<span id="cb106-304"><a href="#cb106-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-305"><a href="#cb106-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-306"><a href="#cb106-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Beispiele Modelldiagnostik</span></span>
-<span id="cb106-307"><a href="#cb106-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-310"><a href="#cb106-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-311"><a href="#cb106-311" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 Plots in einem Fenster</span></span>
-<span id="cb106-312"><a href="#cb106-312" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span>
-<span id="cb106-313"><a href="#cb106-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-314"><a href="#cb106-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-317"><a href="#cb106-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-318"><a href="#cb106-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
-<span id="cb106-319"><a href="#cb106-319" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggfortify"</span>)</span>
-<span id="cb106-320"><a href="#cb106-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-321"><a href="#cb106-321" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span>
-<span id="cb106-322"><a href="#cb106-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-323"><a href="#cb106-323" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellstatistik nicht OK</span></span>
-<span id="cb106-324"><a href="#cb106-324" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
-<span id="cb106-325"><a href="#cb106-325" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
-<span id="cb106-326"><a href="#cb106-326" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb106-327"><a href="#cb106-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-328"><a href="#cb106-328" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h <span class="sc">~</span> g, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span>
-<span id="cb106-329"><a href="#cb106-329" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
-<span id="cb106-330"><a href="#cb106-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-331"><a href="#cb106-331" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb106-332"><a href="#cb106-332" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
-<span id="cb106-333"><a href="#cb106-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb106-334"><a href="#cb106-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-337"><a href="#cb106-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb106-338"><a href="#cb106-338" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik mit ggplot</span></span>
-<span id="cb106-339"><a href="#cb106-339" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(g, h)</span>
-<span id="cb106-340"><a href="#cb106-340" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> g, <span class="at">y =</span> h)) <span class="sc">+</span></span>
-<span id="cb106-341"><a href="#cb106-341" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(limits = c(0,25)) +</span></span>
-<span id="cb106-342"><a href="#cb106-342" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_y_continuous(limits = c(0,25)) +</span></span>
-<span id="cb106-343"><a href="#cb106-343" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb106-344"><a href="#cb106-344" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> .<span class="dv">5</span>, <span class="at">se =</span> F) <span class="sc">+</span></span>
-<span id="cb106-345"><a href="#cb106-345" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
-<span id="cb106-346"><a href="#cb106-346" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb106-347"><a href="#cb106-347" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb106-348"><a href="#cb106-348" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
-<span id="cb106-349"><a href="#cb106-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb102" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-10-31</span></span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat2</span></span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Einführung in lineare Modelle</span></span>
+<span id="cb102-5"><a href="#cb102-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb102-6"><a href="#cb102-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb102-7"><a href="#cb102-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb102-8"><a href="#cb102-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb102-9"><a href="#cb102-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb102-10"><a href="#cb102-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
+<span id="cb102-11"><a href="#cb102-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
+<span id="cb102-12"><a href="#cb102-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
+<span id="cb102-13"><a href="#cb102-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb102-14"><a href="#cb102-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-15"><a href="#cb102-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat2: Demo</span></span>
+<span id="cb102-16"><a href="#cb102-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-17"><a href="#cb102-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb102-18"><a href="#cb102-18" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz *Nitrogen.csv*</span>
+<span id="cb102-19"><a href="#cb102-19" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Datensatz *Riesch_et_al_ReMe_Extract.csv*</span>
+<span id="cb102-20"><a href="#cb102-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-21"><a href="#cb102-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## t-test als ANOVA</span></span>
+<span id="cb102-22"><a href="#cb102-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-25"><a href="#cb102-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-26"><a href="#cb102-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren als "long table" (2 Kategorien)</span></span>
+<span id="cb102-27"><a href="#cb102-27" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>)</span>
+<span id="cb102-28"><a href="#cb102-28" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">16</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>)</span>
+<span id="cb102-29"><a href="#cb102-29" aria-hidden="true" tabindex="-1"></a>blume <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">10</span>)), <span class="at">size =</span> <span class="fu">c</span>(a, b))</span>
+<span id="cb102-30"><a href="#cb102-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-31"><a href="#cb102-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
+<span id="cb102-32"><a href="#cb102-32" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb102-33"><a href="#cb102-33" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">xlab =</span> <span class="st">"Sorte"</span>, <span class="at">ylab =</span> <span class="st">"Bluetengroesse [cm]"</span>, <span class="at">data =</span> blume)</span>
+<span id="cb102-34"><a href="#cb102-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-35"><a href="#cb102-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Klassischer t-Test ausführen</span></span>
+<span id="cb102-36"><a href="#cb102-36" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(size <span class="sc">~</span> cultivar, blume, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb102-37"><a href="#cb102-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-38"><a href="#cb102-38" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA ausführen</span></span>
+<span id="cb102-39"><a href="#cb102-39" aria-hidden="true" tabindex="-1"></a><span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume)</span>
+<span id="cb102-40"><a href="#cb102-40" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume))</span>
+<span id="cb102-41"><a href="#cb102-41" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume))</span>
+<span id="cb102-42"><a href="#cb102-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-43"><a href="#cb102-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-44"><a href="#cb102-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Echte ANOVA</span></span>
+<span id="cb102-45"><a href="#cb102-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-48"><a href="#cb102-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-49"><a href="#cb102-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren mit 3 statt nur 2 Kategorien</span></span>
+<span id="cb102-50"><a href="#cb102-50" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">19</span>, <span class="dv">31</span>, <span class="dv">23</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">26</span>, <span class="dv">24</span>, <span class="dv">17</span>, <span class="dv">20</span>)</span>
+<span id="cb102-51"><a href="#cb102-51" aria-hidden="true" tabindex="-1"></a>blume2 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">10</span>)), <span class="at">size =</span> <span class="fu">c</span>(a, b, c))</span>
+<span id="cb102-52"><a href="#cb102-52" aria-hidden="true" tabindex="-1"></a>blume2<span class="sc">$</span>cultivar <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(blume2<span class="sc">$</span>cultivar)</span>
+<span id="cb102-53"><a href="#cb102-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-54"><a href="#cb102-54" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(blume2)</span>
+<span id="cb102-55"><a href="#cb102-55" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(blume2)</span>
+<span id="cb102-56"><a href="#cb102-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-57"><a href="#cb102-57" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb102-58"><a href="#cb102-58" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar, <span class="at">xlab =</span> <span class="st">"Sorte"</span>, <span class="at">ylab =</span> <span class="st">"Blütengrösse [cm]"</span>, <span class="at">data =</span> blume2)</span>
+<span id="cb102-59"><a href="#cb102-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-60"><a href="#cb102-60" aria-hidden="true" tabindex="-1"></a><span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
+<span id="cb102-61"><a href="#cb102-61" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
+<span id="cb102-62"><a href="#cb102-62" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
+<span id="cb102-63"><a href="#cb102-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-64"><a href="#cb102-64" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
+<span id="cb102-65"><a href="#cb102-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aov<span class="fl">.1</span>)</span>
+<span id="cb102-66"><a href="#cb102-66" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(aov<span class="fl">.1</span>)</span>
+<span id="cb102-67"><a href="#cb102-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-68"><a href="#cb102-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnung Mittelwerte usw. zur Charakterisierung der Gruppen</span></span>
+<span id="cb102-69"><a href="#cb102-69" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(size <span class="sc">~</span> cultivar, blume2, <span class="cf">function</span>(x) <span class="fu">c</span>(<span class="at">Mean =</span> <span class="fu">mean</span>(x), <span class="at">SD =</span> <span class="fu">sd</span>(x), <span class="at">Min =</span> <span class="fu">min</span>(x), <span class="at">Max =</span> <span class="fu">max</span>(x)))</span>
+<span id="cb102-70"><a href="#cb102-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-71"><a href="#cb102-71" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
+<span id="cb102-72"><a href="#cb102-72" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb102-73"><a href="#cb102-73" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-74"><a href="#cb102-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-75"><a href="#cb102-75" aria-hidden="true" tabindex="-1"></a><span class="fu">## Tukeys Posthoc-Test</span></span>
+<span id="cb102-76"><a href="#cb102-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-79"><a href="#cb102-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-80"><a href="#cb102-80" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb102-81"><a href="#cb102-81" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"agricolae"</span>)</span>
+<span id="cb102-82"><a href="#cb102-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-83"><a href="#cb102-83" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
+<span id="cb102-84"><a href="#cb102-84" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.1</span>, <span class="st">"cultivar"</span>, <span class="at">group =</span> <span class="cn">FALSE</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb102-85"><a href="#cb102-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-86"><a href="#cb102-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-87"><a href="#cb102-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-88"><a href="#cb102-88" aria-hidden="true" tabindex="-1"></a><span class="fu">## Beispiel Posthoc-Labels in Plot</span></span>
+<span id="cb102-89"><a href="#cb102-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-92"><a href="#cb102-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-93"><a href="#cb102-93" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA Mit Iris-Datenset, das in R integriert ist</span></span>
+<span id="cb102-94"><a href="#cb102-94" aria-hidden="true" tabindex="-1"></a>aov<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">aov</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb102-95"><a href="#cb102-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-96"><a href="#cb102-96" aria-hidden="true" tabindex="-1"></a><span class="co"># Posthoc-Test</span></span>
+<span id="cb102-97"><a href="#cb102-97" aria-hidden="true" tabindex="-1"></a><span class="fu">HSD.test</span>(aov<span class="fl">.2</span>, <span class="st">"Species"</span>, <span class="at">console =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb102-98"><a href="#cb102-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-99"><a href="#cb102-99" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot mit labels</span></span>
+<span id="cb102-100"><a href="#cb102-100" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">data =</span> iris)</span>
+<span id="cb102-101"><a href="#cb102-101" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Sepal.Width <span class="sc">~</span> Species, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>), <span class="at">data =</span> iris)</span>
+<span id="cb102-102"><a href="#cb102-102" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">1</span>, <span class="fl">4.8</span>, <span class="st">"a"</span>)</span>
+<span id="cb102-103"><a href="#cb102-103" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">2</span>, <span class="fl">4.8</span>, <span class="st">"c"</span>)</span>
+<span id="cb102-104"><a href="#cb102-104" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="dv">3</span>, <span class="fl">4.8</span>, <span class="st">"b"</span>)</span>
+<span id="cb102-105"><a href="#cb102-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-106"><a href="#cb102-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-107"><a href="#cb102-107" aria-hidden="true" tabindex="-1"></a>Derselbe Plot mit ggplot</span>
+<span id="cb102-108"><a href="#cb102-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-111"><a href="#cb102-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-112"><a href="#cb102-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb102-113"><a href="#cb102-113" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb102-114"><a href="#cb102-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-115"><a href="#cb102-115" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(iris, <span class="fu">aes</span>(Species, Sepal.Width)) <span class="sc">+</span></span>
+<span id="cb102-116"><a href="#cb102-116" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb102-117"><a href="#cb102-117" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">y =</span> <span class="dv">5</span>, <span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"a"</span>, <span class="st">"c"</span>, <span class="st">"b"</span>))</span>
+<span id="cb102-118"><a href="#cb102-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-119"><a href="#cb102-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-120"><a href="#cb102-120" aria-hidden="true" tabindex="-1"></a><span class="fu">## Klassische Tests der Modellannahmen (NICHT EMPFOHLEN!!!)</span></span>
+<span id="cb102-121"><a href="#cb102-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-124"><a href="#cb102-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-125"><a href="#cb102-125" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk Test auf Normalverteilung</span></span>
+<span id="cb102-126"><a href="#cb102-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Pro Kategorie!</span></span>
+<span id="cb102-127"><a href="#cb102-127" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0 = Notmalverteilung)</span></span>
+<span id="cb102-128"><a href="#cb102-128" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>])</span>
+<span id="cb102-129"><a href="#cb102-129" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>])</span>
+<span id="cb102-130"><a href="#cb102-130" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"c"</span>])</span>
+<span id="cb102-131"><a href="#cb102-131" aria-hidden="true" tabindex="-1"></a>?var.test</span>
+<span id="cb102-132"><a href="#cb102-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-133"><a href="#cb102-133" aria-hidden="true" tabindex="-1"></a><span class="co"># F-Test zum Vergleich zweier Varianzen</span></span>
+<span id="cb102-134"><a href="#cb102-134" aria-hidden="true" tabindex="-1"></a><span class="co"># (H0= Gleiche Varianzen)</span></span>
+<span id="cb102-135"><a href="#cb102-135" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(</span>
+<span id="cb102-136"><a href="#cb102-136" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb102-137"><a href="#cb102-137" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
+<span id="cb102-138"><a href="#cb102-138" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-139"><a href="#cb102-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-140"><a href="#cb102-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-143"><a href="#cb102-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-144"><a href="#cb102-144" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb102-145"><a href="#cb102-145" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
+<span id="cb102-146"><a href="#cb102-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-147"><a href="#cb102-147" aria-hidden="true" tabindex="-1"></a><span class="co"># Test auf Homogenität der Varianzen</span></span>
+<span id="cb102-148"><a href="#cb102-148" aria-hidden="true" tabindex="-1"></a><span class="fu">leveneTest</span>(blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb102-149"><a href="#cb102-149" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>],</span>
+<span id="cb102-150"><a href="#cb102-150" aria-hidden="true" tabindex="-1"></a>    <span class="at">center =</span> mean</span>
+<span id="cb102-151"><a href="#cb102-151" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-152"><a href="#cb102-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-153"><a href="#cb102-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-154"><a href="#cb102-154" aria-hidden="true" tabindex="-1"></a><span class="fu">## Nicht-parametrische Alternativen, wenn Modellannahmen der ANVOA massiv verletzt sind</span></span>
+<span id="cb102-155"><a href="#cb102-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-158"><a href="#cb102-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-159"><a href="#cb102-159" aria-hidden="true" tabindex="-1"></a><span class="co"># Nicht-parametrische Alternative zu t-Test</span></span>
+<span id="cb102-160"><a href="#cb102-160" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(</span>
+<span id="cb102-161"><a href="#cb102-161" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"a"</span>],</span>
+<span id="cb102-162"><a href="#cb102-162" aria-hidden="true" tabindex="-1"></a>    blume2<span class="sc">$</span>size[blume2<span class="sc">$</span>cultivar <span class="sc">==</span> <span class="st">"b"</span>]</span>
+<span id="cb102-163"><a href="#cb102-163" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-164"><a href="#cb102-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-165"><a href="#cb102-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-166"><a href="#cb102-166" aria-hidden="true" tabindex="-1"></a><span class="fu">## Zum Vergleich normale ANOVA noch mal</span></span>
+<span id="cb102-167"><a href="#cb102-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-170"><a href="#cb102-170" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-171"><a href="#cb102-171" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2))</span>
+<span id="cb102-172"><a href="#cb102-172" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-173"><a href="#cb102-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-174"><a href="#cb102-174" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bei starken Abweichungen von der Normalverteilung, aber ähnlichen Varianzen</span></span>
+<span id="cb102-175"><a href="#cb102-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-176"><a href="#cb102-176" aria-hidden="true" tabindex="-1"></a><span class="fu">## Kruskal-Wallis-Test</span></span>
+<span id="cb102-177"><a href="#cb102-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-180"><a href="#cb102-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-181"><a href="#cb102-181" aria-hidden="true" tabindex="-1"></a><span class="fu">kruskal.test</span>(size <span class="sc">~</span> cultivar, <span class="at">data =</span> blume2)</span>
+<span id="cb102-182"><a href="#cb102-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-183"><a href="#cb102-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-186"><a href="#cb102-186" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-187"><a href="#cb102-187" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb102-188"><a href="#cb102-188" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"FSA"</span>)</span>
+<span id="cb102-189"><a href="#cb102-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-190"><a href="#cb102-190" aria-hidden="true" tabindex="-1"></a><span class="co"># korrigierte p-Werte nach Bejamini-Hochberg</span></span>
+<span id="cb102-191"><a href="#cb102-191" aria-hidden="true" tabindex="-1"></a><span class="fu">dunnTest</span>(size <span class="sc">~</span> cultivar, <span class="at">method =</span> <span class="st">"bh"</span>, <span class="at">data =</span> blume2)</span>
+<span id="cb102-192"><a href="#cb102-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-193"><a href="#cb102-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-194"><a href="#cb102-194" aria-hidden="true" tabindex="-1"></a><span class="fu">## Bei erheblicher Heteroskedastizität, aber relative normal/symmetrisch verteilten Residuen</span></span>
+<span id="cb102-195"><a href="#cb102-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-196"><a href="#cb102-196" aria-hidden="true" tabindex="-1"></a><span class="fu">## Welch-Test</span></span>
+<span id="cb102-197"><a href="#cb102-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-200"><a href="#cb102-200" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-201"><a href="#cb102-201" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(size <span class="sc">~</span> cultivar, <span class="at">var.equal =</span> F, <span class="at">data =</span> blume2)</span>
+<span id="cb102-202"><a href="#cb102-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-203"><a href="#cb102-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-204"><a href="#cb102-204" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2-faktorielle ANOVA</span></span>
+<span id="cb102-205"><a href="#cb102-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-208"><a href="#cb102-208" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-209"><a href="#cb102-209" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren</span></span>
+<span id="cb102-210"><a href="#cb102-210" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
+<span id="cb102-211"><a href="#cb102-211" aria-hidden="true" tabindex="-1"></a>e <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
+<span id="cb102-212"><a href="#cb102-212" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>)</span>
+<span id="cb102-213"><a href="#cb102-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-214"><a href="#cb102-214" aria-hidden="true" tabindex="-1"></a>blume3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb102-215"><a href="#cb102-215" aria-hidden="true" tabindex="-1"></a>    <span class="at">cultivar =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"a"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"b"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"c"</span>, <span class="dv">20</span>)),</span>
+<span id="cb102-216"><a href="#cb102-216" aria-hidden="true" tabindex="-1"></a>    <span class="at">house =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"yes"</span>, <span class="dv">10</span>), <span class="fu">rep</span>(<span class="st">"no"</span>, <span class="dv">10</span>)), <span class="dv">3</span>)),</span>
+<span id="cb102-217"><a href="#cb102-217" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fu">c</span>(a, b, c, d, e, f)</span>
+<span id="cb102-218"><a href="#cb102-218" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb102-219"><a href="#cb102-219" aria-hidden="true" tabindex="-1"></a>blume3</span>
+<span id="cb102-220"><a href="#cb102-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-221"><a href="#cb102-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-224"><a href="#cb102-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-225"><a href="#cb102-225" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3)</span>
+<span id="cb102-226"><a href="#cb102-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-227"><a href="#cb102-227" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span>
+<span id="cb102-228"><a href="#cb102-228" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house <span class="sc">+</span> cultivar<span class="sc">:</span>house, <span class="at">data =</span> blume3))</span>
+<span id="cb102-229"><a href="#cb102-229" aria-hidden="true" tabindex="-1"></a><span class="co"># Kurzschreibweise: "*" bedeutet, dass Interaktion zwischen cultivar und house eingeschlossen wird</span></span>
+<span id="cb102-230"><a href="#cb102-230" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3))</span>
+<span id="cb102-231"><a href="#cb102-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-232"><a href="#cb102-232" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(<span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">+</span> house, <span class="at">data =</span> blume3))</span>
+<span id="cb102-233"><a href="#cb102-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-234"><a href="#cb102-234" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>size)</span>
+<span id="cb102-235"><a href="#cb102-235" aria-hidden="true" tabindex="-1"></a><span class="fu">interaction.plot</span>(blume3<span class="sc">$</span>house, blume3<span class="sc">$</span>cultivar, blume3<span class="sc">$</span>size)</span>
+<span id="cb102-236"><a href="#cb102-236" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-237"><a href="#cb102-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-240"><a href="#cb102-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-241"><a href="#cb102-241" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">+</span> blume3<span class="sc">$</span>house))</span>
+<span id="cb102-242"><a href="#cb102-242" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>house), <span class="fu">lm</span>(blume3<span class="sc">$</span>size <span class="sc">~</span> blume3<span class="sc">$</span>cultivar <span class="sc">*</span> blume3<span class="sc">$</span>house))</span>
+<span id="cb102-243"><a href="#cb102-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-244"><a href="#cb102-244" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot</span></span>
+<span id="cb102-245"><a href="#cb102-245" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjPlot"</span>)</span>
+<span id="cb102-246"><a href="#cb102-246" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb102-247"><a href="#cb102-247" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_classic</span>())</span>
+<span id="cb102-248"><a href="#cb102-248" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-249"><a href="#cb102-249" aria-hidden="true" tabindex="-1"></a>aov <span class="ot">&lt;-</span> <span class="fu">aov</span>(size <span class="sc">~</span> cultivar <span class="sc">*</span> house, <span class="at">data =</span> blume3)</span>
+<span id="cb102-250"><a href="#cb102-250" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"cultivar"</span>, <span class="st">"house"</span>))</span>
+<span id="cb102-251"><a href="#cb102-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-252"><a href="#cb102-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-255"><a href="#cb102-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-256"><a href="#cb102-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Geht auch für 3-fach-Interaktionen</span></span>
+<span id="cb102-257"><a href="#cb102-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-258"><a href="#cb102-258" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum</span></span>
+<span id="cb102-259"><a href="#cb102-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-260"><a href="#cb102-260" aria-hidden="true" tabindex="-1"></a>Riesch <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/Riesch_et_al_ReMe_Extract.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb102-261"><a href="#cb102-261" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Riesch)</span>
+<span id="cb102-262"><a href="#cb102-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-263"><a href="#cb102-263" aria-hidden="true" tabindex="-1"></a>aov.deer <span class="ot">&lt;-</span> <span class="fu">aov</span>(Species.richness <span class="sc">~</span> Year <span class="sc">*</span> Treatment <span class="sc">*</span> Plot.type, <span class="at">data =</span> Riesch)</span>
+<span id="cb102-264"><a href="#cb102-264" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_model</span>(aov.deer, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"Year"</span>, <span class="st">"Treatment"</span>, <span class="st">"Plot.type"</span>))</span>
+<span id="cb102-265"><a href="#cb102-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-266"><a href="#cb102-266" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-267"><a href="#cb102-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-268"><a href="#cb102-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Korrelationen</span></span>
+<span id="cb102-269"><a href="#cb102-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-272"><a href="#cb102-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-273"><a href="#cb102-273" aria-hidden="true" tabindex="-1"></a><span class="do">## Korrelationen und Regressionen</span></span>
+<span id="cb102-274"><a href="#cb102-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-275"><a href="#cb102-275" aria-hidden="true" tabindex="-1"></a><span class="co"># Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum</span></span>
+<span id="cb102-276"><a href="#cb102-276" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/Nitrogen.csv"</span>, <span class="at">sep =</span> <span class="st">";"</span>)</span>
+<span id="cb102-277"><a href="#cb102-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(df)</span>
+<span id="cb102-278"><a href="#cb102-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-279"><a href="#cb102-279" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der Beziehung</span></span>
+<span id="cb102-280"><a href="#cb102-280" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb102-281"><a href="#cb102-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-282"><a href="#cb102-282" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten anschauen</span></span>
+<span id="cb102-283"><a href="#cb102-283" aria-hidden="true" tabindex="-1"></a><span class="fu">scatterplot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb102-284"><a href="#cb102-284" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-285"><a href="#cb102-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-288"><a href="#cb102-288" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-289"><a href="#cb102-289" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen</span></span>
+<span id="cb102-290"><a href="#cb102-290" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb102-291"><a href="#cb102-291" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>N.deposition, df<span class="sc">$</span>Species.richness, <span class="at">method =</span> <span class="st">"pearson"</span>)</span>
+<span id="cb102-292"><a href="#cb102-292" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"spearman"</span>)</span>
+<span id="cb102-293"><a href="#cb102-293" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(df<span class="sc">$</span>Species.richness, df<span class="sc">$</span>N.deposition, <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
+<span id="cb102-294"><a href="#cb102-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-295"><a href="#cb102-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt als Regression</span></span>
+<span id="cb102-296"><a href="#cb102-296" aria-hidden="true" tabindex="-1"></a>lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb102-297"><a href="#cb102-297" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm) <span class="co"># ANOVA-Tabelle, 1. Möglichkeit</span></span>
+<span id="cb102-298"><a href="#cb102-298" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(lm) <span class="co"># ANOVA-Tabelle, 2. Möglichkeit</span></span>
+<span id="cb102-299"><a href="#cb102-299" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm) <span class="co"># Regressionskoeffizienten</span></span>
+<span id="cb102-300"><a href="#cb102-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-301"><a href="#cb102-301" aria-hidden="true" tabindex="-1"></a><span class="co"># Signifikantes Ergebnis visualisieren</span></span>
+<span id="cb102-302"><a href="#cb102-302" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Species.richness <span class="sc">~</span> N.deposition, <span class="at">data =</span> df)</span>
+<span id="cb102-303"><a href="#cb102-303" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm)</span>
+<span id="cb102-304"><a href="#cb102-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-305"><a href="#cb102-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-306"><a href="#cb102-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Beispiele Modelldiagnostik</span></span>
+<span id="cb102-307"><a href="#cb102-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-310"><a href="#cb102-310" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-311"><a href="#cb102-311" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>)) <span class="co"># 4 Plots in einem Fenster</span></span>
+<span id="cb102-312"><a href="#cb102-312" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span>
+<span id="cb102-313"><a href="#cb102-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-314"><a href="#cb102-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-317"><a href="#cb102-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-318"><a href="#cb102-318" aria-hidden="true" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb102-319"><a href="#cb102-319" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggfortify"</span>)</span>
+<span id="cb102-320"><a href="#cb102-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-321"><a href="#cb102-321" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(b <span class="sc">~</span> a))</span>
+<span id="cb102-322"><a href="#cb102-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-323"><a href="#cb102-323" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellstatistik nicht OK</span></span>
+<span id="cb102-324"><a href="#cb102-324" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>)</span>
+<span id="cb102-325"><a href="#cb102-325" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">12</span>, <span class="dv">30</span>, <span class="dv">26</span>, <span class="dv">13</span>)</span>
+<span id="cb102-326"><a href="#cb102-326" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb102-327"><a href="#cb102-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-328"><a href="#cb102-328" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(h <span class="sc">~</span> g, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">40</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>))</span>
+<span id="cb102-329"><a href="#cb102-329" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
+<span id="cb102-330"><a href="#cb102-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-331"><a href="#cb102-331" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb102-332"><a href="#cb102-332" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
+<span id="cb102-333"><a href="#cb102-333" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb102-334"><a href="#cb102-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-337"><a href="#cb102-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb102-338"><a href="#cb102-338" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelldiagnostik mit ggplot</span></span>
+<span id="cb102-339"><a href="#cb102-339" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(g, h)</span>
+<span id="cb102-340"><a href="#cb102-340" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> g, <span class="at">y =</span> h)) <span class="sc">+</span></span>
+<span id="cb102-341"><a href="#cb102-341" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_x_continuous(limits = c(0,25)) +</span></span>
+<span id="cb102-342"><a href="#cb102-342" aria-hidden="true" tabindex="-1"></a>    <span class="co"># scale_y_continuous(limits = c(0,25)) +</span></span>
+<span id="cb102-343"><a href="#cb102-343" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb102-344"><a href="#cb102-344" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> .<span class="dv">5</span>, <span class="at">se =</span> F) <span class="sc">+</span></span>
+<span id="cb102-345"><a href="#cb102-345" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span>
+<span id="cb102-346"><a href="#cb102-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb102-347"><a href="#cb102-347" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb102-348"><a href="#cb102-348" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(<span class="fu">lm</span>(h <span class="sc">~</span> g))</span>
+<span id="cb102-349"><a href="#cb102-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -700,10 +700,31 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load packages and data</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/statistik/911.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Error: 'datasets/statistik/911.csv' does not exist in current working directory ('C:/Users/luoe/Documents/Coding/Research Methods/HS23').</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in str(data_911): object 'data_911' not found</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data_911 <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/statKons/911.csv"</span>, <span class="at">delim =</span> <span class="st">","</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_911)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="do">## spc_tbl_ [99,492 × 9] (S3: spec_tbl_df/tbl_df/tbl/data.frame)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ lat      : num [1:99492] 40.3 40.3 40.1 40.1 40.3 ...</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ lng      : num [1:99492] -75.6 -75.3 -75.4 -75.3 -75.6 ...</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ desc     : chr [1:99492] "REINDEER CT &amp; DEAD </span><span class="re">END</span><span class="do">;  NEW HANOVER; Station 332; 2015-12-10 @ 17:10:52;" "BRIAR PATH &amp; WHITEMARSH LN;  HATFIELD TOWNSHIP; Station 345; 2015-12-10 @ 17:29:21;" "HAWS AVE; NORRISTOWN; 2015-12-10 @ 14:39:21-Station:STA27;" "AIRY ST &amp; SWEDE ST;  NORRISTOWN; Station 308A; 2015-12-10 @ 16:47:36;" ...</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ zip      : num [1:99492] 19525 19446 19401 19401 NA ...</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ title    : chr [1:99492] "EMS: BACK PAINS/INJURY" "EMS: DIABETIC EMERGENCY" "Fire: GAS-ODOR/LEAK" "EMS: CARDIAC EMERGENCY" ...</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ timeStamp: POSIXct[1:99492], format: "2015-12-10 17:40:00" "2015-12-10 17:40:00" ...</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ twp      : chr [1:99492] "NEW HANOVER" "HATFIELD TOWNSHIP" "NORRISTOWN" "NORRISTOWN" ...</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ addr     : chr [1:99492] "REINDEER CT &amp; DEAD </span><span class="re">END</span><span class="do">" "BRIAR PATH &amp; WHITEMARSH LN" "HAWS AVE" "AIRY ST &amp; SWEDE ST" ...</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ e        : num [1:99492] 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  - attr(*, "spec")=</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="do">##   .. cols(</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   lat = col_double(),</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   lng = col_double(),</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   desc = col_character(),</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   zip = col_double(),</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   title = col_character(),</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   timeStamp = col_datetime(format = ""),</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   twp = col_character(),</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   addr = col_character(),</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="do">##   ..   e = col_double()</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="do">##   .. )</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="do">##  - attr(*, "problems")=&lt;externalptr&gt;</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="tidytuesday" class="level2">

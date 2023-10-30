@@ -681,7 +681,7 @@ window.onload = function() {
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen und anschauen</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(compensation)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  X  Root Fruit  Grazing
@@ -967,7 +967,7 @@ F-statistic: 11.14 on 2 and 12 DF,  p-value: 0.001842</code></pre>
 <h2 class="anchored" data-anchor-id="multiple-lineare-regression-basierend-auf-logan-beispiel-9a">Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       X             ABUND            AREA            YR.ISOL    
@@ -1976,7 +1976,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb81-27"><a href="#cb81-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb81-28"><a href="#cb81-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen und anschauen</span></span>
 <span id="cb81-29"><a href="#cb81-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb81-30"><a href="#cb81-30" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb81-30"><a href="#cb81-30" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
 <span id="cb81-31"><a href="#cb81-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(compensation)</span>
 <span id="cb81-32"><a href="#cb81-32" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(compensation)</span>
 <span id="cb81-33"><a href="#cb81-33" aria-hidden="true" tabindex="-1"></a></span>
@@ -2135,7 +2135,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb81-206"><a href="#cb81-206" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb81-209"><a href="#cb81-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb81-210"><a href="#cb81-210" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>
-<span id="cb81-211"><a href="#cb81-211" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/statistik/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
+<span id="cb81-211"><a href="#cb81-211" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
 <span id="cb81-212"><a href="#cb81-212" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span>
 <span id="cb81-213"><a href="#cb81-213" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb81-214"><a href="#cb81-214" aria-hidden="true" tabindex="-1"></a></span>
