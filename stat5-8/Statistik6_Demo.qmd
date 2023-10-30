@@ -103,7 +103,7 @@ biplot(pca.3)
 
 # Mit Beispieldaten aus Wildi
 library("readr")
-sveg <- read_delim("datasets/statistik/dave_sveg.csv")
+sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
 
 str(sveg)
 summary(sveg)

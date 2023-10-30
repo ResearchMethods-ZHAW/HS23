@@ -156,7 +156,7 @@ lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2)
 library("AICcmodavg")
 library("nlstools")
 
-loyn <- read.delim("datasets/statistik/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
+loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
 
 # Selbstdefinierte Funktion, hier Potenzfunktion
 power.model <- nls(ABUND ~ c * AREA^z, start = (list(c = 1, z = 0)), data = loyn)

@@ -41,7 +41,7 @@ knitr:
 ```{r}
 #| include: false
 
-decay <- read.delim("datasets/statistik/decay.csv", sep = ",")
+decay <- read.delim("datasets/stat1-4/decay.csv", sep = ",")
 decay
 ```
 

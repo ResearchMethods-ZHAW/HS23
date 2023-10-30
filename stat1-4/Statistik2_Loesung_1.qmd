@@ -20,7 +20,7 @@ knitr:
 ## Daten einlesen und exlporieren
 
 ```{r}
-SAR <- read.delim("datasets/statistik/SAR.csv", sep = ";") # Daten einlesen
+SAR <- read.delim("datasets/stat1-4/SAR.csv", sep = ";") # Daten einlesen
 head(SAR) # Daten anschauen
 str(SAR) # Datenformat überprüfen
 ```

@@ -41,7 +41,7 @@ mytheme <-
 
 ```{r}
 #lade die Daten
-df <- readr::read_delim("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.1.csv", delim = ";")
+df <- readr::read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.1.csv", delim = ";")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte an (plus Standardabweichungen)
@@ -190,7 +190,7 @@ ggplot(df, aes(x = label_content, y = tot_sold)) +
 #| echo: false
 
 # lade Daten
-df <- read_csv2("datasets/statistik/Datensatz_novanimal_Uebung_Statistik2.3.csv")
+df <- read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.3.csv")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an

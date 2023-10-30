@@ -93,7 +93,7 @@ $H_1$: Es gibt einen Unterschied in den Verkaufszahlen zwischen den Basis- und d
 
 ```{r}
 # lade Daten
-df <- readr::read_delim("datasets/statistik/Datensatz_novanimal_Uebung_Statistik1.2.csv", delim = ";")
+df <- readr::read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik1.2.csv", delim = ";")
 
 # überprüft die Voraussetzungen für einen t-Test
 ggplot(df, aes(x = condit, y = tot_sold)) + # achtung 0 Punkt fehlt

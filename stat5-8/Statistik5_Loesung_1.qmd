@@ -54,7 +54,7 @@ format:
  
 ### Kommentierter Lösungsweg
 ```{r}
-splityield <- read.delim("datasets/statistik/splityield.csv", sep = ",", stringsAsFactors = T)
+splityield <- read.delim("datasets/stat5-8/splityield.csv", sep = ",", stringsAsFactors = T)
 ```
 ```{r}
 # Checken der eingelesenen Daten
