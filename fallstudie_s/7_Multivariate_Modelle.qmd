@@ -458,7 +458,7 @@ umwelt <- as.data.frame(umwelt)
 
 - Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 umwelt <- umwelt |> 
   mutate(tre200jx_scaled = scale(tre200jx)|>
   ...
