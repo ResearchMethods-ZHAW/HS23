@@ -485,12 +485,13 @@ Korrelierende Variablen können das Modellergebnis verfälschen. Daher muss vor 
 - Teste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.
 
 ```{r echo = TRUE, eval=FALSE}
-cor <-  cor(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
-                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)])
+cor <- cor(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
+                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))
+
 ```
 
 ```{r}
-cor <- cor(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)))
+cor <- cor(subset(umwelt, select = c(tre200nx: sremaxdv)))
 ```
 
 ### 3b) 
@@ -501,23 +502,21 @@ Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgeba
 cor[abs(cor) < 0.7] <- 0 # Setzt alle Werte kleiner 0.7 auf 0
 ```
 
-Zur Visualisierung kann ein einfacher Plot erstellt werden.
+Zur Visualisierung kann ein Plot erstellt werden.
+
+
+```{r outpot = TRUE}
+chart.Correlation(subset(umwelt, select = c(tre200nx: sremaxdv)), 
+                  histogram = TRUE, pch = 19)
+```
+
 
 ```{r echo = TRUE, eval=FALSE}
-chart.Correlation(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
-                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)], histogram=TRUE, pch=19)
-```
-
-```{r echo=FALSE, output = TRUE}
-chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)), 
+chart.Correlation(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
+                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), 
                   histogram = TRUE, pch = 19)
 ```
 
-
-```{r}
-chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)), 
-                  histogram = TRUE, pch = 19)
-```
 
 Wo kann eine kritische Korrelation beobachtet werden? Kann man es verantworten, trotzdem alle (Wetter)parameter in das Modell zu geben? 
 
@@ -529,7 +528,7 @@ Falls ja: warum? Falls nein: schliesst den betreffenden Parameter aus. Wenn ihr 
 Aktuell haben wir im umwelt-Datensatz noch alle Tageszeiten zusammen gespeichert. Für die Berechnung der Modelle unterteilen wir das noch in Tag, Dämmerung (Morgen- und Abenddämmerung zusammen) und Nacht. Hier eine Inspiration dazu:
 
 ```{r echo=TRUE, eval=FALSE}
-umwelt_day <- umwelt %>% 
+umwelt_day <- umwelt |> 
   filter(Tageszeit == "Tag")
 
 umwelt_duskdawn <- ...
@@ -538,13 +537,13 @@ umwelt_night <- ...
 ```
 
 ```{r}
-umwelt_day <- umwelt %>% 
+umwelt_day <- umwelt |> 
   filter(Tageszeit == "Tag")
 
-umwelt_duskdawn <- umwelt %>% 
+umwelt_duskdawn <- umwelt |> 
   filter(Tageszeit == "Morgen" | Tageszeit == "Abend" )
 
-umwelt_night <- umwelt %>% 
+umwelt_night <- umwelt |> 
   filter(Tageszeit == "Nacht")
 ```
 
