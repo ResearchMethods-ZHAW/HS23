@@ -50,9 +50,9 @@ Für "meine" Analysen habe ich folgende Fragestellungen formuliert:
 
 1) Struktur / Aufbau
 
-- Abstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch) im Umfang von 250 - 300 Wörter. Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.
+- Abstract / Zusammenfassung (wenn Bericht auf Deutsch, dann Zusammenfassung auch auf Deutsch). Im Abstract sollen alle Bestandteile des Berichts aufgenommen sein.
 
-- Es wird keine Einleitung erwartet. Sie kann aber gerne kurz ausgeführt werden.
+- Einleitung (hier können allenfalls Elemente / Teile aus den Forschungsplänen übernommen werden)
 
 -	Fragestellung (siehe oben; die Fragestellung ist vorgegeben, darf aber für den Bericht geschärft / ausformuliert und konkretisiert werden.)
 
@@ -66,7 +66,7 @@ Für "meine" Analysen habe ich folgende Fragestellungen formuliert:
 
 -	Anhang (für alle Auswertungen relevanter R-Code in geeigneter Form) 
 
-2) Gesamtumfang max. 7500 Zeichen (inkl. Leerzeichen; exkl. Zusammenfassung, Einleitung, Tabellen, Literaturverzeichnis und Anhang)
+2) Gesamtumfang max. 12'000 Zeichen (inkl. Leerzeichen; exkl. Tabellen, Literaturverzeichnis und Anhang)
 3) Abgabe am __14.1.2024__ per Mail an hoce@zhaw.ch
 
 ## Bewertungskriterien

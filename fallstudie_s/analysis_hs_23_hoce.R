@@ -323,7 +323,7 @@ depo <- depo |>
 
 
 # behalte die relevanten Var
-depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
+depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)
 
 # Plotte zum pruefn ob das funktioniert hat
 ggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +
