@@ -61,8 +61,18 @@ aov.1 <- aov(size ~ cultivar, data = blume2)
 summary(aov.1)
 summary.lm(aov.1)
 
-# Berechnung Mittelwerte usw. zur Charakterisierung der Gruppen
-aggregate(size ~ cultivar, blume2, function(x) c(Mean = mean(x), SD = sd(x), Min = min(x), Max = max(x)))
+# Berechnung Mittelwerte usw. zur Charakterisierung der Gruppen mittels dplyr-Funktionen
+
+library("dplyr")
+
+blume2 |> 
+  group_by(cultivar) |>
+  summarise(
+    Mean = mean(size), 
+    SD = sd(size),
+    Min = min(size),
+    Max = max(size)
+  )
 
 lm.1 <- lm(size ~ cultivar, data = blume2)
 summary(lm.1)
@@ -190,6 +200,7 @@ blume3 <- data.frame(
     house = c(rep(c(rep("yes", 10), rep("no", 10)), 3)),
     size = c(a, b, c, d, e, f)
 )
+
 blume3
 ```
 
@@ -213,7 +224,6 @@ anova(lm(blume3$size ~ blume3$house), lm(blume3$size ~ blume3$cultivar * blume3$
 
 # Visualisierung 2-fach-Interaktion etwas elaborierter mit ggplot
 library("sjPlot")
-library("ggplot2")
 theme_set(theme_classic())
 
 aov <- aov(size ~ cultivar * house, data = blume3)
@@ -225,8 +235,12 @@ plot_model(aov, type = "pred", terms = c("cultivar", "house"))
 
 # Datensatz zum Einfluss von Management und Hirschbeweidung auf den Pflanzenartenreichtum
 
-Riesch <- read.delim("datasets/stat1-4/Riesch_et_al_ReMe_Extract.csv", sep = ";", stringsAsFactors = TRUE)
+library("readr")
+
+Riesch <- read_delim("datasets/stat1-4/Riesch_et_al_ReMe_Extract.csv",";", col_types = cols("Year" = "f", "Treatment" = "f", "Plot.type" = "f"))
+
 str(Riesch)
+
 
 aov.deer <- aov(Species.richness ~ Year * Treatment * Plot.type, data = Riesch)
 plot_model(aov.deer, type = "pred", terms = c("Year", "Treatment", "Plot.type"))
@@ -239,7 +253,10 @@ plot_model(aov.deer, type = "pred", terms = c("Year", "Treatment", "Plot.type"))
 ## Korrelationen und Regressionen
 
 # Datensatz zum Einfluss von Stickstoffdepositionen auf den Pflanzenartenreichtum
-df <- read.delim("datasets/stat1-4/Nitrogen.csv", sep = ";")
+
+
+df <- read_delim("datasets/stat1-4/Nitrogen.csv", ";")
+
 summary(df)
 
 # Plotten der Beziehung
