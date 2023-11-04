@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../stat1-4/Statistik3_Uebung.html" rel="next">
-<link href="../stat1-4/Statistik2_Loesung_Beispiel.html" rel="prev">
+<link href="../stat1-4/Statistik2_Loesung_23n.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -148,7 +148,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat1-4.html">Statistik 1 - 4</a></li><li class="breadcrumb-item"><a href="../stat1-4/Statistik3_Demo.html"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Stat3: Demo</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat1-4.html">Statistik 1 - 4</a></li><li class="breadcrumb-item"><a href="../stat1-4/Statistik3_Demo.html"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Stat3: Demo</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -317,6 +317,11 @@ window.onload = function() {
   <a href="../stat1-4/Statistik1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -331,6 +336,21 @@ window.onload = function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung Beispiel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_2223s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.2 &amp; 2.3S</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_23n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.3N</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -1945,8 +1965,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat2: Lösung Beispiel</span></span>
+      <a href="../stat1-4/Statistik2_Loesung_23n.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat2: Lösung 2.3N</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -2178,89 +2198,91 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb79-249"><a href="#cb79-249" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb79-250"><a href="#cb79-250" aria-hidden="true" tabindex="-1"></a>-&gt; Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|<span class="sc">\&lt;</span>60\| Beobachtungen ist das Modell wohl "overfitted"</span>
 <span id="cb79-251"><a href="#cb79-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-254"><a href="#cb79-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-255"><a href="#cb79-255" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-256"><a href="#cb79-256" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-257"><a href="#cb79-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-258"><a href="#cb79-258" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
+<span id="cb79-252"><a href="#cb79-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-255"><a href="#cb79-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-256"><a href="#cb79-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Andere Vatiante, um korrelierte Prädiktoren zu finden</span></span>
+<span id="cb79-257"><a href="#cb79-257" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb79-258"><a href="#cb79-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb79-259"><a href="#cb79-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-260"><a href="#cb79-260" aria-hidden="true" tabindex="-1"></a>Schrittweise die am wenigsten signifkanten Terme entfernen:</span>
+<span id="cb79-260"><a href="#cb79-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
 <span id="cb79-261"><a href="#cb79-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-264"><a href="#cb79-264" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-265"><a href="#cb79-265" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell anschauen</span></span>
-<span id="cb79-266"><a href="#cb79-266" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-267"><a href="#cb79-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-268"><a href="#cb79-268" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>, <span class="sc">~</span> . <span class="sc">-</span> AREA) <span class="co"># Prädiktor mit grösstem p-Wert entfernen</span></span>
-<span id="cb79-269"><a href="#cb79-269" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>) <span class="co"># Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)</span></span>
-<span id="cb79-270"><a href="#cb79-270" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>) <span class="co"># Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen</span></span>
-<span id="cb79-271"><a href="#cb79-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-272"><a href="#cb79-272" aria-hidden="true" tabindex="-1"></a><span class="co"># Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell</span></span>
-<span id="cb79-273"><a href="#cb79-273" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>, <span class="sc">~</span> . <span class="sc">-</span> DIST)</span>
-<span id="cb79-274"><a href="#cb79-274" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
-<span id="cb79-275"><a href="#cb79-275" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
-<span id="cb79-276"><a href="#cb79-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-277"><a href="#cb79-277" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.3</span>, <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
-<span id="cb79-278"><a href="#cb79-278" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.3</span>, lm<span class="fl">.4</span>)</span>
-<span id="cb79-279"><a href="#cb79-279" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
-<span id="cb79-280"><a href="#cb79-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-281"><a href="#cb79-281" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.4</span>, <span class="sc">~</span> . <span class="sc">-</span> LDIST)</span>
-<span id="cb79-282"><a href="#cb79-282" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.4</span>, lm<span class="fl">.5</span>)</span>
-<span id="cb79-283"><a href="#cb79-283" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
-<span id="cb79-284"><a href="#cb79-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-285"><a href="#cb79-285" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.5</span>, <span class="sc">~</span> . <span class="sc">-</span> ALT)</span>
-<span id="cb79-286"><a href="#cb79-286" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.5</span>, lm<span class="fl">.6</span>)</span>
-<span id="cb79-287"><a href="#cb79-287" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.6</span>) </span>
-<span id="cb79-288"><a href="#cb79-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-289"><a href="#cb79-289" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb79-290"><a href="#cb79-290" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.6</span>)</span>
-<span id="cb79-291"><a href="#cb79-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-292"><a href="#cb79-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-293"><a href="#cb79-293" aria-hidden="true" tabindex="-1"></a>-&gt; das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.</span>
+<span id="cb79-262"><a href="#cb79-262" aria-hidden="true" tabindex="-1"></a>Schrittweise die am wenigsten signifkanten Terme entfernen:</span>
+<span id="cb79-263"><a href="#cb79-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-266"><a href="#cb79-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-267"><a href="#cb79-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell anschauen</span></span>
+<span id="cb79-268"><a href="#cb79-268" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb79-269"><a href="#cb79-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-270"><a href="#cb79-270" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>, <span class="sc">~</span> . <span class="sc">-</span> AREA) <span class="co"># Prädiktor mit grösstem p-Wert entfernen</span></span>
+<span id="cb79-271"><a href="#cb79-271" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>) <span class="co"># Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)</span></span>
+<span id="cb79-272"><a href="#cb79-272" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>) <span class="co"># Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen</span></span>
+<span id="cb79-273"><a href="#cb79-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-274"><a href="#cb79-274" aria-hidden="true" tabindex="-1"></a><span class="co"># Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell</span></span>
+<span id="cb79-275"><a href="#cb79-275" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>, <span class="sc">~</span> . <span class="sc">-</span> DIST)</span>
+<span id="cb79-276"><a href="#cb79-276" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
+<span id="cb79-277"><a href="#cb79-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
+<span id="cb79-278"><a href="#cb79-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-279"><a href="#cb79-279" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.3</span>, <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
+<span id="cb79-280"><a href="#cb79-280" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.3</span>, lm<span class="fl">.4</span>)</span>
+<span id="cb79-281"><a href="#cb79-281" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
+<span id="cb79-282"><a href="#cb79-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-283"><a href="#cb79-283" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.4</span>, <span class="sc">~</span> . <span class="sc">-</span> LDIST)</span>
+<span id="cb79-284"><a href="#cb79-284" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.4</span>, lm<span class="fl">.5</span>)</span>
+<span id="cb79-285"><a href="#cb79-285" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
+<span id="cb79-286"><a href="#cb79-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-287"><a href="#cb79-287" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.5</span>, <span class="sc">~</span> . <span class="sc">-</span> ALT)</span>
+<span id="cb79-288"><a href="#cb79-288" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.5</span>, lm<span class="fl">.6</span>)</span>
+<span id="cb79-289"><a href="#cb79-289" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.6</span>) </span>
+<span id="cb79-290"><a href="#cb79-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-291"><a href="#cb79-291" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb79-292"><a href="#cb79-292" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.6</span>)</span>
+<span id="cb79-293"><a href="#cb79-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb79-294"><a href="#cb79-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-295"><a href="#cb79-295" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
+<span id="cb79-295"><a href="#cb79-295" aria-hidden="true" tabindex="-1"></a>-&gt; das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.</span>
 <span id="cb79-296"><a href="#cb79-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-297"><a href="#cb79-297" aria-hidden="true" tabindex="-1"></a>Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:</span>
+<span id="cb79-297"><a href="#cb79-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
 <span id="cb79-298"><a href="#cb79-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-301"><a href="#cb79-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-302"><a href="#cb79-302" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"hier.part"</span>)</span>
-<span id="cb79-303"><a href="#cb79-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-304"><a href="#cb79-304" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span> <span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))</span>
+<span id="cb79-299"><a href="#cb79-299" aria-hidden="true" tabindex="-1"></a>Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:</span>
+<span id="cb79-300"><a href="#cb79-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-303"><a href="#cb79-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-304"><a href="#cb79-304" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"hier.part"</span>)</span>
 <span id="cb79-305"><a href="#cb79-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-306"><a href="#cb79-306" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb79-307"><a href="#cb79-307" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span>
-<span id="cb79-308"><a href="#cb79-308" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-309"><a href="#cb79-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-310"><a href="#cb79-310" aria-hidden="true" tabindex="-1"></a>-&gt; auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)</span>
+<span id="cb79-306"><a href="#cb79-306" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span> <span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))</span>
+<span id="cb79-307"><a href="#cb79-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-308"><a href="#cb79-308" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb79-309"><a href="#cb79-309" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span>
+<span id="cb79-310"><a href="#cb79-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb79-311"><a href="#cb79-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-312"><a href="#cb79-312" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
+<span id="cb79-312"><a href="#cb79-312" aria-hidden="true" tabindex="-1"></a>-&gt; auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)</span>
 <span id="cb79-313"><a href="#cb79-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-316"><a href="#cb79-316" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-317"><a href="#cb79-317" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
-<span id="cb79-318"><a href="#cb79-318" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-319"><a href="#cb79-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-320"><a href="#cb79-320" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
+<span id="cb79-314"><a href="#cb79-314" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
+<span id="cb79-315"><a href="#cb79-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-318"><a href="#cb79-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-319"><a href="#cb79-319" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
+<span id="cb79-320"><a href="#cb79-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb79-321"><a href="#cb79-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-324"><a href="#cb79-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-325"><a href="#cb79-325" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
-<span id="cb79-326"><a href="#cb79-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-327"><a href="#cb79-327" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb79-322"><a href="#cb79-322" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
+<span id="cb79-323"><a href="#cb79-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-326"><a href="#cb79-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-327"><a href="#cb79-327" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
 <span id="cb79-328"><a href="#cb79-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-329"><a href="#cb79-329" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb79-329"><a href="#cb79-329" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
 <span id="cb79-330"><a href="#cb79-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-331"><a href="#cb79-331" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
-<span id="cb79-332"><a href="#cb79-332" aria-hidden="true" tabindex="-1"></a>allmodels</span>
-<span id="cb79-333"><a href="#cb79-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-334"><a href="#cb79-334" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
-<span id="cb79-335"><a href="#cb79-335" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
-<span id="cb79-336"><a href="#cb79-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-337"><a href="#cb79-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-338"><a href="#cb79-338" aria-hidden="true" tabindex="-1"></a>-&gt; Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor</span>
+<span id="cb79-331"><a href="#cb79-331" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb79-332"><a href="#cb79-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-333"><a href="#cb79-333" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
+<span id="cb79-334"><a href="#cb79-334" aria-hidden="true" tabindex="-1"></a>allmodels</span>
+<span id="cb79-335"><a href="#cb79-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-336"><a href="#cb79-336" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
+<span id="cb79-337"><a href="#cb79-337" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
+<span id="cb79-338"><a href="#cb79-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb79-339"><a href="#cb79-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-342"><a href="#cb79-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-343"><a href="#cb79-343" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
-<span id="cb79-344"><a href="#cb79-344" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb79-345"><a href="#cb79-345" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
-<span id="cb79-346"><a href="#cb79-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb79-340"><a href="#cb79-340" aria-hidden="true" tabindex="-1"></a>-&gt; Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor</span>
+<span id="cb79-341"><a href="#cb79-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-344"><a href="#cb79-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb79-345"><a href="#cb79-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
+<span id="cb79-346"><a href="#cb79-346" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb79-347"><a href="#cb79-347" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
+<span id="cb79-348"><a href="#cb79-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
