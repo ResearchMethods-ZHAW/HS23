@@ -1047,7 +1047,8 @@ F-statistic: 11.14 on 2 and 12 DF,  p-value: 0.001842</code></pre>
 </div>
 <p>-&gt; Plot sieht zwar OK aus, aber mit 6 Prädiktoren für |&lt;60| Beobachtungen ist das Modell wohl “overfitted”</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Andere Vatiante, um korrelierte Prädiktoren zu finden</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> YR.ISOL     AREA     DIST    LDIST    GRAZE      ALT 
 1.841657 1.337627 1.227387 1.255028 2.307661 1.574537 </code></pre>
@@ -1269,16 +1270,26 @@ F-statistic: 47.09 on 1 and 54 DF,  p-value: 6.897e-09</code></pre>
 <h3 class="anchored" data-anchor-id="hierarchical-partitioning">Hierarchical partitioning</h3>
 <p>Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"hier.part"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in library("hier.part"): es gibt kein Paket namens 'hier.part'</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span> <span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))</span>
-<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-error">
-<pre><code>Error in hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu"): konnte Funktion "hier.part" nicht finden</code></pre>
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(relaimpo)){<span class="fu">install.packages</span>(<span class="st">"relaimpo"</span>)} </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell definieren</span></span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND<span class="sc">~</span>YR.ISOL<span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnen...</span></span>
+<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">calc.relimp</span>(lm_1, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"lmg"</span>, <span class="st">"first"</span>, <span class="st">"last"</span>,<span class="st">"betasq"</span>, <span class="st">"pratt"</span>))</span>
+<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>IJ <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">I =</span> metrics<span class="sc">$</span>lmg, <span class="at">J =</span> metrics<span class="sc">$</span>first <span class="sc">-</span> metrics<span class="sc">$</span>lmg, <span class="at">Total =</span> metrics<span class="sc">$</span>first)</span>
+<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-12"><a href="#cb68-12" aria-hidden="true" tabindex="-1"></a>IJ</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 I            J       Total
+YR.ISOL 0.11827368  0.135095338 0.253369016
+AREA    0.02359769  0.041923060 0.065520747
+DIST    0.02566349  0.030085610 0.055749104
+LDIST   0.01270789 -0.005112317 0.007595573
+GRAZE   0.25879164  0.207030145 0.465821782
+ALT     0.07275743  0.076112117 0.148869552</code></pre>
 </div>
 </div>
 <p>-&gt; auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)</p>
@@ -1286,7 +1297,7 @@ F-statistic: 47.09 on 1 and 54 DF,  p-value: 6.897e-09</code></pre>
 <section id="partial-regressions" class="level3">
 <h3 class="anchored" data-anchor-id="partial-regressions">Partial regressions</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik3_Demo_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -1296,14 +1307,14 @@ F-statistic: 47.09 on 1 and 54 DF,  p-value: 6.897e-09</code></pre>
 <section id="multimodel-inference" class="level2">
 <h2 class="anchored" data-anchor-id="multimodel-inference">Multimodel inference</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
-<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
-<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
-<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a>allmodels</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-7"><a href="#cb71-7" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
+<span id="cb71-8"><a href="#cb71-8" aria-hidden="true" tabindex="-1"></a>allmodels</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Global model call: lm(formula = ABUND ~ YR.ISOL + AREA + DIST + LDIST + GRAZE + 
     ALT, data = loyn)
@@ -1441,8 +1452,8 @@ Model selection table
 17 429.8 34.69  0.000
 Models ranked by AICc(x) </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
-<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                     GRAZE ALT  YR.ISOL LDIST DIST AREA
 Sum of weights:      1.00  0.44 0.34    0.32  0.28 0.25
@@ -1451,9 +1462,9 @@ N containing models:   32    32   32      32    32   32</code></pre>
 </div>
 <p>-&gt; Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
-<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -1975,314 +1986,321 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb79" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-11-06</span></span>
-<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat3</span></span>
-<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Lineare Modelle II</span></span>
-<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
-<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb79-9"><a href="#cb79-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb79-10"><a href="#cb79-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
-<span id="cb79-11"><a href="#cb79-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
-<span id="cb79-12"><a href="#cb79-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
-<span id="cb79-13"><a href="#cb79-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb79-14"><a href="#cb79-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-15"><a href="#cb79-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat3: Demo</span></span>
-<span id="cb79-16"><a href="#cb79-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-17"><a href="#cb79-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb79-18"><a href="#cb79-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Datensatz *ipomopsis.csv*</span>
-<span id="cb79-19"><a href="#cb79-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Datensatz *loyn.csv*</span>
-<span id="cb79-20"><a href="#cb79-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-21"><a href="#cb79-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## ANCOVA</span></span>
-<span id="cb79-22"><a href="#cb79-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-23"><a href="#cb79-23" aria-hidden="true" tabindex="-1"></a>Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")</span>
-<span id="cb79-24"><a href="#cb79-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-27"><a href="#cb79-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-28"><a href="#cb79-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen und anschauen</span></span>
-<span id="cb79-29"><a href="#cb79-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-30"><a href="#cb79-30" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
-<span id="cb79-31"><a href="#cb79-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(compensation)</span>
-<span id="cb79-32"><a href="#cb79-32" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(compensation)</span>
-<span id="cb79-33"><a href="#cb79-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-34"><a href="#cb79-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Pflanzengrösse ("Root") vs. Fruchtproduktion ("Fruit")</span></span>
-<span id="cb79-35"><a href="#cb79-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit <span class="sc">~</span> Root, <span class="at">data =</span> compensation)</span>
-<span id="cb79-36"><a href="#cb79-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-37"><a href="#cb79-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-38"><a href="#cb79-38" aria-hidden="true" tabindex="-1"></a>-&gt; Je grösser die Pflanze, desto grösser ihre Fruchtproduktion.</span>
-<span id="cb79-39"><a href="#cb79-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-42"><a href="#cb79-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-43"><a href="#cb79-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Beweidung ("Grazing") vs. Fruchtroduktion ("Fruit)</span></span>
-<span id="cb79-44"><a href="#cb79-44" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Fruit <span class="sc">~</span> Grazing, <span class="at">data =</span> compensation)</span>
-<span id="cb79-45"><a href="#cb79-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-46"><a href="#cb79-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-47"><a href="#cb79-47" aria-hidden="true" tabindex="-1"></a>-&gt; In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?</span>
-<span id="cb79-48"><a href="#cb79-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-51"><a href="#cb79-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-52"><a href="#cb79-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der vollständigen Daten/Information</span></span>
-<span id="cb79-53"><a href="#cb79-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb79-54"><a href="#cb79-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compensation, <span class="fu">aes</span>(Root, Fruit, <span class="at">color =</span> Grazing)) <span class="sc">+</span></span>
-<span id="cb79-55"><a href="#cb79-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb79-56"><a href="#cb79-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
-<span id="cb79-57"><a href="#cb79-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-58"><a href="#cb79-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-59"><a href="#cb79-59" aria-hidden="true" tabindex="-1"></a>-&gt; Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.</span>
-<span id="cb79-60"><a href="#cb79-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-63"><a href="#cb79-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-64"><a href="#cb79-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Modelle definieren und anschauen</span></span>
-<span id="cb79-65"><a href="#cb79-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-66"><a href="#cb79-66" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit <span class="sc">~</span> Root <span class="sc">*</span> Grazing, <span class="at">data =</span> compensation) <span class="co"># Volles Modell mit Interaktion</span></span>
-<span id="cb79-67"><a href="#cb79-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.1</span>)</span>
-<span id="cb79-68"><a href="#cb79-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-69"><a href="#cb79-69" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit <span class="sc">~</span> Grazing <span class="sc">+</span> Root, <span class="at">data =</span> compensation) <span class="co"># Finales Modell ohne die (nicht signifikante) Interaktion</span></span>
-<span id="cb79-70"><a href="#cb79-70" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.2</span>) <span class="co"># ANOVA-Tabelle</span></span>
-<span id="cb79-71"><a href="#cb79-71" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aoc<span class="fl">.2</span>) <span class="co"># Parameter-Tabelle</span></span>
-<span id="cb79-72"><a href="#cb79-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-73"><a href="#cb79-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots anschauen</span></span>
-<span id="cb79-74"><a href="#cb79-74" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb79-75"><a href="#cb79-75" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoc<span class="fl">.2</span>)</span>
-<span id="cb79-76"><a href="#cb79-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-77"><a href="#cb79-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-78"><a href="#cb79-78" aria-hidden="true" tabindex="-1"></a>-&gt; Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrund der grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".</span>
-<span id="cb79-79"><a href="#cb79-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-80"><a href="#cb79-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Polynomische Regression</span></span>
-<span id="cb79-81"><a href="#cb79-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-84"><a href="#cb79-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-85"><a href="#cb79-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren und Modelle rechnen</span></span>
-<span id="cb79-86"><a href="#cb79-86" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>) <span class="co"># "pred" sei unsere unabhängige Variable</span></span>
-<span id="cb79-87"><a href="#cb79-87" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>) <span class="co"># "resp" sei unsere abhängige Variable</span></span>
-<span id="cb79-88"><a href="#cb79-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-89"><a href="#cb79-89" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred, resp) <span class="co"># So sehen die Daten aus</span></span>
-<span id="cb79-90"><a href="#cb79-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-91"><a href="#cb79-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle definieren</span></span>
-<span id="cb79-92"><a href="#cb79-92" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(resp <span class="sc">~</span> pred) <span class="co"># Einfaches lineares Modell</span></span>
-<span id="cb79-93"><a href="#cb79-93" aria-hidden="true" tabindex="-1"></a>lm.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(resp <span class="sc">~</span> pred <span class="sc">+</span> <span class="fu">I</span>(pred<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># lineares Modell mit quadratischem Term</span></span>
-<span id="cb79-94"><a href="#cb79-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-95"><a href="#cb79-95" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>) <span class="co"># Modell anschauen</span></span>
-<span id="cb79-96"><a href="#cb79-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-97"><a href="#cb79-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-98"><a href="#cb79-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-99"><a href="#cb79-99" aria-hidden="true" tabindex="-1"></a>-&gt; kein signifikanter Zusammenhang im einfachen linearen Modell und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)</span>
-<span id="cb79-100"><a href="#cb79-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-103"><a href="#cb79-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-104"><a href="#cb79-104" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad) <span class="co"># lineares Modell mit quadratischem Term anschauen</span></span>
-<span id="cb79-105"><a href="#cb79-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-106"><a href="#cb79-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-107"><a href="#cb79-107" aria-hidden="true" tabindex="-1"></a>-&gt; signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)</span>
-<span id="cb79-108"><a href="#cb79-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-111"><a href="#cb79-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-112"><a href="#cb79-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle plotten</span></span>
-<span id="cb79-113"><a href="#cb79-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-114"><a href="#cb79-114" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb79-115"><a href="#cb79-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-116"><a href="#cb79-116" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. lineares Modell</span></span>
-<span id="cb79-117"><a href="#cb79-117" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(resp <span class="sc">~</span> pred, <span class="at">main =</span> <span class="st">"Lineares Modell"</span>)</span>
-<span id="cb79-118"><a href="#cb79-118" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb79-119"><a href="#cb79-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-120"><a href="#cb79-120" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. quadratisches Modell</span></span>
-<span id="cb79-121"><a href="#cb79-121" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(resp <span class="sc">~</span> pred, <span class="at">main =</span> <span class="st">"Quadratisches  Modell"</span>)</span>
-<span id="cb79-122"><a href="#cb79-122" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="fl">0.1</span>) <span class="co"># Input für Modellvoraussage via predict ()</span></span>
-<span id="cb79-123"><a href="#cb79-123" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.quad, <span class="fu">list</span>(<span class="at">pred =</span> xv))</span>
-<span id="cb79-124"><a href="#cb79-124" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb79-125"><a href="#cb79-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-126"><a href="#cb79-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-129"><a href="#cb79-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-130"><a href="#cb79-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots</span></span>
-<span id="cb79-131"><a href="#cb79-131" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb79-132"><a href="#cb79-132" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>, <span class="at">main =</span> <span class="st">"Lineares Modell"</span>)</span>
-<span id="cb79-133"><a href="#cb79-133" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.quad, <span class="at">main =</span> <span class="st">"Quadratisches  Modell"</span>)</span>
-<span id="cb79-134"><a href="#cb79-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-135"><a href="#cb79-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-136"><a href="#cb79-136" aria-hidden="true" tabindex="-1"></a>-&gt; Die Plots sehen beim Modell mit quadratischem Term besser aus</span>
-<span id="cb79-137"><a href="#cb79-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-138"><a href="#cb79-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulation Overfitting</span></span>
-<span id="cb79-139"><a href="#cb79-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-142"><a href="#cb79-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-143"><a href="#cb79-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispieldaten mit 6 Datenpunkten</span></span>
-<span id="cb79-144"><a href="#cb79-144" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"x"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="st">"y"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">21</span>, <span class="dv">70</span>, <span class="dv">47</span>, <span class="dv">23</span>, <span class="dv">45</span>))</span>
-<span id="cb79-145"><a href="#cb79-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-146"><a href="#cb79-146" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb79-147"><a href="#cb79-147" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> test)</span>
-<span id="cb79-148"><a href="#cb79-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-149"><a href="#cb79-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-152"><a href="#cb79-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-153"><a href="#cb79-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Zunehmend komplizierte Modelle (je komplizierter desto overfitteter) definieren</span></span>
-<span id="cb79-154"><a href="#cb79-154" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> test) <span class="co"># Modell </span></span>
-<span id="cb79-155"><a href="#cb79-155" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> test)</span>
-<span id="cb79-156"><a href="#cb79-156" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> test)</span>
-<span id="cb79-157"><a href="#cb79-157" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>), <span class="at">data =</span> test)</span>
-<span id="cb79-158"><a href="#cb79-158" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>), <span class="at">data =</span> test)</span>
-<span id="cb79-159"><a href="#cb79-159" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>), <span class="at">data =</span> test)</span>
-<span id="cb79-160"><a href="#cb79-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-161"><a href="#cb79-161" aria-hidden="true" tabindex="-1"></a><span class="co"># Summaries rechnen</span></span>
-<span id="cb79-162"><a href="#cb79-162" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.0</span>)</span>
-<span id="cb79-163"><a href="#cb79-163" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-164"><a href="#cb79-164" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
-<span id="cb79-165"><a href="#cb79-165" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
-<span id="cb79-166"><a href="#cb79-166" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
-<span id="cb79-167"><a href="#cb79-167" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
-<span id="cb79-168"><a href="#cb79-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-169"><a href="#cb79-169" aria-hidden="true" tabindex="-1"></a><span class="co"># R2 vergleichen</span></span>
-<span id="cb79-170"><a href="#cb79-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-171"><a href="#cb79-171" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.0</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-172"><a href="#cb79-172" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.1</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-173"><a href="#cb79-173" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.2</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-174"><a href="#cb79-174" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.3</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-175"><a href="#cb79-175" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.4</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-176"><a href="#cb79-176" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.5</span><span class="sc">$</span>r.squared</span>
-<span id="cb79-177"><a href="#cb79-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-178"><a href="#cb79-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-179"><a href="#cb79-179" aria-hidden="true" tabindex="-1"></a>-&gt; R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)</span>
-<span id="cb79-180"><a href="#cb79-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-183"><a href="#cb79-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-184"><a href="#cb79-184" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle plotten</span></span>
-<span id="cb79-185"><a href="#cb79-185" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb79-186"><a href="#cb79-186" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">data =</span> test)</span>
-<span id="cb79-187"><a href="#cb79-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-188"><a href="#cb79-188" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> lm<span class="fl">.0</span><span class="sc">$</span>coefficients, <span class="at">col =</span> <span class="st">"darkgray"</span>, <span class="at">lwd =</span> <span class="dv">3</span> )</span>
-<span id="cb79-189"><a href="#cb79-189" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">70</span>, <span class="st">"lm.0"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
-<span id="cb79-190"><a href="#cb79-190" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb79-191"><a href="#cb79-191" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb79-192"><a href="#cb79-192" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">67</span>, <span class="st">"lm.1"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb79-193"><a href="#cb79-193" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb79-194"><a href="#cb79-194" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb79-195"><a href="#cb79-195" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">64</span>, <span class="st">"lm.2"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb79-196"><a href="#cb79-196" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.3</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb79-197"><a href="#cb79-197" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb79-198"><a href="#cb79-198" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">61</span>, <span class="st">"lm.3"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb79-199"><a href="#cb79-199" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.4</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb79-200"><a href="#cb79-200" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb79-201"><a href="#cb79-201" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">58</span>, <span class="st">"lm.4"</span>, <span class="at">col =</span> <span class="st">"orange"</span>)</span>
-<span id="cb79-202"><a href="#cb79-202" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.5</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
-<span id="cb79-203"><a href="#cb79-203" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"violet"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb79-204"><a href="#cb79-204" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">55</span>, <span class="st">"lm.5"</span>, <span class="at">col =</span> <span class="st">"violet"</span>)</span>
-<span id="cb79-205"><a href="#cb79-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-206"><a href="#cb79-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-207"><a href="#cb79-207" aria-hidden="true" tabindex="-1"></a>-&gt; Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.</span>
-<span id="cb79-208"><a href="#cb79-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-209"><a href="#cb79-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</span></span>
-<span id="cb79-210"><a href="#cb79-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-213"><a href="#cb79-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-214"><a href="#cb79-214" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>
-<span id="cb79-215"><a href="#cb79-215" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
-<span id="cb79-216"><a href="#cb79-216" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span>
-<span id="cb79-217"><a href="#cb79-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-218"><a href="#cb79-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-219"><a href="#cb79-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Korrelation zwischen den Prädiktoren</span></span>
-<span id="cb79-220"><a href="#cb79-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-223"><a href="#cb79-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-224"><a href="#cb79-224" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir setzen die Schwelle bei |0.7|</span></span>
-<span id="cb79-225"><a href="#cb79-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-226"><a href="#cb79-226" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(loyn[, <span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>]) <span class="co"># Korrelationen rechnen details siehe: "?cor"</span></span>
-<span id="cb79-227"><a href="#cb79-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-228"><a href="#cb79-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen Visualisieren (google: "correlation plot r"...)</span></span>
-<span id="cb79-229"><a href="#cb79-229" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"corrplot"</span>)</span>
-<span id="cb79-230"><a href="#cb79-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-231"><a href="#cb79-231" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(cor, <span class="at">lower =</span> <span class="st">"ellipse"</span>, <span class="at">upper =</span> <span class="st">"number"</span>, <span class="at">order =</span> <span class="st">"AOE"</span>)</span>
-<span id="cb79-232"><a href="#cb79-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-233"><a href="#cb79-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-234"><a href="#cb79-234" aria-hidden="true" tabindex="-1"></a>-&gt; Keine Korrelation ist <span class="sc">\&gt;</span>\|0.7\|, so können wir alle Prädiktoren "behalten". Aber es gilt zu beachten , dass GRAZE ziemlich stark \|<span class="sc">\&gt;</span>0.6\| mit YR.ISOL korreliert ist</span>
-<span id="cb79-235"><a href="#cb79-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-238"><a href="#cb79-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-239"><a href="#cb79-239" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell definieren</span></span>
-<span id="cb79-240"><a href="#cb79-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-241"><a href="#cb79-241" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(loyn)</span>
-<span id="cb79-242"><a href="#cb79-242" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span> DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
-<span id="cb79-243"><a href="#cb79-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-244"><a href="#cb79-244" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
-<span id="cb79-245"><a href="#cb79-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-246"><a href="#cb79-246" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb79-247"><a href="#cb79-247" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-248"><a href="#cb79-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-249"><a href="#cb79-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-250"><a href="#cb79-250" aria-hidden="true" tabindex="-1"></a>-&gt; Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|<span class="sc">\&lt;</span>60\| Beobachtungen ist das Modell wohl "overfitted"</span>
-<span id="cb79-251"><a href="#cb79-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-252"><a href="#cb79-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-255"><a href="#cb79-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-256"><a href="#cb79-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Andere Vatiante, um korrelierte Prädiktoren zu finden</span></span>
-<span id="cb79-257"><a href="#cb79-257" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-258"><a href="#cb79-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-259"><a href="#cb79-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-260"><a href="#cb79-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
-<span id="cb79-261"><a href="#cb79-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-262"><a href="#cb79-262" aria-hidden="true" tabindex="-1"></a>Schrittweise die am wenigsten signifkanten Terme entfernen:</span>
-<span id="cb79-263"><a href="#cb79-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-266"><a href="#cb79-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-267"><a href="#cb79-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell anschauen</span></span>
-<span id="cb79-268"><a href="#cb79-268" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
-<span id="cb79-269"><a href="#cb79-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-270"><a href="#cb79-270" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>, <span class="sc">~</span> . <span class="sc">-</span> AREA) <span class="co"># Prädiktor mit grösstem p-Wert entfernen</span></span>
-<span id="cb79-271"><a href="#cb79-271" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>) <span class="co"># Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)</span></span>
-<span id="cb79-272"><a href="#cb79-272" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>) <span class="co"># Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen</span></span>
-<span id="cb79-273"><a href="#cb79-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-274"><a href="#cb79-274" aria-hidden="true" tabindex="-1"></a><span class="co"># Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell</span></span>
-<span id="cb79-275"><a href="#cb79-275" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>, <span class="sc">~</span> . <span class="sc">-</span> DIST)</span>
-<span id="cb79-276"><a href="#cb79-276" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
-<span id="cb79-277"><a href="#cb79-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
-<span id="cb79-278"><a href="#cb79-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-279"><a href="#cb79-279" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.3</span>, <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
-<span id="cb79-280"><a href="#cb79-280" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.3</span>, lm<span class="fl">.4</span>)</span>
-<span id="cb79-281"><a href="#cb79-281" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
-<span id="cb79-282"><a href="#cb79-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-283"><a href="#cb79-283" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.4</span>, <span class="sc">~</span> . <span class="sc">-</span> LDIST)</span>
-<span id="cb79-284"><a href="#cb79-284" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.4</span>, lm<span class="fl">.5</span>)</span>
-<span id="cb79-285"><a href="#cb79-285" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
-<span id="cb79-286"><a href="#cb79-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-287"><a href="#cb79-287" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.5</span>, <span class="sc">~</span> . <span class="sc">-</span> ALT)</span>
-<span id="cb79-288"><a href="#cb79-288" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.5</span>, lm<span class="fl">.6</span>)</span>
-<span id="cb79-289"><a href="#cb79-289" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.6</span>) </span>
-<span id="cb79-290"><a href="#cb79-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-291"><a href="#cb79-291" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
-<span id="cb79-292"><a href="#cb79-292" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.6</span>)</span>
-<span id="cb79-293"><a href="#cb79-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-294"><a href="#cb79-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-295"><a href="#cb79-295" aria-hidden="true" tabindex="-1"></a>-&gt; das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.</span>
-<span id="cb79-296"><a href="#cb79-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-297"><a href="#cb79-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
-<span id="cb79-298"><a href="#cb79-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-299"><a href="#cb79-299" aria-hidden="true" tabindex="-1"></a>Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:</span>
-<span id="cb79-300"><a href="#cb79-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-303"><a href="#cb79-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-304"><a href="#cb79-304" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"hier.part"</span>)</span>
-<span id="cb79-305"><a href="#cb79-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-306"><a href="#cb79-306" aria-hidden="true" tabindex="-1"></a>loyn.preds <span class="ot">&lt;-</span> <span class="fu">with</span>(loyn, <span class="fu">data.frame</span>(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))</span>
-<span id="cb79-307"><a href="#cb79-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-308"><a href="#cb79-308" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb79-309"><a href="#cb79-309" aria-hidden="true" tabindex="-1"></a><span class="fu">hier.part</span>(loyn<span class="sc">$</span>ABUND, loyn.preds, <span class="at">gof =</span> <span class="st">"Rsqu"</span>)</span>
-<span id="cb79-310"><a href="#cb79-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-311"><a href="#cb79-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-312"><a href="#cb79-312" aria-hidden="true" tabindex="-1"></a>-&gt; auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)</span>
-<span id="cb79-313"><a href="#cb79-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-314"><a href="#cb79-314" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
-<span id="cb79-315"><a href="#cb79-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-318"><a href="#cb79-318" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-319"><a href="#cb79-319" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
-<span id="cb79-320"><a href="#cb79-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-321"><a href="#cb79-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-322"><a href="#cb79-322" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
-<span id="cb79-323"><a href="#cb79-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-326"><a href="#cb79-326" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-327"><a href="#cb79-327" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
-<span id="cb79-328"><a href="#cb79-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-329"><a href="#cb79-329" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
-<span id="cb79-330"><a href="#cb79-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-331"><a href="#cb79-331" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb79-332"><a href="#cb79-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-333"><a href="#cb79-333" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
-<span id="cb79-334"><a href="#cb79-334" aria-hidden="true" tabindex="-1"></a>allmodels</span>
-<span id="cb79-335"><a href="#cb79-335" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-336"><a href="#cb79-336" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
-<span id="cb79-337"><a href="#cb79-337" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
-<span id="cb79-338"><a href="#cb79-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb79-339"><a href="#cb79-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-340"><a href="#cb79-340" aria-hidden="true" tabindex="-1"></a>-&gt; Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor</span>
-<span id="cb79-341"><a href="#cb79-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb79-344"><a href="#cb79-344" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb79-345"><a href="#cb79-345" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
-<span id="cb79-346"><a href="#cb79-346" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb79-347"><a href="#cb79-347" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
-<span id="cb79-348"><a href="#cb79-348" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb77" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-11-06</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat3</span></span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Lineare Modelle II</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 1</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb77-7"><a href="#cb77-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb77-8"><a href="#cb77-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb77-9"><a href="#cb77-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb77-10"><a href="#cb77-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
+<span id="cb77-11"><a href="#cb77-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
+<span id="cb77-12"><a href="#cb77-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
+<span id="cb77-13"><a href="#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb77-14"><a href="#cb77-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-15"><a href="#cb77-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat3: Demo</span></span>
+<span id="cb77-16"><a href="#cb77-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-17"><a href="#cb77-17" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Download dieses Demoscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb77-18"><a href="#cb77-18" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Datensatz *ipomopsis.csv*</span>
+<span id="cb77-19"><a href="#cb77-19" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Datensatz *loyn.csv*</span>
+<span id="cb77-20"><a href="#cb77-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-21"><a href="#cb77-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## ANCOVA</span></span>
+<span id="cb77-22"><a href="#cb77-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-23"><a href="#cb77-23" aria-hidden="true" tabindex="-1"></a>Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")</span>
+<span id="cb77-24"><a href="#cb77-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-27"><a href="#cb77-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-28"><a href="#cb77-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten einlesen und anschauen</span></span>
+<span id="cb77-29"><a href="#cb77-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-30"><a href="#cb77-30" aria-hidden="true" tabindex="-1"></a>compensation <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/ipomopsis.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>, <span class="at">stringsAsFactors =</span> T)</span>
+<span id="cb77-31"><a href="#cb77-31" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(compensation)</span>
+<span id="cb77-32"><a href="#cb77-32" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(compensation)</span>
+<span id="cb77-33"><a href="#cb77-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-34"><a href="#cb77-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Pflanzengrösse ("Root") vs. Fruchtproduktion ("Fruit")</span></span>
+<span id="cb77-35"><a href="#cb77-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Fruit <span class="sc">~</span> Root, <span class="at">data =</span> compensation)</span>
+<span id="cb77-36"><a href="#cb77-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-37"><a href="#cb77-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-38"><a href="#cb77-38" aria-hidden="true" tabindex="-1"></a>-&gt; Je grösser die Pflanze, desto grösser ihre Fruchtproduktion.</span>
+<span id="cb77-39"><a href="#cb77-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-42"><a href="#cb77-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-43"><a href="#cb77-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Beweidung ("Grazing") vs. Fruchtroduktion ("Fruit)</span></span>
+<span id="cb77-44"><a href="#cb77-44" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(Fruit <span class="sc">~</span> Grazing, <span class="at">data =</span> compensation)</span>
+<span id="cb77-45"><a href="#cb77-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-46"><a href="#cb77-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-47"><a href="#cb77-47" aria-hidden="true" tabindex="-1"></a>-&gt; In der beweideten Gruppe scheint die Fruchtproduktion grösser. Liegt dies an der Beweidung oder an unterschiedlichen Pflanzengrössen zwischen den Gruppen?</span>
+<span id="cb77-48"><a href="#cb77-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-51"><a href="#cb77-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-52"><a href="#cb77-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten der vollständigen Daten/Information</span></span>
+<span id="cb77-53"><a href="#cb77-53" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb77-54"><a href="#cb77-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(compensation, <span class="fu">aes</span>(Root, Fruit, <span class="at">color =</span> Grazing)) <span class="sc">+</span></span>
+<span id="cb77-55"><a href="#cb77-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb77-56"><a href="#cb77-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span>
+<span id="cb77-57"><a href="#cb77-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-58"><a href="#cb77-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-59"><a href="#cb77-59" aria-hidden="true" tabindex="-1"></a>-&gt; Die grössere Fruchtproduktion innerhalb der beweideten Gruppe scheint also ein Resultat von unterschiedlichen Pflanzengrössen zwischen den Gruppen zu sein und nicht an der Beweidung zu liegen.</span>
+<span id="cb77-60"><a href="#cb77-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-63"><a href="#cb77-63" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-64"><a href="#cb77-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineare Modelle definieren und anschauen</span></span>
+<span id="cb77-65"><a href="#cb77-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-66"><a href="#cb77-66" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit <span class="sc">~</span> Root <span class="sc">*</span> Grazing, <span class="at">data =</span> compensation) <span class="co"># Volles Modell mit Interaktion</span></span>
+<span id="cb77-67"><a href="#cb77-67" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.1</span>)</span>
+<span id="cb77-68"><a href="#cb77-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-69"><a href="#cb77-69" aria-hidden="true" tabindex="-1"></a>aoc<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(Fruit <span class="sc">~</span> Grazing <span class="sc">+</span> Root, <span class="at">data =</span> compensation) <span class="co"># Finales Modell ohne die (nicht signifikante) Interaktion</span></span>
+<span id="cb77-70"><a href="#cb77-70" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.aov</span>(aoc<span class="fl">.2</span>) <span class="co"># ANOVA-Tabelle</span></span>
+<span id="cb77-71"><a href="#cb77-71" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(aoc<span class="fl">.2</span>) <span class="co"># Parameter-Tabelle</span></span>
+<span id="cb77-72"><a href="#cb77-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-73"><a href="#cb77-73" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots anschauen</span></span>
+<span id="cb77-74"><a href="#cb77-74" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb77-75"><a href="#cb77-75" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(aoc<span class="fl">.2</span>)</span>
+<span id="cb77-76"><a href="#cb77-76" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-77"><a href="#cb77-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-78"><a href="#cb77-78" aria-hidden="true" tabindex="-1"></a>-&gt; Das ANCOVA-Modell widerspiegelt die Zusammenhänge wie sie aufgrund der grafisch dargestellten Daten zu vermuten sind gut. Die Residual-Plots zeigen 3 Ausreisser (Beobachtungen 27, 34 und 37), welche "aus der Reihe tanzen".</span>
+<span id="cb77-79"><a href="#cb77-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-80"><a href="#cb77-80" aria-hidden="true" tabindex="-1"></a><span class="fu">## Polynomische Regression</span></span>
+<span id="cb77-81"><a href="#cb77-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-84"><a href="#cb77-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-85"><a href="#cb77-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten generieren und Modelle rechnen</span></span>
+<span id="cb77-86"><a href="#cb77-86" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">19</span>, <span class="dv">25</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dv">15</span>, <span class="dv">13</span>, <span class="dv">18</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">25</span>, <span class="dv">39</span>, <span class="dv">38</span>, <span class="dv">28</span>, <span class="dv">24</span>) <span class="co"># "pred" sei unsere unabhängige Variable</span></span>
+<span id="cb77-87"><a href="#cb77-87" aria-hidden="true" tabindex="-1"></a>resp <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">15</span>, <span class="dv">10</span>, <span class="dv">7</span>, <span class="dv">2</span>, <span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">10</span>, <span class="dv">9</span>, <span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">13</span>) <span class="co"># "resp" sei unsere abhängige Variable</span></span>
+<span id="cb77-88"><a href="#cb77-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-89"><a href="#cb77-89" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(pred, resp) <span class="co"># So sehen die Daten aus</span></span>
+<span id="cb77-90"><a href="#cb77-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-91"><a href="#cb77-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle definieren</span></span>
+<span id="cb77-92"><a href="#cb77-92" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(resp <span class="sc">~</span> pred) <span class="co"># Einfaches lineares Modell</span></span>
+<span id="cb77-93"><a href="#cb77-93" aria-hidden="true" tabindex="-1"></a>lm.quad <span class="ot">&lt;-</span> <span class="fu">lm</span>(resp <span class="sc">~</span> pred <span class="sc">+</span> <span class="fu">I</span>(pred<span class="sc">^</span><span class="dv">2</span>)) <span class="co"># lineares Modell mit quadratischem Term</span></span>
+<span id="cb77-94"><a href="#cb77-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-95"><a href="#cb77-95" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>) <span class="co"># Modell anschauen</span></span>
+<span id="cb77-96"><a href="#cb77-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-97"><a href="#cb77-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-98"><a href="#cb77-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-99"><a href="#cb77-99" aria-hidden="true" tabindex="-1"></a>-&gt; kein signifikanter Zusammenhang im einfachen linearen Modell und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)</span>
+<span id="cb77-100"><a href="#cb77-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-103"><a href="#cb77-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-104"><a href="#cb77-104" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.quad) <span class="co"># lineares Modell mit quadratischem Term anschauen</span></span>
+<span id="cb77-105"><a href="#cb77-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-106"><a href="#cb77-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-107"><a href="#cb77-107" aria-hidden="true" tabindex="-1"></a>-&gt; signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)</span>
+<span id="cb77-108"><a href="#cb77-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-111"><a href="#cb77-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-112"><a href="#cb77-112" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle plotten</span></span>
+<span id="cb77-113"><a href="#cb77-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-114"><a href="#cb77-114" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb77-115"><a href="#cb77-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-116"><a href="#cb77-116" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. lineares Modell</span></span>
+<span id="cb77-117"><a href="#cb77-117" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(resp <span class="sc">~</span> pred, <span class="at">main =</span> <span class="st">"Lineares Modell"</span>)</span>
+<span id="cb77-118"><a href="#cb77-118" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(lm<span class="fl">.1</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb77-119"><a href="#cb77-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-120"><a href="#cb77-120" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. quadratisches Modell</span></span>
+<span id="cb77-121"><a href="#cb77-121" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(resp <span class="sc">~</span> pred, <span class="at">main =</span> <span class="st">"Quadratisches  Modell"</span>)</span>
+<span id="cb77-122"><a href="#cb77-122" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="fl">0.1</span>) <span class="co"># Input für Modellvoraussage via predict ()</span></span>
+<span id="cb77-123"><a href="#cb77-123" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm.quad, <span class="fu">list</span>(<span class="at">pred =</span> xv))</span>
+<span id="cb77-124"><a href="#cb77-124" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb77-125"><a href="#cb77-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-126"><a href="#cb77-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-129"><a href="#cb77-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-130"><a href="#cb77-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Residualplots</span></span>
+<span id="cb77-131"><a href="#cb77-131" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb77-132"><a href="#cb77-132" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>, <span class="at">main =</span> <span class="st">"Lineares Modell"</span>)</span>
+<span id="cb77-133"><a href="#cb77-133" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm.quad, <span class="at">main =</span> <span class="st">"Quadratisches  Modell"</span>)</span>
+<span id="cb77-134"><a href="#cb77-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-135"><a href="#cb77-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-136"><a href="#cb77-136" aria-hidden="true" tabindex="-1"></a>-&gt; Die Plots sehen beim Modell mit quadratischem Term besser aus</span>
+<span id="cb77-137"><a href="#cb77-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-138"><a href="#cb77-138" aria-hidden="true" tabindex="-1"></a><span class="fu">### Simulation Overfitting</span></span>
+<span id="cb77-139"><a href="#cb77-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-142"><a href="#cb77-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-143"><a href="#cb77-143" aria-hidden="true" tabindex="-1"></a><span class="co"># Beispieldaten mit 6 Datenpunkten</span></span>
+<span id="cb77-144"><a href="#cb77-144" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="st">"x"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>), <span class="st">"y"</span> <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">34</span>, <span class="dv">21</span>, <span class="dv">70</span>, <span class="dv">47</span>, <span class="dv">23</span>, <span class="dv">45</span>))</span>
+<span id="cb77-145"><a href="#cb77-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-146"><a href="#cb77-146" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb77-147"><a href="#cb77-147" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">data =</span> test)</span>
+<span id="cb77-148"><a href="#cb77-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-149"><a href="#cb77-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-152"><a href="#cb77-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-153"><a href="#cb77-153" aria-hidden="true" tabindex="-1"></a><span class="co"># Zunehmend komplizierte Modelle (je komplizierter desto overfitteter) definieren</span></span>
+<span id="cb77-154"><a href="#cb77-154" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> test) <span class="co"># Modell </span></span>
+<span id="cb77-155"><a href="#cb77-155" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">data =</span> test)</span>
+<span id="cb77-156"><a href="#cb77-156" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> test)</span>
+<span id="cb77-157"><a href="#cb77-157" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>), <span class="at">data =</span> test)</span>
+<span id="cb77-158"><a href="#cb77-158" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>), <span class="at">data =</span> test)</span>
+<span id="cb77-159"><a href="#cb77-159" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">3</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">4</span>) <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">5</span>), <span class="at">data =</span> test)</span>
+<span id="cb77-160"><a href="#cb77-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-161"><a href="#cb77-161" aria-hidden="true" tabindex="-1"></a><span class="co"># Summaries rechnen</span></span>
+<span id="cb77-162"><a href="#cb77-162" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.0</span>)</span>
+<span id="cb77-163"><a href="#cb77-163" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb77-164"><a href="#cb77-164" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.2</span>)</span>
+<span id="cb77-165"><a href="#cb77-165" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
+<span id="cb77-166"><a href="#cb77-166" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
+<span id="cb77-167"><a href="#cb77-167" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
+<span id="cb77-168"><a href="#cb77-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-169"><a href="#cb77-169" aria-hidden="true" tabindex="-1"></a><span class="co"># R2 vergleichen</span></span>
+<span id="cb77-170"><a href="#cb77-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-171"><a href="#cb77-171" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.0</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-172"><a href="#cb77-172" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.1</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-173"><a href="#cb77-173" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.2</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-174"><a href="#cb77-174" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.3</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-175"><a href="#cb77-175" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.4</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-176"><a href="#cb77-176" aria-hidden="true" tabindex="-1"></a>smy<span class="fl">.5</span><span class="sc">$</span>r.squared</span>
+<span id="cb77-177"><a href="#cb77-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-178"><a href="#cb77-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-179"><a href="#cb77-179" aria-hidden="true" tabindex="-1"></a>-&gt; R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)</span>
+<span id="cb77-180"><a href="#cb77-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-183"><a href="#cb77-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-184"><a href="#cb77-184" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelle plotten</span></span>
+<span id="cb77-185"><a href="#cb77-185" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb77-186"><a href="#cb77-186" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y <span class="sc">~</span> x, <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">3</span>, <span class="at">data =</span> test)</span>
+<span id="cb77-187"><a href="#cb77-187" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-188"><a href="#cb77-188" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> lm<span class="fl">.0</span><span class="sc">$</span>coefficients, <span class="at">col =</span> <span class="st">"darkgray"</span>, <span class="at">lwd =</span> <span class="dv">3</span> )</span>
+<span id="cb77-189"><a href="#cb77-189" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">70</span>, <span class="st">"lm.0"</span>, <span class="at">col =</span> <span class="st">"darkgray"</span>)</span>
+<span id="cb77-190"><a href="#cb77-190" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb77-191"><a href="#cb77-191" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"red"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb77-192"><a href="#cb77-192" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">67</span>, <span class="st">"lm.1"</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb77-193"><a href="#cb77-193" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.2</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb77-194"><a href="#cb77-194" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb77-195"><a href="#cb77-195" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">64</span>, <span class="st">"lm.2"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb77-196"><a href="#cb77-196" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.3</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb77-197"><a href="#cb77-197" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"green"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb77-198"><a href="#cb77-198" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">61</span>, <span class="st">"lm.3"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb77-199"><a href="#cb77-199" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.4</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb77-200"><a href="#cb77-200" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb77-201"><a href="#cb77-201" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">58</span>, <span class="st">"lm.4"</span>, <span class="at">col =</span> <span class="st">"orange"</span>)</span>
+<span id="cb77-202"><a href="#cb77-202" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(lm<span class="fl">.5</span>, <span class="fu">list</span>(<span class="at">x =</span> xv))</span>
+<span id="cb77-203"><a href="#cb77-203" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">col =</span> <span class="st">"violet"</span>, <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb77-204"><a href="#cb77-204" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="fl">1.5</span>, <span class="at">y =</span> <span class="dv">55</span>, <span class="st">"lm.5"</span>, <span class="at">col =</span> <span class="st">"violet"</span>)</span>
+<span id="cb77-205"><a href="#cb77-205" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-206"><a href="#cb77-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-207"><a href="#cb77-207" aria-hidden="true" tabindex="-1"></a>-&gt; Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.</span>
+<span id="cb77-208"><a href="#cb77-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-209"><a href="#cb77-209" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</span></span>
+<span id="cb77-210"><a href="#cb77-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-213"><a href="#cb77-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-214"><a href="#cb77-214" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>
+<span id="cb77-215"><a href="#cb77-215" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
+<span id="cb77-216"><a href="#cb77-216" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(loyn)</span>
+<span id="cb77-217"><a href="#cb77-217" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-218"><a href="#cb77-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-219"><a href="#cb77-219" aria-hidden="true" tabindex="-1"></a><span class="fu">### Korrelation zwischen den Prädiktoren</span></span>
+<span id="cb77-220"><a href="#cb77-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-223"><a href="#cb77-223" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-224"><a href="#cb77-224" aria-hidden="true" tabindex="-1"></a><span class="co"># Wir setzen die Schwelle bei |0.7|</span></span>
+<span id="cb77-225"><a href="#cb77-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-226"><a href="#cb77-226" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(loyn[, <span class="dv">3</span><span class="sc">:</span><span class="dv">8</span>]) <span class="co"># Korrelationen rechnen details siehe: "?cor"</span></span>
+<span id="cb77-227"><a href="#cb77-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-228"><a href="#cb77-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen Visualisieren (google: "correlation plot r"...)</span></span>
+<span id="cb77-229"><a href="#cb77-229" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"corrplot"</span>)</span>
+<span id="cb77-230"><a href="#cb77-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-231"><a href="#cb77-231" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(cor, <span class="at">lower =</span> <span class="st">"ellipse"</span>, <span class="at">upper =</span> <span class="st">"number"</span>, <span class="at">order =</span> <span class="st">"AOE"</span>)</span>
+<span id="cb77-232"><a href="#cb77-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-233"><a href="#cb77-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-234"><a href="#cb77-234" aria-hidden="true" tabindex="-1"></a>-&gt; Keine Korrelation ist <span class="sc">\&gt;</span>\|0.7\|, so können wir alle Prädiktoren "behalten". Aber es gilt zu beachten , dass GRAZE ziemlich stark \|<span class="sc">\&gt;</span>0.6\| mit YR.ISOL korreliert ist</span>
+<span id="cb77-235"><a href="#cb77-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-238"><a href="#cb77-238" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-239"><a href="#cb77-239" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell definieren</span></span>
+<span id="cb77-240"><a href="#cb77-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-241"><a href="#cb77-241" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(loyn)</span>
+<span id="cb77-242"><a href="#cb77-242" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span> DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb77-243"><a href="#cb77-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-244"><a href="#cb77-244" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"car"</span>)</span>
+<span id="cb77-245"><a href="#cb77-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-246"><a href="#cb77-246" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb77-247"><a href="#cb77-247" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb77-248"><a href="#cb77-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-249"><a href="#cb77-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-250"><a href="#cb77-250" aria-hidden="true" tabindex="-1"></a>-&gt; Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|<span class="sc">\&lt;</span>60\| Beobachtungen ist das Modell wohl "overfitted"</span>
+<span id="cb77-251"><a href="#cb77-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-252"><a href="#cb77-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-255"><a href="#cb77-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-256"><a href="#cb77-256" aria-hidden="true" tabindex="-1"></a><span class="co"># Andere Vatiante, um korrelierte Prädiktoren zu finden</span></span>
+<span id="cb77-257"><a href="#cb77-257" aria-hidden="true" tabindex="-1"></a><span class="fu">vif</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb77-258"><a href="#cb77-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-259"><a href="#cb77-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-260"><a href="#cb77-260" aria-hidden="true" tabindex="-1"></a><span class="fu">### Modellvereinfachung</span></span>
+<span id="cb77-261"><a href="#cb77-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-262"><a href="#cb77-262" aria-hidden="true" tabindex="-1"></a>Schrittweise die am wenigsten signifkanten Terme entfernen:</span>
+<span id="cb77-263"><a href="#cb77-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-266"><a href="#cb77-266" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-267"><a href="#cb77-267" aria-hidden="true" tabindex="-1"></a><span class="co"># Volles Modell anschauen</span></span>
+<span id="cb77-268"><a href="#cb77-268" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.1</span>)</span>
+<span id="cb77-269"><a href="#cb77-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-270"><a href="#cb77-270" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.1</span>, <span class="sc">~</span> . <span class="sc">-</span> AREA) <span class="co"># Prädiktor mit grösstem p-Wert entfernen</span></span>
+<span id="cb77-271"><a href="#cb77-271" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.1</span>, lm<span class="fl">.2</span>) <span class="co"># Modelle vergleichen (falls signifikant, so müssten man den Prädiktor wieder ins Modell nehmen)</span></span>
+<span id="cb77-272"><a href="#cb77-272" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.2</span>) <span class="co"># Neues einfacheres Modell anschauen und Prädiktor mit grösstem p-Wert ausfindig machen</span></span>
+<span id="cb77-273"><a href="#cb77-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-274"><a href="#cb77-274" aria-hidden="true" tabindex="-1"></a><span class="co"># Oben beschriebene Schritte wiederholen bis nur noch signifikante Prädiktoren im Modell</span></span>
+<span id="cb77-275"><a href="#cb77-275" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.3</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.2</span>, <span class="sc">~</span> . <span class="sc">-</span> DIST)</span>
+<span id="cb77-276"><a href="#cb77-276" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.2</span>, lm<span class="fl">.3</span>)</span>
+<span id="cb77-277"><a href="#cb77-277" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.3</span>)</span>
+<span id="cb77-278"><a href="#cb77-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-279"><a href="#cb77-279" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.4</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.3</span>, <span class="sc">~</span> . <span class="sc">-</span> YR.ISOL)</span>
+<span id="cb77-280"><a href="#cb77-280" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.3</span>, lm<span class="fl">.4</span>)</span>
+<span id="cb77-281"><a href="#cb77-281" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.4</span>)</span>
+<span id="cb77-282"><a href="#cb77-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-283"><a href="#cb77-283" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.4</span>, <span class="sc">~</span> . <span class="sc">-</span> LDIST)</span>
+<span id="cb77-284"><a href="#cb77-284" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.4</span>, lm<span class="fl">.5</span>)</span>
+<span id="cb77-285"><a href="#cb77-285" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.5</span>)</span>
+<span id="cb77-286"><a href="#cb77-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-287"><a href="#cb77-287" aria-hidden="true" tabindex="-1"></a>lm<span class="fl">.6</span> <span class="ot">&lt;-</span> <span class="fu">update</span>(lm<span class="fl">.5</span>, <span class="sc">~</span> . <span class="sc">-</span> ALT)</span>
+<span id="cb77-288"><a href="#cb77-288" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(lm<span class="fl">.5</span>, lm<span class="fl">.6</span>)</span>
+<span id="cb77-289"><a href="#cb77-289" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm<span class="fl">.6</span>) </span>
+<span id="cb77-290"><a href="#cb77-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-291"><a href="#cb77-291" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb77-292"><a href="#cb77-292" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lm<span class="fl">.6</span>)</span>
+<span id="cb77-293"><a href="#cb77-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-294"><a href="#cb77-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-295"><a href="#cb77-295" aria-hidden="true" tabindex="-1"></a>-&gt; das minimal adäquate Modell enthält nur noch einen Prädiktor (GRAZE) und dessen Residualplots sehen ok aus.</span>
+<span id="cb77-296"><a href="#cb77-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-297"><a href="#cb77-297" aria-hidden="true" tabindex="-1"></a><span class="fu">### Hierarchical partitioning</span></span>
+<span id="cb77-298"><a href="#cb77-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-299"><a href="#cb77-299" aria-hidden="true" tabindex="-1"></a>Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:</span>
+<span id="cb77-300"><a href="#cb77-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-303"><a href="#cb77-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-304"><a href="#cb77-304" aria-hidden="true" tabindex="-1"></a><span class="co"># Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)</span></span>
+<span id="cb77-305"><a href="#cb77-305" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(relaimpo)){<span class="fu">install.packages</span>(<span class="st">"relaimpo"</span>)} </span>
+<span id="cb77-306"><a href="#cb77-306" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(relaimpo)</span>
+<span id="cb77-307"><a href="#cb77-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-308"><a href="#cb77-308" aria-hidden="true" tabindex="-1"></a><span class="co"># Lineares Modell definieren</span></span>
+<span id="cb77-309"><a href="#cb77-309" aria-hidden="true" tabindex="-1"></a>lm_1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND<span class="sc">~</span>YR.ISOL<span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb77-310"><a href="#cb77-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-311"><a href="#cb77-311" aria-hidden="true" tabindex="-1"></a><span class="co"># Berechnen...</span></span>
+<span id="cb77-312"><a href="#cb77-312" aria-hidden="true" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">calc.relimp</span>(lm_1, <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"lmg"</span>, <span class="st">"first"</span>, <span class="st">"last"</span>,<span class="st">"betasq"</span>, <span class="st">"pratt"</span>))</span>
+<span id="cb77-313"><a href="#cb77-313" aria-hidden="true" tabindex="-1"></a>IJ <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="at">I =</span> metrics<span class="sc">$</span>lmg, <span class="at">J =</span> metrics<span class="sc">$</span>first <span class="sc">-</span> metrics<span class="sc">$</span>lmg, <span class="at">Total =</span> metrics<span class="sc">$</span>first)</span>
+<span id="cb77-314"><a href="#cb77-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-315"><a href="#cb77-315" aria-hidden="true" tabindex="-1"></a>IJ</span>
+<span id="cb77-316"><a href="#cb77-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-317"><a href="#cb77-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-318"><a href="#cb77-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-319"><a href="#cb77-319" aria-hidden="true" tabindex="-1"></a>-&gt; auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)</span>
+<span id="cb77-320"><a href="#cb77-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-321"><a href="#cb77-321" aria-hidden="true" tabindex="-1"></a><span class="fu">### Partial regressions</span></span>
+<span id="cb77-322"><a href="#cb77-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-325"><a href="#cb77-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-326"><a href="#cb77-326" aria-hidden="true" tabindex="-1"></a><span class="fu">avPlots</span>(lm<span class="fl">.1</span>, <span class="at">ask =</span> F)</span>
+<span id="cb77-327"><a href="#cb77-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-328"><a href="#cb77-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-329"><a href="#cb77-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multimodel inference</span></span>
+<span id="cb77-330"><a href="#cb77-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-333"><a href="#cb77-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-334"><a href="#cb77-334" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
+<span id="cb77-335"><a href="#cb77-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-336"><a href="#cb77-336" aria-hidden="true" tabindex="-1"></a>global.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(ABUND <span class="sc">~</span> YR.ISOL <span class="sc">+</span> AREA <span class="sc">+</span>  DIST <span class="sc">+</span> LDIST <span class="sc">+</span> GRAZE <span class="sc">+</span> ALT, <span class="at">data =</span> loyn)</span>
+<span id="cb77-337"><a href="#cb77-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-338"><a href="#cb77-338" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb77-339"><a href="#cb77-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-340"><a href="#cb77-340" aria-hidden="true" tabindex="-1"></a>allmodels <span class="ot">&lt;-</span> <span class="fu">dredge</span>(global.model)</span>
+<span id="cb77-341"><a href="#cb77-341" aria-hidden="true" tabindex="-1"></a>allmodels</span>
+<span id="cb77-342"><a href="#cb77-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-343"><a href="#cb77-343" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable importance</span></span>
+<span id="cb77-344"><a href="#cb77-344" aria-hidden="true" tabindex="-1"></a><span class="fu">sw</span>(allmodels)</span>
+<span id="cb77-345"><a href="#cb77-345" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb77-346"><a href="#cb77-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-347"><a href="#cb77-347" aria-hidden="true" tabindex="-1"></a>-&gt; Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor</span>
+<span id="cb77-348"><a href="#cb77-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb77-351"><a href="#cb77-351" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb77-352"><a href="#cb77-352" aria-hidden="true" tabindex="-1"></a><span class="co"># Model averaging</span></span>
+<span id="cb77-353"><a href="#cb77-353" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(allmodels, <span class="at">subset =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb77-354"><a href="#cb77-354" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span>
+<span id="cb77-355"><a href="#cb77-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
