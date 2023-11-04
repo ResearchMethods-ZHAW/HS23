@@ -221,7 +221,9 @@ plot(lm.1)
 
 -> Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|\<60\| Beobachtungen ist das Modell wohl "overfitted"
 
+
 ```{r}
+# Andere Vatiante, um korrelierte Prädiktoren zu finden
 vif(lm.1)
 ```
 

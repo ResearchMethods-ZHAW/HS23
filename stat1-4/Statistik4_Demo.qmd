@@ -47,7 +47,7 @@ lines(xv, yv, lwd = 3, col = "blue")
 
 ```{r}
 # GLMs definieren und anschauen
-glm.gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand)
+glm.gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand) # Ist dasselbe wie ein LM
 glm.poisson <- glm(Besucher ~ Temperatur, family = "poisson", data = strand)
 
 summary(glm.gaussian)
@@ -65,8 +65,12 @@ exp(glm.poisson$coefficients[1] + 30 * glm.poisson$coefficients[2]) # Anzahl bes
 # Test Overdispersion
 library("AER")
 dispersiontest(glm.poisson)
+```
+-> Es liegt Overdispersion vor. Darum Quasipoisson wählen.
 
-glm.quasi <- glm(Besucher ~ Temperatur, family = quasipoisson, data = strand)
+```{r}
+
+glm.quasi <- glm(Besucher ~ Temperatur, family = "quasipoisson", data = strand)
 summary(glm.quasi)
 ```
 
@@ -84,6 +88,7 @@ plot(glm.poisson, main = "glm.poisson")
 par(mfrow = c(2, 2))
 plot(glm.quasi, main = "glm.quasi")
 ```
+-> Die Outputs von glm.poisson und glm.quasi sind bis auf die p-Werte identisch.
 
 ```{r}
 par(mfrow = c(1, 1))
@@ -92,12 +97,16 @@ xv <- seq(0, 40, by = .1)
 
 yv <- predict(lm.strand, list(Temperatur = xv))
 lines(xv, yv, lwd = 3, col = "blue")
+text(x = 5, y = 1500, "lm = gaussian", col = "blue")
 
 yv2 <- predict(glm.poisson, list(Temperatur = xv))
 lines(xv, exp(yv2), lwd = 3, col = "red")
+text(x = 5, y = 1300, "poisson", col = "red")
 
 yv3 <- predict(glm.quasi, list(Temperatur = xv))
-lines(xv, exp(yv3), lwd = 3, col = "green")
+lines(xv, exp(yv3), lwd = 3, col = "green", lty=2)
+text(x = 5, y = 1100, "quasipoisson", col = "green")
+
 ```
 
 ## Logistische Regression
@@ -147,8 +156,8 @@ plot(bathing ~ temperature,
   ylab = "% Bathing", pch = 16, col = "red", data = bathing
 )
 lines(model.predict$fit ~ xs, type = "l")
-lines(model.predict$fit + model.predict$se.fit ~ xs, type = "l", lty = 2) 
-lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2)
+lines(model.predict$fit + model.predict$se.fit ~ xs, type = "l", lty = 2) # Standardfehler hinzufügen
+lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2) # Standardfehler hinzufügen
 ```
 
 ## Nicht-lineare Regression
