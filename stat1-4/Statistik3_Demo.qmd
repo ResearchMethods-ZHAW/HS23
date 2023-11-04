@@ -267,12 +267,19 @@ plot(lm.6)
 Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
 
 ```{r}
-library("hier.part")
+# Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)
+if(!require(relaimpo)){install.packages("relaimpo")} 
+library(relaimpo)
 
-loyn.preds <- with(loyn, data.frame(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))
+# Lineares Modell definieren
+lm_1 <- lm(ABUND~YR.ISOL+ AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 
-par(mfrow = c(1, 1))
-hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
+# Berechnen...
+metrics <- calc.relimp(lm_1, type = c("lmg", "first", "last","betasq", "pratt"))
+IJ <- cbind(I = metrics$lmg, J = metrics$first - metrics$lmg, Total = metrics$first)
+
+IJ
+
 ```
 
 -> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
