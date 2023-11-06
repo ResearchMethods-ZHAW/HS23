@@ -29,13 +29,15 @@ knitr:
   - Durchführen der Modelldiagnostik, um zu entscheiden, ob das gewählte Vorgehen korrekt war oder ggf. angepasst werden muss
   - Generieren aller Zahlen, Statistiken und Tabellen, die für eine wiss. Ergebnisdarstellung benötigt werden
 - Formulieren Sie abschliessend einen Methoden- und Ergebnisteil (ggf. incl. adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.
-- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
+- **Zu erstellen sind (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
 
 ## Kommentierter Lösungsweg
 
 ```{r}
+library("readr")
+
 # Working directory muss angepasst werden
-kormoran <- read.delim("datasets/stat1-4/kormoran.csv", sep = ";", stringsAsFactors = T) #
+kormoran <- read_delim("datasets/stat1-4/kormoran.csv", ";", col_types = cols("Unterart" = "f", "Jahreszeit" = "f")) 
 
 # Ueberpruefen, ob Einlesen richtig funktioniert hat und welche Datenstruktur vorliegt
 str(kormoran)

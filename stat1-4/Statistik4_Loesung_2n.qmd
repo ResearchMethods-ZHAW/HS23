@@ -20,7 +20,9 @@ knitr:
 ## Musterlösung Aufgabe 4.2N: Multiple logistische Regression
 
 ```{r}
-polis <- read.csv("datasets/stat1-4/polis.csv")
+library("readr")
+
+polis <- read_delim("datasets/stat1-4/polis.csv", ",")
 polis
 
 str(polis)

@@ -190,7 +190,7 @@ ggplot(df, aes(x = label_content, y = tot_sold)) +
 #| echo: false
 
 # lade Daten
-df <- read_csv2("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.3.csv")
+df <- read_delim("datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik2.3.csv", ";")
 
 # überprüft die Voraussetzungen für eine ANOVA
 # Schaut euch die Verteilungen der Mittelwerte der Responsevariable an
