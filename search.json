@@ -1789,14 +1789,14 @@
     "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-1",
     "title": "BiEc4_N Multivariate Modelle",
     "section": "Aufgabe 1",
-    "text": "Aufgabe 1\nEinlesen des Gesamtdatensatzes für die Multivariate Analyse von Moodle\n\nSichtung des Datensatzes, der Variablen und der Datentypen\nKontrolle wieviele Rehe in diesem Datensatz enthalten sind"
+    "text": "Aufgabe 1\nEinlesen des Gesamtdatensatzes für die Multivariate Analyse von Moodle\n\nSichtung des Datensatzes, der Variablen und der Datentypen\nKontrolle wieviele Rehe in diesem Datensatz enthalten sind\n\n\n\nCode\nDF_mod &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_231027_moodle.csv\", delim = \";\")\n\nstr(DF_mod)\n\nclass(DF_mod$time_of_day)\n\ntable(DF_mod$id)\n\nDF_mod |&gt;\n  group_by(id) |&gt;\n  summarize(anzahl = n())\n\nlength(unique(DF_mod$id))"
   },
   {
     "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-2",
     "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-2",
     "title": "BiEc4_N Multivariate Modelle",
     "section": "Aufgabe 2",
-    "text": "Aufgabe 2\nUnterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit"
+    "text": "Aufgabe 2\nUnterteilung des Datensatzes in Teildatensätze entsprechend der Tageszeit\n\n\nCode\nDF_mod_night &lt;- DF_mod |&gt;\n  filter(time_of_day == \"night\")\n\nDF_mod_day &lt;- DF_mod |&gt;\n  filter(time_of_day == \"day\")\n\n# Kontrolle\ntable(DF_mod_night$time_of_day)\n## \n## night \n##  3964\n\ntable(DF_mod_day$time_of_day)\n## \n##  day \n## 3964"
   },
   {
     "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-3",
@@ -1810,20 +1810,69 @@
     "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-4",
     "title": "BiEc4_N Multivariate Modelle",
     "section": "Aufgabe 4",
-    "text": "Aufgabe 4\nTesten eurer erklärenden Variablen auf Normalverteilung (nur kontinuierliche)"
+    "text": "Aufgabe 4\nTesten eurer erklärenden Variablen auf Normalverteilung (nur kontinuierliche)\n\n\nCode\n# klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische\n# Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p&gt;0.05 = ja)\n\nround(stat.desc(DF_mod_day[6:14], basic = F, norm = T), 3)\n##                slope topo_pos dist_road_all dist_road_only dist_sett remoteness\n## median        13.706    0.233        29.866         35.056   180.966      0.000\n## mean          15.356    0.733        42.619         47.657   211.911      0.119\n## SE.mean        0.163    0.093         0.668          0.690     2.359      0.003\n## CI.mean.0.95   0.319    0.183         1.309          1.353     4.624      0.006\n## var          105.214   34.574      1767.202       1888.047 22051.998      0.041\n## std.dev       10.257    5.880        42.038         43.452   148.499      0.203\n## coef.var       0.668    8.020         0.986          0.912     0.701      1.710\n## skewness       0.733    0.278         1.872          1.632     0.721      1.809\n## skew.2SE       9.425    3.578        24.071         20.976     9.269     23.256\n## kurtosis      -0.092    0.748         4.033          2.994    -0.174      2.374\n## kurt.2SE      -0.594    4.807        25.933         19.254    -1.119     15.267\n## normtest.W     0.942    0.990         0.807          0.843     0.945      0.654\n## normtest.p     0.000    0.000         0.000          0.000     0.000      0.000\n##              forest_prop us_2014 os_2014\n## median             0.655   0.059   0.785\n## mean               0.598   0.119   0.594\n## SE.mean            0.005   0.002   0.007\n## CI.mean.0.95       0.010   0.005   0.013\n## var                0.110   0.023   0.175\n## std.dev            0.332   0.150   0.419\n## coef.var           0.555   1.258   0.705\n## skewness          -0.405   1.647  -0.425\n## skew.2SE          -5.202  21.181  -5.467\n## kurtosis          -1.116   2.924  -1.572\n## kurt.2SE          -7.174  18.800 -10.106\n## normtest.W         0.910   0.793   0.781\n## normtest.p         0.000   0.000   0.000\n\n# empfohlener Weg\n\nggplot(DF_mod_day, aes(slope)) +\n  geom_histogram(aes(y = after_stat(density)), color = \"black\", fill = \"white\") +\n  stat_function(fun = dnorm, args = list(mean = mean(DF_mod_day$slope, na.rm = T), sd = sd(DF_mod_day$slope, na.rm = T)), color = \"black\", size = 1)\n\n\n\n\n\n\n\nCode\n# Aufgabe 4: die Verteilung bei einem Teildatensatz zu testen reicht,\n# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,\n# nur die Nutzung durch das Reh nicht"
   },
   {
     "objectID": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-5",
     "href": "fallstudie_n/4_Multivariate_Modelle.html#aufgabe-5",
     "title": "BiEc4_N Multivariate Modelle",
     "section": "Aufgabe 5",
-    "text": "Aufgabe 5\nExplorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen\n\nZu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.\nTesten der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)"
+    "text": "Aufgabe 5\nExplorative Analysen der Variablen mit Scatterplots / Scatterplotmatrizen\n\nZu Scatterplots und Scatterplotmatrizen gibt es viele verschiedene Funktionen / Packages, schaut im Internet und sucht euch eines welches euch passt.\nTesten der Korrelation zwischen den Variablen (Parametrisch oder nicht-parametrische Methode? Ausserdem: gewisse Scatterplotmatrizen zeigen euch die Koeffizenten direkt an)\n\n\n\nCode\nchart.Correlation(DF_mod_day[6:14], histogram = TRUE, pch = 19, method = \"kendall\")\n\n\n\n\n\nCode\n\n# ?chart.Correlation\n\npairs.panels(DF_mod_day[6:14],\n  method = \"kendall\", # correlation method\n  hist.col = \"#00AFBB\",\n  density = TRUE, # show density plots\n  ellipses = TRUE # show correlation ellipses\n)\n\n\n\n\n\nCode\n\n# Aufgabe 5: die Korrelation bei einem Teildatensatz zu testen reicht,\n# denn die verwendeten Kreise sind die selben am Tag und in der Nacht,\n# nur die Nutzung durch das Reh nicht."
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#libraries-laden",
+    "href": "fallstudie_n/5_Variablenselektion.html#libraries-laden",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Libraries laden",
+    "text": "Libraries laden\n\nlibrary(\"sf\")\nlibrary(\"terra\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"PerformanceAnalytics\")\nlibrary(\"pastecs\")\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"MASS\")"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#variablenselektion",
+    "href": "fallstudie_n/5_Variablenselektion.html#variablenselektion",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Variablenselektion",
+    "text": "Variablenselektion\n→ Vorgehen analog Coppes u. a. (2017)"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-1",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-1",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Aufgabe 1",
+    "text": "Aufgabe 1\nMit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden, vergl. Aufgabe 5 vorangehende Woche\n\nDF_mod &lt;- read_delim(\"datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_231027_moodle.csv\", delim = \";\")\n\nDF_mod_day &lt;- DF_mod |&gt;\n  filter(time_of_day == \"day\")\n\nround(cor(DF_mod_day[, 6:14], method = \"kendall\"), 2)\n\n# hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist liberal /\n# 0.5 konservativ\n\ncor &lt;- round(cor(DF_mod_day[, 6:12], method = \"kendall\"), 2)\ncor[abs(cor) &lt; 0.7] &lt;- 0\ncor"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-2",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-2",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nSkalieren der Variablen, damit ihr Einfluss vergleichbar wird (Befehl scale(); Problem verschiedene Skalen der Variablen (bspw. Neigung in Grad, Distanz in Metern)); Umwandeln der Reh-ID in einen Faktor, damit dieser als Random Factor ins Model eingespiesen werden kann.\n\nDF_mod_day &lt;- DF_mod_day |&gt;\n  mutate(\n    slope_scaled = scale(slope),\n    topo_pos_scaled = scale(topo_pos),\n    us_scaled = scale(us_2014),\n    os_scaled = scale(os_2014),\n    forest_prop_scaled = scale(forest_prop),\n    dist_road_all_scaled = scale(dist_road_all),\n    dist_road_only_scaled = scale(dist_road_only),\n    dist_sett_scaled = scale(dist_sett),\n    remoteness_scaled = scale(remoteness),\n    id = as.factor(id)\n  )"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-3",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-3",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nSelektion der Variablen in einem univariaten Model\nEin erstes GLMM (Generalized Linear Mixed Effects Modell) aufbauen: Funktion und Modelformel\n\nwichtige Seite auf der man viele Hilfestellungen zu GLMM’s finden kann.\n\n\n# wir werden das package lme4 mit der Funktion glmer verwenden\n\n# die Hilfe von glmer aufrufen: ?glmer\n\n# glmer(formula, data = , family = binomial)\n\n# 1) formula:\n# Abhängige Variable ~ Erklärende Variable + Random Factor\n# In unseren Modellen kontrollieren wir für individuelle Unterschiede bei den Rehen\n# indem wir einen Random Factor definieren =&gt; (1 | id)\n\n# 2) data:\n# euer Datensatz\n\n# 3) family:\n# hier binomial\n\n# warum binomial? Verteilung Daten der Abhängigen Variable Präsenz/Absenz\n\nggplot(DF_mod_day, aes(pres_abs)) +\n  geom_histogram()\n\n# --&gt; Binäre Verteilung =&gt; Binomiale Verteilung mit n = 1\n\n# und wie schaut die Verteilung der Daten der Abhängigen Variable Nutzungsintensität\n# (nmb, werden wir in diesem Kurs aber nicht genauer anschauen) aus?"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-4",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-4",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nMit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablenselektion auf.\nAls abhängige Variable verwenden wir die Präsenz/Absenz der Rehe in den Kreisen\n\n# Die erklärende Variable in m1 ist die erste Variable der korrelierenden Variablen\n# Die erklärende Variable in m2 ist die zweite Variable der korrelierenden Variablen\n\nm1 &lt;- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),\n  data = DF_mod_day,\n  family = binomial\n)\n\nm2 &lt;- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),\n  data = DF_mod_day,\n  family = binomial\n)\n\n# mit dieser Funktion können die Modellergebnisse inspiziert werden\nsummary(m1)\n\n# Mit dieser Funktion kann der Informationgehalt der beiden Modelle gegeneinander\n# abgeschätzt werden\nbbmle::AICtab(m1, m2)\n\n# tieferer AIC -&gt; besser (AIC = Akaike information criterion)\n\n# ==&gt; dieses Vorgehen muss nun für alle korrelierten Variablen für jeden Teildatensatz\n# (Tag/Nacht) durchgeführt werden, um nur noch nicht (R &lt; 0.7) korrelierte Variablen\n# in das Modell einfliessen zu lassen"
+  },
+  {
+    "objectID": "fallstudie_n/5_Variablenselektion.html#aufgabe-5",
+    "href": "fallstudie_n/5_Variablenselektion.html#aufgabe-5",
+    "title": "BiEc5_N Variablenselektion MM",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nSelektion der Variablen in einem multivariaten Model\nMit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Modelaveraging aufgebaut werden (siehe auch Stats-Skript von J.Dengler & Team)\n\n# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6\n# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)\n\nf &lt;- pres_abs ~\n  V1 +\n  V2 +\n  V3 +\n  V4 +\n  V5 +\n  V6 +\n  V7 +\n  V8\n\n# in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel\n# daraus gemacht\n\nf_dredge &lt;- paste(c(f, \"+ (1 | id)\"), collapse = \" \") |&gt; as.formula()\n\n# Das Modell mit dieser Formel ausführen\n\nm &lt;- glmer(f_dredge, data = DF_mod_day, family = binomial, na.action = \"na.fail\")\n\n# Das Modell in die dredge-Funktion einfügen (siehe auch unbedingt ?dredge)\n\nall_m &lt;- dredge(m)\n\n# Importance values der einzelnen Variablen (Gibt an, wie bedeutsam eine bestimmte\n# Variable ist, wenn man viele verschiedene Modelle vergleicht (multimodel inference))\n\nsw(all_m)\n\n# Schlussendlich wird ein Modelaverage durchgeführt (Schwellenwert für das delta-AIC = 2)\n\navgmodel &lt;- model.avg(all_m, rank = \"AICc\", subset = delta &lt; 2)\nsummary(avgmodel)\n\n# ==&gt; für den Nachtdatensatz muss der gleiche Prozess der Variablenselektion\n# durchgespielt werden.\n\n\n\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94."
   },
   {
     "objectID": "References.html",
     "href": "References.html",
     "title": "Literaturverzeichnis",
     "section": "",
-    "text": "Bochud, Murielle, Angéline Chatelan, Juan-Manuel Blanco, and Sigrid\nMaria Beer-Borst. 2017. “Anthropometric Characteristics and\nIndicators of Eating and Physical Activity Behaviors in the Swiss Adult\nPopulation: Results from menuCH 2014-2015.”\n\n\nBorcard, Daniel, François Gillet, Pierre Legendre, et al. 2011.\nNumerical Ecology with r. Vol. 2. Springer.\n\n\nGilgen, Kurt, and Alma Sartoris. 2010. “Empfehlung Zur Planung von\nWindenergieanlagen: Die Anwendung von Raumplanungsinstrumenten Und\nKriterien Zur Standortwahl.” Eidgenössisches Departement für\nUmwelt, Verkehr, Energie und Kommunikation UVEK.\n\n\nKovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLo, Steson, and Sally Andrews. 2015. “To Transform or Not to\nTransform: Using Generalized Linear Mixed Models to Analyse Reaction\nTime Data.” Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nScherler, Patrick. 2020. “Drivers of Departure and Prospecting in\nDispersing Juvenile Red Kites (Milvus Milvus).” PhD thesis,\nUniversity of Zurich.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, David F\nWestneat, Hassen Allegue, Céline Teplitsky, Denis Réale, Ned A\nDochtermann, László Zsolt Garamszegi, and Yimen G Araya-Ajoy. 2020.\n“Robustness of Linear Mixed-Effects Models to Violations of\nDistributional Assumptions.” Methods in Ecology and\nEvolution 11 (9): 1141–52.\n\n\nTegou, Leda-Ioanna, Heracles Polatidis, and Dias A. Haralambopoulos.\n2010. “Environmental Management Framework for Wind Farm Siting:\nMethodology and Case Study.” Journal of Environmental\nManagement 91 (11): 2134–47. https://doi.org/10.1016/j.jenvman.2010.05.010.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.\n\n\nWildi, Otto. 2017. Data Analysis in Vegetation Ecology. Cabi."
+    "text": "Bochud, Murielle, Angéline Chatelan, Juan-Manuel Blanco, and Sigrid\nMaria Beer-Borst. 2017. “Anthropometric Characteristics and\nIndicators of Eating and Physical Activity Behaviors in the Swiss Adult\nPopulation: Results from menuCH 2014-2015.”\n\n\nBorcard, Daniel, François Gillet, Pierre Legendre, et al. 2011.\nNumerical Ecology with r. Vol. 2. Springer.\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, and Veronika\nBraunisch. 2017. “Outdoor Recreation Causes Effective Habitat\nReduction in Capercaillie Tetrao Urogallus: A Major Threat for\nGeographically Restricted Populations.” Journal of Avian\nBiology 48 (12): 1583–94.\n\n\nGilgen, Kurt, and Alma Sartoris. 2010. “Empfehlung Zur Planung von\nWindenergieanlagen: Die Anwendung von Raumplanungsinstrumenten Und\nKriterien Zur Standortwahl.” Eidgenössisches Departement für\nUmwelt, Verkehr, Energie und Kommunikation UVEK.\n\n\nKovic, Marko. 2014. “Je Weniger Ausländer, Desto Mehr Ja-Stimmen?\nWirklich?” Tagesanzeiger Datenblog. https://blog.tagesanzeiger.ch/datenblog/index.php/668/je-weniger-auslaender-desto-mehr-ja-stimmen-wirklich.\n\n\nLo, Steson, and Sally Andrews. 2015. “To Transform or Not to\nTransform: Using Generalized Linear Mixed Models to Analyse Reaction\nTime Data.” Frontiers in Psychology 6. https://doi.org/10.3389/fpsyg.2015.01171.\n\n\nScherler, Patrick. 2020. “Drivers of Departure and Prospecting in\nDispersing Juvenile Red Kites (Milvus Milvus).” PhD thesis,\nUniversity of Zurich.\n\n\nSchielzeth, Holger, Niels J Dingemanse, Shinichi Nakagawa, David F\nWestneat, Hassen Allegue, Céline Teplitsky, Denis Réale, Ned A\nDochtermann, László Zsolt Garamszegi, and Yimen G Araya-Ajoy. 2020.\n“Robustness of Linear Mixed-Effects Models to Violations of\nDistributional Assumptions.” Methods in Ecology and\nEvolution 11 (9): 1141–52.\n\n\nTegou, Leda-Ioanna, Heracles Polatidis, and Dias A. Haralambopoulos.\n2010. “Environmental Management Framework for Wind Farm Siting:\nMethodology and Case Study.” Journal of Environmental\nManagement 91 (11): 2134–47. https://doi.org/10.1016/j.jenvman.2010.05.010.\n\n\nWickham, Hadley, and Garrett Grolemund. 2017. R for Data\nScience. O’Reilly. https://ebookcentral.proquest.com/lib/zhaw/detail.action?docID=4770093.\n\n\nWildi, Otto. 2017. Data Analysis in Vegetation Ecology. Cabi."
   }
 ]
