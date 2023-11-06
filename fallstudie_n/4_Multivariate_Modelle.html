@@ -791,41 +791,55 @@ window.onload = function() {
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># klassischer Weg mit shapiro-wilk (mehrere Spalten, verschiedenene statistische</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Kenngrössen werden angezeigt. Normalverteilung: Wert ganz unten. p&gt;0.05 = ja)</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">stat.desc</span>(DF_mod_day[<span class="dv">6</span><span class="sc">:</span><span class="dv">14</span>], <span class="at">basic =</span> F, <span class="at">norm =</span> T), <span class="dv">3</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                slope topo_pos dist_road_all dist_road_only dist_sett remoteness</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## median        13.706    0.233        29.866         35.056   180.966      0.000</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## mean          15.356    0.733        42.619         47.657   211.911      0.119</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## SE.mean        0.163    0.093         0.668          0.690     2.359      0.003</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## CI.mean.0.95   0.319    0.183         1.309          1.353     4.624      0.006</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## var          105.214   34.574      1767.202       1888.047 22051.998      0.041</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## std.dev       10.257    5.880        42.038         43.452   148.499      0.203</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## coef.var       0.668    8.020         0.986          0.912     0.701      1.710</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## skewness       0.733    0.278         1.872          1.632     0.721      1.809</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## skew.2SE       9.425    3.578        24.071         20.976     9.269     23.256</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">## kurtosis      -0.092    0.748         4.033          2.994    -0.174      2.374</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">## kurt.2SE      -0.594    4.807        25.933         19.254    -1.119     15.267</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.W     0.942    0.990         0.807          0.843     0.945      0.654</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.p     0.000    0.000         0.000          0.000     0.000      0.000</span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">##              forest_prop us_2014 os_2014</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">## median             0.655   0.059   0.785</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## mean               0.598   0.119   0.594</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## SE.mean            0.005   0.002   0.007</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="do">## CI.mean.0.95       0.010   0.005   0.013</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="do">## var                0.110   0.023   0.175</span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="do">## std.dev            0.332   0.150   0.419</span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="do">## coef.var           0.555   1.258   0.705</span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="do">## skewness          -0.405   1.647  -0.425</span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="do">## skew.2SE          -5.202  21.181  -5.467</span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="do">## kurtosis          -1.116   2.924  -1.572</span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="do">## kurt.2SE          -7.174  18.800 -10.106</span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.W         0.910   0.793   0.781</span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.p         0.000   0.000   0.000</span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co"># empfohlener Weg</span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DF_mod_day, <span class="fu">aes</span>(slope)) <span class="sc">+</span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(DF_mod_day<span class="sc">$</span>slope, <span class="at">na.rm =</span> T), <span class="at">sd =</span> <span class="fu">sd</span>(DF_mod_day<span class="sc">$</span>slope, <span class="at">na.rm =</span> T)), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stat.desc</span>(DF_mod_day[<span class="dv">6</span><span class="sc">:</span><span class="dv">14</span>], <span class="at">basic =</span> F, <span class="at">norm =</span> T)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="do">##                      slope     topo_pos dist_road_all dist_road_only</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="do">## median        1.370633e+01 2.327148e-01  2.986606e+01   3.505609e+01</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="do">## mean          1.535619e+01 7.331813e-01  4.261936e+01   4.765685e+01</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="do">## SE.mean       1.629186e-01 9.339098e-02  6.676922e-01   6.901438e-01</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="do">## CI.mean.0.95  3.194122e-01 1.830989e-01  1.309052e+00   1.353070e+00</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="do">## var           1.052144e+02 3.457351e+01  1.767202e+03   1.888047e+03</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="do">## std.dev       1.025741e+01 5.879925e+00  4.203811e+01   4.345166e+01</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="do">## coef.var      6.679657e-01 8.019742e+00  9.863616e-01   9.117611e-01</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="do">## skewness      7.330597e-01 2.782704e-01  1.872269e+00   1.631521e+00</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="do">## skew.2SE      9.424641e+00 3.577606e+00  2.407098e+01   2.097578e+01</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="do">## kurtosis     -9.231943e-02 7.476704e-01  4.033217e+00   2.994463e+00</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="do">## kurt.2SE     -5.936055e-01 4.807452e+00  2.593322e+01   1.925412e+01</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.W    9.419360e-01 9.902728e-01  8.067698e-01   8.431235e-01</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.p    6.839535e-37 7.269676e-16  2.675211e-56   1.245661e-52</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="do">##                  dist_sett   remoteness   forest_prop      us_2014</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="do">## median        1.809658e+02 0.000000e+00  6.554673e-01 5.882353e-02</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="do">## mean          2.119112e+02 1.188578e-01  5.976772e-01 1.194621e-01</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="do">## SE.mean       2.358616e+00 3.228686e-03  5.272256e-03 2.386145e-03</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="do">## CI.mean.0.95  4.624214e+00 6.330041e-03  1.033659e-02 4.678188e-03</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="do">## var           2.205200e+04 4.132237e-02  1.101861e-01 2.256978e-02</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="do">## std.dev       1.484992e+02 2.032790e-01  3.319428e-01 1.502324e-01</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="do">## coef.var      7.007614e-01 1.710270e+00  5.553882e-01 1.257574e+00</span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="do">## skewness      7.209630e-01 1.808899e+00 -4.046525e-01 1.647457e+00</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="do">## skew.2SE      9.269118e+00 2.325625e+01 -5.202447e+00 2.118066e+01</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="do">## kurtosis     -1.740088e-01 2.374388e+00 -1.115659e+00 2.923840e+00</span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="do">## kurt.2SE     -1.118861e+00 1.526710e+01 -7.173587e+00 1.880002e+01</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.W    9.452976e-01 6.538165e-01  9.104534e-01 7.934120e-01</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.p    4.868489e-36 3.078496e-67  2.141161e-43 1.674851e-57</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="do">##                    os_2014</span></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="do">## median        7.847363e-01</span></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="do">## mean          5.939976e-01</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="do">## SE.mean       6.653214e-03</span></span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="do">## CI.mean.0.95  1.304404e-02</span></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="do">## var           1.754675e-01</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="do">## std.dev       4.188884e-01</span></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="do">## coef.var      7.052022e-01</span></span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="do">## skewness     -4.252236e-01</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="do">## skew.2SE     -5.466921e+00</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="do">## kurtosis     -1.571720e+00</span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="do">## kurt.2SE     -1.010602e+01</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.W    7.807897e-01</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="do">## normtest.p    1.397443e-58</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co"># empfohlener Weg</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(DF_mod_day, <span class="fu">aes</span>(slope)) <span class="sc">+</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> <span class="fu">mean</span>(DF_mod_day<span class="sc">$</span>slope, <span class="at">na.rm =</span> T), <span class="at">sd =</span> <span class="fu">sd</span>(DF_mod_day<span class="sc">$</span>slope, <span class="at">na.rm =</span> T)), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="4_Multivariate_Modelle_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
