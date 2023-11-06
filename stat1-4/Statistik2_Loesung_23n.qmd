@@ -142,8 +142,15 @@ Jetzt brauchen wir noch die Mittelwerte bzw. Effektgroessen
 Für den Ergebnistext brauchen wir auch noch Angaben zu den Effektgrössen. Hier sind zwei Möglichkeiten, um an sie zu gelangen.
 
 ```{r}
-aggregate(Tauchzeit ~ Jahreszeit, FUN = mean, data = kormoran)
-aggregate(Tauchzeit ~ Unterart, FUN = mean, data = kormoran)
+library("dplyr")
+
+kormoran |>
+  group_by(Jahreszeit) |>
+  summarise(Tauchzeit = mean(Tauchzeit))
+
+kormoran |>
+  group_by(Unterart) |>
+  summarise(Tauchzeit = mean(Tauchzeit))
 
 summary(lm(Tauchzeit ~ Jahreszeit, data = kormoran))
 summary(lm(Tauchzeit ~ Unterart, data = kormoran))
