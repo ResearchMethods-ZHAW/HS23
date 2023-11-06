@@ -267,9 +267,7 @@ plot(lm.6)
 Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
 
 ```{r}
-# Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)
-if(!require(relaimpo)){install.packages("relaimpo")} 
-library(relaimpo)
+library("relaimpo")
 
 # Lineares Modell definieren
 lm_1 <- lm(ABUND~YR.ISOL+ AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)

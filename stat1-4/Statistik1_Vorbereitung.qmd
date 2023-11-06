@@ -24,7 +24,7 @@ ipak <- function(pkg) {
 
 packages <- c(
     "agricolae", "ggplot2", "dplyr", "readr", "car", "FSA", "sjPlot", "ggfortify", "multcomp",
-    "nlstools", "corrplot", "MuMIn", "AER", "AICcmodavg", "mgcv"
+    "nlstools", "corrplot", "relaimpo", "MuMIn", "AER", "AICcmodavg", "mgcv"
 )
 
 ipak(packages)
