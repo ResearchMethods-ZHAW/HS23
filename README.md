@@ -149,6 +149,13 @@ git commit -m "meine message"
 git pull                       # lädt die Änderungen von Github herunter
 ```
 
+### Merge Conflict in _freeze Ordner
+
+Merge conflicts im _freeze Ordner verursachen Arbeit, obwohl diese eigentlich nicht behoben werden müssen (es handelt sich ja schliesslich ledliglich um output / target-Files). Deshalb haben wir dem Repo eine neue Datei namens .gitattributes hinzugefügt, mit folgendem Inhalt:
+
+`_freeze/* merge=ours`
+
+Dies soll bewirken, dass bei allen Files im Ordner _freeze bei merge conflicts die jeweils eigene (ours) gegenüber der incoming (theirs) Version gültig ist.
 
 ### Wie löse ich einen merge-conflict?
 
