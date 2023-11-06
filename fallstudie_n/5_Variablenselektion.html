@@ -741,7 +741,7 @@ window.onload = function() {
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist liberal /</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 0.5 konservativ</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cor</span>(DF_mod_day[, <span class="dv">6</span><span class="sc">:</span><span class="dv">12</span>], <span class="at">method =</span> <span class="st">"kendall"</span>), <span class="dv">2</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">cor</span>(DF_mod_day[, <span class="dv">6</span><span class="sc">:</span><span class="dv">14</span>], <span class="at">method =</span> <span class="st">"kendall"</span>), <span class="dv">2</span>)</span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>cor</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -838,7 +838,7 @@ window.onload = function() {
 <p><strong>Selektion der Variablen in einem multivariaten Model</strong></p>
 <p>Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion) und ein Modelaveraging aufgebaut werden (siehe auch Stats-Skript von J.Dengler &amp; Team)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> pres_abs <span class="sc">~</span></span>
