@@ -52,7 +52,7 @@ round(cor(DF_mod_day[, 6:14], method = "kendall"), 2)
 # hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist liberal /
 # 0.5 konservativ
 
-cor <- round(cor(DF_mod_day[, 6:12], method = "kendall"), 2)
+cor <- round(cor(DF_mod_day[, 6:14], method = "kendall"), 2)
 cor[abs(cor) < 0.7] <- 0
 cor
 ```
@@ -189,7 +189,7 @@ Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion)
 #| echo: true
 #| code-fold: false
 
-# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6
+# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8
 # sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
 
 f <- pres_abs ~
