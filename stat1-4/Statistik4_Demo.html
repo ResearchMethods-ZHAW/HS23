@@ -1011,12 +1011,13 @@ Number of Fisher Scoring iterations: 6</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"AICcmodavg"</span>)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"nlstools"</span>)</span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> c <span class="sc">*</span> AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="st">","</span>)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> c <span class="sc">*</span> AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Formula: ABUND ~ c * AREA^z
@@ -1799,93 +1800,94 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb64-188"><a href="#cb64-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb64-189"><a href="#cb64-189" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"AICcmodavg"</span>)</span>
 <span id="cb64-190"><a href="#cb64-190" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"nlstools"</span>)</span>
-<span id="cb64-191"><a href="#cb64-191" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-192"><a href="#cb64-192" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="at">sep =</span> <span class="st">","</span>)</span>
-<span id="cb64-193"><a href="#cb64-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-194"><a href="#cb64-194" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
-<span id="cb64-195"><a href="#cb64-195" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> c <span class="sc">*</span> AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
-<span id="cb64-196"><a href="#cb64-196" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span>
-<span id="cb64-197"><a href="#cb64-197" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(power.model)</span>
-<span id="cb64-198"><a href="#cb64-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-199"><a href="#cb64-199" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (in nlstools)</span></span>
-<span id="cb64-200"><a href="#cb64-200" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(power.model))</span>
-<span id="cb64-201"><a href="#cb64-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-202"><a href="#cb64-202" aria-hidden="true" tabindex="-1"></a><span class="co"># Vordefinierte "Selbststartfunktionen"#</span></span>
-<span id="cb64-203"><a href="#cb64-203" aria-hidden="true" tabindex="-1"></a>?selfStart</span>
-<span id="cb64-204"><a href="#cb64-204" aria-hidden="true" tabindex="-1"></a>logistic.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> <span class="fu">SSlogis</span>(AREA, Asym, xmid, scal), <span class="at">data =</span> loyn)</span>
-<span id="cb64-205"><a href="#cb64-205" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic.model)</span>
-<span id="cb64-206"><a href="#cb64-206" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(logistic.model)</span>
-<span id="cb64-207"><a href="#cb64-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-208"><a href="#cb64-208" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (in nlstools)</span></span>
-<span id="cb64-209"><a href="#cb64-209" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(logistic.model))</span>
-<span id="cb64-210"><a href="#cb64-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-211"><a href="#cb64-211" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung</span></span>
-<span id="cb64-212"><a href="#cb64-212" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> AREA, <span class="at">data =</span> loyn)</span>
-<span id="cb64-213"><a href="#cb64-213" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb64-214"><a href="#cb64-214" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2000</span>, <span class="fl">0.01</span>)</span>
-<span id="cb64-215"><a href="#cb64-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-216"><a href="#cb64-216" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
-<span id="cb64-217"><a href="#cb64-217" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb64-218"><a href="#cb64-218" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb64-219"><a href="#cb64-219" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"power.model"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb64-220"><a href="#cb64-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-221"><a href="#cb64-221" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
-<span id="cb64-222"><a href="#cb64-222" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb64-223"><a href="#cb64-223" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb64-224"><a href="#cb64-224" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="dv">15</span>, <span class="st">"logistic.model"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb64-225"><a href="#cb64-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-191"><a href="#cb64-191" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb64-192"><a href="#cb64-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-193"><a href="#cb64-193" aria-hidden="true" tabindex="-1"></a>loyn <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat1-4/loyn.csv"</span>, <span class="st">","</span>)</span>
+<span id="cb64-194"><a href="#cb64-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-195"><a href="#cb64-195" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstdefinierte Funktion, hier Potenzfunktion</span></span>
+<span id="cb64-196"><a href="#cb64-196" aria-hidden="true" tabindex="-1"></a>power.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> c <span class="sc">*</span> AREA<span class="sc">^</span>z, <span class="at">start =</span> (<span class="fu">list</span>(<span class="at">c =</span> <span class="dv">1</span>, <span class="at">z =</span> <span class="dv">0</span>)), <span class="at">data =</span> loyn)</span>
+<span id="cb64-197"><a href="#cb64-197" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(power.model)</span>
+<span id="cb64-198"><a href="#cb64-198" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(power.model)</span>
+<span id="cb64-199"><a href="#cb64-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-200"><a href="#cb64-200" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (in nlstools)</span></span>
+<span id="cb64-201"><a href="#cb64-201" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(power.model))</span>
+<span id="cb64-202"><a href="#cb64-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-203"><a href="#cb64-203" aria-hidden="true" tabindex="-1"></a><span class="co"># Vordefinierte "Selbststartfunktionen"#</span></span>
+<span id="cb64-204"><a href="#cb64-204" aria-hidden="true" tabindex="-1"></a>?selfStart</span>
+<span id="cb64-205"><a href="#cb64-205" aria-hidden="true" tabindex="-1"></a>logistic.model <span class="ot">&lt;-</span> <span class="fu">nls</span>(ABUND <span class="sc">~</span> <span class="fu">SSlogis</span>(AREA, Asym, xmid, scal), <span class="at">data =</span> loyn)</span>
+<span id="cb64-206"><a href="#cb64-206" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(logistic.model)</span>
+<span id="cb64-207"><a href="#cb64-207" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(logistic.model)</span>
+<span id="cb64-208"><a href="#cb64-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-209"><a href="#cb64-209" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (in nlstools)</span></span>
+<span id="cb64-210"><a href="#cb64-210" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">nlsResiduals</span>(logistic.model))</span>
+<span id="cb64-211"><a href="#cb64-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-212"><a href="#cb64-212" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung</span></span>
+<span id="cb64-213"><a href="#cb64-213" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> AREA, <span class="at">data =</span> loyn)</span>
+<span id="cb64-214"><a href="#cb64-214" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb64-215"><a href="#cb64-215" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">2000</span>, <span class="fl">0.01</span>)</span>
+<span id="cb64-216"><a href="#cb64-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-217"><a href="#cb64-217" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
+<span id="cb64-218"><a href="#cb64-218" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb64-219"><a href="#cb64-219" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb64-220"><a href="#cb64-220" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"power.model"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb64-221"><a href="#cb64-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-222"><a href="#cb64-222" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
+<span id="cb64-223"><a href="#cb64-223" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb64-224"><a href="#cb64-224" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb64-225"><a href="#cb64-225" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">1000</span>, <span class="at">y =</span> <span class="dv">15</span>, <span class="st">"logistic.model"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
 <span id="cb64-226"><a href="#cb64-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-227"><a href="#cb64-227" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung mit logarithmiert y-Achse</span></span>
-<span id="cb64-228"><a href="#cb64-228" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> <span class="fu">log10</span>(AREA), <span class="at">data =</span> loyn)</span>
-<span id="cb64-229"><a href="#cb64-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
-<span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"power.model"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
-<span id="cb64-236"><a href="#cb64-236" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
-<span id="cb64-237"><a href="#cb64-237" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb64-238"><a href="#cb64-238" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">15</span>, <span class="st">"logistic.model"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb64-239"><a href="#cb64-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-240"><a href="#cb64-240" aria-hidden="true" tabindex="-1"></a><span class="co"># Model seletcion zwischen den nicht-lineraen Modelen</span></span>
-<span id="cb64-241"><a href="#cb64-241" aria-hidden="true" tabindex="-1"></a>cand.models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb64-242"><a href="#cb64-242" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> power.model</span>
-<span id="cb64-243"><a href="#cb64-243" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> logistic.model</span>
-<span id="cb64-244"><a href="#cb64-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-245"><a href="#cb64-245" aria-hidden="true" tabindex="-1"></a>Modnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Power"</span>, <span class="st">"Logistic"</span>)</span>
-<span id="cb64-246"><a href="#cb64-246" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-247"><a href="#cb64-247" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> cand.models, <span class="at">modnames =</span> Modnames)</span>
-<span id="cb64-248"><a href="#cb64-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-249"><a href="#cb64-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb64-250"><a href="#cb64-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-251"><a href="#cb64-251" aria-hidden="true" tabindex="-1"></a><span class="fu">## Smoother</span></span>
-<span id="cb64-252"><a href="#cb64-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-255"><a href="#cb64-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb64-256"><a href="#cb64-256" aria-hidden="true" tabindex="-1"></a>loyn<span class="sc">$</span>log_AREA <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)</span>
-<span id="cb64-257"><a href="#cb64-257" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> log_AREA, <span class="at">data =</span> loyn)</span>
-<span id="cb64-258"><a href="#cb64-258" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.25</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb64-259"><a href="#cb64-259" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.5</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
-<span id="cb64-260"><a href="#cb64-260" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
-<span id="cb64-261"><a href="#cb64-261" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb64-262"><a href="#cb64-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-263"><a href="#cb64-263" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAMs</span></span>
-<span id="cb64-264"><a href="#cb64-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-267"><a href="#cb64-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb64-268"><a href="#cb64-268" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mgcv"</span>)</span>
-<span id="cb64-269"><a href="#cb64-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-270"><a href="#cb64-270" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">gam</span>(ABUND <span class="sc">~</span> <span class="fu">s</span>(log_AREA), <span class="at">data =</span> loyn)</span>
-<span id="cb64-271"><a href="#cb64-271" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span></span>
-<span id="cb64-272"><a href="#cb64-272" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb64-273"><a href="#cb64-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-274"><a href="#cb64-274" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">pch =</span> <span class="dv">16</span>)</span>
-<span id="cb64-275"><a href="#cb64-275" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
-<span id="cb64-276"><a href="#cb64-276" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(gam<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">log_AREA =</span> xv))</span>
-<span id="cb64-277"><a href="#cb64-277" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
-<span id="cb64-278"><a href="#cb64-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb64-279"><a href="#cb64-279" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb64-280"><a href="#cb64-280" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
-<span id="cb64-281"><a href="#cb64-281" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-227"><a href="#cb64-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-228"><a href="#cb64-228" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualisierung mit logarithmiert y-Achse</span></span>
+<span id="cb64-229"><a href="#cb64-229" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> <span class="fu">log10</span>(AREA), <span class="at">data =</span> loyn)</span>
+<span id="cb64-230"><a href="#cb64-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-231"><a href="#cb64-231" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Potenzfunktion</span></span>
+<span id="cb64-232"><a href="#cb64-232" aria-hidden="true" tabindex="-1"></a>yv1 <span class="ot">&lt;-</span> <span class="fu">predict</span>(power.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb64-233"><a href="#cb64-233" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv1, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb64-234"><a href="#cb64-234" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">20</span>, <span class="st">"power.model"</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb64-235"><a href="#cb64-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-236"><a href="#cb64-236" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Logistische Funktion</span></span>
+<span id="cb64-237"><a href="#cb64-237" aria-hidden="true" tabindex="-1"></a>yv2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistic.model, <span class="fu">list</span>(<span class="at">AREA =</span> xv))</span>
+<span id="cb64-238"><a href="#cb64-238" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">log10</span>(xv), yv2, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb64-239"><a href="#cb64-239" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">15</span>, <span class="st">"logistic.model"</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb64-240"><a href="#cb64-240" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-241"><a href="#cb64-241" aria-hidden="true" tabindex="-1"></a><span class="co"># Model seletcion zwischen den nicht-lineraen Modelen</span></span>
+<span id="cb64-242"><a href="#cb64-242" aria-hidden="true" tabindex="-1"></a>cand.models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb64-243"><a href="#cb64-243" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> power.model</span>
+<span id="cb64-244"><a href="#cb64-244" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> logistic.model</span>
+<span id="cb64-245"><a href="#cb64-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-246"><a href="#cb64-246" aria-hidden="true" tabindex="-1"></a>Modnames <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Power"</span>, <span class="st">"Logistic"</span>)</span>
+<span id="cb64-247"><a href="#cb64-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-248"><a href="#cb64-248" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> cand.models, <span class="at">modnames =</span> Modnames)</span>
+<span id="cb64-249"><a href="#cb64-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-250"><a href="#cb64-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-251"><a href="#cb64-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-252"><a href="#cb64-252" aria-hidden="true" tabindex="-1"></a><span class="fu">## Smoother</span></span>
+<span id="cb64-253"><a href="#cb64-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-256"><a href="#cb64-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-257"><a href="#cb64-257" aria-hidden="true" tabindex="-1"></a>loyn<span class="sc">$</span>log_AREA <span class="ot">&lt;-</span> <span class="fu">log10</span>(loyn<span class="sc">$</span>AREA)</span>
+<span id="cb64-258"><a href="#cb64-258" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ABUND <span class="sc">~</span> log_AREA, <span class="at">data =</span> loyn)</span>
+<span id="cb64-259"><a href="#cb64-259" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.25</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-260"><a href="#cb64-260" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="fl">0.5</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>)</span>
+<span id="cb64-261"><a href="#cb64-261" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">lowess</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">f =</span> <span class="dv">1</span>), <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"green"</span>)</span>
+<span id="cb64-262"><a href="#cb64-262" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb64-263"><a href="#cb64-263" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-264"><a href="#cb64-264" aria-hidden="true" tabindex="-1"></a><span class="fu">## GAMs</span></span>
+<span id="cb64-265"><a href="#cb64-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-268"><a href="#cb64-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb64-269"><a href="#cb64-269" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mgcv"</span>)</span>
+<span id="cb64-270"><a href="#cb64-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-271"><a href="#cb64-271" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">gam</span>(ABUND <span class="sc">~</span> <span class="fu">s</span>(log_AREA), <span class="at">data =</span> loyn)</span>
+<span id="cb64-272"><a href="#cb64-272" aria-hidden="true" tabindex="-1"></a>gam<span class="fl">.1</span></span>
+<span id="cb64-273"><a href="#cb64-273" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb64-274"><a href="#cb64-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-275"><a href="#cb64-275" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(loyn<span class="sc">$</span>log_AREA, loyn<span class="sc">$</span>ABUND, <span class="at">pch =</span> <span class="dv">16</span>)</span>
+<span id="cb64-276"><a href="#cb64-276" aria-hidden="true" tabindex="-1"></a>xv <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">4</span>, <span class="at">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb64-277"><a href="#cb64-277" aria-hidden="true" tabindex="-1"></a>yv <span class="ot">&lt;-</span> <span class="fu">predict</span>(gam<span class="fl">.1</span>, <span class="fu">list</span>(<span class="at">log_AREA =</span> xv))</span>
+<span id="cb64-278"><a href="#cb64-278" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(xv, yv, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb64-279"><a href="#cb64-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-280"><a href="#cb64-280" aria-hidden="true" tabindex="-1"></a><span class="fu">AICc</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb64-281"><a href="#cb64-281" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gam<span class="fl">.1</span>)</span>
+<span id="cb64-282"><a href="#cb64-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
