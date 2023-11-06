@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -663,7 +682,7 @@ window.onload = function() {
   <ul class="collapse">
   <li><a href="#simulation-overfitting" id="toc-simulation-overfitting" class="nav-link" data-scroll-target="#simulation-overfitting">Simulation Overfitting</a></li>
   </ul></li>
-  <li><a href="#multiple-lineare-regression-basierend-auf-logan-beispiel-9a" id="toc-multiple-lineare-regression-basierend-auf-logan-beispiel-9a" class="nav-link" data-scroll-target="#multiple-lineare-regression-basierend-auf-logan-beispiel-9a">Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</a>
+  <li><a href="#multiple-lineare-regression-basierend-auf-logan2010-beispiel-9a" id="toc-multiple-lineare-regression-basierend-auf-logan2010-beispiel-9a" class="nav-link" data-scroll-target="#multiple-lineare-regression-basierend-auf-logan2010-beispiel-9a">Multiple lineare Regression (basierend auf <span class="citation" data-cites="logan2010">Logan (2010)</span>, Beispiel 9A)</a>
   <ul class="collapse">
   <li><a href="#korrelation-zwischen-den-prädiktoren" id="toc-korrelation-zwischen-den-prädiktoren" class="nav-link" data-scroll-target="#korrelation-zwischen-den-prädiktoren">Korrelation zwischen den Prädiktoren</a></li>
   <li><a href="#modellvereinfachung" id="toc-modellvereinfachung" class="nav-link" data-scroll-target="#modellvereinfachung">Modellvereinfachung</a></li>
@@ -996,8 +1015,8 @@ F-statistic: 11.14 on 2 and 12 DF,  p-value: 0.001842</code></pre>
 <p>-&gt; Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.</p>
 </section>
 </section>
-<section id="multiple-lineare-regression-basierend-auf-logan-beispiel-9a" class="level2">
-<h2 class="anchored" data-anchor-id="multiple-lineare-regression-basierend-auf-logan-beispiel-9a">Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</h2>
+<section id="multiple-lineare-regression-basierend-auf-logan2010-beispiel-9a" class="level2">
+<h2 class="anchored" data-anchor-id="multiple-lineare-regression-basierend-auf-logan2010-beispiel-9a">Multiple lineare Regression (basierend auf <span class="citation" data-cites="logan2010">Logan (<a href="../References.html#ref-logan2010" role="doc-biblioref">2010</a>)</span>, Beispiel 9A)</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
@@ -1580,6 +1599,11 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-logan2010" class="csl-entry" role="listitem">
+Logan, M. 2010. <em>Biostatistical Design and Analysis Using R: A Practical Guide</em>. Wiley. <a href="https://books.google.ch/books?id=ZUR1uAAACAAJ">https://books.google.ch/books?id=ZUR1uAAACAAJ</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -2181,7 +2205,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb77-207"><a href="#cb77-207" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb77-208"><a href="#cb77-208" aria-hidden="true" tabindex="-1"></a>-&gt; Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.</span>
 <span id="cb77-209"><a href="#cb77-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb77-210"><a href="#cb77-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)</span></span>
+<span id="cb77-210"><a href="#cb77-210" aria-hidden="true" tabindex="-1"></a><span class="fu">## Multiple lineare Regression (basierend auf @logan2010, Beispiel 9A)</span></span>
 <span id="cb77-211"><a href="#cb77-211" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb77-214"><a href="#cb77-214" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb77-215"><a href="#cb77-215" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und anschauen</span></span>

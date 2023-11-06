@@ -54,7 +54,26 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -696,7 +715,7 @@ window.onload = function() {
 </ul>
 <section id="split-plot-anova" class="level2">
 <h2 class="anchored" data-anchor-id="split-plot-anova">Split-plot ANOVA</h2>
-<p>Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010)</p>
+<p>Reaktionszeitenbeispiel aus Kapitel 14 von <span class="citation" data-cites="logan2010">Logan (<a href="../References.html#ref-logan2010" role="doc-biblioref">2010</a>)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
@@ -839,7 +858,7 @@ window.onload = function() {
 </section>
 <section id="glmm" class="level2">
 <h2 class="anchored" data-anchor-id="glmm">GLMM</h2>
-<p>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von Zuur et al.&nbsp;(2009)</p>
+<p>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von <span class="citation" data-cites="zuur2009">Zuur u.&nbsp;a. (<a href="../References.html#ref-zuur2009" role="doc-biblioref">2009</a>)</span></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und für GLMM aufbereiten</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>DeerEcervi <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat5-8/DeerEcervi.txt"</span>, <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>,  <span class="at">col_types =</span> <span class="fu">cols</span>(<span class="st">"Farm"</span> <span class="ot">=</span> <span class="st">"f"</span>))</span>
@@ -1107,6 +1126,14 @@ window.onload = function() {
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-logan2010" class="csl-entry" role="listitem">
+Logan, M. 2010. <em>Biostatistical Design and Analysis Using R: A Practical Guide</em>. Wiley. <a href="https://books.google.ch/books?id=ZUR1uAAACAAJ">https://books.google.ch/books?id=ZUR1uAAACAAJ</a>.
+</div>
+<div id="ref-zuur2009" class="csl-entry" role="listitem">
+Zuur, A., E. N. Ieno, N. Walker, A. A. Saveliev, und G. M. Smith. 2009. <em>Mixed Effects Models and Extensions in Ecology with R</em>. Statistics for Biology and Health. Springer New York. <a href="https://books.google.ch/books?id=vQUNprFZKHsC">https://books.google.ch/books?id=vQUNprFZKHsC</a>.
+</div>
+</div>
 </section>
 
 </main> <!-- /main -->
@@ -1540,7 +1567,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="fu">## Split-plot ANOVA</span></span>
 <span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010) </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>Reaktionszeitenbeispiel aus Kapitel 14 von @logan2010</span>
 <span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden</span></span>
@@ -1572,7 +1599,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## GLMM</span></span>
 <span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von Zuur et al. (2009)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von @zuur2009</span>
 <span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und für GLMM aufbereiten</span></span>
