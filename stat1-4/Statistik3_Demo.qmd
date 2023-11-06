@@ -20,7 +20,7 @@ knitr:
 
 ## ANCOVA
 
-Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. ("Fruit") in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")
+Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. in Abhängigkeit von der Beweidung ("Grazing" mit 2 Levels: "Grazed", "Ungrazed") und korrigiert für die Pflanzengrösse vor der Beweidung (hier ausgedrückt als Durchmesser an der Spitze des Wurzelstock: "Root")
 
 ```{r}
 # Daten einlesen und anschauen
@@ -58,7 +58,7 @@ ggplot(compensation, aes(Root, Fruit, color = Grazing)) +
 aoc.1 <- lm(Fruit ~ Root * Grazing, data = compensation) # Volles Modell mit Interaktion
 summary.aov(aoc.1)
 
-aoc.2 <- lm(Fruit ~ Grazing + Root, data = compensation) # Finales Modell ohne die (nicht signifikante Interaktion)
+aoc.2 <- lm(Fruit ~ Grazing + Root, data = compensation) # Finales Modell ohne die (nicht signifikante) Interaktion
 summary.aov(aoc.2) # ANOVA-Tabelle
 summary(aoc.2) # Parameter-Tabelle
 
@@ -86,10 +86,10 @@ summary(lm.1) # Modell anschauen
 
 ```
 
--> kein signifikanter Zusammenhang und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
+-> kein signifikanter Zusammenhang im einfachen linearen Modell und entsprechend kleines Bestimmtheitsmass (adj. R^2^ = 0.07)
 
 ```{r}
-summary(lm.quad) # Modell anschauen
+summary(lm.quad) # lineares Modell mit quadratischem Term anschauen
 ```
 
 -> signifikanter Zusammenhang und viel besseres Bestimmtheitsmass (adj. R^2^ = 0.60)
@@ -117,6 +117,8 @@ plot(lm.1, main = "Lineares Modell")
 plot(lm.quad, main = "Quadratisches  Modell")
 ```
 
+-> Die Plots sehen beim Modell mit quadratischem Term besser aus
+
 ### Simulation Overfitting
 
 ```{r}
@@ -129,7 +131,7 @@ plot(y ~ x, data = test)
 
 ```{r}
 # Zunehmend komplizierte Modelle (je komplizierter desto overfitteter) definieren
-lm.0 <- lm(y ~ 1, data = test)
+lm.0 <- lm(y ~ 1, data = test) # Modell 
 lm.1 <- lm(y ~ x, data = test)
 lm.2 <- lm(y ~ x + I(x^2), data = test)
 lm.3 <- lm(y ~ x + I(x^2) + I(x^3), data = test)
@@ -152,7 +154,6 @@ smy.2$r.squared
 smy.3$r.squared
 smy.4$r.squared
 smy.5$r.squared
-smy.5$adj.r.squared
 ```
 
 -> R2 wird immer grösser, d.h. die Modelle werden immer besser. ;-)
@@ -161,24 +162,27 @@ smy.5$adj.r.squared
 # Modelle plotten
 xv <- seq(from = 0, to = 10, by = 0.1)
 plot(y ~ x, cex = 2, col = "black", lwd = 3, data = test)
+
+abline(h = lm.0$coefficients, col = "darkgray", lwd = 3 )
+text(x = 1.5, y = 70, "lm.0", col = "darkgray")
 yv <- predict(lm.1, list(x = xv))
 lines(xv, yv, col = "red", lwd = 3)
-text(x = c(1, 70), "lm.1", col = "red")
+text(x = 1.5, y = 67, "lm.1", col = "red")
 yv <- predict(lm.2, list(x = xv))
 lines(xv, yv, col = "blue", lwd = 3)
-text(x = c(1, 65), "lm.2", col = "blue")
+text(x = 1.5, y = 64, "lm.2", col = "blue")
 yv <- predict(lm.3, list(x = xv))
 lines(xv, yv, col = "green", lwd = 3)
-text(x = c(1, 60), "lm.3", col = "green")
+text(x = 1.5, y = 61, "lm.3", col = "green")
 yv <- predict(lm.4, list(x = xv))
 lines(xv, yv, col = "orange", lwd = 3)
-text(x = c(1, 55), "lm.4", col = "orange")
+text(x = 1.5, y = 58, "lm.4", col = "orange")
 yv <- predict(lm.5, list(x = xv))
 lines(xv, yv, col = "violet", lwd = 3)
-text(x = c(1, 50), "lm.5", col = "violet")
+text(x = 1.5, y = 55, "lm.5", col = "violet")
 ```
 
--> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 Parametern zu fitten??
+-> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.
 
 ## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
 
@@ -201,7 +205,7 @@ library("corrplot")
 corrplot.mixed(cor, lower = "ellipse", upper = "number", order = "AOE")
 ```
 
--> Keine Korrelation ist \>\|0.7\| . Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
+-> Keine Korrelation ist \>\|0.7\|, so können wir alle Prädiktoren "behalten". Aber es gilt zu beachten , dass GRAZE ziemlich stark \|\>0.6\| mit YR.ISOL korreliert ist
 
 ```{r}
 # Volles Modell definieren
@@ -215,9 +219,11 @@ par(mfrow = c(2, 2))
 plot(lm.1)
 ```
 
--> Plot sieht zwar ok aus, aber mit 6 Prädiktoren ist das Modell wohl "overfitted"
+-> Plot sieht zwar OK aus, aber mit 6 Prädiktoren für \|\<60\| Beobachtungen ist das Modell wohl "overfitted"
+
 
 ```{r}
+# Andere Vatiante, um korrelierte Prädiktoren zu finden
 vif(lm.1)
 ```
 
@@ -226,7 +232,7 @@ vif(lm.1)
 Schrittweise die am wenigsten signifkanten Terme entfernen:
 
 ```{r}
-lm.1 <- lm(ABUND ~ YR.ISOL + AREA + DIST + LDIST + GRAZE + ALT, data = loyn)
+# Volles Modell anschauen
 summary(lm.1)
 
 lm.2 <- update(lm.1, ~ . - AREA) # Prädiktor mit grösstem p-Wert entfernen
@@ -248,7 +254,7 @@ summary(lm.5)
 
 lm.6 <- update(lm.5, ~ . - ALT)
 anova(lm.5, lm.6)
-summary(lm.6)
+summary(lm.6) 
 
 par(mfrow = c(2, 2))
 plot(lm.6)
@@ -261,12 +267,19 @@ plot(lm.6)
 Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
 
 ```{r}
-library("hier.part")
+# Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)
+if(!require(relaimpo)){install.packages("relaimpo")} 
+library(relaimpo)
 
-loyn.preds <- with(loyn, data.frame(YR.ISOL, AREA, DIST, LDIST, GRAZE, ALT))
+# Lineares Modell definieren
+lm_1 <- lm(ABUND~YR.ISOL+ AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)
 
-par(mfrow = c(1, 1))
-hier.part(loyn$ABUND, loyn.preds, gof = "Rsqu")
+# Berechnen...
+metrics <- calc.relimp(lm_1, type = c("lmg", "first", "last","betasq", "pratt"))
+IJ <- cbind(I = metrics$lmg, J = metrics$first - metrics$lmg, Total = metrics$first)
+
+IJ
+
 ```
 
 -> auch hier sticht GRAZE heraus. (und an zweiter Stelle YR.ISOL, der mit GRAZE am stärksten korreliert ist)
@@ -296,6 +309,7 @@ sw(allmodels)
 -> Auch mit dieser Sichtweise ist GRAZE der wichtigste Prädiktor
 
 ```{r}
+# Model averaging
 avgmodel <- model.avg(allmodels, subset = TRUE)
 summary(avgmodel)
 ```

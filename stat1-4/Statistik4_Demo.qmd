@@ -47,26 +47,30 @@ lines(xv, yv, lwd = 3, col = "blue")
 
 ```{r}
 # GLMs definieren und anschauen
-glm.gaussian <- glm(Besucher ~ Temperatur, family = gaussian, data = strand)
-glm.poisson <- glm(Besucher ~ Temperatur, family = poisson, data = strand)
+glm.gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand) # Ist dasselbe wie ein LM
+glm.poisson <- glm(Besucher ~ Temperatur, family = "poisson", data = strand)
 
 summary(glm.gaussian)
 summary(glm.poisson)
+
 ```
 
 Rücktranformation der Werte auf die orginale Skale (Hier Exponentialfunktion da family=possion als Link-Funktion den natürlichen Logarithmus (log) verwendet) Besucher = exp(3.50 + 0.11 Temperatur/°C)
 
 ```{r}
-exp(3.500301) # Anzahl besucher bei 0°C
-exp(glm.poisson$coefficients[1]) # Werte aus Modell
-exp(3.500301 + 30 * 0.112817) # Anzahl besucher bei 30°C
-exp(glm.poisson$coeff[1] * glm.poisson$coeff[2]) # coefficients kann mit coeff abgekürzt werden
+glm.poisson$coefficients # So kann man auf die Coefficients des Modells "extrahieren" und dann mit[] auswählen
+exp(glm.poisson$coefficients[1]) # Anzahl besucher bei 0°C
+exp(glm.poisson$coefficients[1] + 30 * glm.poisson$coefficients[2]) # Anzahl besucher bei 30°C
 
 # Test Overdispersion
 library("AER")
 dispersiontest(glm.poisson)
+```
+-> Es liegt Overdispersion vor. Darum Quasipoisson wählen.
 
-glm.quasi <- glm(Besucher ~ Temperatur, family = quasipoisson, data = strand)
+```{r}
+
+glm.quasi <- glm(Besucher ~ Temperatur, family = "quasipoisson", data = strand)
 summary(glm.quasi)
 ```
 
@@ -84,6 +88,7 @@ plot(glm.poisson, main = "glm.poisson")
 par(mfrow = c(2, 2))
 plot(glm.quasi, main = "glm.quasi")
 ```
+-> Die Outputs von glm.poisson und glm.quasi sind bis auf die p-Werte identisch.
 
 ```{r}
 par(mfrow = c(1, 1))
@@ -92,12 +97,16 @@ xv <- seq(0, 40, by = .1)
 
 yv <- predict(lm.strand, list(Temperatur = xv))
 lines(xv, yv, lwd = 3, col = "blue")
+text(x = 5, y = 1500, "lm = gaussian", col = "blue")
 
 yv2 <- predict(glm.poisson, list(Temperatur = xv))
 lines(xv, exp(yv2), lwd = 3, col = "red")
+text(x = 5, y = 1300, "poisson", col = "red")
 
 yv3 <- predict(glm.quasi, list(Temperatur = xv))
-lines(xv, exp(yv3), lwd = 3, col = "green")
+lines(xv, exp(yv3), lwd = 3, col = "green", lty=2)
+text(x = 5, y = 1100, "quasipoisson", col = "green")
+
 ```
 
 ## Logistische Regression
@@ -109,6 +118,7 @@ bathing <- data.frame(
 )
 plot(bathing ~ temperature, data = bathing)
 
+#Logistisches Modell definieren
 glm.1 <- glm(bathing ~ temperature, family = "binomial", data = bathing)
 summary(glm.1)
 
@@ -137,7 +147,7 @@ km
 # Plotting
 xs <- seq(0, 30, l = 1000)
 model.predict <- predict(glm.1,
-  type = "response", se = T,
+  type = "response", se = TRUE,
   newdata = data.frame(temperature = xs)
 )
 
@@ -145,9 +155,9 @@ plot(bathing ~ temperature,
   xlab = "Temperature (°C)",
   ylab = "% Bathing", pch = 16, col = "red", data = bathing
 )
-points(model.predict$fit ~ xs, type = "l")
-lines(model.predict$fit + model.predict$se.fit ~ xs, type = "l", lty = 2)
-lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2)
+lines(model.predict$fit ~ xs, type = "l")
+lines(model.predict$fit + model.predict$se.fit ~ xs, type = "l", lty = 2) # Standardfehler hinzufügen
+lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2) # Standardfehler hinzufügen
 ```
 
 ## Nicht-lineare Regression
@@ -156,7 +166,7 @@ lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2)
 library("AICcmodavg")
 library("nlstools")
 
-loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",") # Verzeichnis muss dort gesetzt sein wo Daten sind
+loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",")
 
 # Selbstdefinierte Funktion, hier Potenzfunktion
 power.model <- nls(ABUND ~ c * AREA^z, start = (list(c = 1, z = 0)), data = loyn)
@@ -183,24 +193,28 @@ xv <- seq(0, 2000, 0.01)
 # 1. Potenzfunktion
 yv1 <- predict(power.model, list(AREA = xv))
 lines(xv, yv1, col = "green")
+text(x = 1000, y = 20, "power.model", col = "green")
 
 # 2. Logistische Funktion
 yv2 <- predict(logistic.model, list(AREA = xv))
 lines(xv, yv2, col = "blue")
+text(x = 1000, y = 15, "logistic.model", col = "blue")
 
-# Visualisierung II
+
+# Visualisierung mit logarithmiert y-Achse
 plot(ABUND ~ log10(AREA), data = loyn)
-par(mfrow = c(1, 1))
 
 # 1. Potenzfunktion
 yv1 <- predict(power.model, list(AREA = xv))
 lines(log10(xv), yv1, col = "green")
+text(x = 2, y = 20, "power.model", col = "green")
 
 # 2. Logistische Funktion
 yv2 <- predict(logistic.model, list(AREA = xv))
 lines(log10(xv), yv2, col = "blue")
+text(x = 2, y = 15, "logistic.model", col = "blue")
 
-# Model seletkion zwischen den nicht-lineraen Modelen
+# Model seletcion zwischen den nicht-lineraen Modelen
 cand.models <- list()
 cand.models[[1]] <- power.model
 cand.models[[2]] <- logistic.model
@@ -208,6 +222,7 @@ cand.models[[2]] <- logistic.model
 Modnames <- c("Power", "Logistic")
 
 aictab(cand.set = cand.models, modnames = Modnames)
+
 ```
 
 ## Smoother

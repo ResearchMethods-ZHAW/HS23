@@ -77,14 +77,14 @@ book:
       - stat1-4/Statistik1_Demo.qmd
       - stat1-4/Statistik1_Novanimal.qmd
       - stat1-4/Statistik1_Uebung.qmd
-      #- stat1-4/Statistik1_Loesung.qmd
+      - stat1-4/Statistik1_Loesung.qmd
       - --
       - stat1-4/Statistik2_Demo.qmd
       - stat1-4/Statistik2_Uebung.qmd
       - stat1-4/Statistik2_Loesung_Beispiel.qmd
-      #- stat1-4/Statistik2_Loesung_1.qmd
-      #- stat1-4/Statistik2_Loesung_2223s.qmd
-      #- stat1-4/Statistik2_Loesung_23n.qmd
+      - stat1-4/Statistik2_Loesung_1.qmd
+      - stat1-4/Statistik2_Loesung_2223s.qmd
+      - stat1-4/Statistik2_Loesung_23n.qmd
       - --
       - stat1-4/Statistik3_Demo.qmd
       - stat1-4/Statistik3_Uebung.qmd
@@ -158,7 +158,7 @@ book:
       - fallstudie_s/4_Projektierung.qmd
       - fallstudie_s/5_Datenverarbeitung.qmd
       - fallstudie_s/6_Deskriptive_Analysen.qmd
-      # - fallstudie_s/7_Multivariate_Modelle.qmd
+      - fallstudie_s/7_Multivariate_Modelle.qmd
     - part: "Fallstudie N"
       chapters:
       - fallstudie_n/1_Vorbemerkung.qmd

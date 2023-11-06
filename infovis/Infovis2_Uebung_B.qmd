@@ -4,8 +4,8 @@ lesson: InfoVis2
 thema: Vertiefung ggplot
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
-  output: false
+  echo: true   # set to true to show musterlösung
+  output: true
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
