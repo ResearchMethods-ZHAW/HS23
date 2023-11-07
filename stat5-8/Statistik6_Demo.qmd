@@ -12,7 +12,7 @@ format:
 # Stat6: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
--   Datensatz *dave_sveg.csv* von @wildi2017data
+-   Datensatz *dave_sveg.csv* von @wildi2017
 
 ## Ordinationen I
 

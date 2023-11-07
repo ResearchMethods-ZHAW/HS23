@@ -185,7 +185,7 @@ text(x = 1.5, y = 55, "lm.5", col = "violet")
 
 -> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.
 
-## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
+## Multiple lineare Regression (basierend auf @logan2010, Beispiel 9A)
 
 ```{r}
 # Daten laden und anschauen

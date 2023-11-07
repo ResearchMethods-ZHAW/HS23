@@ -17,7 +17,7 @@ format:
 
 ## Split-plot ANOVA
 
-Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010) 
+Reaktionszeitenbeispiel aus Kapitel 14 von @logan2010
 
 ```{r}
 # Daten laden
@@ -49,7 +49,7 @@ summary(spf.lme.2)
 
 ## GLMM
 
--> Hirschparasitenbeispiel aus Kapitel 13 von Zuur et al. (2009)
+-> Hirschparasitenbeispiel aus Kapitel 13 von @zuur2009
 
 ```{r}
 # Daten laden und für GLMM aufbereiten
