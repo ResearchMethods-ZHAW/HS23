@@ -718,11 +718,26 @@ Sind die Voraussetzungen des Modells erfüllt?
 
 Wir sind auf der Suche nach dem minimalen adäquaten Modell. Das ist ein iterativer Prozess. Wir schreiben ein Modell, prüfen ob die Voraussetzungen erfüllt sind und ob die abhängige Variable besser erklärt wird als im Vorhergehenden. Und machen das nochmals und nochmals und nochmals...
 
+- __glmmTMB()__ ist eine sehr schnelle und kompatible Funktion, auch für negativ binomiale Daten. Ich empfehle (spätenstens ab dem exponierten Modell weiter unten) mit ihr zu arbeiten.
+
+```{r eval=FALSE, echo=TRUE}
+glmmTMB(Total ~ Monat + Ferien + ..., family =nbinom1,
+                               data = umwelt_day)
+```
+
 - Über __family =__ kann in der Funktion _glmer()__ einiges (aber leider nicht alles so einfach [z.B. negativ binominale Modelle]) angepasst werden: [Link](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html)
 
 - Auch über __link =__ kann man anpassen: [Link](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/make.link.html)
 
 - Unsere (meine) Daten sind negativ binominal verteilt. Daher sollte wir unbedingt ein solches Modell programmieren. --> Funktion __glmer.nb()__
+
+
+```{r eval=FALSE, echo=TRUE}
+nb_model_day <- glmer.nb(Total ~ Monat + Ferien + 
+                           ..., 
+                         data = umwelt_day)
+
+```
 
 ```{r eval=FALSE}
 nb_model_day <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
