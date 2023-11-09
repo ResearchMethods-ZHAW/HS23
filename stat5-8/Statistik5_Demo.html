@@ -167,7 +167,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat5-8.html">Statistik 5 - 8</a></li><li class="breadcrumb-item"><a href="../stat5-8/Statistik5_Demo.html"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Stat5: Demo</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat5-8.html">Statistik 5 - 8</a></li><li class="breadcrumb-item"><a href="../stat5-8/Statistik5_Demo.html"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Stat5: Demo</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -383,6 +383,11 @@ window.onload = function() {
   <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -392,6 +397,21 @@ window.onload = function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
   </div>
 </li>
       </ul>
@@ -1039,24 +1059,29 @@ window.onload = function() {
 <span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of Observations: 826</span></span>
 <span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Number of Groups: 24</span></span>
 <span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvoraussagen berechnen</span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Rücktransformieren aus Logit</span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortierung der Hirschgrössen für's Plotten</span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten</span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Length"</span>,</span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="co"># Vertrauensintervalle (CI) mit SD von Random factor berechnen</span></span>
-<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Generell CI = mean + 1.96*SD</span></span>
-<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
-<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>DE.PQL<span class="sc">$</span>coefficients[<span class="dv">1</span>][<span class="dv">1</span>]</span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="do">## $fixed</span></span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="do">##   (Intercept)       CLength         fSex2 CLength:fSex2 </span></span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="do">##    0.88836974    0.03786082    0.61045698    0.03506664</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvoraussagen berechnen</span></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co"># So könnte direkt auf die coefficients zugegriffen werden: DE.PQL$coefficients[[1]][1]</span></span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Rücktransformieren aus Logit</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortierung der Hirschgrössen für's Plotten</span></span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten</span></span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Length"</span>,</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a><span class="co"># Vertrauensintervalle (CI) mit SD von Random factor berechnen</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Generell CI = mean + 1.96*SD</span></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="Statistik5_Demo_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid" width="672"></p>
 </div>
@@ -1087,9 +1112,9 @@ window.onload = function() {
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="do">## Fixed effects:</span></span>
 <span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a><span class="do">##               Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   0.938969   0.356004   2.638  0.00835 ** </span></span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)   0.938969   0.356003   2.638  0.00835 ** </span></span>
 <span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a><span class="do">## CLength       0.038964   0.006917   5.633 1.77e-08 ***</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="do">## fSex2         0.624487   0.222938   2.801  0.00509 ** </span></span>
+<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a><span class="do">## fSex2         0.624487   0.222937   2.801  0.00509 ** </span></span>
 <span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a><span class="do">## CLength:fSex2 0.035859   0.011409   3.143  0.00167 ** </span></span>
 <span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
@@ -1599,7 +1624,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="fu">## GLMM</span></span>
 <span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>-&gt; Hirschparasitenbeispiel aus Kapitel 13 von @zuur2009</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>-<span class="sc">\&gt;</span> Hirschparasitenbeispiel aus Kapitel 13 von @zuur2009</span>
 <span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Daten laden und für GLMM aufbereiten</span></span>
@@ -1616,7 +1641,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a>DeerEcervi<span class="sc">$</span>CLength <span class="ot">&lt;-</span> DeerEcervi<span class="sc">$</span>Length <span class="sc">-</span> <span class="fu">mean</span>(DeerEcervi<span class="sc">$</span>Length)</span>
 <span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>-&gt; Nun sind die Daten bereit:</span>
+<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a>-<span class="sc">\&gt;</span> Nun sind die Daten bereit:</span>
 <span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Die Parasitenbefalldaten wurden in Parasiten Präsenz/Absenz (1/0) übersetzt.</span>
 <span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Die Hirschlänge wurde standardisiert, damit der Achsenabschnitt (intercept) des Modells interpretierbar ist, standardisierte entspricht nun der Achsenabschnitt einem durschnittlich langen Hirsch.</span>
@@ -1658,38 +1683,40 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.PQL)</span>
 <span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvoraussagen berechnen</span></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="co"># Rücktransformieren aus Logit</span></span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortierung der Hirschgrössen für's Plotten</span></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten</span></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Length"</span>,</span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span></span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Vertrauensintervalle (CI) mit SD von Random factor berechnen</span></span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Generell CI = mean + 1.96*SD</span></span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Dasselbe mit dem lme4-Package</span></span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lme4"</span>)</span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>DE.lme4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Farm),</span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi</span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.lme4)</span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"glmmML"</span>)</span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>DE.glmmML <span class="ot">&lt;-</span> <span class="fu">glmmML</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster =</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi</span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glmmML)</span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>DE.PQL<span class="sc">$</span>coefficients[<span class="dv">1</span>][<span class="dv">1</span>]</span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellvoraussagen berechnen</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="co"># So könnte direkt auf die coefficients zugegriffen werden: DE.PQL$coefficients[[1]][1]</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fl">0.8883697</span> <span class="sc">+</span> <span class="fl">0.0378608</span> <span class="sc">*</span> DeerEcervi<span class="sc">$</span>CLength</span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co"># Rücktransformieren aus Logit</span></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>p.averageFarm1 <span class="ot">&lt;-</span> <span class="fu">exp</span>(g) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g))</span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co"># Sortierung der Hirschgrössen für's Plotten</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a>I <span class="ot">&lt;-</span> <span class="fu">order</span>(DeerEcervi<span class="sc">$</span>CLength)</span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotten</span></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(DeerEcervi<span class="sc">$</span>CLength, DeerEcervi<span class="sc">$</span>Ecervi<span class="fl">.01</span>,</span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Length"</span>,</span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Probability of presence of E. cervi L1"</span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.averageFarm1[I], <span class="at">lwd =</span> <span class="dv">3</span>)</span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Vertrauensintervalle (CI) mit SD von Random factor berechnen</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="co"># Generell CI = mean + 1.96*SD</span></span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>p.Upp <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>p.Low <span class="ot">&lt;-</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(g <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> <span class="fl">1.462108</span>))</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Upp[I])</span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(DeerEcervi<span class="sc">$</span>CLength[I], p.Low[I])</span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co"># Dasselbe mit dem lme4-Package</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"lme4"</span>)</span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>DE.lme4 <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Farm),</span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi</span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.lme4)</span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"glmmML"</span>)</span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>DE.glmmML <span class="ot">&lt;-</span> <span class="fu">glmmML</span>(Ecervi<span class="fl">.01</span> <span class="sc">~</span> CLength <span class="sc">*</span> fSex,</span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>  <span class="at">cluster =</span> Farm, <span class="at">family =</span> binomial, <span class="at">data =</span> DeerEcervi</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(DE.glmmML)</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

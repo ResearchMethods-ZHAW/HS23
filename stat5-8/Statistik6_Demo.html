@@ -167,7 +167,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat5-8.html">Statistik 5 - 8</a></li><li class="breadcrumb-item"><a href="../stat5-8/Statistik6_Demo.html"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Stat6: Demo</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat5-8.html">Statistik 5 - 8</a></li><li class="breadcrumb-item"><a href="../stat5-8/Statistik6_Demo.html"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Stat6: Demo</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -383,6 +383,11 @@ window.onload = function() {
   <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -392,6 +397,21 @@ window.onload = function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
   </div>
 </li>
       </ul>
@@ -867,13 +887,11 @@ window.onload = function() {
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>sveg <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat5-8/dave_sveg.csv"</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>sveg </span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>) <span class="co"># "hoch 0.25" = "^1/4" =  "4te Wurzel"</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
@@ -1026,7 +1044,7 @@ window.onload = function() {
 <section id="ca" class="level3">
 <h3 class="anchored" data-anchor-id="ca">CA</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co"># Wurzeltransformierte Deckungen </span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1715,24 +1733,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-109"><a href="#cb25-109" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
 <span id="cb25-110"><a href="#cb25-110" aria-hidden="true" tabindex="-1"></a>sveg <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat5-8/dave_sveg.csv"</span>)</span>
 <span id="cb25-111"><a href="#cb25-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sveg)</span>
-<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
-<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sveg)</span>
-<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-116"><a href="#cb25-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
-<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb25-123"><a href="#cb25-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
-<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
-<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
-<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span>
+<span id="cb25-112"><a href="#cb25-112" aria-hidden="true" tabindex="-1"></a>sveg </span>
+<span id="cb25-113"><a href="#cb25-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-114"><a href="#cb25-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-115"><a href="#cb25-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-118"><a href="#cb25-118" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-119"><a href="#cb25-119" aria-hidden="true" tabindex="-1"></a><span class="co"># PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix</span></span>
+<span id="cb25-120"><a href="#cb25-120" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span> <span class="ot">&lt;-</span> <span class="fu">pca</span>(sveg<span class="sc">^</span><span class="fl">0.25</span>, <span class="at">cor =</span> <span class="cn">TRUE</span>) <span class="co"># "hoch 0.25" = "^1/4" =  "4te Wurzel"</span></span>
+<span id="cb25-121"><a href="#cb25-121" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb25-122"><a href="#cb25-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-125"><a href="#cb25-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb25-126"><a href="#cb25-126" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb25-127"><a href="#cb25-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-128"><a href="#cb25-128" aria-hidden="true" tabindex="-1"></a><span class="co"># Koordinaten im Ordinationsraum</span></span>
+<span id="cb25-129"><a href="#cb25-129" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>scores</span>
+<span id="cb25-130"><a href="#cb25-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-131"><a href="#cb25-131" aria-hidden="true" tabindex="-1"></a><span class="co"># Korrelationen der Variablen mit den Ordinationsachsen</span></span>
+<span id="cb25-132"><a href="#cb25-132" aria-hidden="true" tabindex="-1"></a>pca<span class="fl">.5</span><span class="sc">$</span>loadings</span>
+<span id="cb25-133"><a href="#cb25-133" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-134"><a href="#cb25-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb25-135"><a href="#cb25-135" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-138"><a href="#cb25-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -1784,7 +1802,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb25-184"><a href="#cb25-184" aria-hidden="true" tabindex="-1"></a><span class="fu">### CA</span></span>
 <span id="cb25-185"><a href="#cb25-185" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-188"><a href="#cb25-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>)</span>
+<span id="cb25-189"><a href="#cb25-189" aria-hidden="true" tabindex="-1"></a>ca<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="fu">cca</span>(sveg<span class="sc">^</span><span class="fl">0.5</span>) <span class="co"># Wurzeltransformierte Deckungen </span></span>
 <span id="cb25-190"><a href="#cb25-190" aria-hidden="true" tabindex="-1"></a><span class="co"># Arten (o) und Communities (+) plotten</span></span>
 <span id="cb25-191"><a href="#cb25-191" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ca<span class="fl">.1</span>)</span>
 <span id="cb25-192"><a href="#cb25-192" aria-hidden="true" tabindex="-1"></a></span>
