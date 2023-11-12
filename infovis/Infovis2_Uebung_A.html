@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -93,8 +93,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken",
-    "search-label": "Suchen"
+    "search-submit-button-title": "Abschicken"
   }
 }</script>
 
@@ -151,7 +150,7 @@ window.onload = function() {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../InfoVis.html">Informationsvisualisierung</a></li><li class="breadcrumb-item"><a href="../infovis/Infovis2_Uebung_A.html"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Infovis 2: Übung A</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -732,7 +731,7 @@ window.onload = function() {
 <p>Mache aus der <em>wide table</em> eine <em>long table</em> die wie folgt aussieht.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> <span class="fu">pivot_longer</span>(temperature, <span class="sc">-</span>time, <span class="at">names_to =</span> <span class="st">"station"</span>, <span class="at">values_to =</span> <span class="st">"temperature"</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">head</span>(temperature_long))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -784,7 +783,7 @@ window.onload = function() {
 <p>Importiere anschliessend den Datensatz <em>temperature_2005_metadata.csv</em> und verbinde die beiden Datensätze mit einem <code>left_join</code> via <code>station</code> (bzw. <code>stn</code>).</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/infovis/temperature_2005_metadata.csv"</span>, <span class="st">","</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> <span class="fu">left_join</span>(temperature_long, metadata, <span class="at">by =</span> <span class="fu">c</span>(<span class="at">station =</span> <span class="st">"stn"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -796,7 +795,7 @@ window.onload = function() {
 <p>Erstelle ein Scatterplot (<code>time</code> vs.&nbsp;<code>temperature</code>) wobei die Punkte aufgrund ihrer Meereshöhe eingefärbt werden sollen. Tiefe Werte sollen dabei blau eingefärbt werden und hohe Werte rot (<code>scale_color_gradient</code>). Verkleinere die Punkte um übermässiges Überplotten der Punkten zu vermeiden (<code>size =</code>). Weiter sollen auf der x-Achse im Abstand von 3 Monaten der jeweilige Monat vermerkt sein (<code>date_breaks</code> bzw. <code>date_labels</code> von <code>scale_x_datetime()</code>).</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time, temperature, <span class="at">color =</span> Meereshoehe)) <span class="sc">+</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
@@ -815,7 +814,7 @@ window.onload = function() {
 <p>Um die Metadaten (<code>Name</code>, <code>Meereshoehe</code>, <code>x</code>, <code>y</code>) nicht zu verlieren kannst du den Join aus der ersten Übung wieder ausführen. Alternativ (schneller aber auch schwerer zu verstehen) kannst du diese Variabeln innerhalb deines <code>group_by</code> verwenden.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> temperature_long <span class="sc">|&gt;</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.Date</span>(time)) <span class="sc">|&gt;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(time, station, Name, Meereshoehe, x, y) <span class="sc">|&gt;</span></span>
@@ -828,7 +827,7 @@ window.onload = function() {
 <p>Wiederhole nun den Plot aus der ersten Aufgabe mit den aggregierten Daten aus der vorherigen Aufgabe. Um die labels korrekt zu setzen musst du <code>scale_x_datetime</code> mit <code>scale_x_date</code> ersetzen.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(temperature_long, <span class="fu">aes</span>(time, temperature, <span class="at">color =</span> Meereshoehe)) <span class="sc">+</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Temperatur in ° Celsius"</span>) <span class="sc">+</span></span>
@@ -846,7 +845,7 @@ window.onload = function() {
 <p>Füge am obigen Plot eine schwarze, gestrichelte Trendlinie hinzu.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_smooth</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
@@ -862,7 +861,7 @@ window.onload = function() {
 <p>Positioniere die Legende oberhalb des Plots (nutze dazu <code>theme()</code> mit <code>legend.position</code>).</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span>
@@ -878,7 +877,7 @@ window.onload = function() {
 <p>Füge den Temperaturwerten auf der y-Ache ein <code>°C</code> hinzu (siehe unten und studiere <a href="https://stackoverflow.com/a/35967126/4139249">diesen Tipp</a> zur Hilfe).</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> p <span class="sc">+</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">paste0</span>(x, <span class="st">"°C"</span>)) <span class="sc">+</span></span>
@@ -902,7 +901,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> <span class="fu">mutate</span>(temperature_long, <span class="at">monat =</span> <span class="fu">month</span>(time, <span class="at">label =</span> T, <span class="at">abbr =</span> F))</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -923,7 +922,7 @@ window.onload = function() {
 <p>Tip: Nutze <code>cut</code> um die Stationen in die drei Gruppen aufzuteilen</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Musterlösung</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>temperature_long <span class="ot">&lt;-</span> temperature_long <span class="sc">|&gt;</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lage =</span> <span class="fu">cut</span>(Meereshoehe, <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">400</span>, <span class="dv">600</span>, <span class="dv">1000</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Tieflage"</span>, <span class="st">"Mittellage"</span>, <span class="st">"Hochlage"</span>)))</span>

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.3.353">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -112,8 +112,7 @@ div.csl-indent {
     "search-more-matches-text": "weitere Treffer in diesem Dokument",
     "search-clear-button-title": "Zurücksetzen",
     "search-detached-cancel-button-title": "Abbrechen",
-    "search-submit-button-title": "Abschicken",
-    "search-label": "Suchen"
+    "search-submit-button-title": "Abschicken"
   }
 }</script>
 
@@ -170,7 +169,7 @@ window.onload = function() {
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/7_Multivariate_Modelle.html"><span class="chapter-number">67</span>&nbsp; <span class="chapter-title">Multivariate Modelle</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Suchen" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -787,7 +786,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx)<span class="sc">|&gt;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -805,7 +804,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -816,14 +815,14 @@ window.onload = function() {
 <p>Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgebaut werden. Hier kann auch die Schwelle für die Korrelation gesetzt werden (0.7 ist liberal / 0.5 konservativ).</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Setzt alle Werte kleiner 0.7 auf 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Zur Visualisierung kann ein Plot erstellt werden.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">histogram =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -837,7 +836,7 @@ window.onload = function() {
 <p>Aktuell haben wir im umwelt-Datensatz noch alle Tageszeiten zusammen gespeichert. Für die Berechnung der Modelle unterteilen wir das noch in Tag, Dämmerung (Morgen- und Abenddämmerung zusammen) und Nacht. Hier eine Inspiration dazu:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -854,7 +853,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> untenstehender Code ist sehr rechenentensiv.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Total <span class="sc">~</span> Wochentag <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Monat <span class="sc">+</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
@@ -890,7 +889,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> CDF = Cumulative distribution function; Wikipedia = “Anschaulich entspricht dabei der Wert der Verteilungsfunktion an der Stelle x der Wahrscheinlichkeit, dass die zugehörige Zufallsvariable X einen Wert kleiner oder gleich x annimmt.” Ihr müsst aber nicht weiter verstehen, wie das berechnet wird, wichtig für euch ist, dass ihr den Plot interpretieren könnt.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"norm"</span>) <span class="co"># Normalverteilung</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>f1_1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>((umwelt_day<span class="sc">$</span>Total <span class="sc">+</span> <span class="dv">1</span>), <span class="st">"lnorm"</span>) <span class="co"># log-Normalvert (beachte, dass ich +1 rechne.</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># log muss positiv sein; allerdings kann man die</span></span>
@@ -941,7 +940,7 @@ window.onload = function() {
 <p>Die Modellformel lautet:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                         sremaxdv_scaled <span class="sc">+</span></span>
@@ -962,7 +961,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> Wir verwenden etwas andere Funktionen als in der Vorlesung am morgen. Sie sind unten aufgeführt, und die Funktionen analog zu den Funktionen aus der Vorlesung, aber halt etwas anders.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals werden über eine Simulation auf eine Standard-Skala transformiert und</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># werden (dauert je nach dem sehr lange)</span></span>
@@ -1007,7 +1006,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> ..., <span class="at">family =</span>nbinom1,</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1019,7 +1018,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                           ..., </span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1030,7 +1029,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1041,7 +1040,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nb_quad_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                               tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="co"># hier ist der quadratische Term</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                               rre150j0_scaled <span class="sc">+</span>  sremaxdv_scaled <span class="sc">+</span></span>
@@ -1055,7 +1054,7 @@ window.onload = function() {
 <p><strong>Hinweis:</strong> Interaktionen berechnen ist sehr rechenintensiv. Auch die Interpretation der Resultate wird nicht unbedingt einfacher. Wenn ihr auf Interaktionen testet, dann geht “langsam” vor, probiert nicht zu viel auf einmal und verwendet glmmTMB.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Monat <span class="sc">*</span> rre150j0_scaled <span class="sc">+</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1066,7 +1065,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(..., </span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># inflation parameter applying to all observations (ziformula~1)</span></span>
@@ -1090,7 +1089,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"moments"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(umwelt_day<span class="sc">$</span>Anzahl_Total)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## A positive value means the distribution is positively skewed (rechtsschief).</span></span>
@@ -1116,7 +1115,7 @@ window.onload = function() {
 <p>Modellresultate können mit <strong>summary()</strong> angezeigt werden. Ich verwende aber lieber die Funktion <strong>tab_model()</strong>! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen.</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(MODELLNAME, <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="at">show.se =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="do">## The marginal R squared values are those associated with your fixed effects,</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="do">## the conditional ones are those of your fixed effects plus the random effects.</span></span>
@@ -1132,7 +1131,7 @@ window.onload = function() {
 </ul>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer continuierliche var</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"orangered"</span>)</span>
@@ -1219,7 +1218,7 @@ window.onload = function() {
 <p>Nun können die einzelnen Variabeln aus den besten Modellen in der Funktion jeweils für die Plots angepasst werden:</p>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tagesmaximaltemperatur</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"tre200jx_scaled [all]"</span></span>
@@ -1244,7 +1243,7 @@ window.onload = function() {
 </div>
 <div class="cell">
 <details>
-<summary>Code</summary>
+<summary>Musterlösung</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wochentag </span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"Wochenende [all]"</span></span>
