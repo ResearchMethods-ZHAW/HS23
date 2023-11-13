@@ -708,6 +708,7 @@ window.onload = function() {
   <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
   <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
   <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
   </ul>
 </nav>
     </div>
@@ -749,7 +750,9 @@ window.onload = function() {
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggeffects"</span>)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sjstats"</span>)</span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"cowplot"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gstat"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"gstat"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"purrr"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"broom.mixed"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="ausgangslage" class="level2">
@@ -804,7 +807,7 @@ window.onload = function() {
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
 <p>Berechung der AUC (area under the receiver operating characteristic curve) <strong>= Mass der Modellgüte</strong></p>
-<p>Für die Berechnung des AUC findet ihr weiterführende Informationen unter: <a href="https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf">Link</a></p>
+<p>Für die Berechnung des AUC findet ihr weiterführende Informationen unter: <a href="fallstudie_n/simtest.pdf">Link</a></p>
 <div class="cell">
 <details>
 <summary>Code</summary>
@@ -915,6 +918,9 @@ window.onload = function() {
 <li>Bestimmen delta AIC nach <span class="citation" data-cites="coppes2017">Coppes u.&nbsp;a. (<a href="../References.html#ref-coppes2017" role="doc-biblioref">2017</a>)</span> → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.</li>
 <li>Auftrag auf nächste Woche: Kurze Vorstellung der Modellresultate &amp; Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)</li>
 </ul>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">

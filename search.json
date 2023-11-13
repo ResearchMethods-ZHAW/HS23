@@ -1901,7 +1901,7 @@
     "href": "fallstudie_n/6_Guete_und_Diagnostics.html#libraries-laden",
     "title": "BiEc6_N Modellgüte und -diagnostics MM",
     "section": "Libraries laden",
-    "text": "Libraries laden\nPackages die wir für die Modelle und die Diagnostics brauchen\n\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"DHARMa\")\nlibrary(\"car\")\nlibrary(\"MASS\")\nlibrary(\"ROCR\")\nlibrary(\"sjPlot\")\nlibrary(\"ggeffects\")\nlibrary(\"sjstats\")\nlibrary(\"cowplot\")\nlibrary(\"gstat\")"
+    "text": "Libraries laden\nPackages die wir für die Modelle und die Diagnostics brauchen\n\nlibrary(\"lme4\")\nlibrary(\"bbmle\")\nlibrary(\"MuMIn\")\nlibrary(\"dplyr\")\nlibrary(\"readr\")\nlibrary(\"ggplot2\")\nlibrary(\"DHARMa\")\nlibrary(\"car\")\nlibrary(\"MASS\")\nlibrary(\"ROCR\")\nlibrary(\"sjPlot\")\nlibrary(\"ggeffects\")\nlibrary(\"sjstats\")\nlibrary(\"cowplot\")\nlibrary(\"gstat\")\nlibrary(\"purrr\")\nlibrary(\"broom.mixed\")"
   },
   {
     "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#ausgangslage",
@@ -1936,7 +1936,14 @@
     "href": "fallstudie_n/6_Guete_und_Diagnostics.html#aufgabe-4",
     "title": "BiEc6_N Modellgüte und -diagnostics MM",
     "section": "Aufgabe 4",
-    "text": "Aufgabe 4\nErmittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell\n\nBestimmen delta AIC nach Coppes u. a. (2017) → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.\nAuftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)\n\n\n\n\n\nCoppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94."
+    "text": "Aufgabe 4\nErmittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell\n\nBestimmen delta AIC nach Coppes u. a. (2017) → Vergleich des Gesamtmodells gegenüber einem Modell ohne die entsprechende Variable.\nAuftrag auf nächste Woche: Kurze Vorstellung der Modellresultate & Diagnostics im Plenum und Diskussion der Ergebnisse (keine PP-Präsentation nötig)"
+  },
+  {
+    "objectID": "fallstudie_n/6_Guete_und_Diagnostics.html#section",
+    "href": "fallstudie_n/6_Guete_und_Diagnostics.html#section",
+    "title": "BiEc6_N Modellgüte und -diagnostics MM",
+    "section": "",
+    "text": "Coppes, Joy, Judith Ehrlacher, Dominik Thiel, Rudi Suchant, und Veronika Braunisch. 2017. „Outdoor recreation causes effective habitat reduction in capercaillie Tetrao urogallus: a major threat for geographically restricted populations“. Journal of avian biology 48 (12): 1583–94."
   },
   {
     "objectID": "References.html",
