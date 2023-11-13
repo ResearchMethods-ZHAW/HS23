@@ -38,7 +38,7 @@ library("gstat")
 
 ## Ausgangslage
 
-- Der Modellfit von letzter Woche als Ausgangspunkt für die heutige Übung 
+- Der Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen. 
 
 Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln, 
 
@@ -46,16 +46,18 @@ Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln,
 #| echo: true
 #| code-fold: false
 
-DF_mod_day <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", delim = ";") |>
+DF_mod_day <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_231027_moodle.csv", delim = ";") |>
   filter(time_of_day == "day") |>
   mutate(
     slope_scaled = scale(slope),
-    us_scaled = scale(us),
-    os_scaled = scale(os),
+    topo_pos_scaled = scale(topo_pos),
+    us_scaled = scale(us_2014),
+    os_scaled = scale(os_2014),
     forest_prop_scaled = scale(forest_prop),
     dist_road_all_scaled = scale(dist_road_all),
     dist_road_only_scaled = scale(dist_road_only),
-    dist_build_scaled = scale(dist_build),
+    dist_sett_scaled = scale(dist_sett),
+    remoteness_scaled = scale(remoteness),
     id = as.factor(id)
   )
 
@@ -65,7 +67,8 @@ f <- pres_abs ~
   os_scaled +
   forest_prop_scaled +
   dist_road_only_scaled +
-  dist_build_scaled
+  dist_sett_scaled +
+  remoteness_scaled
 
 f <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
 
@@ -129,7 +132,6 @@ simulationOutput <- simulateResiduals(fittedModel = m_day, n = 10000)
 # plotting and testing scaled residuals
 
 plot(simulationOutput)
-
 testResiduals(simulationOutput)
 
 # The most common concern for GLMMs is overdispersion, underdispersion and
@@ -187,7 +189,7 @@ plot_model(m_day, type = "pred", terms = "us_scaled [all]")
 
 p <- plot_model(m_day, type = "pred", terms = "us_scaled [all]")
 
-labels <- round(seq(floor(min(DF_mod_day$us)), ceiling(max(DF_mod_day$us)), length.out = 8), 2)
+labels <- round(seq(floor(min(DF_mod_day$us_2014)), ceiling(max(DF_mod_day$us_2014)), length.out = 8), 2)
 
 p <- p + scale_x_continuous(breaks = c(-1, 0, 1, 2, 3, 4, 5, 6), labels = c(labels))
 
