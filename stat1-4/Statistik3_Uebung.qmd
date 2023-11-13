@@ -32,6 +32,6 @@ index: 2
     einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und
     Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige
     Redundanz dagegen vermieden werden.
-  - **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg
+  - **Zu erstellen sind (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg
     (Kombination aus R-Code, R Output und dessen Interpretation) und (c)
     ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**

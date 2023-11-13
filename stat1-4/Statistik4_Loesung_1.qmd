@@ -50,14 +50,16 @@ knitr:
   einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und
   Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige
   Redundanz dagegen vermieden werden.
-- **Abzugeben sind am Ende (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
+- **Zu erstellen sind (a) Ein lauffähiges R-Skript; (b) begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation) und (c) ausformulierter Methoden- und Ergebnisteil (für eine wiss. Arbeit).**
 
 ### Musterlösung Übung 4.1 - Nicht-lineare Regression
 
 Aus der Excel-Tabelle wurde das relevante Arbeitsblatt als csv gespeichert
 
 ```{r}
-curonian <- read.delim("datasets/stat1-4/Curonian_spit.csv", sep = ",")
+library("readr")
+
+curonian <- read_delim("datasets/stat1-4/Curonian_spit.csv", ",")
 str(curonian)
 summary(curonian)
 

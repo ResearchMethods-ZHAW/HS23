@@ -99,7 +99,6 @@ plot(glm.pc.2) # sieht nicht besser aus als LM, die Normalverteilung ist sogar s
 
 LM oder GLM sind für die Analyse möglich, Modellwahl nach Gusto. Man muss jetzt noch die Ergebnisse adäquat aus all den erzielten Outputs zusammenstellen (siehe Ergebnistext). In dieser Aufgabe haben wir ja die PC-Achsen als Alternative zur direkten Modellierung mit den originalen Umweltvariablen ausprobiert. Deshalb (war nicht Teil der Aufgabe), kommt hier noch eine Lösung, wie wir es bisher gemacht hätten.
 
-
 **Zum Vergleich die Modellierung mit den Originaldaten**
 
 ```{r}

@@ -24,8 +24,9 @@ Experiment zur Fruchtproduktion ("Fruit") von Ipomopsis sp. in Abhängigkeit von
 
 ```{r}
 # Daten einlesen und anschauen
+library("readr")
 
-compensation <- read.delim("datasets/stat1-4/ipomopsis.csv", sep = ",", stringsAsFactors = T)
+compensation <- read_delim("datasets/stat1-4/ipomopsis.csv", ",",  col_types = cols("Grazing" = "f"))
 head(compensation)
 summary(compensation)
 
@@ -184,11 +185,13 @@ text(x = 1.5, y = 55, "lm.5", col = "violet")
 
 -> Auch der optische Fit wird immer besser. Wir bestreiben jedoch Overfitting und Overfittig ist nicht gut: Denn, macht es Sinn, 6 Datenpunkte mit einem Modell mit 6 geschätzen Parametern zu fitten?? Die zunehmend komplizierten Modelle beschreiben lediglich die vorhandenen Datenpunkte, während sich die Voraussagekraft für weitere aus der Realität stammenden Daten zunehmend verschlechtert.
 
-## Multiple lineare Regression (basierend auf Logan, Beispiel 9A)
+## Multiple lineare Regression (basierend auf @logan2010, Beispiel 9A)
 
 ```{r}
 # Daten laden und anschauen
-loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",")
+library("readr")
+
+loyn <- read_delim("datasets/stat1-4/loyn.csv", ",")
 summary(loyn)
 ```
 
@@ -267,9 +270,7 @@ plot(lm.6)
 Wir können auch schauen wie bedeutsam die einzelnen Variablen sind:
 
 ```{r}
-# Zusätzliches Paket installieren (weil hier.part nicht mehr auf CRAN)
-if(!require(relaimpo)){install.packages("relaimpo")} 
-library(relaimpo)
+library("relaimpo")
 
 # Lineares Modell definieren
 lm_1 <- lm(ABUND~YR.ISOL+ AREA +  DIST + LDIST + GRAZE + ALT, data = loyn)

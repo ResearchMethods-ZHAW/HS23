@@ -25,7 +25,7 @@ format:
 
 execute:
   freeze: true
-  error: true
+  error: false
   message: false
   warning: false
 
@@ -88,13 +88,13 @@ book:
       - --
       - stat1-4/Statistik3_Demo.qmd
       - stat1-4/Statistik3_Uebung.qmd
-      #- stat1-4/Statistik3_Loesung.qmd      
+      - stat1-4/Statistik3_Loesung.qmd      
       - --
       - stat1-4/Statistik4_Demo.qmd
       - stat1-4/Statistik4_Uebung.qmd      
-      #- stat1-4/Statistik4_Loesung_1.qmd
-      #- stat1-4/Statistik4_Loesung_2n.qmd
-      #- stat1-4/Statistik4_Loesung_2s.qmd
+      - stat1-4/Statistik4_Loesung_1.qmd
+      - stat1-4/Statistik4_Loesung_2n.qmd
+      - stat1-4/Statistik4_Loesung_2s.qmd
     - part: Stat5-8.qmd
       chapters:
       - stat5-8/Statistik5_Vorbereitung.qmd

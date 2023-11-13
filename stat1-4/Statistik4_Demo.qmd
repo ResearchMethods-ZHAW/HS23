@@ -47,8 +47,8 @@ lines(xv, yv, lwd = 3, col = "blue")
 
 ```{r}
 # GLMs definieren und anschauen
-glm.gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand) # Ist dasselbe wie ein LM
-glm.poisson <- glm(Besucher ~ Temperatur, family = "poisson", data = strand)
+glm.gaussian <- glm(Besucher ~ Temperatur, family = "gaussian", data = strand) # ist dasselbe wie ein LM
+glm.poisson <- glm(Besucher ~ Temperatur, family = "poisson", data = strand) # Poisson passt besser zu den Daten 
 
 summary(glm.gaussian)
 summary(glm.poisson)
@@ -66,12 +66,12 @@ exp(glm.poisson$coefficients[1] + 30 * glm.poisson$coefficients[2]) # Anzahl bes
 library("AER")
 dispersiontest(glm.poisson)
 ```
--> Es liegt Overdispersion vor. Darum Quasipoisson wählen.
+-> Es liegt Overdispersion vor. Darum quasipoisson wählen.
 
 ```{r}
 
-glm.quasi <- glm(Besucher ~ Temperatur, family = "quasipoisson", data = strand)
-summary(glm.quasi)
+glm.quasipoisson <- glm(Besucher ~ Temperatur, family = "quasipoisson", data = strand)
+summary(glm.quasipoisson)
 ```
 
 ```{r}
@@ -86,9 +86,9 @@ plot(glm.poisson, main = "glm.poisson")
 
 ```{r}
 par(mfrow = c(2, 2))
-plot(glm.quasi, main = "glm.quasi")
+plot(glm.quasipoisson, main = "glm.quasipoisson")
 ```
--> Die Outputs von glm.poisson und glm.quasi sind bis auf die p-Werte identisch.
+-> Die Outputs von glm.poisson und glm.quasipoisson sind bis auf die p-Werte identisch.
 
 ```{r}
 par(mfrow = c(1, 1))
@@ -103,7 +103,7 @@ yv2 <- predict(glm.poisson, list(Temperatur = xv))
 lines(xv, exp(yv2), lwd = 3, col = "red")
 text(x = 5, y = 1300, "poisson", col = "red")
 
-yv3 <- predict(glm.quasi, list(Temperatur = xv))
+yv3 <- predict(glm.quasipoisson, list(Temperatur = xv))
 lines(xv, exp(yv3), lwd = 3, col = "green", lty=2)
 text(x = 5, y = 1100, "quasipoisson", col = "green")
 
@@ -165,8 +165,9 @@ lines(model.predict$fit - model.predict$se.fit ~ xs, type = "l", lty = 2) # Stan
 ```{r}
 library("AICcmodavg")
 library("nlstools")
+library("readr")
 
-loyn <- read.delim("datasets/stat1-4/loyn.csv", sep = ",")
+loyn <- read_delim("datasets/stat1-4/loyn.csv", ",")
 
 # Selbstdefinierte Funktion, hier Potenzfunktion
 power.model <- nls(ABUND ~ c * AREA^z, start = (list(c = 1, z = 0)), data = loyn)
@@ -224,6 +225,7 @@ Modnames <- c("Power", "Logistic")
 aictab(cand.set = cand.models, modnames = Modnames)
 
 ```
+-> Gemäss AIC passt also das "logistic model" besser als das "power model"
 
 ## Smoother
 
@@ -244,11 +246,28 @@ gam.1 <- gam(ABUND ~ s(log_AREA), data = loyn)
 gam.1
 summary(gam.1)
 
-plot(loyn$log_AREA, loyn$ABUND, pch = 16)
-xv <- seq(-1, 4, by = 0.1)
-yv <- predict(gam.1, list(log_AREA = xv))
-lines(xv, yv, lwd = 2, col = "red")
-
+# Gam mit den anderen Modellen per AIC vergleichen
 AICc(gam.1)
-summary(gam.1)
+AICc(logistic.model)
+AICc(power.model)
+
+# Alle Modelle anschauen
+
+# Visualisierung mit logarithmiert y-Achse (gleicher code wie weiter oben)
+plot(ABUND ~ log10(AREA), data = loyn)
+# 1. Potenzfunktion
+yv1 <- predict(power.model, list(AREA = xv))
+lines(log10(xv), yv1, col = "green")
+text(x = 2, y = 20, "power.model", col = "green")
+# 2. Logistische Funktion
+yv2 <- predict(logistic.model, list(AREA = xv))
+lines(log10(xv), yv2, col = "blue")
+text(x = 2, y = 15, "logistic.model", col = "blue")
+# 3. Gam model
+xv2 <- seq(-2, 4, by = 0.1)
+yv <- predict(gam.1, list(log_AREA = xv2))
+lines(xv2, yv, lwd = 2, col = "red")
+text(x = 0, y = 20, "GAM", col = "red")
+
 ```
+-> Sowohl gemäss AIC als auch optisch auf dem Plot scheint das GAM Model am besten zu den Daten zu passen  
