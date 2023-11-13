@@ -40,8 +40,6 @@ library("gstat")
 
 - Der Modellfit aus Aufgabe 5 von letzter Woche dient als Ausgangspunkt für die heutigen Übungen. 
 
-Hier sollte investiert werden. Backscale Estimates, Modelldiagnostik aufmöbeln, 
-
 ```{r}
 #| echo: true
 #| code-fold: false
@@ -99,6 +97,7 @@ Berechung der AUC (area under the receiver operating characteristic curve) **= M
 Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf) 
 
 ```{r}
+#| echo: true
 #| output: false
 
 prob <- predict(m_day, type = c("response"))
@@ -122,6 +121,7 @@ Interpretieren der Modell-Residuen mittels Tests auf verschiedene Aspekte
 ```{r}
 #| eval: false
 #| output: false
+#| echo: true
 
 # Residuals werden über eine Simulation auf eine Standard-Skala transformiert und
 # können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt
@@ -173,6 +173,7 @@ Graphische Darstellung der Modellresultate
 ```{r}
 #| eval: false
 #| output: false
+#| echo: true
 
 # graphische Darstellung der gesamten Modellresultate
 
@@ -210,53 +211,67 @@ Ermittlung des individuellen Beitrags der einzelen Variablen im Gesamtmodell
 
 ```{r}
 m_os <- glmer(pres_abs ~
-  dist_build_scaled +
-  dist_road_only_scaled +
-  forest_prop_scaled +
   slope_scaled +
   us_scaled +
+  forest_prop_scaled +
+  dist_road_only_scaled +
+  dist_sett_scaled +
+  remoteness_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
 m_us <- glmer(pres_abs ~
-  dist_build_scaled +
-  dist_road_only_scaled +
-  forest_prop_scaled +
   slope_scaled +
+  forest_prop_scaled +
+  dist_road_only_scaled +
+  dist_sett_scaled +
+  remoteness_scaled +
   os_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
 m_road <- glmer(pres_abs ~
-  dist_build_scaled +
-  forest_prop_scaled +
   slope_scaled +
+  forest_prop_scaled +
+  dist_sett_scaled +
+  remoteness_scaled +
   us_scaled +
   os_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
 m_forest <- glmer(pres_abs ~
-  dist_build_scaled +
   dist_road_only_scaled +
   slope_scaled +
+  dist_sett_scaled +
+  remoteness_scaled +
   us_scaled +
   os_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
-m_build <- glmer(pres_abs ~
-  dist_build_scaled +
+m_sett <- glmer(pres_abs ~
   dist_road_only_scaled +
-  forest_prop_scaled +
   slope_scaled +
+  forest_prop_scaled +
+  remoteness_scaled +
   us_scaled +
   os_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
 m_slope <- glmer(pres_abs ~
-  dist_build_scaled +
   dist_road_only_scaled +
   forest_prop_scaled +
+  remoteness_scaled +
+  dist_sett_scaled +
   us_scaled +
   os_scaled +
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
-bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_build, m_slope)
+m_remote <- glmer(pres_abs ~
+  dist_road_only_scaled +
+  forest_prop_scaled +
+  slope_scaled +
+  dist_sett_scaled +
+  us_scaled +
+  os_scaled +
+  (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
+
+bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_sett, m_slope, m_remote)
 ```
