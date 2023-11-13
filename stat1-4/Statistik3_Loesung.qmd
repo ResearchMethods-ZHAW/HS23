@@ -36,9 +36,9 @@ ukraine # Importierte Daten anschauen
 
 
 ```{r}
-# Die erste Spalte "...1" löschen, weil sie durch die Importfunktion erstellt wurde.
+# "...1" löschen, weil sie unnötig ist.
 
-ukraine <- ukraine[,-1] # Erste Spalte löschen
+ukraine <- ukraine[ ,-1] # Erste Spalte löschen
 
 str(ukraine)
 summary(ukraine)

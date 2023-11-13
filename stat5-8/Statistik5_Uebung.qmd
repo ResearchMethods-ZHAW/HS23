@@ -16,7 +16,7 @@ Versuch zum Ernteertrag (yield) einer Kulturpflanze in Abhängigkeit der drei Fa
 ### Aufgaben
 
 - Bestimmt das minimal adäquate Modell
-- Stellt die Ergebnisse da
+- Stellt die Ergebnisse dar
 
 ## Aufgabe 5.2: GLMM
 
