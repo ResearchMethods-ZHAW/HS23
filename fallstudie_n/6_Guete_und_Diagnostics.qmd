@@ -34,6 +34,8 @@ library("ggeffects")
 library("sjstats")
 library("cowplot")
 library("gstat")
+library("purrr")
+library("broom.mixed")
 ```
 
 ## Ausgangslage
@@ -94,7 +96,7 @@ summary(m_day)
 
 Berechung der AUC (area under the receiver operating characteristic curve) **= Mass der Modellgüte**
 
-Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](https://www.wsl.ch/staff/niklaus.zimmermann/programs/progs/simtest.pdf) 
+Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](fallstudie_n/simtest.pdf) 
 
 ```{r}
 #| echo: true
@@ -274,4 +276,57 @@ m_remote <- glmer(pres_abs ~
   (1 | id), data = DF_mod_day, family = binomial, na.action = "na.fail")
 
 bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_sett, m_slope, m_remote)
+```
+
+## 
+
+```{r}
+#| eval: false
+
+# https://aosmith.rbind.io/2018/03/26/unstandardizing-coefficients/
+
+coef_st = tidy(m_day, 
+               effects = "fixed",
+               conf.int = TRUE,
+               conf.method = "profile")
+
+coef_st
+
+cbpp %>%
+     select(y1:y3) %>%
+     map(sd) %>% 
+     stack()
+
+sd_all = cbpp %>%
+     select(y1:y3) %>%
+     map(sd) %>%
+     stack() %>%
+     rename(sd = values) %>%
+     mutate(ind = paste(ind, "s", sep = "_") )
+
+sd_all
+
+coef_st %>%
+     inner_join(., sd_all, by = c("term" = "ind") )
+
+coef_st %>%
+     inner_join(., sd_all, by = c("term" = "ind") ) %>%
+     mutate_at( .vars = vars(estimate, conf.low, conf.high), 
+                .funs = list(~round( ./sd, 4) ) )
+
+coef_unst = coef_st %>%
+     inner_join(., sd_all, by = c("term" = "ind") ) %>%
+     mutate_at( .vars = vars(estimate, conf.low, conf.high), 
+                .funs = list(~round( ./sd, 4) ) ) %>%
+     select(-effect, -(std.error:p.value), -sd)
+
+coef_unst
+
+round( fixef(fit1)[2:4], 4)
+
+tidy(fit1, 
+     effects = "fixed",
+     conf.int = TRUE,
+     conf.method = "profile")
+
 ```
