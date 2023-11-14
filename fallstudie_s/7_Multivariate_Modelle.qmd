@@ -707,8 +707,14 @@ testZeroInflation(simulationOutput)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
 
-car::vif(poisson_model)
+car::vif(poisson_model) # funktioniert nicht mit glmmTMB
 mean(car::vif(poisson_model))
+
+# erklaerte varianz
+# The marginal R squared values are those associated with your fixed effects,
+# the conditional ones are those of your fixed effects plus the random effects.
+# Usually we will be interested in the marginal effects.
+performance::r2(poisson_model)
 ```
 
 Sind die Voraussetzungen des Modells erfüllt?
