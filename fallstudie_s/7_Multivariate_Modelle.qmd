@@ -757,17 +757,15 @@ nb_model_day <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
 - Falls die Daten exponentiell Verteilt sind, hier der Link zu einem Blogeintrag dazu: [Link](https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle)
 
 ```{r echo=TRUE, eval=FALSE}
-  ...
-tre200jx_scaled + I(tre200jx_scaled^2) +
-  ...
+glmmTMB((Total + 1) ~ ... 
+                         family = Gamma(link = "log"), data = umwelt_night)
 ```
 
 ```{r eval=FALSE}
-nb_quad_model_day <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
-                                  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
-                                  sremaxdv_scaled +
-                                  (1 | Jahr), family =nbinom1,
-                               data = umwelt_day)
+glmmTMB((Total + 1) ~ Monat + Ferien + Phase + Wochenende +
+                           tre200nx_scaled + I(tre200nx_scaled^2) + rre150n0_scaled +
+                          (1 | Jahr), 
+                         family = Gamma(link = "log"), data = umwelt_night)
 ```
 
 
