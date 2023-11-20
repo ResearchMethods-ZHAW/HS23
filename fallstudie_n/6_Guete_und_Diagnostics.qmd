@@ -1,7 +1,7 @@
 ---
 execute:
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -96,7 +96,7 @@ summary(m_day)
 
 Berechung der AUC (area under the receiver operating characteristic curve) **= Mass der Modellgüte**
 
-Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](fallstudie_n/simtest.pdf) 
+Für die Berechnung des AUC findet ihr weiterführende Informationen unter: [Link](simtest.pdf) 
 
 ```{r}
 #| echo: true
@@ -150,8 +150,11 @@ testZeroInflation(simulationOutput)
 # test for spatial Autocorrelation
 
 # calculating x, y positions per group
-groupLocations = aggregate(DF_mod_day[, 3:4], list(DF_mod_day$x, DF_mod_day$y), mean)
+groupLocations <- aggregate(DF_mod_day[, 3:4], list(DF_mod_day$x, DF_mod_day$y), mean)
 groupLocations$group <- paste(groupLocations$Group.1, groupLocations$Group.2)
+groupLocations <- groupLocations |> dplyr::select(x,y,group)
+
+
 
 # calculating residuals per group
 res2 = recalculateResiduals(simulationOutput, group = groupLocations$group)
@@ -282,6 +285,7 @@ bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_sett, m_slope, m_remote)
 
 ```{r}
 #| eval: false
+#| echo: false
 
 # https://aosmith.rbind.io/2018/03/26/unstandardizing-coefficients/
 

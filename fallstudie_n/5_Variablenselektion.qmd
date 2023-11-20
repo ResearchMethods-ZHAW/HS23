@@ -266,3 +266,35 @@ sw(all_m)
 avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
 summary(avgmodel)
 ```
+```{r}
+
+#| eval: false
+#| error: true
+#| echo: false
+
+# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8
+# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
+
+f <- pres_abs ~
+  slope_scaled +
+  topo_pos_scaled +
+  us_scaled +
+  os_scaled +
+  forest_prop_scaled +
+  dist_road_only_scaled +
+  dist_road_all_scaled +
+  dist_sett_scaled +
+  remoteness_scaled
+
+# inn diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
+# daraus gemacht
+
+f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
+
+# Das Modell mit dieser Formel ausführen
+
+m <- glmer(f_dredge, data = DF_mod_day, family = binomial, na.action = "na.fail")
+
+car::vif(m)
+mean(car::vif(m))
+```
