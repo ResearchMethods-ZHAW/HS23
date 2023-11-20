@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Research Methods HS23 - Stat7: Lösung</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../stat5-8/Statistik8_Demo.html" rel="next">
+<link href="../stat5-8/Statistik7_Uebung.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "Keine Treffer",
+    "search-matching-documents-text": "Treffer",
+    "search-copy-link-title": "Link in die Suche kopieren",
+    "search-hide-matches-text": "Zusätzliche Treffer verbergen",
+    "search-more-match-text": "weitere Treffer in diesem Dokument",
+    "search-more-matches-text": "weitere Treffer in diesem Dokument",
+    "search-clear-button-title": "Zurücksetzen",
+    "search-detached-cancel-button-title": "Abbrechen",
+    "search-submit-button-title": "Abschicken",
+    "search-label": "Suchen"
+  }
+}</script>
+
+
+<!-- loads fontawesome, so that I can create a fontawesome button (see below) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+<script>
+
+// the following function adds padding to all h2 elements, so that I can 
+// easily present the content of the page in a more readable way
+function presenter(){
+    var paragraphs = document.querySelectorAll("h2", "h3");
+    paragraphs.forEach(function (paragraph) {
+        paragraph.classList.toggle("padding-top-500");
+    });
+}
+
+// once the page is loaded, the button is injected into the sidebar. This button
+// calls the presenter function (see above)
+window.onload = function() {
+    // create the button (similar to the buttons already availables)
+    const linkElement = document.createElement('a');
+
+    linkElement.classList.add('quarto-navigation-tool');
+    linkElement.classList.add('px-1');
+    linkElement.innerHTML = '<i class="fa-solid fa-person-chalkboard"></i>';
+    linkElement.href = '#';
+    linkElement.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        presenter();
+    });
+
+    // Find the target element by its class name
+    const sidebar_tools = document.querySelector(".sidebar-tools-main")
+    sidebar_tools.appendChild(linkElement);
+};
+
+</script>
+
+
+<link rel="stylesheet" href="../custom.css">
+<link rel="stylesheet" href="../theme-custom.scss">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../Stat5-8.html">Statistik 5 - 8</a></li><li class="breadcrumb-item"><a href="../stat5-8/Statistik7_Loesung.html"><span class="chapter-number">44</span>&nbsp; <span class="chapter-title">Stat7: Lösung</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Research Methods HS23</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Dunkelmodus umschalten"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Lesemodus umschalten">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Suchen"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Willkommen</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../PrePro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Pre-Processing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">PrePro 1: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../prepro/Prepro3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prepro 3: Übung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../InfoVis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Informationsvisualisierung</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Demo A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis1_Script_eda.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 1: Script EDA</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../infovis/Infovis2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Infovis 2: Übung optional</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat1-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistik 1 - 4</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Novanimal.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: NOVANIMAL</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik1_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat1: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_Beispiel.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung Beispiel</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_2223s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.2 &amp; 2.3S</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik2_Loesung_23n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat2: Lösung 2.3N</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik3_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat3: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2n.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2N</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat1-4/Statistik4_Loesung_2s.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat4: Lösung 4.2S</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../Stat5-8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistik 5 - 8</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 2</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Loesung.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Stat7: Lösung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Demo.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Lösung</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../StatKons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Statistik Konsolidierung</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons0_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_assoziationen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Demo</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons1_Demo_open_datasets.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons1: Open Datasets</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons2_Demo_PCA.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons2: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons3_Demo_LM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons3: Demo</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../statKons/StatKons4_Demo_GLM.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">StatKons4: Demo</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../RaumAn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Räumliche Analysen</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman0_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman1_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 1: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman2_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 2: Übung B</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung B</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman3_Uebung_C.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 3: Übung C (Optional)</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman4_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 4: Übung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_A.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung A</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../rauman/Rauman5_Uebung_B.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Rauman 5: Übung B</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false">
+ <span class="menu-text">Fallstudie S</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/0_Vorbereitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Vorbereitung</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/1_Einführung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Einführung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/2_Besuchermonitoring.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Monitoring</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/3_Aufgabenstellung_WPZ.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Aufgabenstellung Abschlussbericht</span></a>
+  </div>
+</li>
+          <li class="px-0"><hr class="sidebar-divider hi "></li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/4_Projektierung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Projektierung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/5_Datenverarbeitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Datenverarbeitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/6_Deskriptive_Analysen.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Deskriptive Analysen</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_s/7_Multivariate_Modelle.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Multivariate Modelle</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false">
+ <span class="menu-text">Fallstudie N</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-8" aria-expanded="false" aria-label="Abschnitt umschalten">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-8" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/1_Vorbemerkung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc1_N Vorbemerkung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/2_Datenverarbeitung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc2_N Daten(vor)verarbeitung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/3_Berechnung_Homeranges.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc3_N Homeranges</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/4_Multivariate_Modelle.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc4_N Multivariate Modelle</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/5_Variablenselektion.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc5_N Variablenselektion MM</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../fallstudie_n/6_Guete_und_Diagnostics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">BiEc6_N Modellgüte und -diagnostics MM</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../References.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Literaturverzeichnis</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Inhaltsverzeichnis</h2>
+   
+  <ul>
+  <li><a href="#musterlösung-aufgabe-7.1-rda" id="toc-musterlösung-aufgabe-7.1-rda" class="nav-link active" data-scroll-target="#musterlösung-aufgabe-7.1-rda">Musterlösung Aufgabe 7.1: RDA</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Stat7: Lösung</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Veröffentlichungsdatum</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">20. November 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<ul>
+<li>Download dieses Lösungsscript via “&lt;/&gt;Code” (oben rechts)</li>
+<li><a href="Statistik_Loesungstext_7.1.pdf">Lösungstext als Download</a></li>
+</ul>
+<section id="musterlösung-aufgabe-7.1-rda" class="level2">
+<h2 class="anchored" data-anchor-id="musterlösung-aufgabe-7.1-rda">Musterlösung Aufgabe 7.1: RDA</h2>
+<p><strong>Übungsaufgabe (hier so ausführlich formuliert, wie dies auch in der Klausur der Fall sein wird)</strong></p>
+<ul>
+<li>Ladet die library dave, welche den Moordatensatz enthält. sveg beinhaltet presenceabsence-Daten aller untersuchten Arten in den Plots; ssit beinhaltet 18 metrische Umweltdaten sowie Koordinaten der Plots</li>
+<li><strong>Führt eine RDA und eine Varianzpartizionierung in die Variablengruppen Physiographie</strong> (Waterlev.max, Waterlev.av, Waterlev.min, log.peat.lev, log slope.deg) <strong>und Chemie</strong> (alle übrigen) <strong>durch.</strong></li>
+<li>Formuliert abschliessend einen Methoden- und Ergebnisteil (ggf. incl.&nbsp;adäquaten Abbildungen) zu dieser Untersuchung in der Form einer wissenschaftlichen Arbeit (ausformulierte schriftliche Zusammenfassung, mit je einem Absatz von ca. 60-100 Worten, resp. 3-8 Sätzen für den Methoden- und Ergebnisteil). D. h. alle wichtigen Informationen sollten enthalten sein, unnötige Redundanz dagegen vermieden werden.</li>
+<li>Während im Text normalerweise die Variablen ausgeschrieben werden solltet, genügt es hier (da ihr die entsprechenden Infos nicht bekommen habt und nur raten könntet), wenn ihr die Abkürzungen aus dem dataframe nehmt.</li>
+</ul>
+<p><strong>Moordatensatz laden</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dave"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in library("dave"): es gibt kein Paket namens 'dave'</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sveg"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"ssit"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sveg)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ssit)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(ssit)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x.axis and y.axis vom data frame data frame ssit entfernen</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>env2 <span class="ot">&lt;-</span> ssit[, <span class="sc">-</span><span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">20</span>)]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'ssit' nicht gefunden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Betrachtung der Daten zeigt, dass die Koordinaten in Spalten 19 und 20 sind, die daraufhin entfernt werden.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generiere zwei subset der erklärenden Variablen</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Physiografie (upstream-downstream-Gradient)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>envtopo <span class="ot">&lt;-</span> env2[, <span class="fu">c</span>(<span class="dv">11</span><span class="sc">:</span><span class="dv">15</span>)]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'env2' nicht gefunden</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(envtopo)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'envtopo' nicht gefunden</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Chemie</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>envchem <span class="ot">&lt;-</span> env2[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="dv">16</span><span class="sc">:</span><span class="dv">18</span>)]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'env2' nicht gefunden</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(envchem)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in eval(expr, envir, enclos): Objekt 'envchem' nicht gefunden</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Hellinger-transform the species dataset</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"vegan"</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in library("vegan"): es gibt kein Paket namens 'vegan'</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>spe.hel <span class="ot">&lt;-</span> <span class="fu">decostand</span>(sveg, <span class="st">"hellinger"</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in decostand(sveg, "hellinger"): konnte Funktion "decostand" nicht finden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Vorstehend wurden die Variablen in die zwei Gruppen Chemistry und Physiography aufgteilt. Die Hellilnger-Transformation wird gemeinhin empfohlen (wobei dahingestellt sei, ob sie auch bei presence-absence-Daten nötig ist). Die weiteren Analysen führen wir mit der default-Einstellung „Scaling 2“ durch. (Je nach Bedarf bzw. persönlichen Vorlieben könnte auch Scaling 1 genommen werden).</p>
+<p><strong>Redundancy analysis (RDA)</strong></p>
+<p>RDA of the Hellinger-transformed mire species data, constrained by all the environmental variables contained in env2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="do">## RDA der Hellinger-transformireten Moorarten-Daten, constrained</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="do">## mit allen Umweltvarialben die in env2 enthalten sind</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>(spe.rda <span class="ot">&lt;-</span> <span class="fu">rda</span>(spe.hel <span class="sc">~</span> ., env2)) <span class="co"># Observe the shortcut formula</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in rda(spe.hel ~ ., env2): konnte Funktion "rda" nicht finden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spe.rda) <span class="co"># Skalierung 2 (default)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Canonical coefficients from the rda object</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(spe.rda)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in coef(spe.rda): Objekt 'spe.rda' nicht gefunden</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Unadjusted R^2 retrieved from the rda object</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>(R2 <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(spe.rda)<span class="sc">$</span>r.squared)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in RsquareAdj(spe.rda): konnte Funktion "RsquareAdj" nicht finden</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusted R^2 retrieved from the rda object</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>(R2adj <span class="ot">&lt;-</span> <span class="fu">RsquareAdj</span>(spe.rda)<span class="sc">$</span>adj.r.squared)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in RsquareAdj(spe.rda): konnte Funktion "RsquareAdj" nicht finden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Man erhält R²adj. = 0.376 Jetzt kann man den Triplot erstellen</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Triplots of the rda results (lc scores)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Site scores as linear combinations of the environmental variables</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.new(title = "RDA scaling 1 and 2 + lc", width = 15, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># par(mfrow = c(1, 2))</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 und 2 Achse</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"lc"</span>, <span class="st">"cn"</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env2 - scaling 2 - lc scores"</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot(spe.rda, display = c("sp", "lc", "cn"), main = "Triplot RDA spe.hel ~ env2 - scaling 2 - lc scores"): Objekt 'spe.rda' nicht gefunden</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>spe.sc2 <span class="ot">&lt;-</span> <span class="fu">scores</span>(spe.rda, <span class="at">choices =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, <span class="at">display =</span> <span class="st">"sp"</span>)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in scores(spe.rda, choices = 1:2, display = "sp"): konnte Funktion "scores" nicht finden</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc2[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc2[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>,</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">length =</span> <span class="dv">0</span>,</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, : Objekt 'spe.sc2' nicht gefunden</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.82</span>, <span class="fl">0.55</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in text.default(-0.82, 0.55, "b", cex = 1.5): plot.new has not been called yet</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 und 3 Achse</span></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">display =</span> <span class="fu">c</span>(<span class="st">"sp"</span>, <span class="st">"lc"</span>, <span class="st">"cn"</span>), <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>),</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env2 - scaling 2 - lc scores"</span></span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot(spe.rda, display = c("sp", "lc", "cn"), choices = c(1, 3), : Objekt 'spe.rda' nicht gefunden</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>spe.sc2 <span class="ot">&lt;-</span> <span class="fu">scores</span>(spe.rda, <span class="at">choices =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>), <span class="at">display =</span> <span class="st">"sp"</span>)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in scores(spe.rda, choices = c(1, 3), display = "sp"): konnte Funktion "scores" nicht finden</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc2[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc2[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">length =</span> <span class="dv">0</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, : Objekt 'spe.sc2' nicht gefunden</span></span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">0.82</span>, <span class="fl">0.55</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in text.default(-0.82, 0.55, "b", cex = 1.5): plot.new has not been called yet</span></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="do">## Triplots of the rda results (wa scores)</span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a><span class="do">## Site scores as weighted averages (vegan's default)</span></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Scaling 1 :  distance triplot</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.new(title = "RDA scaling 2 + wa",width = 7, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Scaling 2 (default) :  correlation triplot</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.rda, <span class="at">main =</span> <span class="st">"Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores"</span>)</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot(spe.rda, main = "Triplot RDA spe.hel ~ env3 - scaling 2 - wa scores"): Objekt 'spe.rda' nicht gefunden</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a><span class="fu">arrows</span>(<span class="dv">0</span>, <span class="dv">0</span>, spe.sc2[, <span class="dv">1</span>] <span class="sc">*</span> <span class="fl">0.92</span>, spe.sc2[, <span class="dv">2</span>] <span class="sc">*</span> <span class="fl">0.92</span>, <span class="at">length =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">"red"</span>)</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in arrows(0, 0, spe.sc2[, 1] * 0.92, spe.sc2[, 2] * 0.92, length = 0, : Objekt 'spe.sc2' nicht gefunden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Auswahl der höchstkorrelierten Arten (Grenzwert kann subjektiv nach Bedarf gesetzt werden, hier 0.5).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Select species with goodness-of-fit at least 0.6 in the</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ordination plane formed by axes 1 and 2</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>spe.good <span class="ot">&lt;-</span> <span class="fu">goodness</span>(spe.rda)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>sel.sp <span class="ot">&lt;-</span> <span class="fu">which</span>(spe.good[, <span class="dv">2</span>] <span class="sc">&gt;=</span> <span class="fl">0.6</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>sel.sp</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Global test of the RDA result</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spe.rda, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tests of all canonical axes</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spe.rda, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spe.rda, <span class="at">by =</span> <span class="st">"axis"</span>, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die ersten drei RDA-Achsen sind also signifikant. Man könnte also auch noch eine Visualisierung von RDA 3 vs.&nbsp;RDA 1 machen.</p>
+<ul>
+<li><strong>Partielle RDA</strong></li>
+<li><strong>Simple syntax; X and W may be in separate tables of quantitative</strong></li>
+<li><strong>variables</strong></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>spechem.physio <span class="ot">&lt;-</span> <span class="fu">rda</span>(spe.hel, envchem, envtopo)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(spechem.physio)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Formula interface; X and W variables must be in the same</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># data frame</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>(spechem.physio2 <span class="ot">&lt;-</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rda</span>(spe.hel <span class="sc">~</span> pH.peat <span class="sc">+</span> log.ash.perc <span class="sc">+</span> Ca_peat <span class="sc">+</span> Mg_peat <span class="sc">+</span> Na_peat</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">+</span> K_peat <span class="sc">+</span> Acidity.peat <span class="sc">+</span> CEC.peat <span class="sc">+</span> Base.sat.perc <span class="sc">+</span> P.peat</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="sc">+</span> pH.water <span class="sc">+</span> log.cond.water <span class="sc">+</span> log.Ca.water</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="sc">+</span> <span class="fu">Condition</span>(Waterlev.max <span class="sc">+</span> Waterlev.av <span class="sc">+</span> Waterlev.min <span class="sc">+</span> log.peat.lev</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>      <span class="sc">+</span> log.slope.deg), <span class="at">data =</span> env2))</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Test of the partial RDA, using the results with the formula</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># interface to allow the tests of the axes to be run</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spechem.physio2, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>))</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(spechem.physio2, <span class="at">permutations =</span> <span class="fu">how</span>(<span class="at">nperm =</span> <span class="dv">999</span>), <span class="at">by =</span> <span class="st">"axis"</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Partial RDA triplots (with fitted site scores)</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="co"># with function triplot.rda</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.new(title = "Partial RDA", width = 7, height = 6, noRStudioGD = TRUE)</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a><span class="fu">triplot.rda</span>(spechem.physio,</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">site.sc =</span> <span class="st">"lc"</span>, <span class="at">scaling =</span> <span class="dv">2</span>,</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.char2 =</span> <span class="fl">0.8</span>, <span class="at">pos.env =</span> <span class="dv">3</span>, <span class="at">mult.spe =</span> <span class="fl">1.1</span>, <span class="at">mar.percent =</span> <span class="fl">0.04</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(<span class="sc">-</span><span class="fl">3.34</span>, <span class="fl">3.64</span>, <span class="st">"b"</span>, <span class="at">cex =</span> <span class="dv">2</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>Varianzpartitionierung</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## 1. Variation partitioning with all explanatory variables</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>(spe.part.all <span class="ot">&lt;-</span> <span class="fu">varpart</span>(spe.hel, envchem, envtopo))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in varpart(spe.hel, envchem, envtopo): konnte Funktion "varpart" nicht finden</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot of the partitioning results</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># dev.new(title = "Variation partitioning", width = 7, height = 7, noRStudioGD = TRUE)</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(spe.part.all, <span class="at">digits =</span> <span class="dv">2</span>, <span class="at">bg =</span> <span class="fu">c</span>(<span class="st">"red"</span>, <span class="st">"blue"</span>),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Xnames =</span> <span class="fu">c</span>(<span class="st">"Chemistry"</span>, <span class="st">"Physiography"</span>), <span class="at">id.size =</span> <span class="fl">0.7</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="do">## Error in plot(spe.part.all, digits = 2, bg = c("red", "blue"), Xnames = c("Chemistry", : Objekt 'spe.part.all' nicht gefunden</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Die durch die erhobenen Umweltvariablen insgesamt erklärte Varianz (37.6%, s.o.) entfällt zu 19.4% auf chemische Variablen, 3.6% auf physiographische Variablen und zu 14.6% auf gemeinsame Erklärung.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'alternate';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Kopiert");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Kopiert");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../stat5-8/Statistik7_Uebung.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Stat7: Übung</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../stat5-8/Statistik8_Demo.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-title">Stat8: Demo</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

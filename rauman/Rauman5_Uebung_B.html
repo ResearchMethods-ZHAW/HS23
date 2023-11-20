@@ -128,7 +128,7 @@ window.onload = function() {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../RaumAn.html">Räumliche Analysen</a></li><li class="breadcrumb-item"><a href="../rauman/Rauman5_Uebung_B.html"><span class="chapter-number">59</span>&nbsp; <span class="chapter-title">Rauman 5: Übung B</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../RaumAn.html">Räumliche Analysen</a></li><li class="breadcrumb-item"><a href="../rauman/Rauman5_Uebung_B.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Rauman 5: Übung B</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -402,6 +402,16 @@ window.onload = function() {
   <a href="../stat5-8/Statistik5_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_1.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik5_Loesung_2.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat5: Lösung 2</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -411,6 +421,11 @@ window.onload = function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat5-8/Statistik6_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik6_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat6: Lösung</span></a>
   </div>
 </li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -424,6 +439,11 @@ window.onload = function() {
   <a href="../stat5-8/Statistik7_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Übung</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik7_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat7: Lösung</span></a>
+  </div>
+</li>
           <li class="px-0"><hr class="sidebar-divider hi "></li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -433,6 +453,11 @@ window.onload = function() {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../stat5-8/Statistik8_Uebung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Übung</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../stat5-8/Statistik8_Loesung.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Stat8: Lösung</span></a>
   </div>
 </li>
       </ul>
@@ -709,7 +734,7 @@ window.onload = function() {
 -->
 <section id="aufgabe-1-rasterdaten-einlesen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1-rasterdaten-einlesen">Aufgabe 1: Rasterdaten einlesen</h2>
-<p>Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns der Datensatz <em>wind250m.tif</em> zur Verfügung (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>58.1</span></a>). Lade den Datensatz mit der Funktion <code>rast()</code> in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen.</p>
+<p>Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns der Datensatz <em>wind250m.tif</em> zur Verfügung (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>). Lade den Datensatz mit der Funktion <code>rast()</code> in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -723,21 +748,21 @@ window.onload = function() {
 </section>
 <section id="aufgabe-2-wind-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-wind-bewerten">Aufgabe 2: Wind bewerten</h2>
-<p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1"><span>Kapitel&nbsp;58.3</span></a>. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>59.1</span></a> festgehalten sind.</p>
+<p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1"><span>Kapitel&nbsp;63.3</span></a>. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a> festgehalten sind.</p>
 <div class="cell quarto-layout-panel">
 
 </div>
 </section>
 <section id="aufgabe-3-slope-berechnen-und-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-slope-berechnen-und-bewerten">Aufgabe 3: Slope berechnen und bewerten</h2>
-<p>Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell <em>dhm250m.tif</em> herunter (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>58.1</span></a>) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman2_Uebung_B.html#sec-raster-slope"><span>Kapitel&nbsp;53.2</span></a> (beachten Sie die Einheit des Output!).</p>
-<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>59.1</span></a>.</p>
+<p>Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell <em>dhm250m.tif</em> herunter (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman2_Uebung_B.html#sec-raster-slope"><span>Kapitel&nbsp;58.2</span></a> (beachten Sie die Einheit des Output!).</p>
+<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a>.</p>
 <div class="mce-table">
 <div class="cell">
 <div class="cell-output-display">
 <div id="tbl-bewerungstabelle-other" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Tabelle&nbsp;59.1: Bewertungstabelle die Windgeschwindigkeit (m/s) und Hangneigung (Grad)</caption>
+<caption>Tabelle&nbsp;64.1: Bewertungstabelle die Windgeschwindigkeit (m/s) und Hangneigung (Grad)</caption>
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
@@ -824,13 +849,13 @@ Hangneigung
 </section>
 <section id="sec-raster-overlay2" class="level2">
 <h2 class="anchored" data-anchor-id="sec-raster-overlay2">Aufgabe 4: Raster Overlay</h2>
-<p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1"><span>Kapitel&nbsp;58.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.</p>
+<p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1"><span>Kapitel&nbsp;63.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-overlay3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Rauman5_Uebung_B_files/figure-html/fig-overlay3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;59.1: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete</figcaption>
+<figcaption class="figure-caption">Abbildung&nbsp;64.1: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete</figcaption>
 </figure>
 </div>
 </div>
@@ -839,7 +864,7 @@ Hangneigung
 <section id="aufgabe-5-ausschlusskriterien" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-5-ausschlusskriterien">Aufgabe 5: Ausschlusskriterien</h2>
 <p>Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. (Zwar werden Schutzgebiete in unserer Analyse bereits berücksichtigt, aber nicht kategorisch vom Resultat ausgeschlossen.)</p>
-<p>Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion <code>mask()</code> verwenden (siehe <a href="Rauman5_Uebung_A.html#sec-rauman5-mask"><span>Kapitel&nbsp;58.5</span></a>). Doch diesmal möchten wir nicht die Flächen <em>ausserhalb</em> der Polygone mit <code>NA</code> ersetzen, sondern die Flächen <em>innerhalb</em> der Polygone. Deshalb verwenden wir <code>mask()</code> mit dem Argument <code>inverse = TRUE</code>.</p>
+<p>Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion <code>mask()</code> verwenden (siehe <a href="Rauman5_Uebung_A.html#sec-rauman5-mask"><span>Kapitel&nbsp;63.5</span></a>). Doch diesmal möchten wir nicht die Flächen <em>ausserhalb</em> der Polygone mit <code>NA</code> ersetzen, sondern die Flächen <em>innerhalb</em> der Polygone. Deshalb verwenden wir <code>mask()</code> mit dem Argument <code>inverse = TRUE</code>.</p>
 <p>Versuche mit <code>mask()</code>, den oben erwähnten Vektordatensätze sowie der Option <code>inverse = TRUE</code> die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.</p>
 <div class="cell">
 <div class="cell-output-display">
