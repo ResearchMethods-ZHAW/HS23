@@ -756,166 +756,180 @@ window.onload = function() {
 <section id="kommentierter-lösungsweg" class="level3">
 <h3 class="anchored" data-anchor-id="kommentierter-lösungsweg">Kommentierter Lösungsweg</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv2</span>(<span class="st">"datasets/statistik/Datensatz_novanimal_Uebung_Statistik4.2.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik4.2.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>mensa)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="do">##   0   1 </span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="do">## 282 786</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">count</span>(mensa) <span class="co"># alternativ</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 2 × 2</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="do">##   mensa     n</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="do">##   &lt;dbl&gt; &lt;int&gt;</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 1     0   282</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="do">## 2     1   786</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das logistische Modell und wendet es auf den Datensatz an</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(mensa <span class="sc">~</span> gender <span class="sc">+</span> member <span class="sc">+</span> age_groups <span class="sc">+</span> meat <span class="sc">+</span> umwelteinstellung,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, <span class="fu">binomial</span>(<span class="st">"logit"</span>)</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod0) <span class="co"># Umwelteinstellung scheint keinen Einfluss auf die</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="do">## glm(formula = mensa ~ gender + member + age_groups + meat + umwelteinstellung, </span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="do">##     family = binomial("logit"), data = df)</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="do">## Weighted Residuals:</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="do">## -5.6740 -0.8078  0.3712  0.5867  1.2379 </span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="do">##                              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)                  -0.18889    0.40225  -0.470 0.638750    </span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="do">## genderMann                    0.71017    0.16018   4.434 1.02e-05 ***</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="do">## memberStudent/in             -0.63072    0.29442  -2.142 0.032404 *  </span></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups26- bis 34-jaehrig  1.09429    0.19574   5.591 2.88e-08 ***</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups35- bis 49-jaehrig  1.75379    0.45968   3.815 0.000144 ***</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups50- bis 64-jaehrig  2.43530    0.78923   3.086 0.002083 ** </span></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="do">## meat                          0.19945    0.05055   3.945 8.49e-05 ***</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="do">## umwelteinstellung             0.19334    0.18688   1.035 0.301107    </span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1.009 on 1060 degrees of freedom</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.004042,   Adjusted R-squared:  -0.002536 </span></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 0.6145 on 7 and 1060 DF,  p-value: 0.7443</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Verpflegung zu haben, gegeben die Daten</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># neues Modell ohne Umwelteinstellung</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">update</span>(mod0, <span class="sc">~</span> . <span class="sc">-</span>umwelteinstellung)</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod1)</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="do">## Call:</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="do">## glm(formula = mensa ~ gender + member + age_groups + meat, family = binomial("logit"), </span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="do">##     data = df)</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="do">## Weighted Residuals:</span></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="do">##     Min      1Q  Median      3Q     Max </span></span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="do">## -6.0117 -0.8060  0.3584  0.6100  1.2407 </span></span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="do">## Coefficients:</span></span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="do">##                              Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)                   0.03212    0.34053   0.094 0.924860    </span></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="do">## genderMann                    0.69697    0.15951   4.369 1.37e-05 ***</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a><span class="do">## memberStudent/in             -0.64418    0.29426  -2.189 0.028806 *  </span></span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups26- bis 34-jaehrig  1.11651    0.19458   5.738 1.25e-08 ***</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups35- bis 49-jaehrig  1.77409    0.45947   3.861 0.000120 ***</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a><span class="do">## age_groups50- bis 64-jaehrig  2.44683    0.78953   3.099 0.001992 ** </span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="do">## meat                          0.18070    0.04709   3.837 0.000132 ***</span></span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="do">## Residual standard error: 1.01 on 1061 degrees of freedom</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="do">## Multiple R-squared:  0.003998,   Adjusted R-squared:  -0.001635 </span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="do">## F-statistic: 0.7098 on 6 and 1061 DF,  p-value: 0.6418</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
-<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(mod1<span class="sc">$</span>deviance, mod1<span class="sc">$</span>df.resid) <span class="co"># Ok</span></span>
-<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.4509591</span></span>
-<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
-<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (mod1<span class="sc">$</span>dev <span class="sc">/</span> mod1<span class="sc">$</span>null) <span class="co"># eher kleines pseudo-R2, deckt sich mit dem R-Squared aus dem obigen output summary.lm()</span></span>
-<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.1354244</span></span>
-<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix vom  Datensatz</span></span>
-<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Vorhersage</span></span>
-<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a><span class="co"># hier ein anderes Beispiel:</span></span>
-<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, df, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="co"># erzeugt eine Tabelle mit den beobachteten</span></span>
-<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger/Selbstverpfleger und den Vorhersagen des Modells</span></span>
-<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>, df<span class="sc">$</span>mensa)</span>
-<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="co"># alles was höher/grosser ist als 50% ist</span></span>
-<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a><span class="co"># kommt in die Kategorie Mensagänger</span></span>
-<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a><span class="co"># anpassung der namen</span></span>
-<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(km) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Modell Selbstverpfleger"</span>, <span class="st">"Modell Mensagänger"</span>),</span>
-<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Daten Selbstverpfleger"</span>, <span class="st">"Daten Mensagänger"</span>)</span>
-<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>km</span>
-<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a><span class="do">##                         Daten Selbstverpfleger Daten Mensagänger</span></span>
-<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a><span class="do">## Modell Selbstverpfleger                     87                59</span></span>
-<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a><span class="do">## Modell Mensagänger                         195               727</span></span>
-<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a><span class="do">### reminder: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62</span></span>
-<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a><span class="co"># TP = true positive: you predicted positive and it’s true; hier Vorhersage</span></span>
-<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger stimmt also (727)</span></span>
-<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a><span class="co"># TN = true negative: you predicted negative and it’s true, hier Vorhersage der</span></span>
-<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger stimmt (87)</span></span>
-<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a><span class="co"># FP = false positive (fehler 1. art, auch Spezifizität genannt) you predicted</span></span>
-<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a><span class="co"># and it’s false. hier Modell sagt Mensagänger vorher</span></span>
-<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Selbstverpfleger) (195)</span></span>
-<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a><span class="co"># FN = false negative (fehler 2. art, auch Sensitivität genannt),</span></span>
-<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a><span class="co"># you predicted negative and it’s false. hier Modell sagt Selbtverpfleger vorher</span></span>
-<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Mensagänger) (59)</span></span>
-<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a><span class="co"># es scheint, dass das Modell häufig einen alpha Fehler macht, d.h.</span></span>
-<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a><span class="co"># das Modell weist keine hohe Spezifizität auf: konkret werden viele Mensagänger als</span></span>
-<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger vorhergesagt resp. klassifiziert. Dafür gibt es mehere Gründe:</span></span>
-<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger</span></span>
-<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger als Mensgänger im Datensatz</span></span>
-<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) nicht adäquates Modell z.B. link mit probit zeigt besserer fit</span></span>
-<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Overfitting: wurde hier nicht berücksichtigt, in einem Paper/Arbeit</span></span>
-<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a><span class="co"># müsste noch einen Validierungstest gemacht werden z.B. test-train</span></span>
-<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-Validation oder k fold Cross-Validation</span></span>
-<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a><span class="co"># kalkuliert die Missklassifizierungsrate</span></span>
-<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km)) <span class="co"># ist mit knapp 23 %  eher hoch</span></span>
-<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a>mf</span>
-<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.2378277</span></span>
-<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a><span class="co"># kleiner exkurs: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2636062/</span></span>
-<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a><span class="co"># col wise proportion, da diese die "Realität" darstellt</span></span>
-<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>km_prop <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(km, <span class="dv">2</span>)</span>
-<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a><span class="co"># specificity = a / (a+c) =&gt; ability of a test to correctly</span></span>
-<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">=</span> km_prop[<span class="dv">1</span>] <span class="sc">/</span> (km_prop[<span class="dv">1</span>] <span class="sc">+</span> km_prop[<span class="dv">2</span>])</span>
-<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>spec</span>
-<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.3085106</span></span>
-<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a><span class="co"># sensitivity = d / (b+d) =&gt; Sensitivity is the ability of a</span></span>
-<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>sens <span class="ot">=</span> km_prop[<span class="dv">4</span>] <span class="sc">/</span> (km_prop[<span class="dv">3</span>] <span class="sc">+</span> km_prop[<span class="dv">4</span>])</span>
-<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>sens</span>
-<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a><span class="do">## [1] 0.9249364</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>mensa)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+  0   1 
+282 786 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">count</span>(mensa) <span class="co"># alternativ</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+  mensa     n
+  &lt;dbl&gt; &lt;int&gt;
+1     0   282
+2     1   786</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das logistische Modell und wendet es auf den Datensatz an</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(mensa <span class="sc">~</span> gender <span class="sc">+</span> member <span class="sc">+</span> age_groups <span class="sc">+</span> meat <span class="sc">+</span> umwelteinstellung,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, <span class="fu">binomial</span>(<span class="st">"logit"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod0) <span class="co"># Umwelteinstellung scheint keinen Einfluss auf die</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = mensa ~ gender + member + age_groups + meat + umwelteinstellung, 
+    family = binomial("logit"), data = df)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-5.6740 -0.8078  0.3712  0.5867  1.2379 
+
+Coefficients:
+                             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                  -0.18889    0.40225  -0.470 0.638750    
+genderMann                    0.71017    0.16018   4.434 1.02e-05 ***
+memberStudent/in             -0.63072    0.29442  -2.142 0.032404 *  
+age_groups26- bis 34-jaehrig  1.09429    0.19574   5.591 2.88e-08 ***
+age_groups35- bis 49-jaehrig  1.75379    0.45968   3.815 0.000144 ***
+age_groups50- bis 64-jaehrig  2.43530    0.78923   3.086 0.002083 ** 
+meat                          0.19945    0.05055   3.945 8.49e-05 ***
+umwelteinstellung             0.19334    0.18688   1.035 0.301107    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.009 on 1060 degrees of freedom
+Multiple R-squared:  0.004042,  Adjusted R-squared:  -0.002536 
+F-statistic: 0.6145 on 7 and 1060 DF,  p-value: 0.7443</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Verpflegung zu haben, gegeben die Daten</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># neues Modell ohne Umwelteinstellung</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">update</span>(mod0, <span class="sc">~</span> . <span class="sc">-</span>umwelteinstellung)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+glm(formula = mensa ~ gender + member + age_groups + meat, family = binomial("logit"), 
+    data = df)
+
+Weighted Residuals:
+    Min      1Q  Median      3Q     Max 
+-6.0117 -0.8060  0.3584  0.6100  1.2407 
+
+Coefficients:
+                             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   0.03212    0.34053   0.094 0.924860    
+genderMann                    0.69697    0.15951   4.369 1.37e-05 ***
+memberStudent/in             -0.64418    0.29426  -2.189 0.028806 *  
+age_groups26- bis 34-jaehrig  1.11651    0.19458   5.738 1.25e-08 ***
+age_groups35- bis 49-jaehrig  1.77409    0.45947   3.861 0.000120 ***
+age_groups50- bis 64-jaehrig  2.44683    0.78953   3.099 0.001992 ** 
+meat                          0.18070    0.04709   3.837 0.000132 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.01 on 1061 degrees of freedom
+Multiple R-squared:  0.003998,  Adjusted R-squared:  -0.001635 
+F-statistic: 0.7098 on 6 and 1061 DF,  p-value: 0.6418</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(mod1<span class="sc">$</span>deviance, mod1<span class="sc">$</span>df.resid) <span class="co"># Ok</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4509591</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (mod1<span class="sc">$</span>dev <span class="sc">/</span> mod1<span class="sc">$</span>null) <span class="co"># eher kleines pseudo-R2, deckt sich mit dem R-Squared aus dem obigen output summary.lm()</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1354244</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix vom  Datensatz</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Vorhersage</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co"># hier ein anderes Beispiel:</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, df, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co"># erzeugt eine Tabelle mit den beobachteten</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger/Selbstverpfleger und den Vorhersagen des Modells</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>, df<span class="sc">$</span>mensa)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># alles was höher/grosser ist als 50% ist</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># kommt in die Kategorie Mensagänger</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># anpassung der namen</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(km) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Modell Selbstverpfleger"</span>, <span class="st">"Modell Mensagänger"</span>),</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Daten Selbstverpfleger"</span>, <span class="st">"Daten Mensagänger"</span>)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>km</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        Daten Selbstverpfleger Daten Mensagänger
+Modell Selbstverpfleger                     87                59
+Modell Mensagänger                         195               727</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="do">### reminder: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># TP = true positive: you predicted positive and it’s true; hier Vorhersage</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger stimmt also (727)</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># TN = true negative: you predicted negative and it’s true, hier Vorhersage der</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger stimmt (87)</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># FP = false positive (fehler 1. art, auch Spezifizität genannt) you predicted</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># and it’s false. hier Modell sagt Mensagänger vorher</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Selbstverpfleger) (195)</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># FN = false negative (fehler 2. art, auch Sensitivität genannt),</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="co"># you predicted negative and it’s false. hier Modell sagt Selbtverpfleger vorher</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Mensagänger) (59)</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># es scheint, dass das Modell häufig einen alpha Fehler macht, d.h.</span></span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a><span class="co"># das Modell weist keine hohe Spezifizität auf: konkret werden viele Mensagänger als</span></span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger vorhergesagt resp. klassifiziert. Dafür gibt es mehere Gründe:</span></span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger als Mensgänger im Datensatz</span></span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) nicht adäquates Modell z.B. link mit probit zeigt besserer fit</span></span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Overfitting: wurde hier nicht berücksichtigt, in einem Paper/Arbeit</span></span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a><span class="co"># müsste noch einen Validierungstest gemacht werden z.B. test-train</span></span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-Validation oder k fold Cross-Validation</span></span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="co"># kalkuliert die Missklassifizierungsrate</span></span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km)) <span class="co"># ist mit knapp 23 %  eher hoch</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>mf</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.2378277</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># kleiner exkurs: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2636062/</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># col wise proportion, da diese die "Realität" darstellt</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>km_prop <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(km, <span class="dv">2</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># specificity = a / (a+c) =&gt; ability of a test to correctly</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">=</span> km_prop[<span class="dv">1</span>] <span class="sc">/</span> (km_prop[<span class="dv">1</span>] <span class="sc">+</span> km_prop[<span class="dv">2</span>])</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>spec</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3085106</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sensitivity = d / (b+d) =&gt; Sensitivity is the ability of a</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>sens <span class="ot">=</span> km_prop[<span class="dv">4</span>] <span class="sc">/</span> (km_prop[<span class="dv">3</span>] <span class="sc">+</span> km_prop[<span class="dv">4</span>])</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>sens</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.9249364</code></pre>
+</div>
 </div>
 </section>
 <section id="methode" class="level3">
 <h3 class="anchored" data-anchor-id="methode">Methode</h3>
-<p>In der Aufgabe war es das Ziel zu schauen, ob wir einen potenziellen Besuch eines Mensagasts vorhersagen können und zwar in Abhängigkeit von den sozioökonomischen Variablen, wahrgenommene Fleischkonsum und der Umwelteinstellung. Die Kriteriumsvariable “Mensa” weist eine binäre Verteilung auf: Deshalb rechnen wir eine multiple logistische Regression mit den Prädiktoren “Alter”, “Geschlecht”, “Hochschulzugehörigkeit”, “Fleischkonsum” und “Umwelteinstellung. Mehr Informationen zu den logistischen Regressionen findet ihr im Buch von Crawley (2015) oder auch im Buch von Gareth (2016).</p>
+<p>In dieser Aufgabe möchten wir untersuchen, ob wir vorhersagen können, ob jemand die Mensa besuchen wird. Wir interessieren uns dabei besonders für sozioökonomische Faktoren, die wahrgenommene Fleischkonsum und die Einstellung zur Umwelt. Die Zielgröße “Mensa-Besuch” ist entweder ja oder nein, daher führen wir eine “multiple logistische Regression” durch. Wir verwenden die Merkmale “Alter”, “Geschlecht”, “Hochschulzugehörigkeit”, “Fleischkonsum” und “Umwelteinstellung” als Vorhersagevariablen.</p>
+<p>Wenn du mehr über logistische Regressionen erfahren möchtest, findest du ausführlichere Informationen in den Büchern von Crawley (2015) und Gareth (2016).</p>
 </section>
 <section id="ergebnisse" class="level3">
 <h3 class="anchored" data-anchor-id="ergebnisse">Ergebnisse</h3>
@@ -945,14 +959,13 @@ window.onload = function() {
 <p>Konfusionsmatrix</p>
 </div>
 </div>
-<p>Der Output des logistischen Models mit der Linkfunktin “logit” sagt und, dass das Modell nicht gut zu den Daten passt, d.h. mit dem Modell (gegeben die Daten) können wir nur schlecht vorhersagen, ob eine Person zukünftig sich in der Mensa verpflegt oder ihr Mittagessen selber mitnimmt. Hinweise dafür geben das kleine pseudo-R2 (14%) als auch die hohe Missklassifizierungsrate (24%): bei genauerer Betrachtung fällt auf, dass das Modell häufig einen alpha-Fehler begeht, d.h. unser Modell sagt zu viele Mensagänger vorher, obwohl diese in Realität Selbstverpfleger sind. Es gibt verschiedene Gründe für diesen schlechten Modelfit:</p>
+<p>Die Ergebnisse des logistischen Modells mit der “logit” Linkfunktion deuten darauf hin, dass das Modell nicht gut zu unseren Daten passt. Das bedeutet, dass es schwierig ist, basierend auf diesem Modell vorherzusagen, ob jemand in Zukunft in der Mensa essen wird oder sein Mittagessen mitbringt. Diese Schlussfolgerung wird durch den kleinen pseudo-R2-Wert (14%) und die hohe Rate der Fehlklassifikation (24%) gestützt. Wenn wir genauer hinsehen, stellen wir fest, dass das Modell häufig einen Fehler vom Typ “Alpha” (1. Fehler) macht, das bedeutet, es sagt oft voraus, dass jemand in die Mensa geht, obwohl sie tatsächlich ihr Essen selbst mitbringen.</p>
+<p>Es gibt mehrere Gründe für die schlechte Passung des Modells:</p>
+<p>Die Kriteriumsvariable ist in den Daten ungleich verteilt, es gibt also weniger Personen, die ihr Essen selbst mitbringen (26%) im Vergleich zu denen, die in der Mensa essen (74%).</p>
+<p>Die Prädiktorvariablen sind alle entweder kategorisch oder ordinal, was dazu führen kann, dass das Modell keine guten Ergebnisse liefert.</p>
+<p>Zusammengefasst, es wäre ratsam, nach einem besseren geeigneten Modell zu suchen, insbesondere einem Modell, das mit ordinalen Prädiktorvariablen besser umgehen kann. Beispiele wären:</p>
 <ul>
-<li>die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger Selbstverpfleger als Mensgänger im Datensatz (26% vs.&nbsp;74%)</li>
-<li>die Prädiktorvariablen sind alle entweder kategorial oder ordinal: dies kann dazu führen, dass das Model keinen guten fit zu den Daten erzielt</li>
-</ul>
-<p><strong>Fazit</strong>: Es sollte nach einem weiteren adäquateren Modell gesucht werden: insbesondere ein Modell, welches einen mit ordinalen Prädiktorvariablen umgehen kann:</p>
-<ul>
-<li>eine bessere Link-Funktion für das GLM suchen z.B. probit</li>
+<li>eine andere Link-Funktion für das GLM verwenden z.B. probit</li>
 <li><a href="https://stats.stackexchange.com/questions/195246/how-to-handle-ordinal-categorical-variable-as-independent-variable">polynomiale Kontraste</a></li>
 <li>Smooth Splines <a href="https://www.frontiersin.org/articles/10.3389/fams.2017.00015/full">hier</a></li>
 <li>multinomiale Regression z.M. nnet::mulitom() <a href="https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/">hier</a></li>
@@ -1376,174 +1389,174 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Quellcode</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb2" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-11-07</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat4</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Komplexere Regressionsmethoden</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 4</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat4: Lösung 4.2S</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Musterlösung Übung 4.2S: Multiple logistische Regression (SozWis)</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Kapitel 6 von <span class="co">[</span><span class="ot">Manny Gimond</span><span class="co">]( https://mgimond.github.io/Stats-in-R/Logistic.html)</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Kapitel 4 von <span class="co">[</span><span class="ot">Gareth (2016)</span><span class="co">](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf)</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Vorlesungsfolien von Oscar Torres-Reyna <span class="co">[</span><span class="ot">Princeton University</span><span class="co">](https://www.princeton.edu/~otorres/LogitR101.pdf)</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Kommentierter Lösungsweg</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="co"># für Informationen zu den einzelnen Variablen, siehe https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="do">## definiert mytheme für ggplot2 (verwendet dabei theme_classic())</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat5-8/Datensatz_novanimal_Uebung_Statistik4.2.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co"># sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>mensa)</span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">count</span>(mensa) <span class="co"># alternativ</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das logistische Modell und wendet es auf den Datensatz an</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(mensa <span class="sc">~</span> gender <span class="sc">+</span> member <span class="sc">+</span> age_groups <span class="sc">+</span> meat <span class="sc">+</span> umwelteinstellung,</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, <span class="fu">binomial</span>(<span class="st">"logit"</span>)</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod0) <span class="co"># Umwelteinstellung scheint keinen Einfluss auf die</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Verpflegung zu haben, gegeben die Daten</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="co"># neues Modell ohne Umwelteinstellung</span></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">update</span>(mod0, <span class="sc">~</span> . <span class="sc">-</span>umwelteinstellung)</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod1)</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(mod1<span class="sc">$</span>deviance, mod1<span class="sc">$</span>df.resid) <span class="co"># Ok</span></span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (mod1<span class="sc">$</span>dev <span class="sc">/</span> mod1<span class="sc">$</span>null) <span class="co"># eher kleines pseudo-R2, deckt sich mit dem R-Squared aus dem obigen output summary.lm()</span></span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix vom  Datensatz</span></span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Vorhersage</span></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="co"># hier ein anderes Beispiel:</span></span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, df, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="co"># erzeugt eine Tabelle mit den beobachteten</span></span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger/Selbstverpfleger und den Vorhersagen des Modells</span></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>, df<span class="sc">$</span>mensa)</span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="co"># alles was höher/grosser ist als 50% ist</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="co"># kommt in die Kategorie Mensagänger</span></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="co"># anpassung der namen</span></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(km) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Modell Selbstverpfleger"</span>, <span class="st">"Modell Mensagänger"</span>),</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Daten Selbstverpfleger"</span>, <span class="st">"Daten Mensagänger"</span>)</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>km</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="do">### reminder: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62</span></span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a><span class="co"># TP = true positive: you predicted positive and it’s true; hier Vorhersage</span></span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger stimmt also (727)</span></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a><span class="co"># TN = true negative: you predicted negative and it’s true, hier Vorhersage der</span></span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger stimmt (87)</span></span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a><span class="co"># FP = false positive (fehler 1. art, auch Spezifizität genannt) you predicted</span></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a><span class="co"># and it’s false. hier Modell sagt Mensagänger vorher</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Selbstverpfleger) (195)</span></span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a><span class="co"># FN = false negative (fehler 2. art, auch Sensitivität genannt),</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a><span class="co"># you predicted negative and it’s false. hier Modell sagt Selbtverpfleger vorher</span></span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Mensagänger) (59)</span></span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a><span class="co"># es scheint, dass das Modell häufig einen alpha Fehler macht, d.h.</span></span>
-<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a><span class="co"># das Modell weist keine hohe Spezifizität auf: konkret werden viele Mensagänger als</span></span>
-<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger vorhergesagt resp. klassifiziert. Dafür gibt es mehere Gründe:</span></span>
-<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger</span></span>
-<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger als Mensgänger im Datensatz</span></span>
-<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) nicht adäquates Modell z.B. link mit probit zeigt besserer fit</span></span>
-<span id="cb2-123"><a href="#cb2-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-124"><a href="#cb2-124" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Overfitting: wurde hier nicht berücksichtigt, in einem Paper/Arbeit</span></span>
-<span id="cb2-125"><a href="#cb2-125" aria-hidden="true" tabindex="-1"></a><span class="co"># müsste noch einen Validierungstest gemacht werden z.B. test-train</span></span>
-<span id="cb2-126"><a href="#cb2-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-Validation oder k fold Cross-Validation</span></span>
-<span id="cb2-127"><a href="#cb2-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-128"><a href="#cb2-128" aria-hidden="true" tabindex="-1"></a><span class="co"># kalkuliert die Missklassifizierungsrate</span></span>
-<span id="cb2-129"><a href="#cb2-129" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km)) <span class="co"># ist mit knapp 23 %  eher hoch</span></span>
-<span id="cb2-130"><a href="#cb2-130" aria-hidden="true" tabindex="-1"></a>mf</span>
-<span id="cb2-131"><a href="#cb2-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-132"><a href="#cb2-132" aria-hidden="true" tabindex="-1"></a><span class="co"># kleiner exkurs: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2636062/</span></span>
-<span id="cb2-133"><a href="#cb2-133" aria-hidden="true" tabindex="-1"></a><span class="co"># col wise proportion, da diese die "Realität" darstellt</span></span>
-<span id="cb2-134"><a href="#cb2-134" aria-hidden="true" tabindex="-1"></a>km_prop <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(km, <span class="dv">2</span>)</span>
-<span id="cb2-135"><a href="#cb2-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-136"><a href="#cb2-136" aria-hidden="true" tabindex="-1"></a><span class="co"># specificity = a / (a+c) =&gt; ability of a test to correctly</span></span>
-<span id="cb2-137"><a href="#cb2-137" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">=</span> km_prop[<span class="dv">1</span>] <span class="sc">/</span> (km_prop[<span class="dv">1</span>] <span class="sc">+</span> km_prop[<span class="dv">2</span>])</span>
-<span id="cb2-138"><a href="#cb2-138" aria-hidden="true" tabindex="-1"></a>spec</span>
-<span id="cb2-139"><a href="#cb2-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-140"><a href="#cb2-140" aria-hidden="true" tabindex="-1"></a><span class="co"># sensitivity = d / (b+d) =&gt; Sensitivity is the ability of a</span></span>
-<span id="cb2-141"><a href="#cb2-141" aria-hidden="true" tabindex="-1"></a>sens <span class="ot">=</span> km_prop[<span class="dv">4</span>] <span class="sc">/</span> (km_prop[<span class="dv">3</span>] <span class="sc">+</span> km_prop[<span class="dv">4</span>])</span>
-<span id="cb2-142"><a href="#cb2-142" aria-hidden="true" tabindex="-1"></a>sens</span>
-<span id="cb2-143"><a href="#cb2-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-144"><a href="#cb2-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-145"><a href="#cb2-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methode</span></span>
-<span id="cb2-146"><a href="#cb2-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-147"><a href="#cb2-147" aria-hidden="true" tabindex="-1"></a>In dieser Aufgabe möchten wir untersuchen, ob wir vorhersagen können, ob jemand die Mensa besuchen wird. Wir interessieren uns dabei besonders für sozioökonomische Faktoren, die wahrgenommene Fleischkonsum und die Einstellung zur Umwelt. Die Zielgröße "Mensa-Besuch" ist entweder ja oder nein, daher führen wir eine "multiple logistische Regression" durch. Wir verwenden die Merkmale "Alter", "Geschlecht", "Hochschulzugehörigkeit", "Fleischkonsum" und "Umwelteinstellung" als Vorhersagevariablen. </span>
-<span id="cb2-148"><a href="#cb2-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-149"><a href="#cb2-149" aria-hidden="true" tabindex="-1"></a>Wenn du mehr über logistische Regressionen erfahren möchtest, findest du ausführlichere Informationen in den Büchern von Crawley (2015) und Gareth (2016).</span>
-<span id="cb2-150"><a href="#cb2-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-151"><a href="#cb2-151" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ergebnisse</span></span>
-<span id="cb2-154"><a href="#cb2-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb2-155"><a href="#cb2-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb2-156"><a href="#cb2-156" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: Konfusionsmatrix</span></span>
-<span id="cb2-157"><a href="#cb2-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-158"><a href="#cb2-158" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(km)</span>
-<span id="cb2-159"><a href="#cb2-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb2-160"><a href="#cb2-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-161"><a href="#cb2-161" aria-hidden="true" tabindex="-1"></a>Die Ergebnisse des logistischen Modells mit der "logit" Linkfunktion deuten darauf hin, dass das Modell nicht gut zu unseren Daten passt. Das bedeutet, dass es schwierig ist, basierend auf diesem Modell vorherzusagen, ob jemand in Zukunft in der Mensa essen wird oder sein Mittagessen mitbringt. Diese Schlussfolgerung wird durch den kleinen pseudo-R2-Wert (14%) und die hohe Rate der Fehlklassifikation (24%) gestützt. Wenn wir genauer hinsehen, stellen wir fest, dass das Modell häufig einen Fehler vom Typ "Alpha" (1. Fehler) macht, das bedeutet, es sagt oft voraus, dass jemand in die Mensa geht, obwohl sie tatsächlich ihr Essen selbst mitbringen.</span>
-<span id="cb2-162"><a href="#cb2-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-163"><a href="#cb2-163" aria-hidden="true" tabindex="-1"></a>Es gibt mehrere Gründe für die schlechte Passung des Modells:</span>
-<span id="cb2-164"><a href="#cb2-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-165"><a href="#cb2-165" aria-hidden="true" tabindex="-1"></a>Die Kriteriumsvariable ist in den Daten ungleich verteilt, es gibt also weniger Personen, die ihr Essen selbst mitbringen (26%) im Vergleich zu denen, die in der Mensa essen (74%).</span>
-<span id="cb2-166"><a href="#cb2-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-167"><a href="#cb2-167" aria-hidden="true" tabindex="-1"></a>Die Prädiktorvariablen sind alle entweder kategorisch oder ordinal, was dazu führen kann, dass das Modell keine guten Ergebnisse liefert.</span>
-<span id="cb2-168"><a href="#cb2-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-169"><a href="#cb2-169" aria-hidden="true" tabindex="-1"></a>Zusammengefasst, es wäre ratsam, nach einem besseren geeigneten Modell zu suchen, insbesondere einem Modell, das mit ordinalen Prädiktorvariablen besser umgehen kann. Beispiele wären:</span>
-<span id="cb2-170"><a href="#cb2-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-171"><a href="#cb2-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>eine andere Link-Funktion für das GLM verwenden z.B. probit </span>
-<span id="cb2-172"><a href="#cb2-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">polynomiale Kontraste</span><span class="co">](https://stats.stackexchange.com/questions/195246/how-to-handle-ordinal-categorical-variable-as-independent-variable)</span></span>
-<span id="cb2-173"><a href="#cb2-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Smooth Splines <span class="co">[</span><span class="ot">hier</span><span class="co">](https://www.frontiersin.org/articles/10.3389/fams.2017.00015/full)</span></span>
-<span id="cb2-174"><a href="#cb2-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>multinomiale Regression z.M. nnet::mulitom() <span class="co">[</span><span class="ot">hier</span><span class="co">](https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/)</span> </span>
+<div class="sourceCode" id="cb21" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> 2023-11-07</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="an">lesson:</span><span class="co"> Stat4</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="an">thema:</span><span class="co"> Komplexere Regressionsmethoden</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="an">index:</span><span class="co"> 4</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools:</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">      source: true</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="an">knitr:</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">    opts_chunk:</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co">        collapse: false</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="fu"># Stat4: Lösung 4.2S</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Download dieses Lösungsscript via "<span class="sc">\&lt;</span>/<span class="sc">\&gt;</span>Code" (oben rechts)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="fu">## Musterlösung Übung 4.2S: Multiple logistische Regression (SozWis)</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Kapitel 6 von <span class="co">[</span><span class="ot">Manny Gimond</span><span class="co">]( https://mgimond.github.io/Stats-in-R/Logistic.html)</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Kapitel 4 von <span class="co">[</span><span class="ot">Gareth (2016)</span><span class="co">](http://faculty.marshall.usc.edu/gareth-james/ISL/ISLR%20Seventh%20Printing.pdf)</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>**Lese-Empfehlung** Vorlesungsfolien von Oscar Torres-Reyna <span class="co">[</span><span class="ot">Princeton University</span><span class="co">](https://www.princeton.edu/~otorres/LogitR101.pdf)</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a><span class="fu">### Kommentierter Lösungsweg</span></span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"readr"</span>)</span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a><span class="co"># für Informationen zu den einzelnen Variablen, siehe https://zenodo.org/record/3554884/files/2020_ZHAW_vonRickenbach_Variablen_cleaned_recoded_survey_dataset_anonym_NOVANIMAL.pdf?download=1</span></span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a><span class="do">## definiert mytheme für ggplot2 (verwendet dabei theme_classic())</span></span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>mytheme <span class="ot">&lt;-</span></span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_line</span>(<span class="at">size =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"black"</span>),</span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.length =</span> <span class="fu">unit</span>(.<span class="dv">5</span>, <span class="st">"cm"</span>)</span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_delim</span>(<span class="st">"datasets/stat1-4/Datensatz_novanimal_Uebung_Statistik4.2.csv"</span>, <span class="at">delim =</span> <span class="st">";"</span>)</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a><span class="co"># sieht euch die Verteilung zwischen Mensagänger und Selbstverpfleger an</span></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="co"># sind nicht gleichmässig verteilt, bei der Vorhersage müssen wir das berücksichtigen</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(df<span class="sc">$</span>mensa)</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">count</span>(mensa) <span class="co"># alternativ</span></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="co"># definiert das logistische Modell und wendet es auf den Datensatz an</span></span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>mod0 <span class="ot">&lt;-</span> <span class="fu">glm</span>(mensa <span class="sc">~</span> gender <span class="sc">+</span> member <span class="sc">+</span> age_groups <span class="sc">+</span> meat <span class="sc">+</span> umwelteinstellung,</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df, <span class="fu">binomial</span>(<span class="st">"logit"</span>)</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod0) <span class="co"># Umwelteinstellung scheint keinen Einfluss auf die</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a><span class="co"># Verpflegung zu haben, gegeben die Daten</span></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a><span class="co"># neues Modell ohne Umwelteinstellung</span></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>mod1 <span class="ot">&lt;-</span> <span class="fu">update</span>(mod0, <span class="sc">~</span> . <span class="sc">-</span>umwelteinstellung)</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a><span class="fu">summary.lm</span>(mod1)</span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeldiagnostik (wenn nicht signifikant, dann OK)</span></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(mod1<span class="sc">$</span>deviance, mod1<span class="sc">$</span>df.resid) <span class="co"># Ok</span></span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a><span class="co"># Modellgüte (pseudo-R²)</span></span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> (mod1<span class="sc">$</span>dev <span class="sc">/</span> mod1<span class="sc">$</span>null) <span class="co"># eher kleines pseudo-R2, deckt sich mit dem R-Squared aus dem obigen output summary.lm()</span></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="co"># Konfusionsmatrix vom  Datensatz</span></span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a><span class="co"># Model Vorhersage</span></span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a><span class="co"># hier ein anderes Beispiel:</span></span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a>predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod1, df, <span class="at">type =</span> <span class="st">"response"</span>)</span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a><span class="co"># erzeugt eine Tabelle mit den beobachteten</span></span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger/Selbstverpfleger und den Vorhersagen des Modells</span></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a>km <span class="ot">&lt;-</span> <span class="fu">table</span>(predicted <span class="sc">&gt;</span> <span class="fl">0.5</span>, df<span class="sc">$</span>mensa)</span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a><span class="co"># alles was höher/grosser ist als 50% ist</span></span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a><span class="co"># kommt in die Kategorie Mensagänger</span></span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-89"><a href="#cb21-89" aria-hidden="true" tabindex="-1"></a><span class="co"># anpassung der namen</span></span>
+<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(km) <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Modell Selbstverpfleger"</span>, <span class="st">"Modell Mensagänger"</span>),</span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">"Daten Selbstverpfleger"</span>, <span class="st">"Daten Mensagänger"</span>)</span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>km</span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a><span class="do">### reminder: https://towardsdatascience.com/understanding-confusion-matrix-a9ad42dcfd62</span></span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a><span class="do">#############</span></span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a><span class="co"># TP = true positive: you predicted positive and it’s true; hier Vorhersage</span></span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a><span class="co"># Mensagänger stimmt also (727)</span></span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a><span class="co"># TN = true negative: you predicted negative and it’s true, hier Vorhersage der</span></span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger stimmt (87)</span></span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a><span class="co"># FP = false positive (fehler 1. art, auch Spezifizität genannt) you predicted</span></span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a><span class="co"># and it’s false. hier Modell sagt Mensagänger vorher</span></span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Selbstverpfleger) (195)</span></span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a><span class="co"># FN = false negative (fehler 2. art, auch Sensitivität genannt),</span></span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a><span class="co"># you predicted negative and it’s false. hier Modell sagt Selbtverpfleger vorher</span></span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a><span class="co"># (obwohl in Realität Mensagänger) (59)</span></span>
+<span id="cb21-113"><a href="#cb21-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a><span class="co"># es scheint, dass das Modell häufig einen alpha Fehler macht, d.h.</span></span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a><span class="co"># das Modell weist keine hohe Spezifizität auf: konkret werden viele Mensagänger als</span></span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger vorhergesagt resp. klassifiziert. Dafür gibt es mehere Gründe:</span></span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) die Kriteriumsvariable ist sehr ungleich verteilt, d.h. es gibt weniger</span></span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a><span class="co"># Selbstverpfleger als Mensgänger im Datensatz</span></span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) nicht adäquates Modell z.B. link mit probit zeigt besserer fit</span></span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a><span class="co"># 3) Overfitting: wurde hier nicht berücksichtigt, in einem Paper/Arbeit</span></span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a><span class="co"># müsste noch einen Validierungstest gemacht werden z.B. test-train</span></span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a><span class="co"># Cross-Validation oder k fold Cross-Validation</span></span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a><span class="co"># kalkuliert die Missklassifizierungsrate</span></span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a>mf <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>(<span class="fu">diag</span>(km) <span class="sc">/</span> <span class="fu">sum</span>(km)) <span class="co"># ist mit knapp 23 %  eher hoch</span></span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a>mf</span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a><span class="co"># kleiner exkurs: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC2636062/</span></span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a><span class="co"># col wise proportion, da diese die "Realität" darstellt</span></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a>km_prop <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(km, <span class="dv">2</span>)</span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a><span class="co"># specificity = a / (a+c) =&gt; ability of a test to correctly</span></span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>spec <span class="ot">=</span> km_prop[<span class="dv">1</span>] <span class="sc">/</span> (km_prop[<span class="dv">1</span>] <span class="sc">+</span> km_prop[<span class="dv">2</span>])</span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>spec</span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a><span class="co"># sensitivity = d / (b+d) =&gt; Sensitivity is the ability of a</span></span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a>sens <span class="ot">=</span> km_prop[<span class="dv">4</span>] <span class="sc">/</span> (km_prop[<span class="dv">3</span>] <span class="sc">+</span> km_prop[<span class="dv">4</span>])</span>
+<span id="cb21-142"><a href="#cb21-142" aria-hidden="true" tabindex="-1"></a>sens</span>
+<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a><span class="fu">### Methode</span></span>
+<span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>In dieser Aufgabe möchten wir untersuchen, ob wir vorhersagen können, ob jemand die Mensa besuchen wird. Wir interessieren uns dabei besonders für sozioökonomische Faktoren, die wahrgenommene Fleischkonsum und die Einstellung zur Umwelt. Die Zielgröße "Mensa-Besuch" ist entweder ja oder nein, daher führen wir eine "multiple logistische Regression" durch. Wir verwenden die Merkmale "Alter", "Geschlecht", "Hochschulzugehörigkeit", "Fleischkonsum" und "Umwelteinstellung" als Vorhersagevariablen. </span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a>Wenn du mehr über logistische Regressionen erfahren möchtest, findest du ausführlichere Informationen in den Büchern von Crawley (2015) und Gareth (2016).</span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a><span class="fu">### Ergebnisse</span></span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.cap: Konfusionsmatrix</span></span>
+<span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(km)</span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a>Die Ergebnisse des logistischen Modells mit der "logit" Linkfunktion deuten darauf hin, dass das Modell nicht gut zu unseren Daten passt. Das bedeutet, dass es schwierig ist, basierend auf diesem Modell vorherzusagen, ob jemand in Zukunft in der Mensa essen wird oder sein Mittagessen mitbringt. Diese Schlussfolgerung wird durch den kleinen pseudo-R2-Wert (14%) und die hohe Rate der Fehlklassifikation (24%) gestützt. Wenn wir genauer hinsehen, stellen wir fest, dass das Modell häufig einen Fehler vom Typ "Alpha" (1. Fehler) macht, das bedeutet, es sagt oft voraus, dass jemand in die Mensa geht, obwohl sie tatsächlich ihr Essen selbst mitbringen.</span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-163"><a href="#cb21-163" aria-hidden="true" tabindex="-1"></a>Es gibt mehrere Gründe für die schlechte Passung des Modells:</span>
+<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a>Die Kriteriumsvariable ist in den Daten ungleich verteilt, es gibt also weniger Personen, die ihr Essen selbst mitbringen (26%) im Vergleich zu denen, die in der Mensa essen (74%).</span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a>Die Prädiktorvariablen sind alle entweder kategorisch oder ordinal, was dazu führen kann, dass das Modell keine guten Ergebnisse liefert.</span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a>Zusammengefasst, es wäre ratsam, nach einem besseren geeigneten Modell zu suchen, insbesondere einem Modell, das mit ordinalen Prädiktorvariablen besser umgehen kann. Beispiele wären:</span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>eine andere Link-Funktion für das GLM verwenden z.B. probit </span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="co">[</span><span class="ot">polynomiale Kontraste</span><span class="co">](https://stats.stackexchange.com/questions/195246/how-to-handle-ordinal-categorical-variable-as-independent-variable)</span></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Smooth Splines <span class="co">[</span><span class="ot">hier</span><span class="co">](https://www.frontiersin.org/articles/10.3389/fams.2017.00015/full)</span></span>
+<span id="cb21-174"><a href="#cb21-174" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>multinomiale Regression z.M. nnet::mulitom() <span class="co">[</span><span class="ot">hier</span><span class="co">](https://stats.idre.ucla.edu/r/dae/multinomial-logistic-regression/)</span> </span>
 </code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

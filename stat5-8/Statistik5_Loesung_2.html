@@ -806,12 +806,12 @@ window.onload = function() {
 <span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
 <span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="do">## Fixed effects:</span></span>
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a><span class="do">##                           Estimate Std. Error z value Pr(&gt;|z|)    </span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)               -0.12569    0.14488  -0.868   0.3856    </span></span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="do">## genderM                    0.94466    0.08387  11.263   &lt;2e-16 ***</span></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="do">## memberStudierende         -0.17821    0.12659  -1.408   0.1592    </span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group26 bis 34-jährig -0.16856    0.10176  -1.656   0.0976 .  </span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group35 bis 49-jährig -0.02040    0.15636  -0.130   0.8962    </span></span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group50 bis 64-jährig  0.09753    0.20161   0.484   0.6286    </span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="do">## (Intercept)               -0.12569    0.14484  -0.868   0.3855    </span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a><span class="do">## genderM                    0.94466    0.08386  11.265   &lt;2e-16 ***</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="do">## memberStudierende         -0.17822    0.12655  -1.408   0.1591    </span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group26 bis 34-jährig -0.16855    0.10175  -1.657   0.0976 .  </span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group35 bis 49-jährig -0.02040    0.15634  -0.131   0.8962    </span></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a><span class="do">## age_group50 bis 64-jährig  0.09752    0.20159   0.484   0.6286    </span></span>
 <span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
@@ -830,8 +830,8 @@ window.onload = function() {
 <span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"MuMIn"</span>)</span>
 <span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="fu">r.squaredGLMM</span>(mod0)</span>
 <span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="do">##                    R2m       R2c</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="do">## theoretical 0.04069349 0.3392847</span></span>
-<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="do">## delta       0.03537632 0.2949524</span></span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="do">## theoretical 0.04069363 0.3392838</span></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a><span class="do">## delta       0.03537645 0.2949517</span></span>
 <span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a><span class="co"># das marginale R^2 (r2m) gibt uns die erklärte Varianz der fixen Effekte: hier 4% (das ist sehr wenig)</span></span>
 <span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a><span class="co"># das conditionale R^2 (r2c) gibt uns die erklärte Varianz für das ganze Modell</span></span>
 <span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a><span class="co"># (mit fixen und variablen Effekten): hier 29% (ganz ok, aber auch nicht sehr hoch)</span></span>
