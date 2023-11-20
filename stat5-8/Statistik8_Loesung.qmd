@@ -85,17 +85,23 @@ str(crime.KM4)
 Vor der Berechnung von crime.norm und crime.ch muss man die Spalte mit den Bundesstaatenkürzeln entfern.
 
 ```{r}
-# Agglomerative Clusteranalyse
+library("cluster")
+
+# Add rownames to the dataframe
+crime <- as.data.frame(crime)
+rownames(crime) <- crime$...1
 crime2 <- crime[, -1]
+
+# Agglomerative Clusteranalyse
 crime.norm <- decostand(crime2, "normalize")
 crime.ch <- vegdist(crime.norm, "euc")
 # Attach site names to object of class 'dist'
-attr(crime.ch, "Labels") <- crime[, 1]
+attr(crime.ch, "Labels") <- rownames(crime2)
 
 # Ward's minimum variance clustering
 crime.ch.ward <- hclust(crime.ch, method = "ward.D2")
 par(mfrow = c(1, 1))
-plot(crime.ch.ward, labels = crime[, 1], main = "Chord - Ward")
+plot(crime.ch.ward, labels = rownames(crime2), main = "Chord - Ward")
 
 # Choose and rename the dendrogram ("hclust" object)
 hc <- crime.ch.ward
