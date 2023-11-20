@@ -101,20 +101,20 @@ book:
       - --
       - stat5-8/Statistik5_Demo.qmd
       - stat5-8/Statistik5_Uebung.qmd      
-      #- stat5-8/Statistik5_Loesung_1.qmd
-      #- stat5-8/Statistik5_Loesung_2.qmd
+      - stat5-8/Statistik5_Loesung_1.qmd
+      - stat5-8/Statistik5_Loesung_2.qmd
       - --
       - stat5-8/Statistik6_Demo.qmd
       - stat5-8/Statistik6_Uebung.qmd      
-      #- stat5-8/Statistik6_Loesung.qmd
+      - stat5-8/Statistik6_Loesung.qmd
       - --
       - stat5-8/Statistik7_Demo.qmd
       - stat5-8/Statistik7_Uebung.qmd      
-      #- stat5-8/Statistik7_Loesung.qmd
+      - stat5-8/Statistik7_Loesung.qmd
       - --
       - stat5-8/Statistik8_Demo.qmd
       - stat5-8/Statistik8_Uebung.qmd      
-      #- stat5-8/Statistik8_Loesung.qmd
+      - stat5-8/Statistik8_Loesung.qmd
     - part: StatKons.qmd
       chapters:
       - statKons/StatKons0_Vorbereitung.qmd
