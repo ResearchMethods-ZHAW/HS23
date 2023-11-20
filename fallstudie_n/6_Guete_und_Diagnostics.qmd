@@ -285,6 +285,7 @@ bbmle::AICtab(m_day, m_os, m_us, m_road, m_forest, m_sett, m_slope, m_remote)
 
 ```{r}
 #| eval: false
+#| echo: false
 
 # https://aosmith.rbind.io/2018/03/26/unstandardizing-coefficients/
 
