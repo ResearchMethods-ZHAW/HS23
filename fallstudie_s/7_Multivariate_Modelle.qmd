@@ -900,13 +900,15 @@ nb_int_model_day_zi <- glmmTMB(Total ~ Phase + Wochenende +
 
 Modellresultate können mit __summary()__ angezeigt werden. Ich verwende aber lieber die Funktion __tab_model()__! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen. 
 
+
 ```{r eval=FALSE, echo=TRUE}
-tab_model(MODELLNAME, transform = NULL, show.se = TRUE)
+tab_model(MODELLNAME, 
+          transform = NULL, # To plot the estimates on the linear scale, use transform = NULL.
+          show.se = TRUE) # zeige die Standardabweichung
 ## The marginal R squared values are those associated with your fixed effects,
 ## the conditional ones are those of your fixed effects plus the random effects.
 ## Usually we will be interested in the marginal effects.
 ```
-
 
 
 ## Aufgabe 7: Modellvisualisierung
