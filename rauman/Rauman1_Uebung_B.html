@@ -752,7 +752,7 @@ window.onload = function() {
 <pre><code>Warning message:
 In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
   automatically selected the first layer in a data source containing more than one.</code></pre>
-<p>Diese Warnmeldung weist darauf hin, dass das Geopackage <code>gruental.gpkg</code> mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl <code>st_layers</code> die Layer Namen in Erfahrung und nutze diese im Anschluss in <code>st_read</code> (als Argument <code>layer =</code>) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable <code>wiesen</code> und <code>baeume</code>).</p>
+<p>Diese Warnmeldung weist darauf hin, dass das Geopackage <code>gruental.gpkg</code> mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl <code>st_layers</code> die Layer Namen in Erfahrung und nutze diese im Anschluss in <code>read_sf</code> (als Argument <code>layer =</code>) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable <code>wiesen</code> und <code>baeume</code>).</p>
 </section>
 <section id="aufgabe-2-datensätze-erkunden" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h3>
