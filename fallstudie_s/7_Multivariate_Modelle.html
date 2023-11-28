@@ -793,9 +793,24 @@ window.onload = function() {
 <li><p>Diese beiden Datensätze müssen miteinander verbunden werden. <strong>Ziel</strong>: Ein Datensatz mit den <strong>täglichen Zähldaten</strong> (weiter unterteilt nach Tageszeit) und Conviniencevariablen wie Phase Covid, Ferien Ja oder Nein, Jahr, Monat, KW, Tageszeit, Wochenendtag oder Werktag, angereichert mit <strong>Wetterdaten</strong>.</p></li>
 <li><p>Der neue Datensatz soll ” <strong>umwelt</strong> ” heissen.</p></li>
 </ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(depo_daytime, meteo_day, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Jahr"</span>, <span class="st">"Monat"</span>, <span class="st">"KW"</span>, <span class="st">"Wochenende"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <ul>
 <li>Sind durch das Zusammenführen NA’s entstanden? Falls ja, müssen <strong>alle</strong> für die weiteren Auswertungen ausgeschlossen werden.</li>
 </ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># es darf keine NA's im datensatz haben</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(umwelt))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># umwelt &lt;- na.omit(umwelt)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(umwelt)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="aufgabe-2-skalieren" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-skalieren">Aufgabe 2: Skalieren</h2>
@@ -805,6 +820,12 @@ window.onload = function() {
 <li><p>Vergewissert euch, dass die numerischen Messwerte zu Wetter auch in numerischer Form vorliegen. (<strong>is.numeric()</strong>)</p></li>
 <li><p>Nachfolgende Schritte funktionieren nur, wenn <strong>umwelt</strong> als data.frame vorliegt! Prüft das und ändert das, falls noch kein <strong>data.frame</strong> (Hinweis: auch ein “tibble” funktioniert nicht, obwohl bei der Abfrage <strong>is.data.frame()</strong> TRUE angegeben wird. Damit ihr beim scalen keine NaN Werte erhaltet, wendet ihr darum am besten in allen Fällen zuerst den Befehl <strong>as.data.frame()</strong> an).</p></li>
 </ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(umwelt)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <ul>
 <li>Unser Modell kann in der abhängigen Variabel nur mit Ganzzahlen (Integer) umgehen. Daher müssen Kommazahlen in Integer umgewandelt werden. Zum Glück haben wir das schon gemacht und uns bleibt nichts weiter zu tun. =)</li>
 </ul>
@@ -818,9 +839,22 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx)<span class="sc">|&gt;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx)<span class="sc">|&gt;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">tre200nx_scaled =</span> <span class="fu">scale</span>(tre200nx),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">rre150j0_scaled =</span> <span class="fu">scale</span>(rre150j0),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">rre150n0_scaled =</span> <span class="fu">scale</span>(rre150n0),</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">sremaxdv_scaled =</span> <span class="fu">scale</span>(sremaxdv)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -836,8 +870,14 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(tre200nx<span class="sc">:</span> sremaxdv)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -847,16 +887,23 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Setzt alle Werte kleiner 0.7 auf 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Setzt alle Werte kleiner 0.7 auf 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Zur Visualisierung kann ein Plot erstellt werden.</p>
+<div class="cell" data-outpot="true">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(tre200nx<span class="sc">:</span> sremaxdv)), </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">histogram =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">histogram =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">histogram =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Wo kann eine kritische Korrelation beobachtet werden? Kann man es verantworten, trotzdem alle (Wetter)parameter in das Modell zu geben?</p>
@@ -868,12 +915,25 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>umwelt_duskdawn <span class="ot">&lt;-</span> ...</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>umwelt_night <span class="ot">&lt;-</span> ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>umwelt_duskdawn <span class="ot">&lt;-</span> ...</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>umwelt_night <span class="ot">&lt;-</span> ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>umwelt_duskdawn <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Morgen"</span> <span class="sc">|</span> Tageszeit <span class="sc">==</span> <span class="st">"Abend"</span> )</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>umwelt_night <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Nacht"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -885,27 +945,27 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Total <span class="sc">~</span> Wochentag <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Monat <span class="sc">+</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    sremaxdv_scaled</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>f_dredge <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">c</span>(f, <span class="st">"+ (1|Jahr)"</span>), <span class="at">collapse =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.formula</span>()</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell mit dieser Formel ausführen</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(f_dredge, <span class="at">data =</span> umwelt, <span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>all_m <span class="ot">&lt;-</span> <span class="fu">dredge</span>(m)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># suche das beste Modell</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(all_m)</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Importance values der Variablen</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">sw</span>(all_m)</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Schliesslich wird ein Modelaverage durchgeführt</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Schwellenwert für das delta-AIC = 2</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(all_m, <span class="at">rank =</span> <span class="st">"AICc"</span>, <span class="at">subset =</span> delta <span class="sc">&lt;</span> <span class="dv">2</span>)</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Total <span class="sc">~</span> Wochentag <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Monat <span class="sc">+</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    sremaxdv_scaled</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Jetzt kommt der Random-Factor hinzu und es wird eine Formel daraus gemacht</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>f_dredge <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">c</span>(f, <span class="st">"+ (1|Jahr)"</span>), <span class="at">collapse =</span> <span class="st">" "</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.formula</span>()</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell mit dieser Formel ausführen</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(f_dredge, <span class="at">data =</span> umwelt, <span class="at">na.action =</span> <span class="st">"na.fail"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Das Modell in die dredge-Funktion einfügen (siehe auch ?dredge)</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>all_m <span class="ot">&lt;-</span> <span class="fu">dredge</span>(m)</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># suche das beste Modell</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(all_m)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Importance values der Variablen</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="co"># hier wird die wichtigkeit der Variablen in den verschiedenen Modellen abgelesen</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>MuMIn<span class="sc">::</span><span class="fu">sw</span>(all_m)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Schliesslich wird ein Modelaverage durchgeführt</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Schwellenwert für das delta-AIC = 2</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>avgmodel <span class="ot">&lt;-</span> <span class="fu">model.avg</span>(all_m, <span class="at">rank =</span> <span class="st">"AICc"</span>, <span class="at">subset =</span> delta <span class="sc">&lt;</span> <span class="dv">2</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(avgmodel)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -921,28 +981,28 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"norm"</span>) <span class="co"># Normalverteilung</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>f1_1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>((umwelt_day<span class="sc">$</span>Total <span class="sc">+</span> <span class="dv">1</span>), <span class="st">"lnorm"</span>) <span class="co"># log-Normalvert (beachte, dass ich +1 rechne.</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># log muss positiv sein; allerdings kann man die</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verteilungen dann nicht mehr miteinander vergleichen).</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"pois"</span>) <span class="co"># Poisson</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"nbinom"</span>) <span class="co"># negativ binomial</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"exp"</span>) <span class="co"># exponentiell</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>f5<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total,<span class="st">"gamma"</span>)  <span class="co"># gamma (berechnung mit meinen Daten nicht möglich)</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>f6 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"logis"</span>) <span class="co"># logistisch</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>f7 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"geom"</span>) <span class="co"># geometrisch</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>f8<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total,<span class="st">"weibull"</span>)  <span class="co"># Weibull (berechnung mit meinen Daten nicht möglich)</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">gofstat</span>(<span class="fu">list</span>(f1, f2, f3, f4, f6, f7),</span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitnames =</span> <span class="fu">c</span>(</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Normalverteilung"</span>, <span class="st">"Poisson"</span>,</span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"negativ binomial"</span>, <span class="st">"exponentiell"</span>, <span class="st">"logistisch"</span>,</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"geometrisch"</span>))</span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co"># die 2 besten (gemaess Akaike's Information Criterion) als Plot + normalverteilt,</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>plot.legend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Normalverteilung"</span>, <span class="st">"exponentiell"</span>, <span class="st">"negativ binomial"</span>)</span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co"># vergleicht mehrere theoretische Verteilungen mit den empirischen Daten</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(<span class="fu">list</span>(f1, f4, f3), <span class="at">legendtext =</span> plot.legend)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"norm"</span>) <span class="co"># Normalverteilung</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f1_1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>((umwelt_day<span class="sc">$</span>Total <span class="sc">+</span> <span class="dv">1</span>), <span class="st">"lnorm"</span>) <span class="co"># log-Normalvert (beachte, dass ich +1 rechne.</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co"># log muss positiv sein; allerdings kann man die</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Verteilungen dann nicht mehr miteinander vergleichen).</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>f2 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"pois"</span>) <span class="co"># Poisson</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>f3 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"nbinom"</span>) <span class="co"># negativ binomial</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>f4 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"exp"</span>) <span class="co"># exponentiell</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>f5<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total,<span class="st">"gamma"</span>)  <span class="co"># gamma (berechnung mit meinen Daten nicht möglich)</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>f6 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"logis"</span>) <span class="co"># logistisch</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>f7 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"geom"</span>) <span class="co"># geometrisch</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>f8<span class="ot">&lt;-</span><span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total,<span class="st">"weibull"</span>)  <span class="co"># Weibull (berechnung mit meinen Daten nicht möglich)</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="fu">gofstat</span>(<span class="fu">list</span>(f1, f2, f3, f4, f6, f7),</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">fitnames =</span> <span class="fu">c</span>(</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Normalverteilung"</span>, <span class="st">"Poisson"</span>,</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"negativ binomial"</span>, <span class="st">"exponentiell"</span>, <span class="st">"logistisch"</span>,</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"geometrisch"</span>))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co"># die 2 besten (gemaess Akaike's Information Criterion) als Plot + normalverteilt,</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>plot.legend <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Normalverteilung"</span>, <span class="st">"exponentiell"</span>, <span class="st">"negativ binomial"</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a><span class="co"># vergleicht mehrere theoretische Verteilungen mit den empirischen Daten</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="fu">cdfcomp</span>(<span class="fu">list</span>(f1, f4, f3), <span class="at">legendtext =</span> plot.legend)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
@@ -972,12 +1032,12 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                       tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                         sremaxdv_scaled <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                         (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">family =</span> poisson, <span class="at">data =</span> umwelt_day)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_model) <span class="co"># zeigt das Ergebins des Modells</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                       tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                         sremaxdv_scaled <span class="sc">+</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                         (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">family =</span> poisson, <span class="at">data =</span> umwelt_day)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(poisson_model) <span class="co"># zeigt das Ergebins des Modells</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Frage: Was bedeutet “family = poisson”?</p>
@@ -993,44 +1053,44 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals werden über eine Simulation auf eine Standard-Skala transformiert und</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># werden (dauert je nach dem sehr lange)</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> poisson_model, <span class="at">n =</span> <span class="dv">1000</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting and testing scaled residuals</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="fu">testResiduals</span>(simulationOutput)</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">testUniformity</span>(simulationOutput)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The most common concern for GLMMs is overdispersion, underdispersion and</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co"># zero-inflation.</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># separate test for dispersion</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(simulationOutput)</span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># test for Zeroinflation</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(simulationOutput)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co"># auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)</span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co"># use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co"># not substantially greater than 1 (say 5), no need to worry.</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(poisson_model) <span class="co"># funktioniert nicht mit glmmTMB</span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(car<span class="sc">::</span><span class="fu">vif</span>(poisson_model))</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co"># erklaerte varianz</span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co"># The marginal R squared values are those associated with your fixed effects,</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># the conditional ones are those of your fixed effects plus the random effects.</span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Usually we will be interested in the marginal effects.</span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2</span>(poisson_model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals werden über eine Simulation auf eine Standard-Skala transformiert und</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># werden (dauert je nach dem sehr lange)</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>simulationOutput <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(<span class="at">fittedModel =</span> poisson_model, <span class="at">n =</span> <span class="dv">1000</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># plotting and testing scaled residuals</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(simulationOutput)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">testResiduals</span>(simulationOutput)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="fu">testUniformity</span>(simulationOutput)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># The most common concern for GLMMs is overdispersion, underdispersion and</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># zero-inflation.</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># separate test for dispersion</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="fu">testDispersion</span>(simulationOutput)</span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="co"># test for Zeroinflation</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="fu">testZeroInflation</span>(simulationOutput)</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="co"># Testen auf Multicollinearität (dh zu starke Korrelationen im finalen Modell, zB falls</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a><span class="co"># auf Grund der ökologischen Plausibilität stark korrelierte Variablen im Modell)</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="co"># use VIF values: if values less then 5 is ok (sometimes &gt; 10), if mean of VIF values</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a><span class="co"># not substantially greater than 1 (say 5), no need to worry.</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(poisson_model) <span class="co"># funktioniert nicht mit glmmTMB</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(car<span class="sc">::</span><span class="fu">vif</span>(poisson_model))</span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="co"># erklaerte varianz</span></span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="co"># The marginal R squared values are those associated with your fixed effects,</span></span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="co"># the conditional ones are those of your fixed effects plus the random effects.</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Usually we will be interested in the marginal effects.</span></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a>performance<span class="sc">::</span><span class="fu">r2</span>(poisson_model)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Sind die Voraussetzungen des Modells erfüllt?</p>
@@ -1044,8 +1104,8 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> ..., <span class="at">family =</span>nbinom1,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> ..., <span class="at">family =</span>nbinom1,</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1056,9 +1116,18 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                           ..., </span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                           ..., </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                             tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                             sremaxdv_scaled  <span class="sc">+</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                             (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1067,8 +1136,17 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>((Total <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">~</span> ... </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>), <span class="at">data =</span> umwelt_night)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>((Total <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">~</span> ... </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>), <span class="at">data =</span> umwelt_night)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>((Total <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                           tre200nx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200nx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                          (<span class="dv">1</span> <span class="sc">|</span> Jahr), </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>), <span class="at">data =</span> umwelt_night)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1077,11 +1155,11 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>nb_quad_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                               tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="co"># hier ist der quadratische Term</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                               rre150j0_scaled <span class="sc">+</span>  sremaxdv_scaled <span class="sc">+</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                               (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">family =</span>nbinom1, <span class="co"># es ist ein negativ binomiales Modell</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nb_quad_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                               tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="co"># hier ist der quadratische Term</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                               rre150j0_scaled <span class="sc">+</span>  sremaxdv_scaled <span class="sc">+</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                               (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">family =</span>nbinom1, <span class="co"># es ist ein negativ binomiales Modell</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1091,9 +1169,18 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>Monat <span class="sc">*</span> rre150j0_scaled <span class="sc">+</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Monat <span class="sc">*</span> rre150j0_scaled <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  ...</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nb_quad_int_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span>  Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                   Monat <span class="sc">*</span> rre150j0_scaled<span class="sc">+</span> tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>)  <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                                   sremaxdv_scaled <span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                                  (<span class="dv">1</span><span class="sc">|</span>Jahr), <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1102,17 +1189,49 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(..., </span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># inflation parameter applying to all observations (ziformula~1)</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ziformula=</span><span class="sc">~</span><span class="dv">1</span>,</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">family =</span> nbinom1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(..., </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># inflation parameter applying to all observations (ziformula~1)</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ziformula=</span><span class="sc">~</span><span class="dv">1</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                           <span class="at">family =</span> nbinom1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                             tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                             sremaxdv_scaled  <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                             (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">data =</span> umwelt_day, </span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># inflation parameter applying to all observations (ziformula~1)</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ziformula=</span><span class="sc">~</span><span class="dv">1</span>,</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>                             <span class="at">family =</span> nbinom1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
 <li>Wenn ihr verschiedene Modelle gerechnet habt, können diese über den AICc verglichen werden. Folgender Code kann dazu genutzt werden:</li>
 </ul>
 <p><strong>Hinweis:</strong> Nur Modelle mit demselben Datensatz können miteinander verglichen werden. D.h., dass die Modelle mit den originalen Daten nicht mit logarithmiertem oder exponierten Daten verglichen werden können und glmer kann nicht mit glmmTMB verglichen werden. –&gt; Untenstehende Funktion hat für uns also einen eingeschränkten Wert…</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vergleich der Modellguete mittels AICc</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cand.models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">1</span>]] <span class="ot">&lt;-</span> Tages_Model</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> Tages_Model_nb</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>cand.models[[<span class="dv">3</span>]] <span class="ot">&lt;-</span> Tages_Model_nb_quad</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>Modnames <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tages_Model"</span>, <span class="st">"Tages_Model_nb"</span>,</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Tages_Model_nb_quad"</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">aictab</span>(<span class="at">cand.set =</span> cand.models, <span class="at">modnames =</span> Modnames)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="do">## K = Anzahl geschaetzter Parameter (2 Funktionsparameter und die Varianz)</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Delta_AICc &lt;2 = Statistisch gleichwertig</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="do">## AICcWt =  Akaike weight in %</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="d-optional-transformationen" class="level3">
 <h3 class="anchored" data-anchor-id="d-optional-transformationen">6d) (OPTIONAL) Transformationen</h3>
@@ -1126,10 +1245,10 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"moments"</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(umwelt_day<span class="sc">$</span>Anzahl_Total)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="do">## A positive value means the distribution is positively skewed (rechtsschief).</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The most frequent values are low; tail is toward the high values (on the right-hand side)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"moments"</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(umwelt_day<span class="sc">$</span>Anzahl_Total)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="do">## A positive value means the distribution is positively skewed (rechtsschief).</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The most frequent values are low; tail is toward the high values (on the right-hand side)</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
@@ -1148,16 +1267,33 @@ window.onload = function() {
 <section id="d-exportiere-die-modellresultate-der-besten-modelle" class="level3">
 <h3 class="anchored" data-anchor-id="d-exportiere-die-modellresultate-der-besten-modelle">6d) Exportiere die Modellresultate (der besten Modelle)</h3>
 <p>Welches ist euer bestes Modell für den Tag?</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mein bestes Modell ist:</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co"># interaktion zero inflation</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># "Ferien" not sig, therefore exclude</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>nb_int_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>                             Monat <span class="sc">*</span> rre150j0_scaled <span class="sc">+</span> tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>                             sremaxdv_scaled <span class="sc">+</span></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>                             (<span class="dv">1</span> <span class="sc">|</span> Jahr), <span class="at">data =</span> umwelt_day, </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># inflation parameter applying to all observations (ziformula~1)</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>                           <span class="at">ziformula=</span><span class="sc">~</span><span class="dv">1</span>,</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>                           <span class="at">family =</span> nbinom1)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>Modellresultate können mit <strong>summary()</strong> angezeigt werden. Ich verwende aber lieber die Funktion <strong>tab_model()</strong>! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen.</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(MODELLNAME, </span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="co"># To plot the estimates on the linear scale, use transform = NULL.</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>) <span class="co"># zeige die Standardabweichung</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The marginal R squared values are those associated with your fixed effects,</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="do">## the conditional ones are those of your fixed effects plus the random effects.</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Usually we will be interested in the marginal effects.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(MODELLNAME, </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="co"># To plot the estimates on the linear scale, use transform = NULL.</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">show.se =</span> <span class="cn">TRUE</span>) <span class="co"># zeige die Standardabweichung</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="do">## The marginal R squared values are those associated with your fixed effects,</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="do">## the conditional ones are those of your fixed effects plus the random effects.</span></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Usually we will be interested in the marginal effects.</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
@@ -1170,110 +1306,110 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer continuierliche var</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"orangered"</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">170</span>)) <span class="sc">+</span></span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_night <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_duskdawn <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"mediumvioletred"</span>)</span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)) <span class="sc">+</span></span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer diskrete var</span></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"orangered"</span>)</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">170</span>)) <span class="sc">+</span></span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_night <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>)</span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb18-68"><a href="#cb18-68" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-69"><a href="#cb18-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-70"><a href="#cb18-70" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb18-71"><a href="#cb18-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-72"><a href="#cb18-72" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_duskdawn <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
-<span id="cb18-73"><a href="#cb18-73" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"mediumvioletred"</span>)</span>
-<span id="cb18-74"><a href="#cb18-74" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-75"><a href="#cb18-75" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
-<span id="cb18-76"><a href="#cb18-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)) <span class="sc">+</span></span>
-<span id="cb18-77"><a href="#cb18-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
-<span id="cb18-78"><a href="#cb18-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
-<span id="cb18-79"><a href="#cb18-79" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-80"><a href="#cb18-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
-<span id="cb18-81"><a href="#cb18-81" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer continuierliche var</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"orangered"</span>)</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">170</span>)) <span class="sc">+</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_night <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>)</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_duskdawn <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"mediumvioletred"</span>)</span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  labels <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">seq</span>(<span class="fu">floor</span>(<span class="fu">min</span>(unscaled_var)), <span class="fu">ceiling</span>(<span class="fu">max</span>(unscaled_var)), <span class="at">length.out =</span> num_breaks <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">*</span> x_scaling, x_nk)</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>  custom_breaks <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var), <span class="at">by =</span> ((<span class="fu">max</span>(scaled_var) <span class="sc">-</span> <span class="fu">min</span>(scaled_var)) <span class="sc">/</span> num_breaks))</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>  custom_limits <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">min</span>(scaled_var), <span class="fu">max</span>(scaled_var))</span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> custom_breaks, <span class="at">limits =</span> custom_limits, <span class="at">labels =</span> <span class="fu">c</span>(labels), <span class="fu">labs</span>(<span class="at">x =</span> x_lab)) <span class="sc">+</span></span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer diskrete var</span></span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"orangered"</span>)</span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">170</span>)) <span class="sc">+</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_night <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"darkblue"</span>)</span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">20</span>)) <span class="sc">+</span></span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-70"><a href="#cb31-70" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb31-71"><a href="#cb31-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-72"><a href="#cb31-72" aria-hidden="true" tabindex="-1"></a>rescale_plot_fac_duskdawn <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
+<span id="cb31-73"><a href="#cb31-73" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> <span class="fu">plot_model</span>(input_df, <span class="at">type =</span> <span class="st">"pred"</span>, <span class="at">terms =</span> input_term, <span class="at">axis.title =</span> <span class="st">""</span>, <span class="at">title =</span> <span class="st">""</span>, <span class="at">color =</span> <span class="st">"mediumvioletred"</span>)</span>
+<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-75"><a href="#cb31-75" aria-hidden="true" tabindex="-1"></a>  plot_id <span class="ot">&lt;-</span> plot_id <span class="sc">+</span></span>
+<span id="cb31-76"><a href="#cb31-76" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="fu">labs</span>(<span class="at">y =</span> y_lab), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">15</span>)) <span class="sc">+</span></span>
+<span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb31-78"><a href="#cb31-78" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">hjust =</span> <span class="dv">1</span>))</span>
+<span id="cb31-79"><a href="#cb31-79" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-80"><a href="#cb31-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(plot_id)</span>
+<span id="cb31-81"><a href="#cb31-81" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Nun können die einzelnen Variabeln aus den besten Modellen in der Funktion jeweils für die Plots angepasst werden:</p>
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tagesmaximaltemperatur</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"tre200jx_scaled [all]"</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>unscaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>tre200jx</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>scaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>tre200jx_scaled</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>num_breaks <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="st">"Temperatur [°C]"</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="st">"Fussgänger:innen pro Tag"</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>x_scaling <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in prozent</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>x_nk <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># x round nachkommastellen</span></span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>p_temp <span class="ot">&lt;-</span> <span class="fu">rescale_plot_num_day</span>(</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>  input_df, input_term, unscaled_var, scaled_var, num_breaks,</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  x_lab, y_lab, x_scaling, x_nk</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>p_temp</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tagesmaximaltemperatur</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"tre200jx_scaled [all]"</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>unscaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>tre200jx</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>scaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>tre200jx_scaled</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>num_breaks <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="st">"Temperatur [°C]"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="st">"Fussgänger:innen pro Tag"</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>x_scaling <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in prozent</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>x_nk <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># x round nachkommastellen</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>p_temp <span class="ot">&lt;-</span> <span class="fu">rescale_plot_num_day</span>(</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  input_df, input_term, unscaled_var, scaled_var, num_breaks,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  x_lab, y_lab, x_scaling, x_nk</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>p_temp</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
@@ -1282,22 +1418,22 @@ window.onload = function() {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wochentag </span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"Wochenende [all]"</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>unscaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>Wochenende</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>scaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>Wochenende</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>num_breaks <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="st">"Wochentag"</span></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="st">"Fussgänger:innen pro Tag"</span></span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>x_scaling <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in prozent</span></span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>x_nk <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># x round nachkommastellen</span></span>
-<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>p_wd <span class="ot">&lt;-</span> <span class="fu">rescale_plot_fac_day</span>(</span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>  input_df, input_term, unscaled_var, scaled_var, num_breaks,</span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  x_lab, y_lab, x_scaling, x_nk)</span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>p_wd</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wochentag </span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>input_term <span class="ot">&lt;-</span> <span class="st">"Wochenende [all]"</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>unscaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>Wochenende</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>scaled_var <span class="ot">&lt;-</span> umwelt_day<span class="sc">$</span>Wochenende</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>num_breaks <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>x_lab <span class="ot">&lt;-</span> <span class="st">"Wochentag"</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>y_lab <span class="ot">&lt;-</span> <span class="st">"Fussgänger:innen pro Tag"</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>x_scaling <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># in prozent</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>x_nk <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># x round nachkommastellen</span></span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-13"><a href="#cb33-13" aria-hidden="true" tabindex="-1"></a>p_wd <span class="ot">&lt;-</span> <span class="fu">rescale_plot_fac_day</span>(</span>
+<span id="cb33-14"><a href="#cb33-14" aria-hidden="true" tabindex="-1"></a>  input_df, input_term, unscaled_var, scaled_var, num_breaks,</span>
+<span id="cb33-15"><a href="#cb33-15" aria-hidden="true" tabindex="-1"></a>  x_lab, y_lab, x_scaling, x_nk)</span>
+<span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>p_wd</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
