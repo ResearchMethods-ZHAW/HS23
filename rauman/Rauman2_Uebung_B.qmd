@@ -42,6 +42,8 @@ Sie erhalten einige wichtige Metadaten über den Rasterdatensatz, wenn Sie den V
 ```{r}
 #| code-fold: false
 #| output: true
+#| echo: true
+
 
 dhm_schwyz
 ```
@@ -51,6 +53,7 @@ Um einen schnellen Überblick eines Rasterdatensatz zu erhalten, können wir ein
 ```{r}
 #| code-fold: false
 #| output: true
+#| echo: true
 
 plot(dhm_schwyz)
 ```
@@ -73,6 +76,7 @@ Genau wie `ggplot` basiert `tmap` auf der Idee von "Ebenen", die durch ein `+` v
 
 ```{r}
 #| output: true
+#| echo: true
 
 tm_shape(dhm_schwyz) +
   tm_raster()
@@ -84,6 +88,7 @@ Wenn Sie die Hilfe von `?tm_raster` konsultieren, werden Sie eine Vielzahl von O
 
 ```{r}
 #| output: true
+#| echo: true
 
 tm_shape(dhm_schwyz) +
   tm_raster(style = "cont")
@@ -93,6 +98,7 @@ Das sieht schon ziemlich toll aus, aber vielleicht wollen wir die Standard-Farbp
 
 ```{r}
 #| output: true
+#| echo: true
 
 tm_shape(dhm_schwyz) +
   tm_raster(style = "cont", palette = "Spectral")
@@ -102,6 +108,7 @@ Eine grosse Stärke von `tmap` ist die Tatsache, das mit dem gleichen Befehl sow
 
 ```{r}
 #| output: true
+#| echo: true
 
 tmap_mode("view") # wechselt auf interakive Plots
 
@@ -136,6 +143,7 @@ Bei "aspect" handelt es sich ja um Werte, die von 0 bis 360 reichen. In klassisc
 
 ```{r}
 #| output: true
+#| echo: true
 
 tm_shape(schwyz_aspect) +
   tm_raster(
