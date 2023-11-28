@@ -334,7 +334,7 @@ ggplot(d, aes(x = kml, y = hp)) +
 ############
 
 # Varianzpartitionierung
-library("hier.part")
+library("relaimpo")
 cars <- mtcars |>
   mutate(kml = (235.214583 / mpg)) |>
   select(-mpg)
@@ -344,7 +344,9 @@ names(cars) # finde "position" deiner Responsevariable
 X = cars[, -3] # definiere all die Prädiktorvariablen im Model (minus Responsevar)
 
 # dauert ein paar sekunden
-hier.part(cars$hp, X, gof = "Rsqu")
+metrics <- calc.relimp(X, type = c("lmg", "first", "last","betasq", "pratt"))
+IJ <- cbind(I = metrics$lmg, J = metrics$first - metrics$lmg, Total = metrics$first)
+IJ
 
 # alle Modelle miteinander vergleichen mit dredge Befehl: geht nur bis
 # maximal 15 Variablen

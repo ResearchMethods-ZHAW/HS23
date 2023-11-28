@@ -9,8 +9,8 @@ index: 2
 
 ## Übung 7.1: RDA (naturwissenschaftlich)
 
-- Datensatz *dave_sveg.csv* (Vegetationsdaten) von @wildi2017data
-- Datensatz *dave_ssit.csv* (Umweltdaten) von @wildi2017data
+- Datensatz *dave_sveg.csv* (Vegetationsdaten) von @wildi2017
+- Datensatz *dave_ssit.csv* (Umweltdaten) von @wildi2017
 
 **Führt eine RDA mit allen in der Vorlesung gezeigten Schritten durch und interpretiert die Ergebnisse.**
 

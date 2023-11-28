@@ -1,7 +1,7 @@
 ---
 execute:
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true  # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -36,23 +36,23 @@ library("MASS")
 
 ## Aufgabe 1
 
-Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden. 
+Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden, vergl. Aufgabe 5 vorangehende Woche 
 
 ```{r}
 #| echo: true
 #| code-fold: false
 
-DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_20221031_moodle.csv", delim = ";")
+DF_mod <- read_delim("datasets/fallstudie_n/Aufgabe4_Datensatz_Habitatnutzung_Modelle_231027_moodle.csv", delim = ";")
 
 DF_mod_day <- DF_mod |>
   filter(time_of_day == "day")
 
-round(cor(DF_mod_day[, 6:12], method = "kendall"), 2)
+round(cor(DF_mod_day[, 6:14], method = "kendall"), 2)
 
 # hier kann die Schwelle für die Korrelation gesetzt werden, 0.7 ist liberal /
 # 0.5 konservativ
 
-cor <- round(cor(DF_mod_day[, 6:12], method = "kendall"), 2)
+cor <- round(cor(DF_mod_day[, 6:14], method = "kendall"), 2)
 cor[abs(cor) < 0.7] <- 0
 cor
 ```
@@ -69,12 +69,14 @@ Umwandeln der Reh-ID in einen Faktor, damit dieser als Random Factor ins Model e
 DF_mod_day <- DF_mod_day |>
   mutate(
     slope_scaled = scale(slope),
-    us_scaled = scale(us),
-    os_scaled = scale(os),
+    topo_pos_scaled = scale(topo_pos),
+    us_scaled = scale(us_2014),
+    os_scaled = scale(os_2014),
     forest_prop_scaled = scale(forest_prop),
     dist_road_all_scaled = scale(dist_road_all),
     dist_road_only_scaled = scale(dist_road_only),
-    dist_build_scaled = scale(dist_build),
+    dist_sett_scaled = scale(dist_sett),
+    remoteness_scaled = scale(remoteness),
     id = as.factor(id)
   )
 ```
@@ -127,6 +129,7 @@ Mit der GLMM Formel bauen wir in einem ersten Schritt eine univariate Variablens
 
 ```{r}
 #| eval: false
+#| error: true
 #| echo: true
 #| code-fold: false
 
@@ -137,6 +140,7 @@ m1 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),
   data = DF_mod_day,
   family = binomial
 )
+
 m2 <- glmer(Abhaengige_Variable ~ Erklaerende_Variable + (1 | id),
   data = DF_mod_day,
   family = binomial
@@ -181,10 +185,11 @@ Mit folgendem Code kann eine automatisierte Variablenselektion (dredge-Funktion)
 
 ```{r }
 #| eval: false
+#| error: true
 #| echo: true
 #| code-fold: false
 
-# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6
+# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8
 # sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
 
 f <- pres_abs ~
@@ -193,7 +198,9 @@ f <- pres_abs ~
   V3 +
   V4 +
   V5 +
-  V6
+  V6 +
+  V7 +
+  V8
 
 # in diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
 # daraus gemacht
@@ -223,16 +230,18 @@ summary(avgmodel)
 ```
 
 ```{r}
-# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V6
+# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8
 # sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
 
 f <- pres_abs ~
   slope_scaled +
+  topo_pos_scaled +
   us_scaled +
   os_scaled +
   forest_prop_scaled +
   dist_road_only_scaled +
-  dist_build_scaled
+  dist_sett_scaled +
+  remoteness_scaled
 
 # inn diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
 # daraus gemacht
@@ -256,4 +265,36 @@ sw(all_m)
 
 avgmodel <- model.avg(all_m, rank = "AICc", subset = delta < 2)
 summary(avgmodel)
+```
+```{r}
+
+#| eval: false
+#| error: true
+#| echo: false
+
+# hier wird die Formel für die dredge-Funktion vorbereitet (die Variablen V1-V8
+# sind jene welche nach der univariaten Variablenselektion noch übrig bleiben)
+
+f <- pres_abs ~
+  slope_scaled +
+  topo_pos_scaled +
+  us_scaled +
+  os_scaled +
+  forest_prop_scaled +
+  dist_road_only_scaled +
+  dist_road_all_scaled +
+  dist_sett_scaled +
+  remoteness_scaled
+
+# inn diesem Befehl kommt der Random-Factor (das Reh) hinzu und es wird eine Formel
+# daraus gemacht
+
+f_dredge <- paste(c(f, "+ (1 | id)"), collapse = " ") |> as.formula()
+
+# Das Modell mit dieser Formel ausführen
+
+m <- glmer(f_dredge, data = DF_mod_day, family = binomial, na.action = "na.fail")
+
+car::vif(m)
+mean(car::vif(m))
 ```

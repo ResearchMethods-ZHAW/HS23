@@ -20,7 +20,9 @@ knitr:
 ## Daten einlesen und exlporieren
 
 ```{r}
-SAR <- read.delim("datasets/stat1-4/SAR.csv", sep = ";") # Daten einlesen
+library("readr")
+
+SAR <- read_delim("datasets/stat1-4/SAR.csv", ";") # Daten einlesen
 head(SAR) # Daten anschauen
 str(SAR) # Datenformat überprüfen
 ```
@@ -106,7 +108,7 @@ plot(lm.2)
 
 -\> Modelldiagnostikplots sehen noch schlechter aus als mit untransformierten Daten!
 
-**Fazit Lösung A:** log-Transformation der abhängigen Variablen hat das Modell nicht verbessert. Im Gegebteil... Als nächstes wird darum eine zusätzlichge Log10-Transformation der Abhängigen Variablen ausprobiert.
+**Fazit Lösung A:** log-Transformation der abhängigen Variablen hat das Modell nicht verbessert. Im Gegebteil... Als nächstes wird darum eine zusätzlichge Log10-Transformation der unahängigen Variablen ausprobiert.
 
 ## Lösung B: log-Transformation beider Variablen
 

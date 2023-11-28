@@ -15,7 +15,7 @@ index: 2
 knitr::opts_chunk$set(echo = TRUE, include = F, collapse = TRUE)
 ```
 
-**Abzugeben sind am Ende**
+**Zu erstellen sind**
 
 a.  lauffähiges R-Skript
 b.  begründeter Lösungsweg (Kombination aus R-Code, R Output und dessen Interpretation)
@@ -47,7 +47,7 @@ Der Datensatz beschreibt die Zunahme der Artenzahlen (richness) von Pflanzen in 
 
 ### Übung 2.2: Einfaktorielle ANOVA
 
-**ANOVA mit Datensatz *Datensatz_novanimal_Uebung_Statistik2.2.csv***
+**ANOVA mit Datensatz *Datensatz_novanimal_Uebung_Statistik2.1.csv***
 
 Führt mit dem Datensatz novanimal.csv eine einfaktorielle ANOVA durch. Gibt es Unterschiede zwischen der Anzahl verkaufter Gerichte "tot_sold" (Buffet, Fleisch oder Vegetarisch) pro Woche?
 

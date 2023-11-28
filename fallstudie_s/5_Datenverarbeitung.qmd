@@ -456,7 +456,7 @@ depo <- depo |>
     mutate(Tageszeit = factor(Tageszeit, levels = c("Morgen", "Tag", "Abend", "Nacht"), ordered = TRUE))
 
 # behalte die relevanten Var
-depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
+depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)
 
 # Plotte zum pruefn ob das funktioniert hat
 ggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +

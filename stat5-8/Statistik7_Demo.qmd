@@ -7,20 +7,23 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat7: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
 -   Datensatz *Doubs.RData*
--   Datensatz *dave_sveg.csv* von @wildi2017data
--   Datensatz *dave_ssit.csv* von @wildi2017data
+-   Datensatz *dave_sveg.csv* von @wildi2017
+-   Datensatz *dave_ssit.csv* von @wildi2017
 
 ## Ordinationen II
 
 ### Interpretation von Ordinationen
 
-Wildi pp. 96 et seq.
+@wildi2017, Seite 96 und folgend
 
 ```{r}
 # Plot Arten

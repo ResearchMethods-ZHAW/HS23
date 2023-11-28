@@ -3,6 +3,13 @@ date: 2023-11-20
 lesson: Stat7
 thema: Ordinationen II
 index: 3
+format:
+  html:
+    code-tools:
+      source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat7: Lösung

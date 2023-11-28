@@ -7,12 +7,15 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat6: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
--   Datensatz *dave_sveg.csv* von @wildi2017data
+-   Datensatz *dave_sveg.csv* von @wildi2017
 
 ## Ordinationen I
 
@@ -105,14 +108,13 @@ biplot(pca.3)
 library("readr")
 sveg <- read_delim("datasets/stat5-8/dave_sveg.csv")
 
-str(sveg)
-summary(sveg)
-names(sveg)
+sveg 
+
 ```
 
 ```{r}
 # PCA: Deckungen Wurzeltransformiert, cor=TRUE erzwingt Nutzung der Korrelationsmatrix
-pca.5 <- pca(sveg^0.25, cor = TRUE)
+pca.5 <- pca(sveg^0.25, cor = TRUE) # "hoch 0.25" = "^1/4" =  "4te Wurzel"
 ```
 
 ```{r}
@@ -123,6 +125,7 @@ pca.5$scores
 
 # Korrelationen der Variablen mit den Ordinationsachsen
 pca.5$loadings
+
 ```
 
 ```{r}
@@ -174,7 +177,7 @@ text(x[sel.sp], y[sel.sp], snames, pos = 1, cex = 0.6)
 ### CA
 
 ```{r}
-ca.1 <- cca(sveg^0.5)
+ca.1 <- cca(sveg^0.5) # Wurzeltransformierte Deckungen 
 # Arten (o) und Communities (+) plotten
 plot(ca.1)
 

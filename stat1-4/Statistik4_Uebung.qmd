@@ -14,11 +14,9 @@ knitr:
 
 **Datensatz *Curonian_Spit.csv***
 
-Dieser enthält gemittelte Pflanzenartenzahlen (Species.richness) von
-geschachtelten Plots (Vegetationsaufnahmen) der Pflanzengesellschaft LolioCynosuretum im Nationalpark Kurische Nehrung (Russland) auf
-Flächengrössen (Area) von 0.0001 bis 900 m².
+Dieser enthält gemittelte Pflanzenartenzahlen (Species.richness) von geschachtelten Plots (Vegetationsaufnahmen) der Pflanzengesellschaft LolioCynosuretum im Nationalpark Kurische Nehrung (Russland) auf Flächengrössen (Area) von 0.0001 bis 900 m².
 
-**Ermittelt den funktionellen Zusammenhang (das beste Modell), der die Zunahme der Artenzahl mit der Flächengrösse am besten beschreibt.Berücksichtigt dabei mindestens die Potenzfunktion (power function, die logarithmische Funktion (logarithmic function,und eine Funktion mit Sättigung (saturation, asymptote) eurer Wahl.**
+**Ermittelt den funktionellen Zusammenhang (das beste Modell), der die Zunahme der Artenzahl mit der Flächengrösse am besten beschreibt.Berücksichtigt dabei mindestens die Potenzfunktion (power function), die logarithmische Funktion (logarithmic function) und eine Funktion mit Sättigung (saturation, asymptote) eurer Wahl.**
 
 ## Aufgabe 4.2N: Logistische Regression (NatWis)
 

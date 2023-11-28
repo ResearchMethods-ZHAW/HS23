@@ -7,13 +7,16 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat8: Demo
 
 -   Download dieses Demoscript via "\</\>Code" (oben rechts)
 -   Datensatz *Doubs.RData*
--   Datensatz *dave_sveg.csv* von @wildi2017data
+-   Datensatz *dave_sveg.csv* von @wildi2017
 -   Funktion drawmap.R [drawmap.R](drawmap.R)
 -   Funktion hcoplot.R [hcoplot.R](hcoplot.R)
 

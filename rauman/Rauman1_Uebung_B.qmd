@@ -4,8 +4,8 @@ lesson: RaumAn1
 thema: Spatial Joins
 index: 2
 execute: 
-  echo: false   # set to true to show musterlösung
-  output: false # set to true to show musterlösung
+  echo: true   # set to true to show musterlösung
+  output: true # set to true to show musterlösung
 code-fold: true
 code-summary: "Musterlösung"
 knitr:
@@ -43,7 +43,7 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
   automatically selected the first layer in a data source containing more than one.
 ```
 
-Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `st_read` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
+Diese Warnmeldung weist darauf hin, dass das Geopackage `gruental.gpkg` mehrere Layers (rep. Datensätze) enthält und nur der erste Layer importiert wurde. Bringe mit dem Befehl `st_layers` die Layer Namen in Erfahrung und nutze diese im Anschluss in `read_sf` (als Argument `layer = `) um die layers einzeln zu importieren und in variablen zu speichern (zB in als Variable `wiesen` und `baeume`).
 
 ```{r}
 st_layers("datasets/rauman/gruental.gpkg")

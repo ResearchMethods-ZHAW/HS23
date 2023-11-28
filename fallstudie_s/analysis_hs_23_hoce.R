@@ -323,7 +323,7 @@ depo <- depo |>
 
 
 # behalte die relevanten Var
-depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night)
+depo <- depo |> dplyr::select(-nightEnd, -goldenHourEnd, -goldenHour, -night, -lat, -lon)
 
 # Plotte zum pruefn ob das funktioniert hat
 ggplot(depo, aes(y = Datetime, color = Tageszeit, x = Stunde)) +
@@ -450,7 +450,9 @@ ggplot(depo_m_daytime, aes(Ym, Total, fill = Tageszeit)) +
   geom_area(position = "fill", alpha = 0.8) +
   scale_fill_manual(values = mycolors) +
   scale_x_date(date_labels = "%b%y", date_breaks = "6 months", 
-               limits = c(min(depo_m_daytime$Ym), max = max(depo_m_daytime$Ym)), expand = c(0, 0)) +
+               limits = c(min(depo_m_daytime$Ym), max = max(depo_m_daytime$Ym)), 
+               # force the first and last tick marks to correspond to the actual limits specified in scale_x_date
+               expand = c(0, 0)) +
   geom_vline(xintercept = seq(as.Date(min(depo_m_daytime$Ym)), as.Date(max(depo_m_daytime$Ym)), 
                               by = "6 months"), linetype = "dashed", color = "black")+
   theme_classic(base_size = 15) +
@@ -495,7 +497,7 @@ ggsave("Proz_Entwicklung_Zaehlstelle.png",
 #
 # ## KW SUBSET
 # # Berechne veränderung gegenüber Lockdown immer nur mit denselben KW
-# depo_KW_lock <- depo %>%
+# depo_KW_lock <- depo |>
 #   filter(KW_num>=KW_lock_1_start & KW_num <= KW_lock_1_ende)
 #
 # ct <- ctree(Total ~ Jahr + KW + Phase + Tageszeit + Stunde,
@@ -690,7 +692,7 @@ umwelt <- umwelt |>
 
 # Erklaerende Variablen definieren
 # Hier wird die Korrelation zwischen den (nummerischen) erklaerenden Variablen berechnet
-cor <- cor(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)))
+cor <- cor(subset(umwelt, select = c(tre200nx: sremaxdv)))
 
 # Mit dem folgenden Code kann eine simple Korrelationsmatrix aufgebaut werden
 # hier kann auch die Schwelle für die Korrelation gesetzt werden,
@@ -701,7 +703,7 @@ cor
 
 # Korrelationsmatrix erstellen
 # Zur Visualisierung kann ein einfacher Plot erstellt werden:
-chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)), 
+chart.Correlation(subset(umwelt, select = c(tre200nx: sremaxdv)), 
                   histogram = TRUE, pch = 19)
 
 # die Temperatur bei Nacht und diejenige bei tag korrelieren. ich packe also niemals beide variablen in ein modell
@@ -734,13 +736,13 @@ chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)),
 
 
 # Unterteile in TAG DÄMMERUNG UND NACHT
-umwelt_day <- umwelt %>% 
+umwelt_day <- umwelt |> 
   filter(Tageszeit == "Tag")
 
-umwelt_duskdawn <- umwelt %>% 
+umwelt_duskdawn <- umwelt |> 
   filter(Tageszeit == "Morgen" | Tageszeit == "Abend" )
 
-umwelt_night <- umwelt %>% 
+umwelt_night <- umwelt |> 
   filter(Tageszeit == "Nacht")
 
 

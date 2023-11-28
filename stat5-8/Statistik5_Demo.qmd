@@ -7,6 +7,9 @@ format:
   html:
     code-tools:
       source: true
+knitr:
+    opts_chunk:
+        collapse: false
 ---
 
 # Stat5: Demo
@@ -17,11 +20,13 @@ format:
 
 ## Split-plot ANOVA
 
-Reaktionszeitenbeispiel aus Kapitel 14 von Logan (2010) 
+Reaktionszeitenbeispiel aus Kapitel 14 von @logan2010
 
 ```{r}
 # Daten laden
-spf <- read.delim("datasets/stat5-8/spf.csv", sep = ";")
+library("readr")
+
+spf <- read_delim("datasets/stat5-8/spf.csv", ";")
 # Daten anschauen
 head(spf)
 
@@ -47,11 +52,11 @@ summary(spf.lme.2)
 
 ## GLMM
 
--> Hirschparasitenbeispiel aus Kapitel 13 von Zuur et al. (2009)
+-\> Hirschparasitenbeispiel aus Kapitel 13 von @zuur2009
 
 ```{r}
 # Daten laden und für GLMM aufbereiten
-DeerEcervi <- read.delim("datasets/stat5-8/DeerEcervi.txt", sep = "", stringsAsFactors = TRUE)
+DeerEcervi <- read_delim("datasets/stat5-8/DeerEcervi.txt", "\t",  col_types = cols("Farm" = "f"))
 # Daten anschauen
 head(DeerEcervi)
 summary(DeerEcervi)
@@ -64,7 +69,7 @@ DeerEcervi$fSex <- as.factor(DeerEcervi$Sex)
 DeerEcervi$CLength <- DeerEcervi$Length - mean(DeerEcervi$Length)
 ```
 
--> Nun sind die Daten bereit:
+-\> Nun sind die Daten bereit:
 
 -   Die Parasitenbefalldaten wurden in Parasiten Präsenz/Absenz (1/0) übersetzt.
 -   Die Hirschlänge wurde standardisiert, damit der Achsenabschnitt (intercept) des Modells interpretierbar ist, standardisierte entspricht nun der Achsenabschnitt einem durschnittlich langen Hirsch.
@@ -106,7 +111,9 @@ DE.PQL <- glmmPQL(Ecervi.01 ~ CLength * fSex,
 )
 summary(DE.PQL)
 
+DE.PQL$coefficients[1][1]
 # Modellvoraussagen berechnen
+# So könnte direkt auf die coefficients zugegriffen werden: DE.PQL$coefficients[[1]][1]
 g <- 0.8883697 + 0.0378608 * DeerEcervi$CLength
 # Rücktransformieren aus Logit
 p.averageFarm1 <- exp(g) / (1 + exp(g))

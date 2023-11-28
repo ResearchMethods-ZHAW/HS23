@@ -458,7 +458,7 @@ umwelt <- as.data.frame(umwelt)
 
 - Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:
 
-```{r eval=FALSE}
+```{r eval=FALSE, echo=TRUE}
 umwelt <- umwelt |> 
   mutate(tre200jx_scaled = scale(tre200jx)|>
   ...
@@ -485,12 +485,13 @@ Korrelierende Variablen können das Modellergebnis verfälschen. Daher muss vor 
 - Teste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.
 
 ```{r echo = TRUE, eval=FALSE}
-cor <-  cor(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
-                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)])
+cor <- cor(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
+                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))
+
 ```
 
 ```{r}
-cor <- cor(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)))
+cor <- cor(subset(umwelt, select = c(tre200nx: sremaxdv)))
 ```
 
 ### 3b) 
@@ -501,23 +502,21 @@ Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgeba
 cor[abs(cor) < 0.7] <- 0 # Setzt alle Werte kleiner 0.7 auf 0
 ```
 
-Zur Visualisierung kann ein einfacher Plot erstellt werden.
+Zur Visualisierung kann ein Plot erstellt werden.
+
+
+```{r outpot = TRUE}
+chart.Correlation(subset(umwelt, select = c(tre200nx: sremaxdv)), 
+                  histogram = TRUE, pch = 19)
+```
+
 
 ```{r echo = TRUE, eval=FALSE}
-chart.Correlation(umwelt[,ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
-                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)], histogram=TRUE, pch=19)
-```
-
-```{r echo=FALSE, output = TRUE}
-chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)), 
+chart.Correlation(subset(umwelt, select = c(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN : 
+                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), 
                   histogram = TRUE, pch = 19)
 ```
 
-
-```{r}
-chart.Correlation(subset(umwelt, select = c(tre200jx_scaled: sremaxdv_scaled)), 
-                  histogram = TRUE, pch = 19)
-```
 
 Wo kann eine kritische Korrelation beobachtet werden? Kann man es verantworten, trotzdem alle (Wetter)parameter in das Modell zu geben? 
 
@@ -529,7 +528,7 @@ Falls ja: warum? Falls nein: schliesst den betreffenden Parameter aus. Wenn ihr 
 Aktuell haben wir im umwelt-Datensatz noch alle Tageszeiten zusammen gespeichert. Für die Berechnung der Modelle unterteilen wir das noch in Tag, Dämmerung (Morgen- und Abenddämmerung zusammen) und Nacht. Hier eine Inspiration dazu:
 
 ```{r echo=TRUE, eval=FALSE}
-umwelt_day <- umwelt %>% 
+umwelt_day <- umwelt |> 
   filter(Tageszeit == "Tag")
 
 umwelt_duskdawn <- ...
@@ -538,13 +537,13 @@ umwelt_night <- ...
 ```
 
 ```{r}
-umwelt_day <- umwelt %>% 
+umwelt_day <- umwelt |> 
   filter(Tageszeit == "Tag")
 
-umwelt_duskdawn <- umwelt %>% 
+umwelt_duskdawn <- umwelt |> 
   filter(Tageszeit == "Morgen" | Tageszeit == "Abend" )
 
-umwelt_night <- umwelt %>% 
+umwelt_night <- umwelt |> 
   filter(Tageszeit == "Nacht")
 ```
 
@@ -708,8 +707,14 @@ testZeroInflation(simulationOutput)
 # use VIF values: if values less then 5 is ok (sometimes > 10), if mean of VIF values
 # not substantially greater than 1 (say 5), no need to worry.
 
-car::vif(poisson_model)
+car::vif(poisson_model) # funktioniert nicht mit glmmTMB
 mean(car::vif(poisson_model))
+
+# erklaerte varianz
+# The marginal R squared values are those associated with your fixed effects,
+# the conditional ones are those of your fixed effects plus the random effects.
+# Usually we will be interested in the marginal effects.
+performance::r2(poisson_model)
 ```
 
 Sind die Voraussetzungen des Modells erfüllt?
@@ -719,11 +724,26 @@ Sind die Voraussetzungen des Modells erfüllt?
 
 Wir sind auf der Suche nach dem minimalen adäquaten Modell. Das ist ein iterativer Prozess. Wir schreiben ein Modell, prüfen ob die Voraussetzungen erfüllt sind und ob die abhängige Variable besser erklärt wird als im Vorhergehenden. Und machen das nochmals und nochmals und nochmals...
 
+- __glmmTMB()__ ist eine sehr schnelle und kompatible Funktion, auch für negativ binomiale Daten. Ich empfehle (spätenstens ab dem exponierten Modell weiter unten) mit ihr zu arbeiten.
+
+```{r eval=FALSE, echo=TRUE}
+glmmTMB(Total ~ Monat + Ferien + ..., family =nbinom1,
+                               data = umwelt_day)
+```
+
 - Über __family =__ kann in der Funktion _glmer()__ einiges (aber leider nicht alles so einfach [z.B. negativ binominale Modelle]) angepasst werden: [Link](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/family.html)
 
 - Auch über __link =__ kann man anpassen: [Link](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/make.link.html)
 
 - Unsere (meine) Daten sind negativ binominal verteilt. Daher sollte wir unbedingt ein solches Modell programmieren. --> Funktion __glmer.nb()__
+
+
+```{r eval=FALSE, echo=TRUE}
+nb_model_day <- glmer.nb(Total ~ Monat + Ferien + 
+                           ..., 
+                         data = umwelt_day)
+
+```
 
 ```{r eval=FALSE}
 nb_model_day <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
@@ -737,17 +757,15 @@ nb_model_day <- glmer.nb(Total ~ Monat + Ferien + Phase + Wochenende +
 - Falls die Daten exponentiell Verteilt sind, hier der Link zu einem Blogeintrag dazu: [Link](https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle)
 
 ```{r echo=TRUE, eval=FALSE}
-  ...
-tre200jx_scaled + I(tre200jx_scaled^2) +
-  ...
+glmmTMB((Total + 1) ~ ... 
+                         family = Gamma(link = "log"), data = umwelt_night)
 ```
 
 ```{r eval=FALSE}
-nb_quad_model_day <- glmmTMB(Total ~ Monat + Ferien + Phase + Wochenende +
-                                  tre200jx_scaled + I(tre200jx_scaled^2) + rre150j0_scaled +
-                                  sremaxdv_scaled +
-                                  (1 | Jahr), family =nbinom1,
-                               data = umwelt_day)
+glmmTMB((Total + 1) ~ Monat + Ferien + Phase + Wochenende +
+                           tre200nx_scaled + I(tre200nx_scaled^2) + rre150n0_scaled +
+                          (1 | Jahr), 
+                         family = Gamma(link = "log"), data = umwelt_night)
 ```
 
 
@@ -882,13 +900,15 @@ nb_int_model_day_zi <- glmmTMB(Total ~ Phase + Wochenende +
 
 Modellresultate können mit __summary()__ angezeigt werden. Ich verwende aber lieber die Funktion __tab_model()__! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen. 
 
+
 ```{r eval=FALSE, echo=TRUE}
-tab_model(MODELLNAME, transform = NULL, show.se = TRUE)
+tab_model(MODELLNAME, 
+          transform = NULL, # To plot the estimates on the linear scale, use transform = NULL.
+          show.se = TRUE) # zeige die Standardabweichung
 ## The marginal R squared values are those associated with your fixed effects,
 ## the conditional ones are those of your fixed effects plus the random effects.
 ## Usually we will be interested in the marginal effects.
 ```
-
 
 
 ## Aufgabe 7: Modellvisualisierung

@@ -57,10 +57,7 @@ tm_shape(wind250m) +
 Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion `classify()` analog @sec-classify1. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in @tbl-bewerungstabelle-other festgehalten sind.
 
 ```{r}
-#| layout-ncol: 2
-
 #### reclassify wind
-
 wind_klassen <- tribble(
   ~von, ~bis, ~zu,
   0, 20, 0.0,
