@@ -740,14 +740,14 @@ window.onload = function() {
 
 </header>
 
-<p>Für die kommende Übung arbeiten wir mit dem Datensatz <em>gruental.gpkg</em>. Importiere ihn in R. Zudem brauchen wir die folgenden libraries:</p>
+<p>Für die kommende Übung arbeiten wir mit dem Datensatz <em>gruental.gpkg</em>. Importiere ihn in R. Zudem brauchen wir die folgenden <em>libraries</em>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"dplyr"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"sf"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"ggplot2"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="aufgabe-1-geopackage-layers" class="level3">
-<h3 class="anchored" data-anchor-id="aufgabe-1-geopackage-layers">Aufgabe 1: Geopackage “Layers”</h3>
+<section id="aufgabe-1-geopackage-layers" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1-geopackage-layers">Aufgabe 1: Geopackage “Layers”</h2>
 <p>Allenfalls ist euch beim Importieren des Geopackage <em>gruental.gpkg</em> folgende Warnmeldung aufgefallen:</p>
 <pre><code>Warning message:
 In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
@@ -768,8 +768,8 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 </details>
 </div>
 </section>
-<section id="aufgabe-2-datensätze-erkunden" class="level3 page-columns page-full">
-<h3 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h3>
+<section id="aufgabe-2-datensätze-erkunden" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="aufgabe-2-datensätze-erkunden">Aufgabe 2: Datensätze erkunden</h2>
 <p>Nimm dir etwas Zeit und erkunde die beiden Datensätze. Nutze dafür auch die Visualisierungsmöglichkeiten von <code>ggplot</code> (insbesondere <code>geom_sf</code>). Du kannst mehrere <code>geom_sf()</code> übereinander lagern, um gleichzeitig mehrere Datensätze darzustellen.</p>
 <div class="page-columns page-full">
 <details>
@@ -806,8 +806,8 @@ In evalq((function (..., call. = TRUE, immediate. = FALSE, noBreaks. = FALSE,  :
 </div>
 </div>
 </section>
-<section id="sec-spatial-join-points" class="level3">
-<h3 class="anchored" data-anchor-id="sec-spatial-join-points">Aufgabe 3: Spatial Join mit Punkten</h3>
+<section id="sec-spatial-join-points" class="level2">
+<h2 class="anchored" data-anchor-id="sec-spatial-join-points">Aufgabe 3: Spatial Join mit Punkten</h2>
 <p>Wir wollen nun für jeden <em>Baum</em> wissen, ob er sich in einer Wiese befindet oder nicht. Dazu nutzen wir die GIS-Technik <em>Spatial Join</em>, die in der Vorlesung beschrieben wurde. In <code>sf</code> können wir Spatial Joins mit der Funktion <code>st_join</code> durchführen, dabei gibt es nur <code>left</code> sowie <code>inner</code>-Joins (vgl. PrePro 1 &amp; 2). So müssen die Punkte “Links”, also an erste Stelle aufgeführt werden, da wir ja Attribute <em>an</em> die Punkte anheften wollen.</p>
 <p>Beachte, dass der Output eine neue Spalte <code>flaechen_typ</code> aufweist. Diese ist leer (<code>NA</code>) wenn sich der entsprechende Baum nicht in einer Wiese befindet. Wie viele Bäume befinden sich in einer Wiese, wie viele nicht?</p>
 <div class="cell">
