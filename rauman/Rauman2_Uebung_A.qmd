@@ -129,6 +129,10 @@ Nun habt ihr ein paar Vektoroperationen wie `st_buffer()` und `st_intersection()
 Bevor wir die Frage aber beantworten können, müssen wir den Vektordatensatz in ein Rasterdatensatz konvertieren. Dafür wiederum braucht es ein Raster "Template", damit R in etwa weiss, wie der Raster Output auszusehen hat. 
 
 ```{r}
+#| echo: true
+#| code-fold: false
+
+
 # Um mit Raster arbeiten zu können brauchen wir das Package "terra"
 library("terra")
 
@@ -144,6 +148,8 @@ baeume_rast <- terra::rasterize(baeume, template)
 Der Unterschied zwischen Raster und Vektor kann sehr anschaulich dargestellt werden, wenn die beiden Datensätze übereinander gelagert werden.
 
 ```{r}
+#| echo: true
+#| code-fold: false
 #| output: true
 
 plot(baeume_rast, col = "grey")
@@ -154,6 +160,9 @@ Mit `baeume_rast` können wir nun mit der Funktion `distance()` die Distanz zu j
 
 ```{r}
 #| output: true
+#| echo: true
+#| code-fold: false
+
 
 baeume_dist <- distance(baeume_rast)
 plot(baeume_dist)

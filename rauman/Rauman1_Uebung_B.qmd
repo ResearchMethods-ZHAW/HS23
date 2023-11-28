@@ -15,7 +15,7 @@ knitr:
 
 # Rauman 1: Übung B {#sec-rauman1b}
 
-Für die kommende Übung arbeiten wir mit dem Datensatz *gruental.gpkg*. Importiere ihn in R. Zudem brauchen wir die folgenden libraries:
+Für die kommende Übung arbeiten wir mit dem Datensatz *gruental.gpkg*. Importiere ihn in R. Zudem brauchen wir die folgenden *libraries*:
 
 ```{r}
 #| echo: true
