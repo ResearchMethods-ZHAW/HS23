@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.513">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -58,7 +58,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
-  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -103,13 +102,7 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
+  "limit": 20,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -171,12 +164,12 @@ window.onload = function() {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/7_Multivariate_Modelle.html"><span class="chapter-title">Multivariate Modelle</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/7_Multivariate_Modelle.html"><span class="chapter-number">72</span>&nbsp; <span class="chapter-title">Multivariate Modelle</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -186,7 +179,7 @@ window.onload = function() {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -727,7 +720,7 @@ window.onload = function() {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -765,7 +758,7 @@ window.onload = function() {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../fallstudie_s/0_Vorbereitung.html">Fallstudie S</a></li><li class="breadcrumb-item"><a href="../fallstudie_s/7_Multivariate_Modelle.html"><span class="chapter-title">Multivariate Modelle</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Multivariate Modelle</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
@@ -786,9 +779,7 @@ window.onload = function() {
   </div>
   
 
-
 </header>
-
 
 <p>Nachdem die deskriptiven Resultate vorliegen, kann jetzt die Berechnung eines multivariaten Modells angegangen werden. Das Ziel ist es, den Zusammenhang zwischen der gesamten Anzahl Besucher:innen (Total) und verschiedenen erklärenden Variablen (Wochentag, Ferien, Monat, Jahr, Phasen der Covid-Pandemie, Sonnenscheindauer, Höchsttemperatur, Niederschlagssumme) aufzuzeigen, und das während dem Tag, der Dämmerung und der Nacht (siehe dazu auch [Aufgabenstellung Abschlussbericht]).</p>
 <section id="aufgabe-1-verbinden-von-daten" class="level2">
@@ -803,7 +794,7 @@ window.onload = function() {
 <li><p>Der neue Datensatz soll ” <strong>umwelt</strong> ” heissen.</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> <span class="fu">inner_join</span>(depo_daytime, meteo_day, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Jahr"</span>, <span class="st">"Monat"</span>, <span class="st">"KW"</span>, <span class="st">"Wochenende"</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -812,7 +803,7 @@ window.onload = function() {
 <li>Sind durch das Zusammenführen NA’s entstanden? Falls ja, müssen <strong>alle</strong> für die weiteren Auswertungen ausgeschlossen werden.</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># es darf keine NA's im datensatz haben</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(umwelt))</span>
@@ -830,7 +821,7 @@ window.onload = function() {
 <li><p>Nachfolgende Schritte funktionieren nur, wenn <strong>umwelt</strong> als data.frame vorliegt! Prüft das und ändert das, falls noch kein <strong>data.frame</strong> (Hinweis: auch ein “tibble” funktioniert nicht, obwohl bei der Abfrage <strong>is.data.frame()</strong> TRUE angegeben wird. Damit ihr beim scalen keine NaN Werte erhaltet, wendet ihr darum am besten in allen Fällen zuerst den Befehl <strong>as.data.frame()</strong> an).</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(umwelt)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -846,7 +837,7 @@ window.onload = function() {
 <li><p>Lösung: Skalieren aller Variablen mit Masseinheiten gemäss unterstehendem Code:</p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tre200jx_scaled =</span> <span class="fu">scale</span>(tre200jx)<span class="sc">|&gt;</span></span>
@@ -854,7 +845,7 @@ window.onload = function() {
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>umwelt <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -877,14 +868,14 @@ window.onload = function() {
 <li>Teste mittels folgendem Code auf eine Korrelation zwischen den Messwerten.</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>cor <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(tre200nx<span class="sc">:</span> sremaxdv)))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -894,21 +885,21 @@ window.onload = function() {
 <h3 class="anchored" data-anchor-id="b-1">3b)</h3>
 <p>Mit dem folgenden Code kann eine Korrelationsmatrix (mit den Messwerten) aufgebaut werden. Hier kann auch die Schwelle für die Korrelation gesetzt werden (0.7 ist liberal / 0.5 konservativ).</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>cor[<span class="fu">abs</span>(cor) <span class="sc">&lt;</span> <span class="fl">0.7</span>] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co"># Setzt alle Werte kleiner 0.7 auf 0</span></span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Zur Visualisierung kann ein Plot erstellt werden.</p>
 <div class="cell" data-outpot="true">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(tre200nx<span class="sc">:</span> sremaxdv)), </span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">histogram =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">19</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chart.Correlation</span>(<span class="fu">subset</span>(umwelt, <span class="at">select =</span> <span class="fu">c</span>(ERSTE SPALTE MIT ERKLAERENDEN MESSWERTEN <span class="sc">:</span> </span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                     LETZTE SPALTE MIT ERKLAERENDEN MESSWERTEN)), </span>
@@ -922,7 +913,7 @@ window.onload = function() {
 <h3 class="anchored" data-anchor-id="c">3c)</h3>
 <p>Aktuell haben wir im umwelt-Datensatz noch alle Tageszeiten zusammen gespeichert. Für die Berechnung der Modelle unterteilen wir das noch in Tag, Dämmerung (Morgen- und Abenddämmerung zusammen) und Nacht. Hier eine Inspiration dazu:</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
@@ -933,7 +924,7 @@ window.onload = function() {
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>umwelt_day <span class="ot">&lt;-</span> umwelt <span class="sc">|&gt;</span> </span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Tageszeit <span class="sc">==</span> <span class="st">"Tag"</span>)</span>
@@ -952,7 +943,7 @@ window.onload = function() {
 <p>Führe die dredge-Funktion und ein Modelaveraging durch. Der Code dazu ist unten. Was passiert in der Funktion? Macht es Sinn, die Funktion auszuführen?</p>
 <p><strong>Hinweis:</strong> untenstehender Code ist sehr rechenentensiv.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Hier wird die Formel für die dredge-Funktion vorbereitet</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>f <span class="ot">&lt;-</span> Total <span class="sc">~</span> Wochentag <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Monat <span class="sc">+</span></span>
@@ -988,7 +979,7 @@ window.onload = function() {
 </ul>
 <p><strong>Hinweis:</strong> CDF = Cumulative distribution function; Wikipedia = “Anschaulich entspricht dabei der Wert der Verteilungsfunktion an der Stelle x der Wahrscheinlichkeit, dass die zugehörige Zufallsvariable X einen Wert kleiner oder gleich x annimmt.” Ihr müsst aber nicht weiter verstehen, wie das berechnet wird, wichtig für euch ist, dass ihr den Plot interpretieren könnt.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>f1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(umwelt_day<span class="sc">$</span>Total, <span class="st">"norm"</span>) <span class="co"># Normalverteilung</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>f1_1 <span class="ot">&lt;-</span> <span class="fu">fitdist</span>((umwelt_day<span class="sc">$</span>Total <span class="sc">+</span> <span class="dv">1</span>), <span class="st">"lnorm"</span>) <span class="co"># log-Normalvert (beachte, dass ich +1 rechne.</span></span>
@@ -1016,11 +1007,7 @@ window.onload = function() {
 </div>
 <div class="cell">
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -1043,7 +1030,7 @@ window.onload = function() {
 <p>Falls ihr der Meinung seid, Jahr ist kein “guter” random factor, dann nehmt es nicht an random factor ins Modell sondern als erklärende Variable. Begründet das unbedingt in eurer Methodik.</p>
 <p>Die Modellformel lautet:</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>poisson_model <span class="ot">&lt;-</span> <span class="fu">glmer</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                       tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
@@ -1064,7 +1051,7 @@ window.onload = function() {
 <p>Bitte unbedingt die Vignette des DHARMa-Package konsultieren!</p>
 <p><strong>Hinweis:</strong> Wir verwenden etwas andere Funktionen als in der Vorlesung am morgen. Sie sind unten aufgeführt, und die Funktionen analog zu den Funktionen aus der Vorlesung, aber halt etwas anders.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals werden über eine Simulation auf eine Standard-Skala transformiert und</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># können anschliessend getestet werden. Dabei kann die Anzahl Simulationen eingestellt</span></span>
@@ -1115,7 +1102,7 @@ window.onload = function() {
 <li><strong>glmmTMB()</strong> ist eine sehr schnelle und kompatible Funktion, auch für negativ binomiale Daten. Ich empfehle (spätenstens ab dem exponierten Modell weiter unten) mit ihr zu arbeiten.</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> ..., <span class="at">family =</span>nbinom1,</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">data =</span> umwelt_day)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1127,7 +1114,7 @@ window.onload = function() {
 <li><p>Unsere (meine) Daten sind negativ binominal verteilt. Daher sollte wir unbedingt ein solches Modell programmieren. –&gt; Funktion <strong>glmer.nb()</strong></p></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> </span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                           ..., </span>
@@ -1135,7 +1122,7 @@ window.onload = function() {
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>nb_model_day <span class="ot">&lt;-</span> <span class="fu">glmer.nb</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                             tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span></span>
@@ -1147,14 +1134,14 @@ window.onload = function() {
 <li>Falls die Daten exponentiell Verteilt sind, hier der Link zu einem Blogeintrag dazu: <a href="https://stats.stackexchange.com/questions/240455/fitting-exponential-regression-model-by-mle">Link</a></li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>((Total <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">~</span> ... </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link =</span> <span class="st">"log"</span>), <span class="at">data =</span> umwelt_night)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">glmmTMB</span>((Total <span class="sc">+</span> <span class="dv">1</span>) <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                           tre200nx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200nx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> rre150n0_scaled <span class="sc">+</span></span>
@@ -1166,7 +1153,7 @@ window.onload = function() {
 <li>Hypothese: “Es gehen weniger Leute in den Wald, wenn es zu heiss ist” –&gt; auf quadratischen Term Temperatur testen! <strong>Hinweis:</strong> ich welchsel hier auf glmmTBM, da diese funktion beudeutend schneller ist und das Ergeniss besser wird (in meinem Fall).</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>nb_quad_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                               tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="co"># hier ist der quadratische Term</span></span>
@@ -1180,7 +1167,7 @@ window.onload = function() {
 </ul>
 <p><strong>Hinweis:</strong> Interaktionen berechnen ist sehr rechenintensiv. Auch die Interpretation der Resultate wird nicht unbedingt einfacher. Wenn ihr auf Interaktionen testet, dann geht “langsam” vor, probiert nicht zu viel auf einmal und verwendet glmmTMB.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>  ...</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>Monat <span class="sc">*</span> rre150j0_scaled <span class="sc">+</span></span>
@@ -1188,7 +1175,7 @@ window.onload = function() {
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nb_quad_int_model_day <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span>  Ferien <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                                   Monat <span class="sc">*</span> rre150j0_scaled<span class="sc">+</span> tre200jx_scaled <span class="sc">+</span> <span class="fu">I</span>(tre200jx_scaled<span class="sc">^</span><span class="dv">2</span>)  <span class="sc">+</span></span>
@@ -1200,7 +1187,7 @@ window.onload = function() {
 <li>Habt ihr ein Problem mit zeroinflation? (Dies wisst ihr aus dem Test <strong>testZeroInflation()</strong> und <strong>testResiduals()</strong>)</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(..., </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                           <span class="co"># The basic glmmTMB fit — a zero-inflated Poisson model with a single zero-</span></span>
@@ -1210,7 +1197,7 @@ window.onload = function() {
 </details>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>nb_model_day_zi <span class="ot">&lt;-</span> <span class="fu">glmmTMB</span>(Total <span class="sc">~</span> Monat <span class="sc">+</span> Phase <span class="sc">+</span> Wochenende <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                             tre200jx_scaled <span class="sc">+</span> rre150j0_scaled <span class="sc">+</span></span>
@@ -1227,7 +1214,7 @@ window.onload = function() {
 </ul>
 <p><strong>Hinweis:</strong> Nur Modelle mit demselben Datensatz können miteinander verglichen werden. D.h., dass die Modelle mit den originalen Daten nicht mit logarithmiertem oder exponierten Daten verglichen werden können und glmer kann nicht mit glmmTMB verglichen werden. –&gt; Untenstehende Funktion hat für uns also einen eingeschränkten Wert…</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Vergleich der Modellguete mittels AICc</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>cand.models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
@@ -1256,7 +1243,7 @@ window.onload = function() {
 <li>Wenn ihr das machen wollt, berechnet zuerst den skewness coefficient</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"moments"</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">skewness</span>(umwelt_day<span class="sc">$</span>Anzahl_Total)</span>
@@ -1281,7 +1268,7 @@ window.onload = function() {
 <h3 class="anchored" data-anchor-id="d-exportiere-die-modellresultate-der-besten-modelle">6d) Exportiere die Modellresultate (der besten Modelle)</h3>
 <p>Welches ist euer bestes Modell für den Tag?</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mein bestes Modell ist:</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1299,7 +1286,7 @@ window.onload = function() {
 </div>
 <p>Modellresultate können mit <strong>summary()</strong> angezeigt werden. Ich verwende aber lieber die Funktion <strong>tab_model()</strong>! Die Resultate werden gerundet und praktisch im separaten Fenster angezeigt. Von dort kann man sie via copy + paste ins (z.B.) Word bringen.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tab_model</span>(MODELLNAME, </span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>          <span class="at">transform =</span> <span class="cn">NULL</span>, <span class="co"># To plot the estimates on the linear scale, use transform = NULL.</span></span>
@@ -1317,7 +1304,7 @@ window.onload = function() {
 <li>Visualisiert die (signifikanten) Ergebnisse eures Modells. Sabrina Harsch hat im HS21 eine sehr nützliche Funktion dafür geschriben (welche ich etwas weiter ausgebaut habe). Es gibt für die kontinuierlichen Variablen und für die diskreten Variablen je eine seperate Funktion und das jeweils für die drei Tageszeiten (die Linien der Plots sind anders eingefärbt).</li>
 </ul>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># schreibe fun fuer continuierliche var</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>rescale_plot_num_day <span class="ot">&lt;-</span> <span class="cf">function</span>(input_df, input_term, unscaled_var, scaled_var, num_breaks, x_lab, y_lab, x_scaling, x_nk) {</span>
@@ -1404,7 +1391,7 @@ window.onload = function() {
 </div>
 <p>Nun können die einzelnen Variabeln aus den besten Modellen in der Funktion jeweils für die Plots angepasst werden:</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Tagesmaximaltemperatur</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
@@ -1425,15 +1412,11 @@ window.onload = function() {
 <span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>p_temp</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Wochentag </span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>input_df <span class="ot">&lt;-</span> nb_int_model_day_zi</span>
@@ -1453,11 +1436,7 @@ window.onload = function() {
 <span id="cb33-16"><a href="#cb33-16" aria-hidden="true" tabindex="-1"></a>p_wd</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
+<p><img src="7_Multivariate_Modelle_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <ul>
@@ -1472,7 +1451,7 @@ window.onload = function() {
 <p>Stellt im Bericht die Ergebnisse des Tages, der Dämmerung und der Nacht gegenüber und beschreibt die Gemeinsamkeiten und Unterschieden. Behaltet dabei immer die Forschungsfragen in Erinnerung.</p>
 
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
 <div id="ref-lo2015" class="csl-entry" role="listitem">
 Lo, Steson, und Sally Andrews. 2015. <span>„To transform or not to transform: using generalized linear mixed models to analyse reaction time data“</span>. <em>Frontiers in Psychology</em> 6. <a href="https://doi.org/10.3389/fpsyg.2015.01171">https://doi.org/10.3389/fpsyg.2015.01171</a>.
 </div>
@@ -1524,33 +1503,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
-    }
-  }
-  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
-    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
-    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
-    let newTheme = '';
-    if(darkModeDefault) {
-      newTheme = isAlternate ? baseTheme : alternateTheme;
-    } else {
-      newTheme = isAlternate ? alternateTheme : baseTheme;
-    }
-    const changeGiscusTheme = () => {
-      // From: https://github.com/giscus/giscus/issues/336
-      const sendMessage = (message) => {
-        const iframe = document.querySelector('iframe.giscus-frame');
-        if (!iframe) return;
-        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
-      }
-      sendMessage({
-        setConfig: {
-          theme: newTheme
-        }
-      });
-    }
-    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
-    if (isGiscussLoaded) {
-      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -1619,15 +1571,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  const darkModeDefault = true;
-  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  let localAlternateSentinel = 'alternate';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
-    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1757,9 +1707,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1769,17 +1720,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1792,135 +1734,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    const typesetMath = (el) => {
-      if (window.MathJax) {
-        // MathJax Typeset
-        window.MathJax.typeset([el]);
-      } else if (window.katex) {
-        // KaTeX Render
-        var mathElements = el.getElementsByClassName("math");
-        var macros = [];
-        for (var i = 0; i < mathElements.length; i++) {
-          var texText = mathElements[i].firstChild;
-          if (mathElements[i].tagName == "SPAN") {
-            window.katex.render(texText.data, mathElements[i], {
-              displayMode: mathElements[i].classList.contains('display'),
-              throwOnError: false,
-              macros: macros,
-              fleqn: false
-            });
-          }
-        }
-      }
-    }
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        typesetMath(container);
-        return container.innerHTML
-      } else {
-        typesetMath(note);
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      typesetMath(note);
-      return note.innerHTML;
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1964,7 +1777,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1990,32 +1802,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2077,18 +1863,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../fallstudie_s/6_Deskriptive_Analysen.html" class="pagination-link  aria-label=" &lt;span="" analysen&lt;="" span&gt;"="">
+      <a href="../fallstudie_s/6_Deskriptive_Analysen.html" class="pagination-link">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Deskriptive Analysen</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../fallstudie_n/1_Vorbemerkung.html" class="pagination-link" aria-label="<span class='chapter-number'>73</span>&nbsp; <span class='chapter-title'>BiEc1_N Vorbemerkung</span>">
+      <a href="../fallstudie_n/1_Vorbemerkung.html" class="pagination-link">
         <span class="nav-page-text"><span class="chapter-title">BiEc1_N Vorbemerkung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
-
 
 
 
