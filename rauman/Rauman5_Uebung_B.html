@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de" xml:lang="de"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.513">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -49,7 +49,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "Keine Treffer",
     "search-matching-documents-text": "Treffer",
@@ -99,7 +105,6 @@ window.onload = function() {
 };
 
 </script>
-
 <script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 <script src="../site_libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
@@ -125,12 +130,12 @@ window.onload = function() {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../RaumAn.html">Räumliche Analysen</a></li><li class="breadcrumb-item"><a href="../rauman/Rauman5_Uebung_B.html"><span class="chapter-number">64</span>&nbsp; <span class="chapter-title">Rauman 5: Übung B</span></a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../RaumAn.html">Räumliche Analysen</a></li><li class="breadcrumb-item"><a href="../rauman/Rauman5_Uebung_B.html"><span class="chapter-title">Rauman 5: Übung B</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Seitenleiste umschalten" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -140,7 +145,7 @@ window.onload = function() {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
       <a href="../index.html" class="sidebar-logo-link">
       <img src="../images/zhaw_sw_neg.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
@@ -681,7 +686,7 @@ window.onload = function() {
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -699,7 +704,7 @@ window.onload = function() {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../RaumAn.html">Räumliche Analysen</a></li><li class="breadcrumb-item"><a href="../rauman/Rauman5_Uebung_B.html"><span class="chapter-title">Rauman 5: Übung B</span></a></li></ol></nav>
 <div class="quarto-title">
 <h1 class="title"><span class="chapter-title">Rauman 5: Übung B</span></h1>
 </div>
@@ -720,7 +725,9 @@ window.onload = function() {
   </div>
   
 
+
 </header>
+
 
 <p>In der letzten Übung (Übung A) haben wir die potentielle Standorte für Windkraftanalgen hinsichtlich vierer Distanzkriterien bewertet. In dieser Übung (Übung B) schliessen wir die Multikriterien-Evaluation ab, in dem wir:</p>
 <ol type="1">
@@ -734,13 +741,13 @@ window.onload = function() {
 -->
 <section id="aufgabe-1-rasterdaten-einlesen" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1-rasterdaten-einlesen">Aufgabe 1: Rasterdaten einlesen</h2>
-<p>Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns der Datensatz <em>wind250m.tif</em> zur Verfügung (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>). Lade den Datensatz mit der Funktion <code>rast()</code> in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen.</p>
+<p>Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns der Datensatz <em>wind250m.tif</em> zur Verfügung (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data" class="quarto-xref">Tabelle&nbsp;<span>63.1</span></a>). Lade den Datensatz mit der Funktion <code>rast()</code> in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="Rauman5_Uebung_B_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Datensatz ‘wind250m’ zur Windgeschwindigkeit in m pro Sekunde</figcaption>
+<figcaption>Datensatz ‘wind250m’ zur Windgeschwindigkeit in m pro Sekunde</figcaption>
 </figure>
 </div>
 </div>
@@ -748,18 +755,22 @@ window.onload = function() {
 </section>
 <section id="aufgabe-2-wind-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-wind-bewerten">Aufgabe 2: Wind bewerten</h2>
-<p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1"><span>Kapitel&nbsp;63.3</span></a>. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a> festgehalten sind.</p>
+<p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1" class="quarto-xref"><span>Kapitel&nbsp;63.3</span></a>. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in <a href="#tbl-bewerungstabelle-other" class="quarto-xref">Tabelle&nbsp;<span>64.1</span></a> festgehalten sind.</p>
 </section>
 <section id="aufgabe-3-slope-berechnen-und-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-slope-berechnen-und-bewerten">Aufgabe 3: Slope berechnen und bewerten</h2>
-<p>Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell <em>dhm250m.tif</em> herunter (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman2_Uebung_B.html#sec-raster-slope"><span>Kapitel&nbsp;58.2</span></a> (beachten Sie die Einheit des Output!).</p>
-<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a>.</p>
+<p>Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell <em>dhm250m.tif</em> herunter (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data" class="quarto-xref">Tabelle&nbsp;<span>63.1</span></a>) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman2_Uebung_B.html#sec-raster-slope" class="quarto-xref"><span>Kapitel&nbsp;58.2</span></a> (beachten Sie die Einheit des Output!).</p>
+<p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other" class="quarto-xref">Tabelle&nbsp;<span>64.1</span></a>.</p>
 <div class="mce-table">
 <div class="cell">
+<div id="tbl-bewerungstabelle-other" class="cell anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="table quarto-float-caption quarto-float-tbl" id="tbl-bewerungstabelle-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabelle&nbsp;64.1: Bewertungstabelle die Windgeschwindigkeit (m/s) und Hangneigung (Grad)
+</figcaption>
+<div aria-describedby="tbl-bewerungstabelle-other-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tbl-bewerungstabelle-other" class="anchored">
-<table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
-<caption>Tabelle&nbsp;64.1: Bewertungstabelle die Windgeschwindigkeit (m/s) und Hangneigung (Grad)</caption>
+<table class="lightable-classic cell table table-sm table-striped small" data-quarto-postprocess="true">
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
@@ -837,22 +848,28 @@ Hangneigung
 </tr>
 </tbody>
 </table>
+
+
 </div>
-
-
+</div>
+</figure>
 </div>
 </div>
 </div>
 </section>
 <section id="sec-raster-overlay2" class="level2">
 <h2 class="anchored" data-anchor-id="sec-raster-overlay2">Aufgabe 4: Raster Overlay</h2>
-<p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1"><span>Kapitel&nbsp;63.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.</p>
+<p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1" class="quarto-xref"><span>Kapitel&nbsp;63.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.</p>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-overlay3" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="Rauman5_Uebung_B_files/figure-html/fig-overlay3-1.png" class="img-fluid figure-img" width="672"></p>
-<figcaption class="figure-caption">Abbildung&nbsp;64.1: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete</figcaption>
+<div id="fig-overlay3" class="quarto-figure quarto-figure-center anchored" width="672">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-overlay3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="Rauman5_Uebung_B_files/figure-html/fig-overlay3-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="figure quarto-float-caption quarto-float-fig" id="fig-overlay3-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Abbildung&nbsp;64.1: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete
+</figcaption>
 </figure>
 </div>
 </div>
@@ -861,7 +878,7 @@ Hangneigung
 <section id="aufgabe-5-ausschlusskriterien" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-5-ausschlusskriterien">Aufgabe 5: Ausschlusskriterien</h2>
 <p>Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. (Zwar werden Schutzgebiete in unserer Analyse bereits berücksichtigt, aber nicht kategorisch vom Resultat ausgeschlossen.)</p>
-<p>Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion <code>mask()</code> verwenden (siehe <a href="Rauman5_Uebung_A.html#sec-rauman5-mask"><span>Kapitel&nbsp;63.5</span></a>). Doch diesmal möchten wir nicht die Flächen <em>ausserhalb</em> der Polygone mit <code>NA</code> ersetzen, sondern die Flächen <em>innerhalb</em> der Polygone. Deshalb verwenden wir <code>mask()</code> mit dem Argument <code>inverse = TRUE</code>.</p>
+<p>Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion <code>mask()</code> verwenden (siehe <a href="Rauman5_Uebung_A.html#sec-rauman5-mask" class="quarto-xref"><span>Kapitel&nbsp;63.5</span></a>). Doch diesmal möchten wir nicht die Flächen <em>ausserhalb</em> der Polygone mit <code>NA</code> ersetzen, sondern die Flächen <em>innerhalb</em> der Polygone. Deshalb verwenden wir <code>mask()</code> mit dem Argument <code>inverse = TRUE</code>.</p>
 <p>Versuche mit <code>mask()</code>, den oben erwähnten Vektordatensätze sowie der Option <code>inverse = TRUE</code> die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -915,6 +932,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       } else {
         el.classList.add('notransition');
       }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
     }
   }
   const toggleColorMode = (alternate) => {
@@ -983,13 +1027,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'alternate';
+  const darkModeDefault = true;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -1119,10 +1165,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   if (showAllCode) {
     showAllCode.addEventListener("click", toggleCodeHandler(true));
   }
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -1132,8 +1177,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -1146,6 +1200,135 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    const typesetMath = (el) => {
+      if (window.MathJax) {
+        // MathJax Typeset
+        window.MathJax.typeset([el]);
+      } else if (window.katex) {
+        // KaTeX Render
+        var mathElements = el.getElementsByClassName("math");
+        var macros = [];
+        for (var i = 0; i < mathElements.length; i++) {
+          var texText = mathElements[i].firstChild;
+          if (mathElements[i].tagName == "SPAN") {
+            window.katex.render(texText.data, mathElements[i], {
+              displayMode: mathElements[i].classList.contains('display'),
+              throwOnError: false,
+              macros: macros,
+              fleqn: false
+            });
+          }
+        }
+      }
+    }
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        typesetMath(container);
+        return container.innerHTML
+      } else {
+        typesetMath(note);
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      typesetMath(note);
+      return note.innerHTML;
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -1189,6 +1372,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -1214,6 +1398,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -1275,17 +1485,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../rauman/Rauman5_Uebung_A.html" class="pagination-link">
+      <a href="../rauman/Rauman5_Uebung_A.html" class="pagination-link  aria-label=" &lt;span="" 5:="" übung="" a&lt;="" span&gt;"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Rauman 5: Übung A</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../fallstudie_s/0_Vorbereitung.html" class="pagination-link">
+      <a href="../fallstudie_s/0_Vorbereitung.html" class="pagination-link" aria-label="<span class='chapter-number'>65</span>&nbsp; <span class='chapter-title'>Vorbereitung</span>">
         <span class="nav-page-text"><span class="chapter-title">Vorbereitung</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
 </div> <!-- /content -->
+
 
 
 
