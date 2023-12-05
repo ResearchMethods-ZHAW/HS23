@@ -15,7 +15,7 @@ knitr:
 
 # Rauman 5: Übung B
 
-In der letzten Übung (Übung A) haben wir die potentielle Standorte für Windkraftanalgen hinsichtlich vierer Distanzkriterien bewertet. In dieser Übung (Übung B) schliessen wir die Multikriterien-Evaluation ab, in dem wir:
+In der letzten Übung (Übung A) haben wir die potentielle Standorte für Windkraftanalgen hinsichtlich zweier Distanzkriterien bewertet. In dieser Übung (Übung B) schliessen wir die Multikriterien-Evaluation ab, in dem wir:
 
 1. Folgende Kriterien mitberücksichtigen: Windgeschwindigkeit und Hangneigung
 2. Die *Ausschlusskriterien* vom Resultat ausschliessen
@@ -75,7 +75,7 @@ wind_classify <- classify(wind250m, wind_klassen)
 
 ## Aufgabe 3: Slope berechnen und bewerten
 
-Für die Berechnung und anschilessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell *dhm250m.tif* herunter (siehe @tbl-mce-data) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
+Für die Berechnung und anschliessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell *dhm250m.tif* herunter (siehe @tbl-mce-data) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion `terrain()` analog @sec-raster-slope (beachten Sie die Einheit des Output!). 
 
 Bewerten Sie die Hangneigung danach gemäss Tabelle @tbl-bewerungstabelle-other. 
 
@@ -119,7 +119,7 @@ cbind(wind_klassen, neigung_klassen) |>
 
 ## Aufgabe 4: Raster Overlay {#sec-raster-overlay2}
 
-Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen.
+Analog @sec-raster-overlay1 können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Du kannst die Gewichte wieder so anpassen wie du willst.
 
 ```{r}
 #| fig-cap: Ungewichtetes Überlagern aller Kriterien mit Ausnahme der Ausschlussgebiete

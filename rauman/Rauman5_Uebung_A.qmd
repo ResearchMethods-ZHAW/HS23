@@ -81,7 +81,7 @@ library("ggplot2")
 
 ## Aufgabe 1: Vektor Daten laden und anzeigen
 
-Laden Sie das File *windkraft_geodata.gpkg* von Moodle herunter (siehe @tbl-mce-data). Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit `sf::st_layers()` ermitteln.
+Betrachte das File *windkraft_geodata.gpkg* (siehe @tbl-mce-data). Dieses beinhaltet alle Vektordaten, die für die Bearbeitung der Multikriterien-Evaluation benötigt wird (Bewohnte Flächen, Nationale Schutzgebiete, Seeflächen, Strassen, Waldgebiete sowie die Kantonsgrenze von Schwyz). Die Namen der verfügbaren Listen können Sie mit `sf::st_layers()` ermitteln.
 
 Importiere die benötigten Vektordatensätze und exploriere die Daten. Zur Visualisierung könnt ihr die Funktionen `plot` oder die Packages `tmap` oder `ggplot2` verwenden.
 
@@ -105,6 +105,9 @@ Beginnen wir mit dem Kriterium "Erschliessung". Wir müssen für den ganzen Kant
 Analog @sec-raster-intro1 müssen wir hierfür den Vektordatensatz auf der Basis eines Templates in ein Raster konvertieren. Für die Erstellung des Templates verwenden wir an dieser Stelle die Kantonsgrenze vom Kanton Schwyz.
 
 ```{r}
+#| echo: true
+#| code-fold: false
+
 # Template mit der Ausdehnung und dem CRS vom Kt. kt_schwyz
 # erstellen, und mit einer Auflösung on 250m
 template <- rast(kt_schwyz, resolution = 250)
@@ -113,7 +116,7 @@ strassen_raster <- rasterize(strassen, template)
 strassen_dist <- distance(strassen_raster)
 ```
 
-Nutze der obige Code um den Wald Datensatz zu rasterisieren und die Distanz zum Wald mit der Funktion `distance()` zu berechnen. Plausibilisiere den Output indem du ihn visualisierst.
+Nutze der obige Code um den Strassen Datensatz zu rasterisieren und die Distanz zum Strassen mit der Funktion `distance()` zu berechnen. Plausibilisiere den Output indem du ihn visualisierst.
 
 ```{r}
 #| output: true
@@ -146,14 +149,15 @@ plot(schutzgebiete_dist)
 
 ## Aufgabe 3: Distanzkriterien bewerten {#sec-classify1}
 
-Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Aufgabe folgende Einteilung:
+Jetzt haben wir die Distanzen zu den relevanten Gebieten berechnet, nun müssen wir diese Distanzen bewerten. Dafür teilen wir die kontinuierlichen Distanzwerte in diskrete Kategorien ein. Wir verwenden für die Aufgabe folgende Einteilung aus der @tbl-bewerungstabelle-distanz.
 
-Hierfür brauchen wir die Function `classify()`. Wie wir aus der Dokumentation der Funktion (mit `?classify`) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument `rcl`).  Eine sehr explizite Variante ist, dass wir für `rcl` eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen *from*, *to* und *becomes* dar. 
+Um die Klassifizierung durchzuführen, brauchen wir die Function `classify()`. Wie wir aus der Dokumentation der Funktion (mit `?classify`) entnehmen können, gibt es verschiedene Wege wie wir einen Raster Reklassifizieren können (siehe Beschreibung für das Argument `rcl`).  Eine sehr explizite Variante ist, dass wir für `rcl` eine Matrix mit 3 Spalten verwenden. Diese drei Spalte stellen *from*, *to* und *becomes* dar. 
 
-Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch "von Hand" in R erstellen. Um in R tabellarische Daten zu schreiben empfehlen wir die Funktion `tribble()`, welche eine sehr anschauliche Art bietet, Tabellen in R zu generieren. 
+Wir könnten diese Tabelle in einem Spreadsheet-Programm schreiben und in R einlesen. Alternativ können wir sie auch "von Hand" in R erstellen. Um in R tabellarische Daten zu schreiben empfehlen wir die Funktion `tribble()`, welche eine sehr anschauliche Art bietet, Tabellen in R zu generieren. Da `classify` eine Matrix als Input will, müssen wir unser data.frame noch in eine Matrix umwandeln.
 
 ```{r}
 #| output: true
+#| fig-cap: Beispiel Distanzklassen anhand der Strassen
 
 strassen_klassen <- tribble(
   ~von, ~bis, ~zu,
@@ -171,12 +175,11 @@ ggplot(strassen_klassen, aes(xmin = von, xmax = bis, ymax = zu, fill = zu)) +
   scale_x_continuous(breaks = strassen_klassen$bis) +
   scale_y_continuous(breaks = strassen_klassen$zu)
 
-# tribble erstellt eine data.frame,
-# wir brauchen aber eine matrix
+# tribble erstellt eine data.frame, wir brauchen aber eine matrix
 strassen_klassen <- as.matrix(strassen_klassen)
 ```
 
-Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hinsichtlich der Distanz zum Wald zu bewerten. Dafür verwenden wir die Funktion `classify()` mit dem Argument `include.lowest = TRUE` damit eine Distanz von 0m ebenfalls in 1 reklassifiziert wird.
+Jetzt wo wir diese Matrix haben, können wir sie nutzen um den Kanton Schwyz hinsichtlich der Distanz zu Strassen zu bewerten. Dafür verwenden wir die Funktion `classify()` mit dem Argument `include.lowest = TRUE` damit eine Distanz von 0m ebenfalls in 1 reklassifiziert wird.
 
 ```{r}
 #| output: true
@@ -191,7 +194,7 @@ tm_shape(strassen_classify) +
   tm_lines()
 ```
 
-Bewerte auf die gleiche Art die Distanz zu den Schutzgebieten. Wir nutzen die Schwellwerte, wie sie in der der nachstehenden Tabelle ersichtlich ist. Du kannst diese aber frei wählen.
+Bewerte auf die gleiche Art die Distanz zu den Schutzgebieten. Wir nutzen die Schwellwerte, wie sie in der nachstehenden Tabelle ersichtlich ist (@tbl-bewerungstabelle-distanz). Du kannst diese aber frei wählen.
 
 ```{r}
 schutzgebiete_klassen <- tribble(
@@ -209,19 +212,32 @@ schutzgebiete_klassen <- as.matrix(schutzgebiete_klassen)
 schutzgebiete_classify <- classify(schutzgebiete_dist, schutzgebiete_klassen)
 ```
 
+<div class="mce-table">
+
 ```{r}
+#| label: tbl-bewerungstabelle-distanz
+#| tbl-cap: Bewertungstabelle für die Distanz zu Strassen und Wildschutzgebieten (Meter)
 #| output: true
 
-knitr::kable(schutzgebiete_klassen)
+library("kableExtra")
+
+cbind(strassen_klassen, schutzgebiete_klassen) |>
+  kbl() |>
+  kable_classic() |>
+  add_header_above(c("Distanz zu Strassen" = 3, "Distanz zu Wildschutzgebieten" = 3))
 ```
+
+</div>
 
 ## Aufgabe 4: Raster Overlay {#sec-raster-overlay1}
 
-Wir haben zwar erst zwei der Kriterien berechnet, die wir für unsere Standortsuche berücksichtigen wollen, doch mit denen können wir schon mal eine erste, unvollständige Beurteilung wagen. 
+Wir haben zwar erst zwei der Kriterien (Distanzen zu Strassen und Naturschutzgebiete) berechnet, die wir für unsere Standortsuche berücksichtigen wollen, doch mit denen können wir schon mal eine erste, unvollständige Beurteilung wagen. 
 
 Weil wir für alle Raster das gleiche Template verwendet haben, sind diese perfekt aneinander ausgerichtet. So können wir auf die denkbar einfachste Art die einezelnen Zellen miteinander verrechnen. Auf folgende Weise können wir beispielsweise den Mittlwert pro Zelle berechnen:
 
 ```{r}
+#| echo: true
+#| code-fold: false
 #| output: true
 
 overlay_prelim_1 <- (strassen_classify + schutzgebiete_classify) / 2
@@ -252,8 +268,7 @@ Im obigen Raster Overlay haben wir alle Kriterien gleich stark gewichtet. Wir k�
 ```{r}
 #| output: true
 
-# Wir dividieren durch die Summe der Gewichte,
-# um wieder Werte zwischen 0 und 1 zu erhalten.
+# Wir dividieren durch die Summe der Gewichte, um wieder Werte zwischen 0 und 1 zu erhalten.
 overlay_prelim_2 <- (strassen_classify * 5 + schutzgebiete_classify * 1) / (5 + 1)
 
 # Resultate ausserhalb des Kantons entfernen:
