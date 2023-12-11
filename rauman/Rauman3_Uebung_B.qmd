@@ -15,12 +15,6 @@ knitr:
 
 # Rauman 3: Übung B
 
-```{r}
-#| echo: false
-
-knitr::opts_chunk$set(echo = FALSE)
-```
-
 In dieser Übung geht es darum, zwei verschiedene Interpolationsverfahren in R umzusetzen. Im ersten Interpolationsverfahren verwenden wir die *inverse distance weighted interpolation*, später verwenden wir die *nearest neighbour* methode. Dazu braucht ihr die folgenden Packages:
 
 ```{r}
