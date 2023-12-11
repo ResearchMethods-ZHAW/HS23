@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -701,7 +735,7 @@ window.onload = function() {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Rauman 5: Übung B</span></h1>
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-title">Rauman 5: Übung B</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code zeigen</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Gesamten Code verbergen</a></li></ul></div></div>
 </div>
 
 
@@ -736,6 +770,17 @@ window.onload = function() {
 <h2 class="anchored" data-anchor-id="aufgabe-1-rasterdaten-einlesen">Aufgabe 1: Rasterdaten einlesen</h2>
 <p>Zur Bewertung der Standorte hinsichtlich Windgeschwindigkeit steht uns der Datensatz <em>wind250m.tif</em> zur Verfügung (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>). Lade den Datensatz mit der Funktion <code>rast()</code> in R ein. Explorieren Sie den Datensatz visuell und versuchen Sie ein Verständnis für die Datensätze zu bekommen.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wind250m <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/wind250m.tif"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(wind250m) <span class="sc">+</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">style =</span> <span class="st">"cont"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -749,13 +794,64 @@ window.onload = function() {
 <section id="aufgabe-2-wind-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2-wind-bewerten">Aufgabe 2: Wind bewerten</h2>
 <p>Diese Rasterdaten müssen wir nicht weiter verarbeiten, wir können sie direkt bewerten. Führen Sie diese Bewertung aufgrund nachstehender Tabelle durch. Nutzen Sie dafür die Funktion <code>classify()</code> analog <a href="Rauman5_Uebung_A.html#sec-classify1"><span>Kapitel&nbsp;63.3</span></a>. Sie können die Schwellwerte frei wählen, wir werden diejenigen verwenden, die in <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a> festgehalten sind.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify wind</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>wind_klassen <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>von, <span class="sc">~</span>bis, <span class="sc">~</span>zu,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">20</span>, <span class="fl">0.0</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="dv">20</span>, <span class="dv">30</span>, <span class="fl">0.2</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">30</span>, <span class="dv">40</span>, <span class="fl">0.4</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="dv">40</span>, <span class="dv">50</span>, <span class="fl">0.6</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">50</span>, <span class="dv">60</span>, <span class="fl">0.8</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">60</span>, <span class="cn">Inf</span>, <span class="fl">1.0</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>wind_klassen <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(wind_klassen)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>wind_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(wind250m, wind_klassen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="aufgabe-3-slope-berechnen-und-bewerten" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-3-slope-berechnen-und-bewerten">Aufgabe 3: Slope berechnen und bewerten</h2>
 <p>Für die Berechnung und anschliessende Bewertung der Hangneigung brauchen wir ein Höhenmodell. Lade das Höhenmodell <em>dhm250m.tif</em> herunter (siehe <a href="Rauman5_Uebung_A.html#tbl-mce-data">Tabelle&nbsp;<span>63.1</span></a>) und in R ein. Berechne anschliessend die Hangneigung mit der Funktion <code>terrain()</code> analog <a href="Rauman2_Uebung_B.html#sec-raster-slope"><span>Kapitel&nbsp;58.2</span></a> (beachten Sie die Einheit des Output!).</p>
 <p>Bewerten Sie die Hangneigung danach gemäss Tabelle <a href="#tbl-bewerungstabelle-other">Tabelle&nbsp;<span>64.1</span></a>.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dhm250m <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">"datasets/rauman/dhm250m.tif"</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>neigung <span class="ot">&lt;-</span> <span class="fu">terrain</span>(dhm250m, <span class="at">v =</span> <span class="st">"slope"</span>, <span class="at">unit =</span> <span class="st">"degrees"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="do">#### reclassify slope</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>neigung_klassen <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>von, <span class="sc">~</span>bis, <span class="sc">~</span>zu,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="dv">0</span>, <span class="dv">4</span>, <span class="fl">1.0</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="dv">4</span>, <span class="dv">8</span>, <span class="fl">0.8</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="dv">8</span>, <span class="dv">12</span>, <span class="fl">0.6</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="dv">12</span>, <span class="dv">16</span>, <span class="fl">0.4</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="dv">16</span>, <span class="dv">20</span>, <span class="fl">0.2</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="dv">20</span>, <span class="dv">90</span>, <span class="fl">0.0</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>neigung_klassen <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(neigung_klassen)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>neigung_classify <span class="ot">&lt;-</span> <span class="fu">classify</span>(neigung, neigung_klassen)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <div class="mce-table">
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"kableExtra"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(wind_klassen, neigung_klassen) <span class="sc">|&gt;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kbl</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable_classic</span>() <span class="sc">|&gt;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_header_above</span>(<span class="fu">c</span>(<span class="st">"Windgeschwindigkeit"</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">"Hangneigung"</span> <span class="ot">=</span> <span class="dv">3</span>))</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="tbl-bewerungstabelle-other" class="anchored">
 <table class="lightable-classic table table-sm table-striped small" data-quarto-postprocess="true">
@@ -848,6 +944,14 @@ Hangneigung
 <h2 class="anchored" data-anchor-id="sec-raster-overlay2">Aufgabe 4: Raster Overlay</h2>
 <p>Analog <a href="Rauman5_Uebung_A.html#sec-raster-overlay1"><span>Kapitel&nbsp;63.4</span></a> können wir an dieser Stelle eine vorläufige Beurteilung der Gebiete durchführen. Du kannst die Gewichte wieder so anpassen wie du willst.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_3 <span class="ot">&lt;-</span> (strassen_classify <span class="sc">+</span> schutzgebiete_classify <span class="sc">+</span> wind_classify <span class="sc">+</span> neigung_classify) <span class="sc">/</span> <span class="dv">4</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_3) <span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">title =</span> <span class="st">"Eignung"</span>) <span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame =</span> <span class="cn">FALSE</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div id="fig-overlay3" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
@@ -861,12 +965,37 @@ Hangneigung
 <section id="aufgabe-5-ausschlusskriterien" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-5-ausschlusskriterien">Aufgabe 5: Ausschlusskriterien</h2>
 <p>Als Auschlussgebiete gelten Flächen, wo keine Windkraftanlagen gebaut werden können. Dazu gehören bewohnte Flächen, nationale Schutzgebiete, Waldgebiete und Seen. (Zwar werden Schutzgebiete in unserer Analyse bereits berücksichtigt, aber nicht kategorisch vom Resultat ausgeschlossen.)</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>schutzgebiete <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Nationale_Schutzgebiete"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>siedlungsgebiet <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Bewohnte_Flaeche"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>wald <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Waldgebiete"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>seen <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Seeflaechen"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>kt_schwyz <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(gpkg_path, <span class="st">"Untersuchungsgebiet_Schwyz"</span>) <span class="sc">|&gt;</span> <span class="fu">st_transform</span>(<span class="dv">2056</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>Um diese Flächen aus von unserem Resultat auzuschliessen, können wir wieder die Funktion <code>mask()</code> verwenden (siehe <a href="Rauman5_Uebung_A.html#sec-rauman5-mask"><span>Kapitel&nbsp;63.5</span></a>). Doch diesmal möchten wir nicht die Flächen <em>ausserhalb</em> der Polygone mit <code>NA</code> ersetzen, sondern die Flächen <em>innerhalb</em> der Polygone. Deshalb verwenden wir <code>mask()</code> mit dem Argument <code>inverse = TRUE</code>.</p>
 <p>Versuche mit <code>mask()</code>, den oben erwähnten Vektordatensätze sowie der Option <code>inverse = TRUE</code> die Ausschlussgebiete vom Raster-Overlay zu entfernen und visualisiere das Resultat.</p>
 <div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>overlay_prelim_4 <span class="ot">&lt;-</span> overlay_prelim_3 <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(schutzgebiete, <span class="at">inverse =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(siedlungsgebiet, <span class="at">inverse =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(wald, <span class="at">inverse =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(seen, <span class="at">inverse =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mask</span>(kt_schwyz)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"view"</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(overlay_prelim_4) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">palette =</span> <span class="st">"-Spectral"</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">style =</span> <span class="st">"cont"</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_basemap</span>(<span class="st">"Esri.WorldImagery"</span>)</span></code><button title="In die Zwischenablage kopieren" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-1d93910c63ec1d8e0744" style="width:100%;height:464px;"></div>
-<script type="application/json" data-for="htmlwidget-1d93910c63ec1d8e0744">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Esri.WorldImagery",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[47.22740863230808,8.385680716271544],[46.88163427506986,9.008549136212414]],0.6,null,"tmap401","overlay_prelim_4"]},{"method":"addLegend","args":[{"colors":["#5954A4 , #5954A4 0%, #60BCA7 20%, #E0F299 40%, #FEE08B 60%, #F46D43 80%, #9E0142 100%, #9E0142 "],"labels":["0.0","0.2","0.4","0.6","0.8","1.0"],"na_color":null,"na_label":null,"opacity":0.6,"position":"topright","type":"numeric","title":"layer","extra":{"p_1":0,"p_n":1},"layerId":"legend401","className":"info legend overlay_prelim_4","group":"overlay_prelim_4"}]},{"method":"addLayersControl","args":[[],"overlay_prelim_4",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[46.88163427506986,47.22740863230808],"lng":[8.385680716271544,9.008549136212414]},"fitBounds":[46.88344765322764,8.385680716271544,47.22740863230808,9.005528947328861,[]]},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-c476831d6f775c4e3015" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-c476831d6f775c4e3015">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"createMapPane","args":["tmap401",401]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,"Esri.WorldImagery",{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"pane":"tilePane"}]},{"method":"addRasterImage","args":["data:image/png;base64,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",[[47.22740863230808,8.385680716271544],[46.88163427506986,9.008549136212414]],0.6,null,"tmap401","overlay_prelim_4"]},{"method":"addLegend","args":[{"colors":["#5954A4 , #5954A4 0%, #60BCA7 20%, #E0F299 40%, #FEE08B 60%, #F46D43 80%, #9E0142 100%, #9E0142 "],"labels":["0.0","0.2","0.4","0.6","0.8","1.0"],"na_color":null,"na_label":null,"opacity":0.6,"position":"topright","type":"numeric","title":"layer","extra":{"p_1":0,"p_n":1},"layerId":"legend401","className":"info legend overlay_prelim_4","group":"overlay_prelim_4"}]},{"method":"addLayersControl","args":[[],"overlay_prelim_4",{"collapsed":true,"autoZIndex":true,"position":"topleft"}]}],"limits":{"lat":[46.88163427506986,47.22740863230808],"lng":[8.385680716271544,9.008549136212414]},"fitBounds":[46.88344765322764,8.385680716271544,47.22740863230808,9.005528947328861,[]]},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 
