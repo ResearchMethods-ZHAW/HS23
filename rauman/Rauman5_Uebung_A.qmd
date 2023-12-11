@@ -18,6 +18,7 @@ knitr:
 In der folgenden Übung möchten wir potentielle Standorte für Windkraftanlagen im Kanton Schwyz ermitteln. Zu diesem Zweck führen wir eine Multikriterien-Evaluation durch. Für diese Analyse stehen uns folgende Datensätze zur Verfügung:
 
 ```{r}
+#| echo: false
 #| output: true
 #| tbl-cap: |
 #|   Auflistung der Geodaten, die wir für die Multikriterien-Analyse verwenden werden.
@@ -218,6 +219,7 @@ schutzgebiete_classify <- classify(schutzgebiete_dist, schutzgebiete_klassen)
 #| label: tbl-bewerungstabelle-distanz
 #| tbl-cap: Bewertungstabelle für die Distanz zu Strassen und Wildschutzgebieten (Meter)
 #| output: true
+#| echo: false
 
 library("kableExtra")
 

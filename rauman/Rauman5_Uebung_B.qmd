@@ -106,6 +106,7 @@ neigung_classify <- classify(neigung, neigung_klassen)
 #| label: tbl-bewerungstabelle-other
 #| tbl-cap: Bewertungstabelle die Windgeschwindigkeit (m/s) und Hangneigung (Grad)
 #| output: true
+#| echo: false
 
 library("kableExtra")
 
