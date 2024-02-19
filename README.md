@@ -1,6 +1,12 @@
 
 ## TODOS 2024
-
+- Generell:
+  - Pacman für die Instalattion von Packges? Siehe CEM / DAMO
+  - Wickham 2017 ersetzen mit Wickham 2023 
+- Vorbereitungen: Link zu RStudio Desktop einfügen
+- Prepro:
+  - vereinfachen, anpassen analog DAMO
+  -  
 - Infovis 1: 
   - Lief dieses Jahr etwas aus dem Ruder, weil einerseits der Theorie Input sehr lange war, aber dann auch die Demo aus sehr ausführlich. 
   - Zudem hat verwirrt, das wir in der Theorie mit ggplot begonnen haben aber in der Übung mit base-R
